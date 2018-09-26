@@ -1,0 +1,64 @@
+.inline-block{
+	display: inline-block !important;
+}
+
+//居中盒
+.center-block{
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+}
+
+//外形
+.flat{
+	border-radius: 0 !important;
+}
+.circle{
+	border-radius: 50%;
+}
+
+//ul,ol重置列表
+.list-unstyled{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+//列表下方增加分隔线
+.item-with-border{
+	position: relative;
+	&:after{
+		content: ' ';
+		height: 1px;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		left: 0;
+		background:#e5e5e5;
+	}
+	&:last-child{
+		&:after{
+			display: none;
+		}
+	}
+}
+
+//灰色底容器
+.gray-box{
+	background:#eeeeee;
+	border-radius: 0.3rem;
+}
+
+//虚线条
+.dotted-line{
+	border-top: 2px dashed #bbb;
+	&.green{
+		border-top-color: @color-green;
+	}
+	&.red{
+		border-top-color: @color-red;
+	}
+	&.gray{
+		border-top-color: #bbb;
+	}
+}

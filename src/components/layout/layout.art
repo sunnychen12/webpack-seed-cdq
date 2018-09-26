@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%= header %>
+</head>
+<body>
+<%= content %>
+
+<%= footer %>
+</body>
+</html>
