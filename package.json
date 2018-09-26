@@ -1,8 +1,7 @@
 {
-  "name": "2018.7.9",
+  "name": "webpack-seed-cdq",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "webpack-seed-cdq",
   "scripts": {
     "prod": "webpack --mode production --env.NODE_ENV=production --progress",
     "prod.normal": "webpack --mode production --env.NODE_ENV=production.normal --progress",
@@ -14,12 +13,11 @@
     "auto:prod.normal": "webpack --mode production --env.NODE_ENV=production.normal --watch",
     "auto:prod.dev": "webpack --mode development --env.NODE_ENV=development --watch"
   },
-  "author": "",
+  "author": "cdq",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^9.1.3",
     "clean-webpack-plugin": "^0.1.19",
-    "combine-files": "^1.1.8",
     "concat-files": "^0.1.1",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
@@ -30,7 +28,6 @@
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.6.0",
     "less-loader": "^4.1.0",
-    "merge-files": "^0.1.1",
     "mini-css-extract-plugin": "^0.4.2",
     "mkp": "^1.0.1",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
