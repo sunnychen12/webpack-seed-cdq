@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>报读缴费平台-在线缴纳学费</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+</head>
+<body>
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-nav page-header">
+				<div class="flex-box flex-align-center flex-box-justify">
+					<div class="font_85rem">
+						在线缴纳学费
+					</div>
+					<a href="#" class="flex-box flex-align-center faq-link">
+						<div><img src="images/img5.png?1a623" class="vertical-middle"></div>
+						<div class="font_5rem txt">
+							有疑问<br>
+							找老师
+						</div>
+						
+					</a>
+				</div>
+			</div>
+			<div class="bar bar-footer-btn">
+			  <div class="media full-height">
+			  	<div class="media-body">
+			  		<button type="button" class="button button-big button-fill button-danger full-width">我确认自己符合报读资格，下一步</button>
+			  	</div>
+			  </div>
+			</div>
+			<div class="content">
+			    <div class="card card-reset">
+			    	<div class="cart-head">
+			      		<h4 class="cart-tit black-tit">请输入以下信息</h4>
+			      	</div>
+			      	<div class="card-content">
+			      		<div class="card-content-inner list-cutstom">
+					        <div class="list-cutstom-item flex-box flex-align-center flex-box-justify gray9">
+					      		<div class="margin-r_5rem">
+					      			*姓   名：
+					      		</div>
+					      		<div class="flex-item">
+					      			<input type="text" class="cart-input" value="王大" placeholder="请输入姓名" data-focus="focus-last">
+					      		</div>
+						      	<div class="icon icon-right font_5rem gray6 margin-l_5rem"></div>
+					        </div>
+					        <div class="list-cutstom-item flex-box flex-align-center flex-box-justify gray9">
+					      		<div class="margin-r_5rem">
+					      			*手   机：
+					      		</div>
+					      		<div class="flex-item">
+					      			<input type="text" class="cart-input" placeholder="请输入手机号码" data-focus="focus-last">
+					      		</div>
+					      		<div class="icon icon-right font_5rem gray6 margin-l_5rem"></div>
+					        </div>
+					        <div class="list-cutstom-item flex-box flex-align-center flex-box-justify gray9">
+					      		<div class="margin-r_5rem">
+					      			*验证码：
+					      		</div>
+					      		<div class="flex-item">
+					      			<input type="text" class="cart-input" placeholder="请输入验证码" value="435264" data-focus="focus-last">
+					      		</div>
+					      		<div class="gray9 padding-l_5rem border-left as-link" data-role="get-ver-code">
+					      			获取验证码
+					      		</div>
+					        </div>
+					        <div class="list-cutstom-item flex-box flex-align-center flex-box-justify gray9">
+					      		<div class="margin-r_5rem">
+					      			*身份证：
+					      		</div>
+					      		<div class="flex-item">
+					      			<input type="text" class="cart-input" placeholder="请输入身份证" data-focus="focus-last">
+					      		</div>
+					        </div>
+			      		</div>
+			      	</div>
+			    </div>
+			</div>
+		</div>
+	</div>	<script type="text/javascript" src="http://css.gzedu.com/common/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript">jQuery.noConflict();</script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/commonLab.js"></script>
+<script type="text/javascript">
+	//获取验证码
+	$('.page').on('click', '[data-role="get-ver-code"]', function(event) {
+		event.preventDefault();
+		var that=$(this);
+
+		if(!that.hasClass("disabled")){
+            that.addClass("disabled").prop('disabled', true).html('<span class="count-down2">(60秒)后重发</span>');
+
+            var timer,i = 60;
+            var fn = function () {
+                if(i<=0){
+                  that.removeClass("disabled").prop('disabled', false).find(".count-down2").html("获取验证码");
+                  clearInterval(timer);
+                }
+                else{
+                  that.find(".count-down2").html("("+i+"秒)后重发");
+                  i --;
+                }
+            };
+            timer = setInterval(fn, 1000);
+            fn();
+        }
+	});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,523 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-footer-btn">
+			  <div class="media full-height">
+			  	<div class="media-body">
+			  		<div class="font_75rem text-bold">
+			  			本次支付 
+			  			<span class="text-red">￥3450.00</span>
+			  		</div>
+			  	</div>
+			  	<div class="media-side">
+			  		<button type="button" class="button button-big button-fill button-danger">缴费</button>
+			  	</div>
+			  </div>
+			</div>
+			<div class="content">
+				<div class="logo">
+					<img src="../../images/logo.png">
+				</div>
+				<div class="form-content">
+					<div class="form-block">
+						<h3 class="form-block-title">订单信息</h3>
+						<ul class="form-group-list list-unstyled">
+							<li class="form-group">
+								<div class="form-label">
+									订单编号
+								</div>
+								<div class="form-group-main">
+									<div class="form-group-static text-right">
+										2018080802321421
+									</div>
+								</div>
+							</li>
+							<li class="form-group">
+								<div class="form-label">
+									姓名
+								</div>
+								<div class="form-group-main">
+									<div class="form-group-static text-right">
+										方灿涛
+									</div>
+								</div>
+							</li>
+							<li class="form-group">
+								<div class="form-label">
+									报读专业
+								</div>
+								<div class="form-group-main">
+									<div class="form-group-static text-right">
+										2018年秋季工商管理（生产运作管理方向）高起专
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="form-block">
+						<h3 class="form-block-title">学费补贴</h3>
+						<ul class="form-group-list list-unstyled">
+							<li class="form-group">
+								<div class="form-label">
+									补贴政策
+								</div>
+								<div class="form-group-main">
+									<div class="form-group-static text-right">
+										广州远程教育中心有限公司员工学历提升补贴
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="form-block">
+						<h3 class="form-block-title">选择缴费方式</h3>
+						<div class="pay-style">
+							<div class="pay-style-panel open">
+								<div class="panel-header">
+									<div class="media">
+										<div class="media-side text-nowrap">
+											<i class="icon-img icon-1"></i>
+										</div>
+										<div class="media-body full-width"> 
+											<div class="txt1">按学年缴费</div>
+											<div class="txt2">每学年缴费并完成注册</div>
+										</div>
+										<div class="media-side text-nowrap">
+											<span class="toggle">
+												<i class="icomoon">&#xe900;</i>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="panel-body">
+									<div class="pay-list">
+										<div class="pay-item">
+											<div class="pay-item-header">
+												<div class="media">
+													<div class="media-body">
+														<h4 class="pay-item-tit">第一年</h4>
+													</div>
+													<div class="media-side">
+														<label class="inline-block">
+															<div class="checkbox-group">
+																<input type="checkbox" class="checkbox-control" name="checkbox1" checked>
+																<span class="checkbox-icon">
+																	<i class="icomoon">&#xe901;</i>
+																</span>
+															</div>
+														</label>
+													</div>
+												</div>
+											</div>
+											<ul class="list-unstyled pay-listing">
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body">
+															学费
+														</div>
+														<div class="media-body">
+															￥33420
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body">
+															入学测试费
+														</div>
+														<div class="media-body">
+															￥60
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body">
+															教材费
+														</div>
+														<div class="media-body">
+															￥160
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body text-red">
+															学费减免
+														</div>
+														<div class="media-body text-red">
+															-￥160
+														</div>
+													</label>
+												</li>
+											</ul>
+										</div>
+										<div class="pay-item">
+											<div class="pay-item-header">
+												<div class="media">
+													<div class="media-body">
+														<h4 class="pay-item-tit">第二年</h4>
+													</div>
+													<div class="media-side">
+														<span class="tips">必选不可取消</span>
+														<label class="inline-block">
+															<div class="checkbox-group">
+																<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																<span class="checkbox-icon">
+																	<i class="icomoon">&#xe901;</i>
+																</span>
+															</div>
+														</label>
+													</div>
+												</div>
+											</div>
+											<ul class="list-unstyled pay-listing">
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body">
+															学费
+														</div>
+														<div class="media-body">
+															￥33420
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body">
+															教材费
+														</div>
+														<div class="media-body">
+															￥160
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body text-red">
+															学费减免
+														</div>
+														<div class="media-body text-red">
+															-￥160
+														</div>
+													</label>
+												</li>
+											</ul>
+										</div>
+										<div class="pay-item">
+											<div class="pay-item-header">
+												<div class="media">
+													<div class="media-body">
+														<h4 class="pay-item-tit">第三年</h4>
+													</div>
+													<div class="media-side">			
+														<label class="inline-block">
+															<div class="checkbox-group">
+																<input type="checkbox" class="checkbox-control" name="checkbox1">
+																<span class="checkbox-icon">
+																	<i class="icomoon">&#xe901;</i>
+																</span>
+															</div>
+														</label>
+													</div>
+												</div>
+											</div>
+											<ul class="list-unstyled pay-listing">
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1">
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body">
+															学费
+														</div>
+														<div class="media-body">
+															￥33420
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1">
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body">
+															教材费
+														</div>
+														<div class="media-body">
+															￥160
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body text-red">
+															学费减免
+														</div>
+														<div class="media-body text-red">
+															-￥160
+														</div>
+													</label>
+												</li>
+											</ul>
+										</div>
+										<div class="pay-item">
+											<div class="pay-item-header">
+												<div class="media">
+													<div class="media-body">
+														<h4 class="pay-item-tit">第四年</h4>
+													</div>
+													<div class="media-side">
+														<label class="label label-red">已缴费</label>
+													</div>
+												</div>
+											</div>
+											<ul class="list-unstyled pay-listing">
+												<li>
+													<label class="media">
+														<div class="media-side">
+															<span class="check-static text-red">
+																<i class="icomoon">&#xe901;</i>
+															</span>
+														</div>
+														<div class="media-body">
+															学费
+														</div>
+														<div class="media-body">
+															￥33420
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+															<span class="check-static text-red">
+																<i class="icomoon">&#xe901;</i>
+															</span>
+														</div>
+														<div class="media-body">
+															教材费
+														</div>
+														<div class="media-body">
+															￥160
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+															<span class="check-static text-red">
+																<i class="icomoon">&#xe901;</i>
+															</span>
+														</div>
+														<div class="media-body text-red">
+															学费减免
+														</div>
+														<div class="media-body text-red">
+															-￥160
+														</div>
+													</label>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="pay-style-panel">
+								<div class="panel-header">
+									<div class="media">
+										<div class="media-side text-nowrap">
+											<i class="icon-img icon-2"></i>
+										</div>
+										<div class="media-body full-width"> 
+											<div class="txt1">全额缴费</div>
+											<div class="txt2">一次性缴纳全部学费，省心省力</div>
+										</div>
+										<div class="media-side text-nowrap">
+											<span class="toggle">
+												<i class="icomoon">&#xe900;</i>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="panel-body">
+									<div class="pay-list">
+										<div class="pay-item">
+											<div class="pay-item-header">
+												<div class="media">
+													<div class="media-body">
+														<h4 class="pay-item-tit">第一年</h4>
+													</div>
+													<div class="media-side">
+														<label class="inline-block">
+															<div class="checkbox-group">
+																<input type="checkbox" class="checkbox-control" name="checkbox1" checked>
+																<span class="checkbox-icon">
+																	<i class="icomoon">&#xe901;</i>
+																</span>
+															</div>
+														</label>
+													</div>
+												</div>
+											</div>
+											<ul class="list-unstyled pay-listing">
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body">
+															学费
+														</div>
+														<div class="media-body">
+															￥33420
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body">
+															入学测试费
+														</div>
+														<div class="media-body">
+															￥60
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body">
+															教材费
+														</div>
+														<div class="media-body">
+															￥160
+														</div>
+													</label>
+												</li>
+												<li>
+													<label class="media">
+														<div class="media-side">
+																<div class="checkbox-group">
+																	<input type="checkbox" class="checkbox-control" name="checkbox1" checked disabled>
+																	<span class="checkbox-icon">
+																		<i class="icomoon">&#xe901;</i>
+																	</span>
+																</div>
+														</div>
+														<div class="media-body text-red">
+															学费减免
+														</div>
+														<div class="media-body text-red">
+															-￥160
+														</div>
+													</label>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center logo2-box">
+					<img src="../../images/logo2.png">
+				</div>
+			</div>
+		</div>
+	</div>

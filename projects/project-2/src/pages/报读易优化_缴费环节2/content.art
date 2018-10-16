@@ -1,0 +1,63 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-footer-btn">
+			  <div class="media full-height">
+			  	<div class="media-body">
+			  		<button type="button" class="button button-big button-fill button-danger full-width">确认支付 ￥3450.00</button>
+			  	</div>
+			  </div>
+			</div>
+			<div class="content">
+				<div class="logo">
+					<img src="../../images/logo.png">
+				</div>
+				<div class="form-content">
+					<div class="form-block padding-bottom-none">
+						<h3 class="form-block-title">选择支付方式</h3>
+						<div class="payment-list list-unstyled">
+							<label class="flex-box flex-align-center">
+								<div class="img">
+									<img src="../../images/payment-wx.png">
+								</div>
+								<div class="flex-item txt">
+									<div class="txt1">微信支付</div>
+									<div class="txt2">亿万用户的选择，更快更安全</div>
+								</div>
+								<div class="side">
+									<div class="checkbox-group radio-group">
+										<input type="radio" class="checkbox-control" name="r1" checked>
+										<span class="checkbox-icon">
+											<i class="icomoon">&#xe901;</i>
+										</span>
+									</div>
+								</div>
+							</label>
+							<label class="flex-box flex-align-center">
+								<div class="img">
+									<img src="../../images/payment-zfb.png">
+								</div>
+								<div class="flex-item txt">
+									<div class="txt1">支付宝支付</div>
+									<div class="txt2">支付宝支付更安全</div>
+								</div>
+								<div class="side">
+									<div class="checkbox-group radio-group">
+										<input type="radio" class="checkbox-control" name="r1" checked>
+										<span class="checkbox-icon">
+											<i class="icomoon">&#xe901;</i>
+										</span>
+									</div>
+								</div>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="text-center margin-t-1rem">
+					<a href="#" class="button button-big button-gray inline-block" style="width:10rem;">有问题，找老师</a>
+					<div class="margin-t_7rem gray font_65rem">
+						点击拨打教育服务热线，按1咨询支付问题
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

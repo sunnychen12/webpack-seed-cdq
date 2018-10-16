@@ -1,0 +1,189 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-footer-btn padding-none">
+			  <div class="flex-box flex-align-center">
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" disabled data-subject="prev">上一题</button>
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-next" data-subject="next">下一题</button>
+			  </div>
+			</div>
+			<div class="content">
+				<div class="practice-subject-item" show>
+					<div class="practice-subject-cnt">
+						<div class="practice-subject-header">
+							<label class="label label-blue-boder">单选题</label>
+							伊利集团的王展根据产品线和产品的述求制作了多种在线游戏，消费者可以免费进行游戏，这类活动属于直效营销。
+						</div>
+						<div class="practice-subject-sel-list">
+							<label class="checkbox-group flex-box flex-align-center">
+								<input type="radio" class="checkbox-control" name="r1"
+									data-result="0"
+									disabled 
+									checked
+								>
+								<span class="checkbox-icon">
+									<i class="icomoon"></i>
+									<em class="checkbox-order">A</em>
+								</span>
+								<div class="flex-item checkbox-txt">
+									直销营销
+								</div>
+							</label>
+							<label class="checkbox-group flex-box flex-align-center">
+								<input type="radio" class="checkbox-control" name="r1"
+									data-result="1"
+									disabled
+								>
+								<span class="checkbox-icon">
+									<i class="icomoon"></i>
+									<em class="checkbox-order">B</em>
+								</span>
+								<div class="flex-item checkbox-txt">
+									饥饿营销
+								</div>
+							</label>
+							<label class="checkbox-group flex-box flex-align-center">
+								<input type="radio" class="checkbox-control" name="r1"
+									disabled
+								>
+								<span class="checkbox-icon">
+									<i class="icomoon"></i>
+									<em class="checkbox-order">C</em>
+								</span>
+								<div class="flex-item checkbox-txt">
+									传统营销
+								</div>
+							</label>
+							<label class="checkbox-group flex-box flex-align-center">
+								<input type="radio" class="checkbox-control" name="r1" disabled>
+								<span class="checkbox-icon">
+									<i class="icomoon"></i>
+									<em class="checkbox-order">D</em>
+								</span>
+								<div class="flex-item checkbox-txt">
+									市场营销
+								</div>
+							</label>
+						</div>
+					</div>
+					<div class="practice-subject-ans">
+						<div class="flex-box flex-box-justify flex-align-center">
+							<span class="txt1">答案为：B</span>
+							<span class="txt2 text-red">回答错误</span>
+						</div>
+						<div class="margin-t_7rem">
+							<span class="text-blue">解析：</span>题目解析题目解析题目解析题目解
+							析题目解析题目解析题目解析题目解析题
+							目解析题目解析题目解析题目解析题目解
+							析题目解析题目解析
+						</div>
+					</div>
+				</div>
+				<div class="practice-subject-item">
+					<div class="practice-subject-cnt">
+						<div class="practice-subject-header">
+							<label class="label label-blue-boder">多选题</label>
+							伊利集团的王展根据产品线和产品的述求制作了多种在线游戏，消费者可以免费进行游戏，这类活动属于直效营销。
+						</div>
+						<div class="practice-subject-sel-list">
+							<label class="checkbox-group flex-box flex-align-center">
+								<input type="checkbox" class="checkbox-control" name="ck1" disabled>
+								<span class="checkbox-icon">
+									<i class="icomoon"></i>
+									<em class="checkbox-order">A</em>
+								</span>
+								<div class="flex-item checkbox-txt">
+									直销营销
+								</div>
+							</label>
+							<label class="checkbox-group flex-box flex-align-center">
+								<input type="checkbox" class="checkbox-control" name="ck1"
+									data-result="1"
+									disabled 
+									checked
+								>
+								<span class="checkbox-icon">
+									<i class="icomoon"></i>
+									<em class="checkbox-order">B</em>
+								</span>
+								<div class="flex-item checkbox-txt">
+									饥饿营销
+								</div>
+							</label>
+							<label class="checkbox-group flex-box flex-align-center">
+								<input type="checkbox" class="checkbox-control" name="ck1"
+									data-result="1"
+									disabled
+								>
+								<span class="checkbox-icon">
+									<i class="icomoon"></i>
+									<em class="checkbox-order">C</em>
+								</span>
+								<div class="flex-item checkbox-txt">
+									传统营销
+								</div>
+							</label>
+							<label class="checkbox-group flex-box flex-align-center">
+								<input type="checkbox" class="checkbox-control" name="ck1"
+									data-result="1"
+									disabled
+								>
+								<span class="checkbox-icon">
+									<i class="icomoon"></i>
+									<em class="checkbox-order">D</em>
+								</span>
+								<div class="flex-item checkbox-txt">
+									市场营销
+								</div>
+							</label>
+						</div>
+					</div>
+					<div class="practice-subject-ans">
+						<div class="flex-box flex-box-justify flex-align-center">
+							<span class="txt1">答案为：B C D</span>
+							<span class="txt2 text-red">回答错误</span>
+						</div>
+						<div class="margin-t_7rem">
+							<span class="text-blue">解析：</span>题目解析题目解析题目解析题目解
+							析题目解析题目解析题目解析题目解析题
+							目解析题目解析题目解析题目解析题目解
+							析题目解析题目解析
+						</div>
+					</div>
+				</div>
+				<div class="practice-subject-item">
+					<div class="practice-subject-cnt">
+						<div class="practice-subject-header">
+							<label class="label label-blue-boder">判断题</label>
+							伊利集团的王展根据产品线和产品的述求制作了多种在线游戏，消费者可以免费进行游戏，这类活动属于直效营销。
+						</div>
+						<div class="practice-subject-sel-list">
+							<label class="checkbox-group flex-box flex-align-center">
+								<input type="radio" class="checkbox-control" name="r2"
+									data-result="1"
+									disabled 
+									checked
+								>
+								<span class="checkbox-icon">
+									<i class="icomoon"></i>
+									<em class="checkbox-order">A</em>
+								</span>
+								<div class="flex-item checkbox-txt">
+									是
+								</div>
+							</label>
+							<label class="checkbox-group flex-box flex-align-center">
+								<input type="radio" class="checkbox-control" name="r2" disabled>
+								<span class="checkbox-icon">
+									<i class="icomoon"></i>
+									<em class="checkbox-order">B</em>
+								</span>
+								<div class="flex-item checkbox-txt">
+									否
+								</div>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

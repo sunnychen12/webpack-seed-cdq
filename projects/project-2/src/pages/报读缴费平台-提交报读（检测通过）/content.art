@@ -1,0 +1,64 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content">
+				<div class="text-center" style="margin:2.6rem 1rem;">
+					<i class="icomoon vertical-middle text-green" style="font-size:3.6rem;">&#xe903;</i>
+					<div class="font-1rem text-bold margin-t_7rem line-height-1 gray9">吴青，你好</div>
+					<div class="font_75rem gray3 text-center margin-t-1rem">初审通过，即将进入缴费环节</div>
+				</div>
+				<div class="card card-reset">
+			      	<div class="card-content">
+			        	<div class="card-content-inner">
+			        		<div class="padding_75rem">
+				        		<div class="flex-box flex-align-center text-green">
+				        			<div>-提交资料完整</div>
+				        			<div class="dotted-line green flex-item margin-l_5rem margin-r_5rem"></div>
+				        			<div>
+				        				<i class="icomoon vertical-middle" style="font-size:1.2rem;">&#xe903;</i>
+				        				<span class="inline-block">
+				        					已确认
+				        				</span>
+				        			</div>
+				        		</div>
+				        		<div class="flex-box flex-align-center text-green margin-t_5rem">
+				        			<div>-报读信息确认</div>
+				        			<div class="dotted-line green flex-item margin-l_5rem margin-r_5rem"></div>
+				        			<div>
+				        				<i class="icomoon vertical-middle" style="font-size:1.2rem;">&#xe903;</i>
+				        				<span class="inline-block">
+				        					已确认
+				        				</span>
+				        			</div>
+				        		</div>
+				        		<div class="flex-box flex-align-center text-green margin-t_5rem">
+				        			<div>-报读资格确认</div>
+				        			<div class="dotted-line green flex-item margin-l_5rem margin-r_5rem"></div>
+				        			<div>
+				        				<i class="icomoon vertical-middle" style="font-size:1.2rem;">&#xe903;</i>
+				        				<span class="inline-block">
+				        					已确认
+				        				</span>
+				        			</div>
+				        		</div>
+				        		<div class="flex-box flex-align-center text-green margin-t_5rem">
+				        			<div>-年龄满足报读条件</div>
+				        			<div class="dotted-line green flex-item margin-l_5rem margin-r_5rem"></div>
+				        			<div>
+				        				<i class="icomoon vertical-middle" style="font-size:1.2rem;">&#xe903;</i>
+				        				<span class="inline-block">
+				        					已确认
+				        				</span>
+				        			</div>
+				        		</div>
+
+				        		<div class="text-center margin-t-1rem">
+				        			<div class="preloader"></div>
+				        		</div>
+
+			        		</div>
+			        	</div>
+			      	</div>
+			    </div>
+			</div>
+		</div>
+	</div>

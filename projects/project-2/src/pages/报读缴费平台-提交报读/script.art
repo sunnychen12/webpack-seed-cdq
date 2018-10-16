@@ -1,0 +1,72 @@
+<script type="text/template" id="result-tips-tpl">
+	<div class="flex-box flex-align-center gray margin-t_5rem">
+		<div>-{{label}}</div>
+		<div class="dotted-line gray flex-item margin-l_5rem margin-r_5rem"></div>
+		<div>
+			<div class="preloader"></div>
+		</div>
+	</div>
+</script>
+
+<script type="text/javascript">
+	;(function(){
+		var resultTips=function(opts){
+			this.label=opts.label;
+
+			var tpl='\
+				<div class="flex-box flex-align-center gray margin-t_5rem">\
+					<div>-{{label}}</div>\
+					<div class="dotted-line gray flex-item margin-l_5rem margin-r_5rem"></div>\
+					<div data-id="tips">\
+						<div class="preloader" style="width:1.2rem;height:1.2rem;"></div>\
+					</div>\
+				</div>\
+			';
+
+			this.container=$( tpl.replace('{{label}}',this.label) );
+
+			$('[data-id="result"]').append(this.container);
+		}
+
+		resultTips.prototype.setResult=function(i){
+			switch(i){
+				case 0://不通过
+					this.container.removeClass('gray').addClass('text-red')
+					.find('.dotted-line').removeClass('gray').addClass('red')
+					.next('[data-id="tips"]').html('\
+	        				<i class="icomoon vertical-middle" style="font-size:1.2rem;">&#xe904;</i>\
+	        				<span class="inline-block">\
+	        					信息不完整\
+	        				</span>\
+        				');
+					break;
+				case 1://通过
+					this.container.removeClass('gray').addClass('text-green')
+					.find('.dotted-line').removeClass('gray').addClass('green')
+					.next('[data-id="tips"]').html('\
+	        				<i class="icomoon vertical-middle" style="font-size:1.2rem;">&#xe903;</i>\
+	        				<span class="inline-block">\
+	        					已确认\
+	        				</span>\
+        				');
+					break;
+				default:
+					break;
+			}
+		}
+
+
+		var r1=new resultTips({label:'提交资料完整'});
+
+		setTimeout(function(){
+			r1.setResult(1);
+		},1000);
+
+
+		var r2=new resultTips({label:'报读信息确认'});
+
+		setTimeout(function(){
+			r2.setResult(0);
+		},2000);
+	})();
+</script>

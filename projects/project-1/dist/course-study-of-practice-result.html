@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>课程学习-练习测试-结果页</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+</head>
+<body>
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-footer-btn padding-none">
+			  <div class="flex-box flex-align-center">
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev">查看解析</button>
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-next">重做一次</button>
+			  </div>
+			</div>
+			<div class="content">
+				<div class="text-center" style="margin:1rem;">
+					<i class="icomoon vertical-middle text-blue" style="font-size:2rem;">&#xe903;</i>
+					<span class="inline-block vertical-middle" style="font-size:1.2rem;">完成</span>
+					<div class="font_65rem margin-t_7rem gray9 line-height-1_75">
+						测试要求达60分以上，才算完成，<br>
+						您当前最高得分82
+					</div>
+				</div>
+
+				<div class="bg-white padding_75rem">
+					<div class="loadmore-line">
+						<span>答题情况</span>
+					</div>
+					<div class="font_75rem margin-t_7rem">
+						本次测验搭82分，您已达本次测试要求。<br>
+						具体情况如下:<br>
+						共35题、100分，您答对了33题、得分82分。
+					</div>
+					<div class="margin-t_7rem">
+						<ul class="list-unstyled clearfix ans-card-list">
+							<li class="right">1</li>
+							<li class="right">2</li>
+							<li class="right">3</li>
+							<li class="wrong">4</li>
+							<li class="right">5</li>
+							<li class="wrong">6</li>
+							<li class="wrong">7</li>
+							<li>8</li>
+							<li>9</li>
+							<li>10</li>
+							<li class="wrong">11</li>
+							<li class="wrong">12</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/common.min.js"></script>
+	<script type="text/javascript" src="js/commonLab.min.js"></script>
+<script type="text/javascript">
+	//答题卡的显示处理
+	;(function(){
+		var $card=$('.ans-card-list')
+			, cardWith=$card.width()-1
+			, $items=$card.children()
+			, $item=$items.eq(0)
+			, itemWidth=$item.outerWidth(true)+1
+			, counts=$items.length;
+
+		var w=0, m=0;
+		for (var i = 1; i <= counts; i++) {
+			w=itemWidth*i;
+			if(w>cardWith){
+				m=i;
+				break;
+			}
+		}
+
+		if(m>0){
+			$card.css('padding-left', (cardWith-itemWidth*(m-1))/2 );
+		}
+	})();
+</script>
+
+</body>
+</html>

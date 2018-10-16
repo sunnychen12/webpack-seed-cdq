@@ -1,0 +1,102 @@
+
+<!--查看 学习课程-->
+<script type="text/template" id="view-course-tpl">
+	<div class="modal-content bg-white padding-top-none">
+		<div class="text-center font_65rem course-count-txt">
+			<span class="inline-block vertical-middle">34门课程</span>
+		</div>
+		<div class="card card-reset2 margin-left-none margin-right-none">
+		    <div class="card-header">
+		    	<div class="text-center flex-item">
+		    		1、工商管理科学与文学
+		    	</div>
+		    </div>
+		    <div class="card-content">
+		      	<div class="card-content-inner">
+		      		主要是对学生进行工商管理的理论文学方
+					面的教学，提升自己的科学与文学的知识，工
+					商行业需要对工商的理论知识的认知要求较高，
+					本课程主修理论知识，相信对您以后工作有一
+					定的帮助。
+		      	</div>
+		    </div>
+		</div>
+		<div class="card card-reset2 margin-left-none margin-right-none">
+		    <div class="card-header">
+		    	<div class="text-center flex-item">
+		    		1、工商管理科学与文学
+		    	</div>
+		    </div>
+		    <div class="card-content">
+		      	<div class="card-content-inner">
+		      		主要是对学生进行工商管理的理论文学方
+					面的教学，提升自己的科学与文学的知识，工
+					商行业需要对工商的理论知识的认知要求较高，
+					本课程主修理论知识，相信对您以后工作有一
+					定的帮助。
+		      	</div>
+		    </div>
+		</div>
+		<div class="card card-reset2 margin-left-none margin-right-none">
+		    <div class="card-header">
+		    	<div class="text-center flex-item">
+		    		1、工商管理科学与文学
+		    	</div>
+		    </div>
+		    <div class="card-content">
+		      	<div class="card-content-inner">
+		      		主要是对学生进行工商管理的理论文学方
+					面的教学，提升自己的科学与文学的知识，工
+					商行业需要对工商的理论知识的认知要求较高，
+					本课程主修理论知识，相信对您以后工作有一
+					定的帮助。
+		      	</div>
+		    </div>
+		</div>
+	</div>
+</script>
+
+<!--查看 毕业证书-->
+<script type="text/template" id="view-cert-tpl">
+	<div class="modal-content bg-white">
+		<div class="text-center">
+			<div class="embed-responsive center-block" style="width: 80%;padding-bottom:50%;">
+				<img class="embed-responsive-item border" src="../../images/sample5.png" data-large-img="../../images/sample5.png" title="国家开放大学专科毕业证书（样板）" >
+			</div>
+			<h4 class="font_75rem padding-t_5rem">国家开放大学专科毕业证书（样板）</h4>
+			<div class="gray font_65rem">（点击图片 可全屏查看图片）</div>
+		</div>
+		<div class="text-center margin-t-1rem">
+			<div class="embed-responsive center-block" style="width: 80%;padding-bottom:50%;">
+				<img class="embed-responsive-item border" src="../../images/sample6.png" data-large-img="../../images/sample6.png" title="国家开放大学本科学士学位证书（样板）" >
+			</div>
+			<h4 class="font_75rem padding-t_5rem">国家开放大学本科学士学位证书（样板）</h4>
+			<div class="gray font_65rem">（点击图片 可全屏查看图片）</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/javascript">
+	//所在地样式控制
+	$('.cart-select').on('change', function(event) {
+		event.preventDefault();
+		if($(this).val()==''){
+			$(this).css('color', '#ccc');
+		}
+		else{
+			$(this).css('color', '#333');
+		}
+	});
+    //查看样例
+	$('[data-view="sample"]').on('click', function(event) {
+		var title = $(this).data('title')
+			, target = $(this).data('target');
+		var $modal = commonLab.openModal({
+	    	title: title?title:'查看样例',
+	    	text: $(target).html(),
+	    	extraClass: 'my-modal my-modal-2'
+	    });
+
+	    commonLab.showLargePhoto($modal.find('img'));
+	});
+</script>

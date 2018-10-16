@@ -1,0 +1,25 @@
+<script type="text/javascript">
+	//获取验证码
+	$('.page').on('click', '[data-role="get-ver-code"]', function(event) {
+		event.preventDefault();
+		var that=$(this);
+
+		if(!that.hasClass("disabled")){
+            that.addClass("disabled").prop('disabled', true).html('<span class="count-down2">(60秒)后重发</span>');
+
+            var timer,i = 60;
+            var fn = function () {
+                if(i<=0){
+                  that.removeClass("disabled").prop('disabled', false).find(".count-down2").html("获取验证码");
+                  clearInterval(timer);
+                }
+                else{
+                  that.find(".count-down2").html("("+i+"秒)后重发");
+                  i --;
+                }
+            };
+            timer = setInterval(fn, 1000);
+            fn();
+        }
+	});
+</script>

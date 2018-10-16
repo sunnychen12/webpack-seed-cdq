@@ -1,0 +1,103 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-nav page-header">
+				<div class="flex-box flex-align-center flex-box-justify">
+					<div class="font_85rem">
+						确认报读资格
+					</div>
+					<a href="#" class="flex-box flex-align-center faq-link">
+						<div><img src="../../images/img5.png" class="vertical-middle"></div>
+						<div class="font_5rem txt">
+							有疑问<br>
+							找老师
+						</div>
+						
+					</a>
+				</div>
+			</div>
+			<div class="bar bar-footer-btn">
+			  <div class="media full-height">
+			  	<div class="media-body">
+			  		<button type="button" class="button button-big button-fill button-danger full-width">我确认自己符合报读资格，下一步</button>
+			  	</div>
+			  </div>
+			</div>
+			<div class="content">
+				<div class="card card-reset">
+				  	<div class="cart-head">
+			      		<h4 class="cart-tit black-tit">报读条件确认</h4>
+			      	</div>
+			      	<div class="card-content">
+				        <div class="card-content-inner list-cutstom">
+				        	<div class="list-cutstom-item padding-top-none">
+				        		<div>报读本专业需要你：</div>
+				        		<ul class="list-unstyled gray9">
+				        			<li class="margin-t_3rem">1、年满17周岁</li>
+				        			<li class="margin-t_3rem">2、具有高中或职高、中专、技校等同等学历</li>
+				        			<li class="margin-t_3rem">3、在连锁经营相关单位工作</li>
+				        		</ul>
+				        	</div>
+				        	<div class="list-cutstom-item">
+					        	<div>你应该能够提供以下资料：</div>
+					        	<ul class="list-unstyled gray9">
+				        			<li class="margin-t_3rem">1、身份证正反面照片</li>
+				        			<li class="margin-t_3rem">2、个人小1寸蓝底照片</li>
+				        			<li class="margin-t_3rem">3、高中或职高、中专、技校毕业证书</li>
+				        			<li class="margin-t_3rem">4、所在单位工作证明</li>
+				        		</ul>
+					        </div>
+					        <div class="list-cutstom-item gray padding-bottom-none">
+					        	* 以上资料在报读后需在线上传，请提前准备
+					        </div>
+				        </div>
+			      	</div>
+			    </div>
+			    <div class="card card-reset">
+			    	<div class="cart-head">
+			      		<h4 class="cart-tit black-tit">个人报读信息确认</h4>
+			      	</div>
+			      	<div class="card-content">
+			      		<div class="card-content-inner list-cutstom">
+					        <div class="list-cutstom-item flex-box flex-align-center flex-box-justify gray9">
+					      		<div class="margin-r_5rem">
+					      			姓   名：
+					      		</div>
+					      		<div class="flex-item">
+					      			<input type="text" class="cart-input" value="王大" placeholder="请输入姓名" data-focus="focus-last">
+					      		</div>
+						      	<div class="icon icon-right font_5rem gray6 margin-l_5rem"></div>
+					        </div>
+					        <div class="list-cutstom-item flex-box flex-align-center flex-box-justify gray9">
+					      		<div class="margin-r_5rem">
+					      			手   机：
+					      		</div>
+					      		<div class="flex-item">
+					      			<input type="text" class="cart-input" placeholder="请输入手机号码" data-focus="focus-last">
+					      		</div>
+					      		<div class="icon icon-right font_5rem gray6 margin-l_5rem"></div>
+					        </div>
+					        <div class="list-cutstom-item flex-box flex-align-center flex-box-justify gray9">
+					      		<div class="margin-r_5rem">
+					      			验证码：
+					      		</div>
+					      		<div class="flex-item">
+					      			<input type="text" class="cart-input" placeholder="请输入验证码" value="435264" data-focus="focus-last">
+					      		</div>
+					      		<div class="gray9 padding-l_5rem border-left as-link" data-role="get-ver-code">
+					      			获取验证码
+					      		</div>
+					        </div>
+					        <div class="list-cutstom-item flex-box flex-align-center flex-box-justify gray9">
+					      		<div class="margin-r_5rem">
+					      			身份证：
+					      		</div>
+					      		<div class="flex-item">
+					      			<input type="text" class="cart-input" placeholder="请输入身份证" data-focus="focus-last">
+					      		</div>
+					        </div>
+			      		</div>
+			      	</div>
+			    </div>
+			</div>
+		</div>
+	</div>

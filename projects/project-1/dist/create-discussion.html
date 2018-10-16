@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>发表讨论</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+</head>
+<body>
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-footer-btn padding-none">
+			  <div class="flex-box flex-align-center">
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-ask-teacher"><span class="font_85rem">发布</span></button>
+			  </div>
+			</div>
+			<div class="content bg-white">
+				<div class="padding_75rem">
+				    <form data-id="theform" name="theform">
+				    	<div class="list-block margin-none">
+				          <input type="text" placeholder="加个标题呦~(非必填)" data-rule=".+" data-msg-empty="请输入标题" data-msg-error="请输入标题" data-check="1">
+				      	</div>
+				      	<div class="list-block margin-bottom-none" style="margin-top:.5rem;">
+				          <textarea style="height:7rem;" data-id="discuss-content" placeholder="请输入正文内容" data-check="1" data-rule=".+" data-msg-empty="请输入正文内容" data-msg-error="请输入正文内容" name="forum-content"></textarea>
+				      	</div>
+
+					    <div class="weui-uploader__bd margin-t-1rem">
+					         <ul class="weui-uploader__files" id="uploaderFiles"></ul>
+					         <div class="weui-uploader__input-box">
+					             <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" capture="camera" multiple="">
+					         </div>
+				      	</div>
+				    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/common.min.js"></script>
+	<script type="text/javascript" src="js/commonLab.min.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/css/sm-extend.min.css">
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+<script type="text/javascript">
+	//图片上传
+;(function() {
+    var count = 0;
+    $('.page').on('click', '.weui-uploader__file', function(e) {
+        var _this = this;
+        var url = $(_this).children('input').val();
+        var myPhotoBrowserCaptions = $.photoBrowser({
+            photos: [url],
+            theme: 'dark',
+            type: 'standalone',
+            navbarTemplate: ' ',
+            toolbarTemplate: '<nav class="bar bar-tab my-gallery-footer">' + '<a class="tab-item" href="javascript:;" data-role="remove-ga-pic">' + '删除' + '</a>' + '<a class="tab-item photo-browser-close-link" href="javascript:;">' + '返回' + '</a>' + '</nav>'
+        });
+        myPhotoBrowserCaptions.open();
+        $('[data-role="remove-ga-pic"]').click(function(event) {
+            event.preventDefault();
+            $(_this).remove();
+            myPhotoBrowserCaptions.close();
+        });
+    }).on("click", '#uploaderInput', function(e) {
+        e.preventDefault();
+        createUploadIframe();
+        ++count;
+        frames['ifr'].document.getElementById('file').click();
+    })
+    .on('click', '.btn-ask-teacher', function(event) {
+        if( commomLab.checkform( $('[data-id="theform"]') ) ){
+          $.showIndicator();
+          setTimeout(function () {
+              commomLab.myToast({msg:'发布成功'},function(){
+                console.log('发布成功1')
+              });
+
+              $.hideIndicator();
+          }, 2000);
+        }
+    });
+    //图片回调处理方法（跨域上传图片时，图片上传后需要调用的方法）
+    window.imgCallback = function(ajaxFilelist) {
+        if (ajaxFilelist && ajaxFilelist.resultList && ajaxFilelist.resultList.length > 0) {
+            $.each(ajaxFilelist.resultList, function(index, node) {
+                var $item = $('.weui-uploader__file[data-upload-id="' + count + '_' + index + '"]');
+                $item.removeClass('weui-uploader__file_status').html('<input type="hidden" name="imgUrls" value="#url#">'.replace(/#url#/g, node.FILE_PATH))
+            });
+        }
+    }
+    window.createUploadIframe = function() {
+        var ifrm = $('#ifr');
+        if (ifrm) {
+            ifrm.remove();
+        }
+        $('body').append('<iframe id="ifr" name="ifr" src="about:blank" style="display:none;"></iframe>');
+        ifrm = document.getElementById('ifr');
+        var doc = ifrm.contentWindow.document;
+        doc.open();
+        doc.write('\
+            <html>\
+              <head></head>\
+              <body>\
+                <form id="submitForm" name="submitForm" method="post" enctype="multipart/form-data" action="http://eefile.gzedu.com/ossupload/uploadInterface.do">\
+                  <input type="file" name="files" id="file" accept="image/*" multiple>\
+                  <input type="hidden" name="formMap.FILE_TYPE" value="files">\
+                  <input type="hidden" name="formMap.origin" value="{{basePath}}/assets/html/uploadIframe.html">\
+                  <input type="hidden" name="formMap.filecwd" value="/APP038/xj/image">\
+                  <input type="hidden" name="formMap.ACCESS_KEY_ID" value="b49ca70bac1082b01318bd3cecf317e4">\
+                  <input type="hidden" name="formMap.ACCESS_KEY_SECRET" value="17b16aedf2f46e32ccfbd6049090925f">\
+                </form>\
+              </body>\
+            </html>\
+          '.replace('{{basePath}}',location.href.substring(0,location.href.lastIndexOf('/')))
+        );
+        doc.close();
+        //显示图片
+        $(ifrm.contentWindow.document).find('#file').on('change', function(e) {
+            e.preventDefault();
+            var tmpl = '<li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(#url#)"  data-upload-id="#id#"><div class="weui-uploader__file-content"> <i class="weui-loading" style="width:30px;height:30px"></i> </div></li>';
+            var src, url = window.URL || window.webkitURL || window.mozURL,
+                files = e.target.files;
+            if (files.length > 5) { // 防止一下子选择过多文件
+                weui.alert('最多只能上传5张图片，请重新选择');
+                return;
+            }
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+                $("#uploaderFiles").append(tmpl.replace('#url#', src).replace('#id#', count + '_' + i));
+            }
+            var ifrm = document.getElementById('ifr');
+            var doc = ifrm.contentWindow.document;
+            doc.forms.submitForm.submit();
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

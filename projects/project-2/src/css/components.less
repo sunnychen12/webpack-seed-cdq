@@ -1,0 +1,131 @@
+@import "media.less";
+@import "flex-box.less";
+@import "embed-responsive.less";
+@import "form.less";
+
+//链接元素
+.as-link{
+	&:active{
+		background-color: #f2f2f2;
+	}
+}
+
+//列表
+.list-cutstom{
+	>.list-cutstom-item{
+		padding: .8rem 0;
+		position: relative;
+		&:after{
+			content: ' ';
+			height: 1px;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			left: 0;
+			background:#e5e5e5;
+		}
+		&:last-child{
+			&:after{
+				display: none;
+			}
+		}
+	}
+}
+
+//标签
+.label{
+	font-size: .45rem;
+	padding: .5em .5em .3em;
+	line-height: 1;
+	display: inline-block;
+	vertical-align: middle;
+	&.label-red{
+		color: #fff;
+		background-color: @color-red;
+	}
+}
+
+//卡片
+.card-reset{
+	margin: .7rem .75rem;
+	box-shadow:0 2px 12px 0 rgba(153,153,153,0.18);
+	.button-danger{
+		border-color: @color-red;
+		color: @color-red;
+	}
+}
+.card-reset2{
+	overflow: hidden;
+	.card-header{
+		background:#db5a5f;
+		color: #fff;
+	}
+}
+
+//模态窗口
+.my-modal{
+	overflow: hidden;
+	width: 90%;
+	max-height: 98%;
+	margin-left: 0;
+    left: 5%;
+    transform:translate3d(0,0,0) scale(1);
+	>.modal-inner{
+		padding: 0;
+		>.modal-title{
+			@modal-title-size:2.5rem;
+			text-align: left;
+			position: relative;
+			height: @modal-title-size;
+			line-height: @modal-title-size;
+			background: url(images/bg3.png) no-repeat center center/100% 100%;
+			color: #fff;
+			padding: 0 .75rem;
+			.icon-close{
+				position: absolute;
+				right: 0;
+				top: 0;
+				text-align: center;
+				width: 2rem;
+			}
+		}
+		>.modal-text{
+			margin: 0;
+
+		}
+		.modal-content{
+			padding: .75rem;
+			text-align: left;
+			line-height: 1.75;
+		}
+	}
+	&.my-modal-2{
+		    border-radius: 0;
+		    border-top: 2px solid @color-red;
+		>.modal-inner{
+			background: #fff;
+			border-radius: 0;
+			>.modal-title{
+				color:#333333;
+				text-align: center;
+				background: none;
+				padding: 0;
+				margin: 0 2rem;
+				.icon-close{
+					right: -2rem;
+				}
+				.modal-title-name{
+					.text-ellipsis();
+				}
+			}
+		}
+	}
+	h1,h2,h3,h4,h5,h6{
+		margin: 0;
+	}
+	p{
+		margin: .5em 0;
+	}
+}
+
+

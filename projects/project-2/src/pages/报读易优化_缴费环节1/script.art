@@ -1,0 +1,52 @@
+<script type="text/javascript">
+	;(function($){
+		$('.page')
+		//展开与收缩
+		.on('click', '.panel-header', function(event) {
+			var $panel=$(this).parent()
+				, isOpen=$panel.hasClass('open');
+
+			if(isOpen){
+				//$panel.removeClass('open');
+				$(this).next('.panel-body').slideUp(300,function(){
+					$panel.removeClass('open');
+				})
+			}
+			else{
+				//$panel.addClass('open');
+				$(this).next('.panel-body').slideDown(300,function(){
+					$panel.addClass('open');
+				})
+			}
+		})
+		.on('click', '.pay-item-header .checkbox-group', function(event) {
+			var _self=this;
+			setTimeout(function(){
+				var isCk=$(_self).children('.checkbox-control').prop('checked');
+				var $items=$(_self).closest('.pay-item').find('.checkbox-control:not([disabled])');
+				if(isCk){
+					$items.prop('checked', true);
+				}
+				else{
+					$items.prop('checked', false);
+				}
+			})
+		})
+		.on('click', '.pay-listing .checkbox-group:not([disabled])', function(event) {
+			var _self=this;
+			setTimeout(function(){
+				var $listing=$(_self).closest('.pay-listing');
+				var $selAll=$(_self).closest('.pay-item').find('.pay-item-header .checkbox-control:not([disabled])');
+				var $cks=$listing.find('.checkbox-control:not([disabled]):checked');
+				var $items=$listing.find('.checkbox-control:not([disabled])')
+
+				if($cks.length>0 && $cks.length==$items.length){
+					$selAll.prop('checked', true);
+				}
+				else{
+					$selAll.prop('checked', false);
+				}
+			})
+		});
+	})(jQuery)
+</script>

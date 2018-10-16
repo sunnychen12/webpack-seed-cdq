@@ -1,0 +1,34 @@
+<script type="text/template" id="popup-tpl">
+	<div class="popup popup-comment">
+		<div class="full-height flex-box flex-vertical flex-box-justify">
+		    <div class="popup-comment-header flex-box flex-align-center flex-box-justify item-with-border">
+		    	<button type="button" class="comment-btn close-popup comment-cancel-btn">取消</button>
+		    	<div class="font_85rem margin-l_5rem margin-r_5rem flex-item overflow-hidden text-center text-ellipsis">{{title}}</div>
+		    	<button type="button" class="comment-btn close-popup comment-submit-btn" disabled>发表</button>
+		    </div>
+		    <div class="flex-item popup-comment-body">
+		    	<textarea placeholder="请输入{{type==1?'评论':'回复内容'}}" class="comment-textarea"></textarea>
+		    </div>
+	    </div>
+	</div>
+</script>
+
+<script type="text/javascript">
+	$('.page')
+	.on('click', '[data-role="open-comment-popup"]', function(event) {
+		var data=$(this).data('type').split(':')
+		var popupHTML=template('popup-tpl',{
+			title:(data[0]==2?('回复'+data[1]):data[1]),
+			type:data[0]
+		});
+		var popup=$.popup(popupHTML);
+		$(popup).one('closed', function(event) {
+			//console.log('aa')
+		})
+		.on('input', '.comment-textarea', function(event) {
+			var $submit=$(popup).find('.comment-submit-btn');
+
+			$submit.prop('disabled', this.value.length>0?false:true)
+		});
+	})
+</script>

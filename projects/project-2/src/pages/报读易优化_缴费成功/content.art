@@ -1,0 +1,180 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content">
+				<div class="text-center" style="margin:2.6rem 1rem;">
+					<img src="../../images/success.png" class="vertical-middle" style="width:3.6rem;">
+					<div class="font-1rem text-bold margin-t_7rem line-height-1">缴费成功</div>
+				</div>
+				<div class="card card-reset">
+			      <div class="card-content">
+			        <div class="card-content-inner">
+			        	<div class="flex-box gray9">
+			        		<div class="margin-r_5rem">订单编号：</div>
+			        		<div class="flex-item">
+			        			2018080802321421
+			        		</div>
+			        	</div>
+			        	<div class="flex-box gray9 margin-t_5rem">
+			        		<div class="margin-r_5rem" style="width:5em;">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
+			        		<div class="flex-item">
+			        			吴青
+			        		</div>
+			        	</div>
+			        	<div class="flex-box gray9 margin-t_5rem">
+			        		<div class="margin-r_5rem" style="width:5em;">报读专业：</div>
+			        		<div class="flex-item">
+			        			2018年秋季工商管理（生产运作管理方向） 高起专
+			        		</div>
+			        	</div>
+			        </div>
+			      </div>
+			      <div class="card-footer as-link">
+			      	<div class="gray3">成功缴费：￥3450.00</div>
+			      	<div class="gray6">
+			      		<span class="inline-block">详情</span>
+			      		<span class="icon icon-right font_5rem"></span>
+			      	</div>
+			      </div>
+			    </div>
+			    <div class="card card-reset">
+			      <div class="cart-head">
+			      	<h4 class="cart-tit">开通服务</h4>
+			      </div>
+			      <div class="card-content">
+			        <div class="card-content-inner padding-t_5rem">
+			        	<ul class="list-unstyled list-cutstom service-list">
+			        		<li class="list-cutstom-item flex-box flex-align-center as-link" data-title="国开在线" data-target="#gk-online-pop-tpl">
+			        			<div class="img">
+			        				<img src="../../images/img1.png" class="vertical-middle">
+			        			</div>
+			        			<div class="flex-item txt">
+			        				<div class="txt1">
+			        					开通学习账号
+			        				</div>
+			        				<div class="txt2">
+			        					国开在线学习账号
+			        				</div>
+			        			</div>
+			        			<div class="side flex-box flex-align-center">
+			        				<div class="text-green">
+				        				<i class="icomoon">&#xe901;</i>
+				        				<span class="inline-block">已开通</span>
+			        				</div>
+			      					<span class="icon icon-right"></span>
+			        			</div>
+			        		</li>
+			        		<li class="list-cutstom-item flex-box flex-align-center as-link" data-title="学习小组" data-target="#study-group-pop-tpl">
+			        			<div class="img">
+			        				<img src="../../images/img2.png" class="vertical-middle">
+			        			</div>
+			        			<div class="flex-item txt">
+			        				<div class="txt1">
+			        					分配专属学习小组
+			        				</div>
+			        				<div class="txt2">
+			        					2018年秋季入学同学群
+			        				</div>
+			        			</div>
+			        			<div class="side flex-box flex-align-center">
+			        				<div class="text-green">
+				        				<i class="icomoon">&#xe901;</i>
+				        				<span class="inline-block">已加入</span>
+			        				</div>
+			      					<span class="icon icon-right"></span>
+			        			</div>
+			        		</li>
+			        		<li class="list-cutstom-item flex-box flex-align-center as-link" data-title="我的辅导员" data-target="#my-counselor-pop-tpl">
+			        			<div class="img">
+			        				<img src="../../images/temp1.png" class="vertical-middle">
+			        			</div>
+			        			<div class="flex-item txt">
+			        				<div class="txt1">
+			        					分配专属辅导员
+			        				</div>
+			        				<div class="txt2">
+			        					芒果老师
+			        				</div>
+			        			</div>
+			        			<div class="side flex-box flex-align-center">
+			        				<div class="text-green">
+				        				<i class="icomoon">&#xe901;</i>
+				        				<span class="inline-block">已就位</span>
+			        				</div>
+			      					<span class="icon icon-right"></span>
+			        			</div>
+			        		</li>
+			        		<li class="list-cutstom-item flex-box flex-align-center as-link" data-title="我的导学老师" data-target="#my-director-pop-tpl">
+			        			<div class="img">
+			        				<img src="../../images/temp1.png" class="vertical-middle">
+			        			</div>
+			        			<div class="flex-item txt">
+			        				<div class="txt1">
+			        					分配导学老师
+			        				</div>
+			        				<div class="txt2">
+			        					陆丽丽老师
+			        				</div>
+			        			</div>
+			        			<div class="side flex-box flex-align-center">
+			        				<div class="text-green">
+				        				<i class="icomoon">&#xe901;</i>
+				        				<span class="inline-block">已就位</span>
+			        				</div>
+			      					<span class="icon icon-right"></span>
+			        			</div>
+			        		</li>
+			        	</ul>
+			        </div>
+			      </div>
+			    </div>
+			    <div class="card card-reset">
+			      <div class="cart-head">
+			      	<h4 class="cart-tit">入学任务</h4>
+			      </div>
+			      <div class="card-content">
+			        <div class="card-content-inner padding-t_5rem">
+			        	<ul class="list-unstyled list-cutstom service-list">
+			        		<li class="list-cutstom-item flex-box flex-align-center as-link">
+			        			<div class="img">
+			        				<img src="../../images/img3.png" class="vertical-middle flat">
+			        			</div>
+			        			<div class="flex-item txt">
+			        				<div class="txt1">
+			        					完善个人学籍资料
+			        				</div>
+			        				<div class="txt2">
+			        					连锁经营实验学院学习账号
+			        				</div>
+			        			</div>
+			        			<div class="side flex-box flex-align-center">
+			        				<span class="inline-block">详情</span>
+			      					<span class="icon icon-right"></span>
+			        			</div>
+			        		</li>
+			        		<li class="list-cutstom-item flex-box flex-align-center as-link">
+			        			<div class="img">
+			        				<img src="../../images/img4.png" class="vertical-middle flat">
+			        			</div>
+			        			<div class="flex-item txt">
+			        				<div class="txt1">
+			        					下载连锁经营实验学院APP
+			        				</div>
+			        				<div class="txt2">
+			        					连锁经营实验学院学习账号
+			        				</div>
+			        			</div>
+			        			<div class="side flex-box flex-align-center">
+			        				<span class="inline-block">详情</span>
+			      					<span class="icon icon-right"></span>
+			        			</div>
+			        		</li>
+			        	</ul>
+			        </div>
+			      </div>
+			    </div>
+			    <div class="block-pad text-center padding-t_5rem">
+			    	<button type="button" class="button button-big button-fill button-danger full-width">收藏本页</button>
+			    </div>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,231 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-footer-btn">
+			  <div class="media full-height">
+			  	<div class="media-body">
+			  		<button type="button" class="button button-big button-fill button-danger full-width">提交</button>
+			  	</div>
+			  </div>
+			</div>
+			<div class="content">
+
+				<div class="form-content">
+					<div class="form-block">
+						<div class="form-block-title flex-box flex-box-justify flex-align-center">
+							<b>电子版免冠一寸蓝底证件照</b>
+							<div class="gray6 as-link" data-target="#view-sample-1-tpl" data-view="sample">
+					      		<span class="inline-block vertical-middle">查看样例</span>
+					      		<span class="icon icon-right font_5rem"></span>
+					      	</div>
+						</div>
+						<div class="margin-t_7rem flex-box flex-box-justify flex-align-center">
+							<div class="embed-responsive img-oper-wrap img-oper-wrap-v">
+								<div class="embed-responsive-item">
+									<div class="img-oper-box">
+										<!--
+										<img src="../../images/per.jpg" class="img-oper">
+										-->
+										<div class="img-oper-holder flex-box flex-vertical flex-align-center flex-box-justify-center">
+											<i class="im-w"></i>
+									    	<div class="u-tips">
+									      		<span class="u-txt11">点击上传</span>
+									      		<span class="u-txt12">点击更改</span>
+									    	</div>
+										</div>
+										<input class="file-path" type="hidden">
+									</div>
+								</div>
+							</div>
+							<div class="gray font_65rem flex-item text-center">
+								请按样例中的要求上传你的<br>电子版免冠一寸蓝底证件照
+							</div>
+						</div>
+					</div>
+					<div class="form-block">
+						<div class="form-block-title flex-box flex-box-justify flex-align-center">
+							<b>身份证原件正反面扫描件</b>
+							<div class="gray6 as-link" data-target="#view-sample-2-tpl" data-view="sample">
+					      		<span class="inline-block vertical-middle">查看样例</span>
+					      		<span class="icon icon-right font_5rem"></span>
+					      	</div>
+						</div>
+						<div class="list-cutstom">
+							<label class="list-cutstom-item flex-box flex-align-center as-link">
+								<div class="margin-r_5rem">
+									<div class="checkbox-group radio-group">
+										<input type="radio" class="checkbox-control" name="r1" checked>
+										<span class="checkbox-icon">
+											<i class="icomoon">&#xe901;</i>
+										</span>
+									</div>
+								</div>
+								<div class="flex-item line-height-1">
+									<div class="font_75rem text-bold">中国居民身份证</div>
+								</div>
+							</label>
+							<label class="list-cutstom-item flex-box flex-align-center as-link">
+								<div class="margin-r_5rem">
+									<div class="checkbox-group radio-group">
+										<input type="radio" class="checkbox-control" name="r1">
+										<span class="checkbox-icon">
+											<i class="icomoon">&#xe901;</i>
+										</span>
+									</div>
+								</div>
+								<div class="flex-item line-height-1">
+									<div class="font_75rem text-bold">其它身份证件</div>
+									<div class="font_6rem gray9 margin-t_5rem">（中国居民临时身份证，港澳台、外籍人士身份证）</div>
+								</div>
+							</label>
+						</div>
+						<div class="margin-t_7rem flex-box flex-box-justify flex-align-center">
+							<div class="embed-responsive img-oper-wrap flex-item">
+								<div class="embed-responsive-item">
+									<div class="img-oper-box">
+										<!--
+										<img src="../../images/per.jpg" class="img-oper">
+										-->
+										<div class="img-oper-holder flex-box flex-vertical flex-align-center flex-box-justify-center">
+											<i class="im-w"></i>
+									    	<div class="u-tips">
+									      		<span class="u-txt11">点击上传</span>
+									      		<span class="u-txt12">点击更改</span>
+									    	</div>
+										</div>
+										<input class="file-path" type="hidden">
+									</div>
+								</div>
+							</div>
+							<div class="embed-responsive img-oper-wrap flex-item margin-l-1rem">
+								<div class="embed-responsive-item">
+									<div class="img-oper-box">
+										<!--
+										<img src="../../images/per.jpg" class="img-oper">
+										-->
+										<div class="img-oper-holder flex-box flex-vertical flex-align-center flex-box-justify-center">
+											<i class="im-w"></i>
+									    	<div class="u-tips">
+									      		<span class="u-txt11">点击上传</span>
+									      		<span class="u-txt12">点击更改</span>
+									    	</div>
+										</div>
+										<input class="file-path" type="hidden">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-block">
+						<div class="form-block-title flex-box flex-box-justify flex-align-center">
+							<b>高中或职高、中专、技校毕业证书</b>
+							<div class="gray6 as-link" data-target="#view-sample-3-tpl" data-view="sample">
+					      		<span class="inline-block vertical-middle">查看样例</span>
+					      		<span class="icon icon-right font_5rem"></span>
+					      	</div>
+						</div>
+						<div class="margin-t_7rem flex-box flex-box-justify flex-align-center">
+							<div class="embed-responsive img-oper-wrap flex-item" style="padding-bottom: 55%;">
+								<div class="embed-responsive-item">
+									<div class="img-oper-box">
+										<!--
+										<img src="../../images/per.jpg" class="img-oper">
+										-->
+										<div class="img-oper-holder flex-box flex-vertical flex-align-center flex-box-justify-center">
+											<i class="im-w"></i>
+									    	<div class="u-tips">
+									      		<span class="u-txt11">点击上传</span>
+									      		<span class="u-txt12">点击更改</span>
+									    	</div>
+										</div>
+										<input class="file-path" type="hidden">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-block">
+						<div class="form-block-title flex-box flex-box-justify flex-align-center">
+							<b>企业工作证明</b>
+							<div class="gray6 as-link" data-target="#view-sample-4-tpl" data-view="sample">
+					      		<span class="inline-block vertical-middle">查看样例</span>
+					      		<span class="icon icon-right font_5rem"></span>
+					      	</div>
+						</div>
+						<div class="margin-t_7rem flex-box flex-box-justify flex-align-center">
+							<div class="embed-responsive img-oper-wrap flex-item" style="padding-bottom: 55%;">
+								<div class="embed-responsive-item">
+									<div class="img-oper-box">
+										<!--
+										<img src="../../images/per.jpg" class="img-oper">
+										-->
+										<div class="img-oper-holder flex-box flex-vertical flex-align-center flex-box-justify-center">
+											<i class="im-w"></i>
+									    	<div class="u-tips">
+									      		<span class="u-txt11">点击上传</span>
+									      		<span class="u-txt12">点击更改</span>
+									    	</div>
+										</div>
+										<input class="file-path" type="hidden">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-block">
+						<div class="form-block-title">
+							<b>签字确认</b>
+						</div>
+						<div class="margin-t_7rem flex-box flex-box-justify flex-align-center sign-btn-group gray-box">
+							<div class="flex-item" id="preview-box">
+
+							</div>
+							<div class="margin-l_5rem">
+								<button type="button" class="button sign-btn sign-btn-reset">重签</button>
+							</div>
+							<div class="margin-l_5rem">
+								<button type="button" class="button sign-btn sign-btn-confirm">确认</button>
+							</div>
+						</div>
+						<div class="margin-t_7rem gray-box signature-area">
+							<div class="embed-responsive" style="padding-bottom: 74%;">
+								<div class="embed-responsive-item">
+									<div id="signature" class="signature"></div>	
+
+									<div class="tips gray font_75rem">请在上方签上您的姓名全称</div>
+
+									<div class="signature-mark" style="display:none;">
+										<div class="full-height flex-box flex-vertical flex-align-center flex-box-justify-center">
+											<div>
+												如需重签请点击“重签一次”
+											</div>
+										</div>
+						            </div>
+								</div>
+							</div>
+						</div>
+						<div class="margin-t_7rem">
+							<label class="flex-box flex-align-center">
+								<div class="checkbox-group radio-group margin-r_5rem">
+									<input type="checkbox" class="checkbox-control" name="ck1" id="promise-true">
+									<span class="checkbox-icon">
+										<i class="icomoon">&#xe901;</i>
+									</span>
+								</div>
+								<div class="flex-item font_65rem gray9">
+									我承诺及确认以上信息正确无误并保证其真实性
+								</div>
+							</label>
+							
+						</div>
+						<ul class="list-unstyled font_65rem gray9 sign-tips-panel">
+							<li>1、签名必须是您的姓名全称</li>
+							<li>2、签名尽量连贯写完，不要逐字书写，避免无法签完姓名全称<li>
+						</ul>
+					</div>
+				</div>
+				<div class="text-center font_75rem gray" style="margin:1rem 0;">
+					主办：连锁经营实验学院
+				</div>
+			</div>
+		</div>
+	</div>

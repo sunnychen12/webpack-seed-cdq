@@ -1,0 +1,128 @@
+<!--国开在线-->
+<script type="text/template" id="gk-online-pop-tpl">
+	<div class="modal-content bg-white">
+		<h4 class="font_75rem">什么是国开在线学习账号？</h4>
+		<p class="gray9 font_65rem">
+			国开在线是国家开放大学学员在线学习的平台。你今后的学习、交流、活动、考试、毕业都将在平台上提供服务，你的国开在线学习账号现已开通，请务必尽快登录，并确保打开通知。
+		</p>
+		<hr>
+		<h4 class="font_75rem">如何登录国开在线APP</h4>
+		<div class="clearfix">
+			<div class="pull-right margin-j_5rem">
+				<img src="../../images/qrcode-1.png" style="width:6rem;height:6rem;">
+			</div>
+			<h5 class="font_65rem" style="margin:.2rem 0;">方法1：</h5>
+			<div class="gray9 font_65rem">
+				长按识别二维码下载国开在线，用手机号登录，开启你的学习之旅！初始密码：000000。
+			</div>
+		</div>
+
+		<h5 class="font_65rem" style="margin:.2rem 0;">方法2：</h5>
+		<div class="gray9 font_65rem">
+			你也可以通过电脑登录连锁经营实验学院进行学习。<br>
+			地址：s.oucnet.com。
+		</div>
+	</div>
+</script>
+
+<!--学习小组-->
+<script type="text/template" id="study-group-pop-tpl">
+	<div class="modal-content bg-white">
+		<h4 class="font_75rem">吴青学员，您好！您的专属学习小组：</h4>
+		<div class="newest-entry-wrap">
+			<div class="flex-box flex-box-justify font_75rem">
+				<div class="flex-item">
+					2018年秋季入学同学群
+				</div>
+				<div class="gray">683+</div>
+			</div>
+			<ul class="list-unstyled newest-list">
+				<li><img src="../../images/temp1.png"></li>
+				<li><img src="../../images/temp1.png"></li>
+				<li><img src="../../images/temp1.png"></li>
+				<li><img src="../../images/temp1.png"></li>
+				<li><img src="../../images/temp1.png"></li>
+				<li><img src="../../images/temp1.png"></li>
+			</ul>
+		</div>
+		<div class="margin-t-1rem">
+			<h4 class="font_75rem">下载国开在线APP，查看小组信息：</h4>
+			<div class="media margin-t_5rem">
+				<div class="media-side padding-r_5rem">
+					<img src="../../images/qrcode-1.png" class="vertical-middle" style="width:6rem;height:6rem;">
+				</div>
+				<div class="media-body font_65rem gray9 text-justify">
+					长按识别二维码下载国开在线，用手机号登录，开启你的学习之旅！
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<!--我的辅导员-->
+<script type="text/template" id="my-counselor-pop-tpl">
+	<div class="modal-content bg-white">
+		<div class="my-counselor-panel">
+			<figure>
+			  <img src="../../images/temp1.png" class="vertical-middle circle">
+			  <figcaption class="font_75rem text-bold">芒果老师</figcaption>
+			</figure>
+			<div class="counselor-txt">
+				同学，我是你的辅导员，主要是跟进你的日常任务等相关工作，对你进行一对一辅导与解答，在学习中遇到问题，可随时通过微信聊天方式找我咨询。
+			</div>
+		</div>
+
+		<div class="margin-t-1rem">
+			<h4 class="font_75rem">下载国开在线APP，找辅导老师聊天：</h4>
+			<div class="media margin-t_5rem">
+				<div class="media-side padding-r_5rem">
+					<img src="../../images/qrcode-1.png" class="vertical-middle" style="width:6rem;height:6rem;">
+				</div>
+				<div class="media-body font_65rem gray9 text-justify">
+					长按识别二维码下载国开在线，用手机号登录，开启你的学习之旅！
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<!--我的导学老师-->
+<script type="text/template" id="my-director-pop-tpl">
+	<div class="modal-content bg-white">
+		<div class="my-counselor-panel">
+			<figure>
+			  <img src="../../images/temp1.png" class="vertical-middle circle">
+			  <figcaption class="font_75rem text-bold">陆丽丽老师</figcaption>
+			</figure>
+			<div class="counselor-txt">
+				你好，我是你的导学老师，我叫陆丽丽，主要是对你进行考前训练，让您在考试过程中过关斩将，让你喜欢上考试，对自己的未来充满信心。
+			</div>
+		</div>
+
+		<div class="margin-t-1rem">
+			<h4 class="font_75rem">下载国开在线APP，找导学老师聊天：</h4>
+			<div class="media margin-t_5rem">
+				<div class="media-side padding-r_5rem">
+					<img src="../../images/qrcode-1.png" class="vertical-middle" style="width:6rem;height:6rem;">
+				</div>
+				<div class="media-body font_65rem gray9 text-justify">
+					长按识别二维码下载国开在线，用手机号登录，开启你的学习之旅！
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/javascript">
+	;(function(){
+		$('.list-cutstom-item[data-target]').on('click', function(event) {
+			var title = $(this).data('title')
+				, target = $(this).data('target');
+			commonLab.openModal({
+		    	title: title,
+		    	text: $(target).html()
+		    });
+		});
+	    
+	})();
+</script>

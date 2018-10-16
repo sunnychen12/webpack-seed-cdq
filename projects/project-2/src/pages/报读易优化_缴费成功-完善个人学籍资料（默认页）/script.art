@@ -1,0 +1,381 @@
+<script type="text/javascript" src="assets/js/jSignature.min.noconflict.js"></script>
+
+<script type="text/javascript" src="assets/js/cropper.min.js"></script>
+
+<!--电子版免冠一寸蓝底证件照（样例）-->
+<script type="text/template" id="view-sample-1-tpl">
+	<div class="modal-content bg-white">
+		<div class="text-center margin-t_5rem">
+			<div class="embed-responsive center-block" style="width: 55%;padding-bottom:80%;">
+				<img class="embed-responsive-item border" src="../../images/per.png" data-large-img="../../images/per.png" title="电子版免冠一寸蓝底证件照（样例）" >
+			</div>
+			<h4 class="font_75rem padding-t_5rem">电子版免冠一寸蓝底证件照（样例）</h4>
+		</div>
+	</div>
+</script>
+
+<!--身份证原件-->
+<script type="text/template" id="view-sample-2-tpl">
+	<div class="modal-content bg-white">
+		<div class="text-center margin-t_5rem">
+			<div class="embed-responsive center-block" style="width: 80%;padding-bottom:50%;">
+				<img class="embed-responsive-item border" src="../../images/sample1.png" data-large-img="../../images/sample1.png" title="身份证原件正面（样例）">
+			</div>
+			<h4 class="font_75rem padding-t_5rem">身份证原件正面（样例）</h4>
+
+			<div class="embed-responsive center-block margin-t_7rem" style="width: 80%;padding-bottom:50%;">
+				<img class="embed-responsive-item border" src="../../images/sample2.png" data-large-img="../../images/sample2.png" title="身份证原件反面（样例）">
+			</div>
+			<h4 class="font_75rem padding-t_5rem">身份证原件反面（样例）</h4>
+		</div>
+	</div>
+</script>
+
+<!--毕业证书-->
+<script type="text/template" id="view-sample-3-tpl">
+	<div class="modal-content bg-white">
+		<div class="text-center margin-t_5rem">
+			<div class="embed-responsive center-block" style="width: 80%;padding-bottom:50%;">
+				<img class="embed-responsive-item border" src="../../images/sample3.png" data-large-img="../../images/sample3.png" title="高中或职高、中专、技校毕业证书（样例）">
+			</div>
+			<h4 class="font_75rem padding-t_5rem">高中或职高、中专、技校毕业证书（样例）</h4>
+		</div>
+	</div>
+</script>
+
+<!--企业工作证明-->
+<script type="text/template" id="view-sample-4-tpl">
+	<div class="modal-content bg-white">
+		<div class="text-center margin-t_5rem">
+			<div class="embed-responsive center-block" style="width: 80%;padding-bottom:50%;">
+				<img class="embed-responsive-item border" src="../../images/sample4.png" data-large-img="../../images/sample4.png" title="企业工作证明（样例）">
+			</div>
+			<h4 class="font_75rem padding-t_5rem">企业工作证明（样例）</h4>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="upload-pic-pop-tpl">
+	<div class="modal-content bg-white padding-top-none">
+		<div class="img-process-container">
+	      <span class="preloader" style="display:none;"></span>
+	    </div>
+	    <div class="clearfix margin-t_5rem">
+		    <div class="position-relative sel-img pull-left">
+		        <a href="javascript:void(0)" id="sel-pic" class="external button">选择图片</a>
+		    </div>
+		    <div class="upload-controller">
+		      <span class="icon icon-reset"></span>
+		      <span class="icon icon-rotate-right"></span>
+		    </div>
+		</div>
+		<div class="row clearfix margin-t-1rem">
+		    <div class="col-50">
+		        <button class="button button-fill button-md full-width" data-role="cancel" onclick="$.closeModal();">取消</button>
+		    </div>
+		    <div class="col-50">
+		        <button data-role="sure-cropper" class="button button-fill button-md full-width">
+		          <span class="text">确定</span>
+		          <span class="preloader" style="display:none;width: .9rem;height: .9rem;"></span></button> 
+		    </div>
+		</div>
+	</div>
+</script>
+
+<!--图片提交模板-->
+<script type="text/html" id="h-tmp">
+  <html>
+  <head>
+  </head>
+  <body>
+  <form id="submitForm" name="submitForm" method="post" enctype="multipart/form-data" action="http://eefile.gzedu.com/ossupload/uploadInterface.do">
+    <input type="file" name="files" id="file" accept="image/jpg">    
+    <input type="hidden" name="formMap.FILE_TYPE" value="files">
+
+    <input type="hidden" name="formMap.compress" value="0">
+
+    <input type="hidden" name="formMap.origin" value="{{basePath}}/assets/html/uploadIframe.html">
+    <input type="hidden" name="formMap.filecwd" value="/APP038/xj/image">
+    <input type="hidden" name="formMap.ACCESS_KEY_ID" value="b49ca70bac1082b01318bd3cecf317e4">
+    <input type="hidden" name="formMap.ACCESS_KEY_SECRET" value="17b16aedf2f46e32ccfbd6049090925f">
+  </form>
+  </body>
+  </html>
+</script>
+<script type="text/javascript">
+	//签名功能
+	;(function($){
+		var $signature=$("#signature")
+			, $signatureMark=$(".signature-mark")
+			, $confirm = $('.sign-btn-confirm')
+			, $previewBox = $('#preview-box')
+			, $promise = $('#promise-true');
+		//初始化签名插件
+		$signature.jSignature({
+		    width : '100%',
+		    height : '100%'
+		});
+
+		//重新签名
+		$(".sign-btn-reset").click(function(){
+		    //var $signArea=$("#signature");
+		    $signature.jSignature("enable");
+
+		    $signatureMark.hide();
+
+		    $confirm.prop('disabled', false);
+
+		    $previewBox.empty();
+
+		    $promise.prop('checked',false);
+
+		    $signature.jSignature("reset");
+		});
+
+		//确认签名
+		$confirm.click(function(){
+				if(!$promise.prop('checked')){
+					Zepto.toast('请勾选我承诺信息的真实性');
+
+					return false;
+				}
+
+		      	var base30 =$signature.jSignature("getData", "base30");
+
+		      	if(base30 && base30.length==2 && base30[1]==""){
+		        	Zepto.toast('请签名');
+
+		        	return false;
+		      	}
+		      	else{
+			      	$(this).prop('disabled', true);
+
+			      	$signatureMark.show();
+
+			        //待提交数据
+			        var imageData=addSign();
+
+			        var img = '<img class="preview-image" src="'+imageData+'" />';
+
+					$previewBox.html(img);
+
+			        //擦除签名面板
+			        $signature.jSignature("reset");
+		      	}
+		});
+
+		//将写字板的内容添加至展示区
+		function addSign(){
+		    var src='';
+		    //var $signArea=$("#signature");
+		    var data = $signature.jSignature("getData", "image");
+		    if(data && data.length > 1){
+		      src = "data:" + data[0] + "," + data[1];
+		      $signature.jSignature("disable");
+		    }
+
+		    return src;
+		}
+
+	})(jQuery);
+
+	/*完善证件资料*/
+	;(function($){
+
+	    //图片回调处理方法（跨域上传图片时，图片上传后需要调用的方法）
+	    window.imgCallback=function(ajaxFilelist){
+
+	      if(ajaxFilelist){
+	        var path=ajaxFilelist.resultList[0].FILE_PATH;
+
+	        var $loader=$('.img-process-container > .preloader').show();
+
+	        //checkImgSize(path,function(){
+
+	          var url=path+'?x-oss-process=image/resize,h_4000,w_4000/auto-orient,1';
+
+	          controlBusiness(url);
+	          
+	          $('[data-role="sure-cropper"]').removeClass('disabled').prop('disabled',false)
+	                    .children('.preloader').hide().siblings('.text').text('确定');
+
+	        //});
+	      }
+	    }
+
+	    //图片上传成功后，处理逻辑
+	    window.controlBusiness=function(url){
+	      var $imgContainer=$('.img-process-container');
+	      var $img=$('.process-image');
+
+	      if($img.length<=0){
+	        $imgContainer.append('<img class="process-image" src="'+url+'">');
+	        imgCropper();
+	      }
+	      else{
+	        $img.attr('src',url).cropper('replace',url);
+	      }
+	      $('.preloader',$imgContainer).show();
+	    }    
+
+	    //图片裁切初使化
+	    window.imgCropper=function (){
+	      var $img=$('.process-image');
+	      var $loader=$('.img-process-container > .preloader');
+
+	      if($img.length<=0 && !$img.attr('src')) return;
+	      $loader.show();
+	      $img.cropper({
+	        //checkImageOrigin:false,
+	        crop: function(data) {
+	          // 出来裁切后的图片数据.
+	          var param='/rotate,{0}/crop,x_{1},y_{2},w_{3},h_{4}/{5}';
+	          param=param.format(
+	            Math.round(data.rotate),
+	            Math.round(data.x),
+	            Math.round(data.y),
+	            Math.round(data.width),
+	            Math.round(data.height),
+	            (param.indexOf('resize,h_4000,w_4000/auto-orient,1')==-1?'resize,h_4000,w_4000/auto-orient,1':'')
+	          );
+
+	          $img.attr('data-crop-param',param);
+	        },
+	        build:function(){
+	          $loader.show();
+	        },
+	        built:function () {
+	          $loader.hide();
+	        }
+	      });
+	    };
+
+	    //动态创建iframe上传文件
+	    window.createUploadIframe=function (){
+	      var ifrm=$('#ifr');
+	      if(ifrm){
+	        ifrm.remove();
+	      }
+	      $('body').append('<iframe id="ifr" name="ifr" src="about:blank" style="display:none;"></iframe>');
+	      ifrm=document.getElementById('ifr');
+	      var doc=ifrm.contentWindow.document;
+
+	      doc.open();
+	      doc.write(
+	      		$('#h-tmp').html().replace('{{basePath}}',location.protocol+'//'+location.host)
+	      );
+	      doc.close();
+
+	      //显示图片
+	      $(ifrm.contentWindow.document).find('#file').on('change', function(event) {
+	        event.preventDefault();
+
+	        $('[data-role="sure-cropper"]').addClass('disabled').prop('disabled',true)
+	                  .children('.preloader').show().siblings('.text').text('图片上传中');
+
+	        var ifrm=document.getElementById('ifr');
+	        var doc=ifrm.contentWindow.document;
+	        
+	        doc.forms.submitForm.submit();
+	      });
+	    }
+
+	})(jQuery);
+
+	//点击上传图片
+    $('.img-oper-box').click(function(event) {
+        $('.img-oper-box').removeClass('actived');
+        $(this).addClass('actived');
+
+        var imgURL=$(this).find('.file-path').val()
+
+        var $domModal=commonLab.openModal({
+	    	title: '图片上传',
+	    	text: $('#upload-pic-pop-tpl').html(),
+	    	extraClass: 'my-modal my-modal-2 upload-pic-pop'
+	    });
+
+	    //清除生成的动态表单
+      	$domModal.find('.icon-close,[data-role="cancel"]').on('click', function(event) {
+	        var ifrm=$('#ifr');
+	        if(ifrm){
+	          ifrm.remove();
+	        }
+      	});
+
+	    ;(function($){
+	        var $uploadPop=$('.upload-pic-pop');
+
+	        if(imgURL!=''){
+	          controlBusiness(imgURL);
+	        }
+
+	        //动态创建iframe图片上传框
+	        createUploadIframe();
+
+	        $('.upload-pic-pop')
+	        //重置
+	        .on('click', '.icon-reset', function(event) {
+	          	$('.process-image').cropper('reset');
+	        })
+
+	        //向右旋转
+	        .on('click', '.icon-rotate-right', function(event) {
+	          	$('.process-image').cropper('rotate', 45);
+	        })
+
+	        //选择图片
+	        .on('click', '#sel-pic', function(event) {
+	        	createUploadIframe();
+	            $('#ifr').contents().find("#file").trigger('click');
+	        })
+
+	        //确定裁切图片
+	        .on('click', '[data-role="sure-cropper"]', function(event) {
+	            var $img=$('.process-image');
+	            if($img.length>0){
+	              
+	              $img.cropper('disable');
+
+	              var $box=$('.img-oper-box.actived');
+	              var $loadImg=$box.find('img');
+	              var src=$img.attr('src');
+	              //src=src.replace(/\/resize,h_4000,w_4000\/auto-orient,1/g,'');
+	              var url=src+$img.attr('data-crop-param');
+
+	              if($loadImg.length<=0){
+	                $box.find('.img-oper-holder').before('<img src="'+url+'" class="img-oper">');
+	                $loadImg=$box.find('img');                
+	              }
+
+	              $loadImg.attr('src',url);
+
+	              $box.find('.file-path').val(url).attr('data-change-val','true');
+
+	              $(this).addClass('disabled').prop('disabled',true)
+	                  .children('.preloader').show().siblings('.text').text('图片处理中');
+
+	              $loadImg.on('load', function() {
+	                  Zepto.closeModal();
+	              });
+	            }
+	            else{
+	              Zepto.closeModal();
+	            }
+	        });
+
+	    })(jQuery);
+    });
+
+	//查看样例
+	$('[data-view="sample"]').on('click', function(event) {
+		var title = $(this).data('title')
+			, target = $(this).data('target');
+		var $modal = commonLab.openModal({
+	    	title: title?title:'查看样例',
+	    	text: $(target).html()
+	    });
+
+	    commonLab.showLargePhoto($modal.find('img'));
+	});
+</script>

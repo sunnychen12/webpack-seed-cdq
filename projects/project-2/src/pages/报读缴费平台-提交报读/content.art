@@ -1,0 +1,20 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content">
+				<div class="text-center" style="margin:2.6rem 1rem;">
+					<img src="../../images/waiting.png" class="vertical-middle" style="width:3.6rem;">
+					<div class="font-1rem text-bold margin-t_7rem line-height-1 gray9">吴青，你好</div>
+					<div class="font_75rem text-center margin-t-1rem">系统正在初步检测您是否符合报读条件</div>
+				</div>
+				<div class="card card-reset">
+			      	<div class="card-content">
+			        	<div class="card-content-inner">
+			        		<div class="padding_75rem" data-id="result" style="min-height:10rem;">
+
+			        		</div>
+			        	</div>
+			      	</div>
+			    </div>
+			</div>
+		</div>
+	</div>
