@@ -1,5 +1,4 @@
 .animated {
-  animation-duration: 1s;
   animation-fill-mode: both;
   animation-duration: 200ms;
 }
@@ -15,6 +14,12 @@
 }
 
 .fadeIn {
-  -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
+}
+
+.fade-enter-active {
+  animation: fadeIn .2s;
+}
+.fade-leave-active{
+  display: none;
 }

@@ -2,7 +2,8 @@ const layout = require('../../components/layout/layout.js');
 const content = require('./content.art');
 const script = require('./script.art');
 
-const title = '课程学习-练习测试-结果页';
+//课程学习-练习测试-结果页
+const title = '';
 
 const renderData={
 	headerData:{

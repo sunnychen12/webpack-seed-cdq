@@ -1,0 +1,73 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content">
+				<div class="padding_75rem">
+					<ul class="broadcast-guidance-list list-unstyled">
+						<li class="item">
+							<a href="direct-broadcast-guidance-details.html">
+								<div class="embed-responsive">
+									<img src="../../images/temp3.png" class="item-img embed-responsive-item">
+								</div>
+								<div class="item-bar flex-box">
+									<img src="../../images/temp2.png" class="per-img circle margin-r_5rem">
+									<div class="flex-item item-tit text-ellipsis">
+										2018春季学期考试辅导
+									</div>
+									<div class="item-user-count text-nowrap margin-l_5rem">
+										<i class="icomoon font-1rem">&#xe909;</i>
+										<span class="font_55rem inline-block vertical-middle">32322人</span>
+									</div>
+								</div>
+								<label class="braodcast-label arrow-left blue">
+									<span>2019-09-19</span>
+									<i></i>
+								</label>
+							</a>
+						</li>
+						<li class="item">
+							<a href="direct-broadcast-guidance-details.html">
+								<div class="embed-responsive">
+									<img src="../../images/temp4.png" class="item-img embed-responsive-item">
+								</div>
+								<div class="item-bar flex-box">
+									<img src="../../images/temp2.png" class="per-img circle margin-r_5rem">
+									<div class="flex-item item-tit text-ellipsis">
+										2018春季学期考试辅导
+									</div>
+									<div class="item-user-count text-nowrap margin-l_5rem">
+										<i class="icomoon font-1rem">&#xe909;</i>
+										<span class="font_55rem inline-block vertical-middle">32322人</span>
+									</div>
+								</div>
+								<label class="braodcast-label arrow-left orange">
+									<span>直播中</span>
+									<i></i>
+								</label>
+							</a>
+						</li>
+						<li class="item">
+							<a href="direct-broadcast-guidance-details.html">
+								<div class="embed-responsive">
+									<img src="../../images/temp5.png" class="item-img embed-responsive-item">
+								</div>
+								<div class="item-bar flex-box">
+									<img src="../../images/temp2.png" class="per-img circle margin-r_5rem">
+									<div class="flex-item item-tit text-ellipsis">
+										2018春季学期考试辅导
+									</div>
+									<div class="item-user-count text-nowrap margin-l_5rem">
+										<i class="icomoon font-1rem">&#xe909;</i>
+										<span class="font_55rem inline-block vertical-middle">32322人</span>
+									</div>
+								</div>
+								<label class="braodcast-label arrow-left blue">
+									<span>回放中</span>
+									<i></i>
+								</label>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,28 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content">				
+				<div class="flex-box flex-vertical full-height">
+					<div>
+						<video class="video-player" src="http://video.eenet.com/resourse/gkzx/01gxx.mp4"
+							x5-playsinline 
+							playsinline 
+							-webkit-playsinline 
+							controls
+							style="height:10rem;"
+						></video>
+					</div>
+					<div class="flex-item bg-white" style="overflow-y: auto;">
+						<div class="padding_75rem">
+							<h1 class="font_85rem margin-none">马戛尔尼访华</h1>
+							<div class="artical-content margin-t_3rem">
+								乾隆五十八年(1793)，英国马戛尔尼使团以为乾隆帝祝
+								寿的名义来到中国。这是到达中国的第一个英国外交使
+								团，是中英之间最重要的一次早期交往，堪称中西关系
+								史上的重大事件。
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

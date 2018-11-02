@@ -1,3 +1,99 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
 <script type="text/javascript">
+;(function(){
+	document.title=commomLab.getQueryParam('pagetitle');
+
+	var videourl=commomLab.getQueryParam('videourl');//跳转url
+		videourl || (videourl='');
+
+	var videoId=commomLab.getQueryParam('videoId');//videoId
+		videoId || (videoId='');
+
+
+	var videoObj=document.querySelector(".video-player");
+	videoObj.src=videourl;
+
+
+	var pastTime=0
+		, isSeeking=false //"拖动"状态
+		, currentTimeBeforeSeek=0;
 	
+	//返回视频拖动前的位置
+	function resetVideo(){
+		videoObj.currentTime=pastTime;
+		videoObj.pause();
+		videoObj.play();
+	}
+	
+	//监控 播放
+	videoObj.ontimeupdate=function(){
+		//如果出现拖动情况，重置状态
+		if(Math.abs(videoObj.currentTime-pastTime)>1){
+			resetVideo();
+		}
+		else{
+			pastTime=videoObj.currentTime;
+		}
+	};
+		
+	videoObj.onended=function() {
+		//如果出现拖动情况，重置状态
+		if(Math.abs(videoObj.duration-pastTime)>1){
+			//如果是瞬间拖拉到最后，就重位置
+			if(videoObj.currentTime==0){
+				pastTime=currentTimeBeforeSeek;
+			}
+			resetVideo();
+		}
+		
+		else{
+			pastTime=0;
+			currentTimeBeforeSeek=0;
+			isSeeking=false;
+			//播放完毕，提交数据
+			commomLab.ajaxProcess({
+				url: '/gkApp/news/moodleUpdateActivityCompletionStatusManually',
+				data: {
+					cmid: videoId,
+					completed: 1,
+					token: commomLab.cacheUserCourseInfo.get().token
+				}
+			});
+		}
+	};
+	
+	//如果是处于拖动状态
+	videoObj.onseeking=function(event){
+		if(!isSeeking){
+			isSeeking=true;
+
+			//缓存开始拖动时的播放时间
+			currentTimeBeforeSeek=videoObj.currentTime;
+		}
+	}
+	
+	//拖动结束
+	videoObj.onseeked=function(){
+		isSeeking=false;
+	}
+
+	//内容滑动
+	window.mySwiper = new $.Swiper('.swiper-container',{
+		onSlideChangeEnd : function(swiper) {
+			//console.log(mySwiper.activeIndex);
+				
+			$('.tabs-video li.item')
+			.eq(mySwiper.activeIndex).addClass('actived')
+			.siblings().removeClass('actived');
+		}
+	});
+
+	//选项卡
+	$('.tabs-video li.item').on('touchstart', function(event) {
+		var index=$(this).index();
+
+		mySwiper.slideTo(index);
+	});
+
+})();
 </script>

@@ -23,7 +23,8 @@ if(process.argv.length>4){
 //rl.question('Pls input project name: ',  function(project){
     const spinner = ora(`start building ${project}`).start();
 
-    let pConfig=path.resolve(__dirname,`projects/${project}/webpack.config${isDev?'.dev':''}.js`);
+    let projectPath=path.resolve(__dirname,`projects/${project}`);
+    let pConfig=path.resolve(projectPath,`webpack.config${isDev?'.dev':''}.js`);
 
     let cmdList={
       "prod": `webpack --config ${pConfig} --mode production --env.NODE_ENV=production --progress`,
@@ -41,10 +42,14 @@ if(process.argv.length>4){
 
     console.log(chalk.yellow(`\n\n${cmd}\n`));
 
+    let cmdWatch='node '+path.resolve(projectPath,`watchFiles.js${isDev?' dev':''}`);
+
+    console.log(chalk.yellow(`\n\n${cmdWatch}\n`));
+
     const concurrently = require('concurrently');
 
-    concurrently([cmd]).then(function(data){
-      spinner.info('\n-------------built finished--------------\n');
+    concurrently([cmdWatch,cmd]).then(function(data){
+      spinner.info(`\n-------------built finished${isDev?'(dev)':''}--------------\n`);
     }, function(error){
       spinner.info('\n-------------built error--------------\n');
     });

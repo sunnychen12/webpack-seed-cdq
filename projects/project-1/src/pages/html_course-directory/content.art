@@ -1,0 +1,79 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content">
+				<div class="course-wrap padding_75rem margin-t-1rem">
+					<dl class="course-box">
+						<dt class="course-dt">第1章 落后挨打的屈辱</dt>
+						<dd class="course-list expand">
+							<div class="slide-cnt">
+								<a href="course-study-of-video.html" class="course-item flex-box flex-align-center course-item-fin as-link">
+									<label class="course-label label label-blue">视频</label>
+									<div class="flex-item flex-box flex-align-center course-item-cnt">
+										<span class="course-order">1-1</span>
+										<span class="flex-item">专题导学</span>
+									</div>
+								</a>
+								<a href="course-study-of-video.html" class="course-item flex-box flex-align-center course-item-fin as-link">
+									<label class="course-label label label-blue">视频</label>
+									<div class="flex-item flex-box flex-align-center course-item-cnt">
+										<span class="course-order">1-1-1</span>
+										<span class="flex-item">落后挨打的屈辱</span>
+									</div>
+								</a>
+								<a href="course-study-of-reading.html" class="course-item flex-box flex-align-center as-link">
+									<label class="course-label label label-orange">阅读</label>
+									<div class="flex-item flex-box flex-align-center course-item-cnt">
+										<span class="course-order">1-1-2</span>
+										<span class="flex-item">落后挨打的屈辱</span>
+									</div>
+								</a>
+								<a href="course-study-of-reading.html" class="course-item flex-box flex-align-center as-link">
+									<label class="course-label label label-orange">PDF</label>
+									<div class="flex-item flex-box flex-align-center course-item-cnt">
+										<span class="course-order">1-1-3</span>
+										<span class="flex-item">落后挨打的屈辱</span>
+									</div>
+								</a>
+								<a href="course-study-of-practice.html" class="course-item flex-box flex-align-center as-link">
+									<label class="course-label label label-dark-gray">形考</label>
+									<div class="flex-item flex-box flex-align-center course-item-cnt">
+										<span class="course-order">1-1-4</span>
+										<span class="flex-item">形考作业</span>
+									</div>
+								</a>
+							</div>
+						</dd>
+					</dl>
+
+					<dl class="course-box">
+						<dt class="course-dt">第2章 救亡图存的多样探索</dt>
+						<dd class="course-list">
+							<div class="slide-cnt">
+								<a href="course-study-of-video.html" class="course-item flex-box flex-align-center course-item-fin as-link">
+									<label class="course-label label label-blue">视频</label>
+									<div class="flex-item flex-box flex-align-center course-item-cnt">
+										<span class="course-order">2-1-1</span>
+										<span class="flex-item">救亡图存的多样探索</span>
+									</div>
+								</a>
+							</div>
+						</dd>
+					</dl>
+
+					<dl class="course-box">
+						<dt class="course-dt">第3章 中国历史和中国人民选择了马克思</dt>
+					</dl>
+
+					<dl class="course-box">
+						<dt class="course-dt">第4章 中国革命的新道路——从合作到土</dt>
+					</dl>
+					<dl class="course-box">
+						<dt class="course-dt">第5章 中国革命的新道路——从合作到土</dt>
+					</dl>
+					<dl class="course-box">
+						<dt class="course-dt">第6章 中国革命的新道路——从合作到土</dt>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>

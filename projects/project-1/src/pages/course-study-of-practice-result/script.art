@@ -1,24 +1,149 @@
 <script type="text/javascript">
 	//答题卡的显示处理
-	;(function(){
-		var $card=$('.ans-card-list')
-			, cardWith=$card.width()-1
-			, $items=$card.children()
-			, $item=$items.eq(0)
-			, itemWidth=$item.outerWidth(true)+1
-			, counts=$items.length;
+;(function(){
+	var pagetitle=commomLab.getQueryParam('pagetitle');
+		pagetitle || (pagetitle='');
 
-		var w=0, m=0;
-		for (var i = 1; i <= counts; i++) {
-			w=itemWidth*i;
-			if(w>cardWith){
-				m=i;
-				break;
+	document.title=pagetitle;
+
+	//测验活动ID
+	var quizid=commomLab.getQueryParam('quizid');
+		quizid || (quizid='');
+
+	//测验ID
+	var attemptid=commomLab.getQueryParam('attemptid');
+		attemptid || (attemptid='');
+
+	//获取缓存数据
+	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+	window.app = new Vue({
+        el: '#app',
+        data: {
+        	success:true,
+        	msg:'',
+        	isloaded:false,//是否所有数据都已经加载完毕
+        	questionLen: 0,//题目的条数统计
+        	questionRightLen:0,//答对题目的条数统计
+        	questionMarkRight:0,//答对分数统计
+        	totalMark:0,
+        	attemptData:false,//题目接口数据
+        },
+        created: function () {
+        	this.getData();
+        },
+		methods:{
+			//结束异步，关键加载特殊，显示页面内容
+        	showHtml:function(){
+        		var vm=this;
+        		vm.isloaded=true;
+				$.hideIndicator();
+        	},
+			//设置答题卡的题目的对错class名字
+			getStyleClass:function(state){
+				if(state){
+					if(state=='gradedright'){
+						return 'right';
+					}
+					else if(state=='gradedwrong'){
+						return 'wrong';
+					}
+					else{
+						return '';
+					}
+				}
+			},
+			//答题卡 居中对齐
+			resetDom:function(){
+				var $card=$('.ans-card-list')
+					, cardWith=$card.width()-1
+					, $items=$card.children()
+					, $item=$items.eq(0)
+					, itemWidth=$item.outerWidth(true)+1
+					, counts=$items.length;
+
+				var w=0, m=0;
+				for (var i = 1; i <= counts; i++) {
+					w=itemWidth*i;
+					if(w>cardWith){
+						m=i;
+						break;
+					}
+				}
+
+				if(m>0){
+					$card.css('padding-left', (cardWith-itemWidth*(m-1))/2 );
+				}
+			},
+			//查看解析
+			viewAnalyze:function(){
+				location.href='course-study-of-practice.html?'+
+        					('pagetitle='+pagetitle)+
+        					'&'+
+        					('quizid='+quizid)+
+        					'&'+
+        					('attemptid='+attemptid)+
+        					'&'+
+        					('attemptstate=finished');
+			},
+			leavePage:function(){
+				location.href='index.html?'+
+        					('username='+cacheUserCourseInfo.user.username)+
+        					'&'+
+        					('courseCode='+cacheUserCourseInfo.course.courseCode)+
+        					'&'+
+        					('realname='+cacheUserCourseInfo.realname);
+			},
+			getData:function(){
+				$.showIndicator();
+
+        		var vm=this;
+
+				commomLab.ajaxProcess({
+					url: '/gkApp/news/moodleGetAttemptReview',
+					data: {
+						attemptid: attemptid,
+						token: cacheUserCourseInfo.token
+					}
+				})
+				.done(function(res){
+					if(
+						commomLab.checkAPIResult(res) &&
+						res.data.data.questions &&
+						res.data.data.questions.length>0
+					){
+						var resData=res.data.data;
+
+						//删除描述，保留题目
+						resData.questions=$.grep(resData.questions,function(item){
+						    return item.type!='description'
+						});
+
+						vm.attemptData=resData;
+
+						vm.questionLen=resData.questions.length;
+
+						for(var i in resData.questions){
+							if(resData.questions[i].state=='gradedright'){
+								++vm.questionRightLen;
+								vm.questionMarkRight=vm.questionMarkRight+(resData.questions[i].mark-0);
+							}
+							vm.totalMark=vm.totalMark+(resData.questions[i].maxmark);
+							
+						}
+
+						vm.showHtml();
+
+						vm.$nextTick(function(){
+							vm.resetDom();
+						});
+					}
+				})
+				.fail(function(){
+					vm.showHtml();
+				})
 			}
 		}
-
-		if(m>0){
-			$card.css('padding-left', (cardWith-itemWidth*(m-1))/2 );
-		}
-	})();
+	});
+})();
 </script>

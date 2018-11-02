@@ -48,6 +48,34 @@ var commomLab={
     return hasFin;
   },
 
+  moveTop : function($scroller){
+    //move top
+    var $movetop=$("#movetop");
+
+    if($movetop.length==0){
+      $('body').append('<a href="javascript:;" class="moveTop" id="movetop"></a>');
+      $movetop=$("#movetop");
+    }
+
+    $movetop.click(function(){
+        $scroller.scrollTop(0);
+    });
+
+    var jqW=$scroller;
+    jqW.on('scroll', function(event) {
+      if(jqW.scrollTop()>50){
+        $movetop.animate({opacity:1},'fast','ease',function(){
+          $movetop.show();
+        })
+      }
+      else{
+        $movetop.animate({opacity:0},'fast','ease',function(){
+          $movetop.hide();
+        })
+      }
+    });
+  },
+
   //显示一个消息，会在2秒钟后自动消失
   myToast : function(opts,cb) {
       var defaultOps={
@@ -81,6 +109,92 @@ var commomLab={
             $.closeModal($toast);
           }, opts.time);
       });
+  },
+
+  //解析参数
+  getQueryParam : function(name){
+    var url=window.location.href;
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var dotIndex=url.indexOf("?");
+    if(dotIndex!=-1){
+      var r = url.substr(dotIndex+1).match(reg);
+
+      if(r!=null) return decodeURIComponent(r[2]); return null;
+    }
+
+    return null;
+  },
+
+  //ajax 统一方法
+  ajaxProcess : function(options){
+    //远程接口网址的域名
+    //var ajaxBathPath="http://beijinglms.eenet.com";
+    var ajaxBathPath="http://172.16.165.93:8081";
+
+    options.type || (options.type='GET');
+    options.dataType || (options.dataType='json');
+    //options.timeout || (options.timeout=1000*30);//默认异步请求超时时间为 30s
+    $.extend(true, options.data, {bathURL:ajaxBathPath});
+    
+    var opts=$.extend({}, $.ajaxSettings, options);
+    return $.ajax(opts);
+
+    /*
+      $.ajax({
+        url: '/path/to/file',
+        type: 'default GET (Other values: POST)',
+        dataType: 'json',
+        data: {param1: 'value1'},
+        success: function(res){
+          
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        },
+        complete: function(){
+
+        }
+      })
+      .done(function() {
+        console.log("success");
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+    */
+    
+  },
+  //缓存学员课程选课信息
+  cacheUserCourseInfo : {
+    key : 'UserCourseInfo',
+    clear: function(){
+      localStorage.removeItem(this.key);
+    },
+    set : function(jsonData){
+      localStorage.setItem( this.key,JSON.stringify(jsonData) )
+    },
+    get : function(){
+      var result=false;
+      try{
+        result = JSON.parse(localStorage.getItem(this.key))
+      }
+      catch(e){}
+
+      return result;
+    }
+  },
+
+  //检测接口的初步返回数据是否有问题
+  checkAPIResult : function(res){
+    return (
+              res.success &&
+              res.data &&
+              res.data.code==200 &&
+              res.data.data
+            );
   }
 }
 

@@ -1,24 +1,218 @@
 <script type="text/javascript">
-	//答题卡的显示处理
-	;(function(){
-		var $card=$('.ans-card-list')
-			, cardWith=$card.width()-1
-			, $items=$card.children()
-			, $item=$items.eq(0)
-			, itemWidth=$item.outerWidth(true)+1
-			, counts=$items.length;
+//答题卡的显示处理
+;(function(){
+	var pagetitle=commomLab.getQueryParam('pagetitle');
+		pagetitle || (pagetitle='');
 
-		var w=0, m=0;
-		for (var i = 1; i <= counts; i++) {
-			w=itemWidth*i;
-			if(w>cardWith){
-				m=i;
-				break;
-			}
-		}
+		//document.title=pagetitle;
 
-		if(m>0){
-			$card.css('padding-left', (cardWith-itemWidth*(m-1))/2 );
+	//测验活动ID
+	var quizid=commomLab.getQueryParam('quizid');
+		quizid || (quizid='');
+
+	//测验ID
+	var attemptid=commomLab.getQueryParam('attemptid');
+		attemptid || (attemptid='');
+
+	//测验状态，如果是“完成”，就查看解析；如果是“进行中”，就进行测验
+	var attemptstate=commomLab.getQueryParam('attemptstate');
+		attemptstate || (attemptstate='');
+
+	//获取缓存数据
+	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+	window.app = new Vue({
+        el: '#app',
+        data: {
+        	success:true,
+        	msg:'',
+        	isloaded:false,
+        	pageIndex: 0,
+        	questionLen: 0,
+        	attemptid: attemptid,
+        	attemptstate: attemptstate,
+        	attemptData:false,//测验记录列表
+        },
+        created: function () {
+        	this.getAttemptData();
+        },
+        methods:{
+        	//结束异步，关键加载特殊，显示页面内容
+        	showHtml:function(){
+        		var vm=this;
+        		vm.isloaded=true;
+				$.hideIndicator();
+        	},
+        	//设置答题卡的题目的对错class名字
+			getStyleClass:function(state){
+				if(state){
+					if(state=='gradedright'){
+						return 'right';
+					}
+					else if(state=='gradedwrong'){
+						return 'wrong';
+					}
+					else{
+						return '';
+					}
+				}
+			},
+        	//获取测验下的题目列表
+        	getAttemptData:function(){
+        		$.showIndicator();
+
+        		var vm=this;
+        		if(vm.attemptstate=='inprogress'){
+	        		commomLab.ajaxProcess({
+						url: '/gkApp/news/moodleGetAttemptData',
+						data: {
+							attemptid: vm.attemptid,
+							page: vm.pageIndex,
+							token: cacheUserCourseInfo.token
+						}
+					})
+					.done(function(res){
+						if(
+							commomLab.checkAPIResult(res) &&
+							res.data.data.questions &&
+							res.data.data.questions.length>0
+						){
+							var resData=res.data.data;
+
+							//删除描述，保留题目
+							resData.questions=$.grep(resData.questions,function(item){
+							    return item.type!='description'
+							});
+
+							if(vm.pageIndex==0){
+								vm.attemptData=resData;
+							}
+							else if(vm.pageIndex>0){
+								for(var i in resData.questions){
+									vm.attemptData.questions.push(resData.questions[i]);
+								}
+							}
+
+							vm.questionLen=vm.attemptData.questions.length;
+
+							vm.isloaded=!(resData.nextpage>0);
+							if(vm.isloaded){
+								vm.$nextTick(function(){
+									vm.resetDom();
+								});
+							}
+
+							if(resData.nextpage>0){
+								vm.pageIndex=resData.nextpage;
+								vm.getAttemptData();
+							}
+							
+							if(vm.isloaded){
+								vm.showHtml();
+							}
+						}
+						else if(res.data.data.errorcode){
+							vm.success=false;
+							vm.msg=res.data.data.message;
+							vm.showHtml();
+						}
+					})
+					.fail(function(){
+						vm.showHtml();
+					})
+				}
+				else if(vm.attemptstate=='finished'){
+					commomLab.ajaxProcess({
+						url: '/gkApp/news/moodleGetAttemptReview',
+						data: {
+							attemptid: vm.attemptid,
+							token: cacheUserCourseInfo.token
+						}
+					})
+					.done(function(res){
+						if(
+							commomLab.checkAPIResult(res) &&
+							res.data.data.questions &&
+							res.data.data.questions.length>0
+						){
+							var resData=res.data.data;
+
+							//删除描述，保留题目
+							resData.questions=$.grep(resData.questions,function(item){
+							    return item.type!='description'
+							});
+
+							vm.attemptData=resData;
+
+							vm.questionLen=resData.questions.length;
+
+							vm.showHtml();
+							
+							vm.$nextTick(function(){
+								vm.resetDom();
+							});
+						}
+						else if(res.data.data.errorcode){
+							vm.success=false;
+							vm.msg=res.data.data.message;
+							vm.showHtml();
+						}
+					})
+					.fail(function(){
+						vm.showHtml();
+					})
+				}
+				else{
+					vm.success=false;
+					vm.msg='数据查询异常';
+					vm.showHtml();
+				}
+        	},
+        	//答题卡 居中对齐
+			resetDom:function(){
+				var $card=$('.ans-card-list')
+					, cardWith=$card.width()-1
+					, $items=$card.children()
+					, $item=$items.eq(0)
+					, itemWidth=$item.outerWidth(true)+1
+					, counts=$items.length;
+
+				var w=0, m=0;
+				for (var i = 1; i <= counts; i++) {
+					w=itemWidth*i;
+					if(w>cardWith){
+						m=i;
+						break;
+					}
+				}
+
+				if(m>0){
+					$card.css('padding-left', (cardWith-itemWidth*(m-1))/2 );
+				}
+			},
+        }
+    });
+
+    /*
+	var $card=$('.ans-card-list')
+		, cardWith=$card.width()-1
+		, $items=$card.children()
+		, $item=$items.eq(0)
+		, itemWidth=$item.outerWidth(true)+1
+		, counts=$items.length;
+
+	var w=0, m=0;
+	for (var i = 1; i <= counts; i++) {
+		w=itemWidth*i;
+		if(w>cardWith){
+			m=i;
+			break;
 		}
-	})();
+	}
+
+	if(m>0){
+		$card.css('padding-left', (cardWith-itemWidth*(m-1))/2 );
+	}
+	*/
+})();
 </script>

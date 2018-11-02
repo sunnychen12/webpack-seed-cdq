@@ -10,8 +10,8 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta content="telephone=no" name="format-detection">
 	<meta content="email=no" name="format-detection">
-	<link rel="stylesheet" type="text/css" href="css/common.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/common.css?v=1540977274656">
+	<link rel="stylesheet" type="text/css" href="css/main.css?v=1540977274656">
 	
 </head>
 <body>
@@ -79,7 +79,35 @@
 						<ul class="list-unstyled comments-list">
 							<li class="item flex-box">
 								<img src="images/temp1.png?0a3ce" class="img circle">
-								<div class="flex-item overflow-hidden">
+								<div class="flex-item">
+									<div class="flex-box flex-box-justify flex-align-center cnt-top">
+										<div class="replier">张三 老师</div>
+										<span class="reply-to-label" data-role="open-comment-popup" data-type="2:张三老师">
+											回复TA
+										</span>
+									</div>
+									<div class="disc-summary margin-t_5rem">
+										我们的确需要反复去学习才能记得住，那么好的课程单单直播一次有点可惜了！
+										<div class="addon-img-list margin-t_5rem clearfix">
+											<div class="addon-img"><img src="images/temp1.png?0a3ce"></div>
+											<div class="addon-img"><img src="images/temp1.png?0a3ce"></div>
+											<div class="addon-img"><img src="images/temp1.png?0a3ce"></div>
+											<div class="addon-img"><img src="images/temp1.png?0a3ce"></div>
+										</div>
+									</div>
+									<div class="margin-t_5rem font_5rem flex-box flex-box-justify flex-align-center">
+										<span class="time gray9 text-nowrap">3分钟前</span>
+										<div class="text-nowrap">
+											<i class="icomoon gray6 font_75rem">&#xe907;</i>
+											<span class="gray9">1000</span>
+										</div>
+									</div>
+								</div>
+
+							</li>
+							<li class="item flex-box">
+								<img src="images/temp2.png?60e67" class="img circle">
+								<div class="flex-item">
 									<div class="flex-box flex-box-justify flex-align-center cnt-top">
 										<div class="replier">张三 老师</div>
 										<span class="reply-to-label" data-role="open-comment-popup" data-type="2:张三老师">
@@ -101,29 +129,7 @@
 							</li>
 							<li class="item flex-box">
 								<img src="images/temp2.png?60e67" class="img circle">
-								<div class="flex-item overflow-hidden">
-									<div class="flex-box flex-box-justify flex-align-center cnt-top">
-										<div class="replier">张三 老师</div>
-										<span class="reply-to-label" data-role="open-comment-popup" data-type="2:张三老师">
-											回复TA
-										</span>
-									</div>
-									<div class="disc-summary margin-t_5rem">
-										我们的确需要反复去学习才能记得住，那么好的课程单单直播一次有点可惜了！
-									</div>
-									<div class="margin-t_5rem font_5rem flex-box flex-box-justify flex-align-center">
-										<span class="time gray9 text-nowrap">3分钟前</span>
-										<div class="text-nowrap">
-											<i class="icomoon gray6 font_75rem">&#xe907;</i>
-											<span class="gray9">1000</span>
-										</div>
-									</div>
-								</div>
-
-							</li>
-							<li class="item flex-box">
-								<img src="images/temp2.png?60e67" class="img circle">
-								<div class="flex-item overflow-hidden">
+								<div class="flex-item">
 									<div class="flex-box flex-box-justify flex-align-center cnt-top">
 										<div class="replier">张三 老师</div>
 										<span class="reply-to-label" data-role="open-comment-popup" data-type="2:张三老师">
@@ -149,8 +155,11 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="js/common.min.js"></script>
-	<script type="text/javascript" src="js/commonLab.min.js"></script>
+
+	<script type="text/javascript" src="js/common.min.js?v=1540977274656"></script>
+	<script type="text/javascript" src="js/commonLab.min.js?v=1540977274656"></script>
+
+
 <script type="text/template" id="popup-tpl">
 	<div class="popup popup-comment">
 		<div class="full-height flex-box flex-vertical flex-box-justify">
@@ -160,20 +169,21 @@
 		    	<button type="button" class="comment-btn close-popup comment-submit-btn" disabled>发表</button>
 		    </div>
 		    <div class="flex-item popup-comment-body">
-		    	<textarea placeholder="请输入{{type==1?'评论':'回复内容'}}" class="comment-textarea"></textarea>
+		    	<textarea placeholder="请输入{{label}}" class="comment-textarea"></textarea>
 		    </div>
 	    </div>
 	</div>
 </script>
-
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
 <script type="text/javascript">
 	$('.page')
 	.on('click', '[data-role="open-comment-popup"]', function(event) {
 		var data=$(this).data('type').split(':')
-		var popupHTML=template('popup-tpl',{
-			title:(data[0]==2?('回复'+data[1]):data[1]),
-			type:data[0]
-		});
+
+		var popupHTML=$('#popup-tpl').html()
+					.replace(/\{\{title\}\}/ig, (data[0]==2?('回复'+data[1]):data[1]))
+					.replace(/\{\{label\}\}/ig, data[0]==1?'评论':'回复内容');
+
 		var popup=$.popup(popupHTML);
 		$(popup).one('closed', function(event) {
 			//console.log('aa')
@@ -184,6 +194,28 @@
 			$submit.prop('disabled', this.value.length>0?false:true)
 		});
 	})
+	//查看图片大图
+	.on('click', '.addon-img-list img', function(event) {
+		event.preventDefault();
+		var $list=$(this).closest('.addon-img-list').find('img');
+		var index=$list.index(this);
+		var imgUrl=$list.map(function(index, elem) {
+		  return this.getAttribute('data-orient') || this.src;
+		}).get();
+
+		$.photoBrowser({
+		    photos : imgUrl,
+		    theme: 'dark',
+		    type: 'standalone',
+		    lazyLoading:true,
+		    initialSlide:index,
+		    toolbarTemplate:'<nav class="bar bar-tab my-gallery-footer">' +
+		      '<a class="tab-item photo-browser-close-link" href="javascript:;">' +
+		        '返回' +
+		      '</a>' +
+		    '</nav>'
+		}).open();
+	});
 </script>
 
 </body>

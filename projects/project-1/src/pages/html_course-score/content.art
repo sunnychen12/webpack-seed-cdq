@@ -1,0 +1,110 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content">				
+				<div class="total-score">
+					<div class="flex-box flex-box-justify flex-align-center font_75rem">
+						<strong class="score-label">总成绩：</strong>
+						<span class="gray9 font_65rem">本课程包含2学分</span>
+					</div>
+					<div class="flex-box text-center total-score-body">
+					  <div class="flex-item">
+					  	<div class="num">65分</div>
+					  	<div class="label2 aver"><span>分数</span></div>
+					  </div>
+					  <div class="flex-item">
+					  	<div class="num">及格</div>
+					  	<div class="label2 past"><span>总分:100分</span></div>
+					  </div>
+					</div>
+				</div>
+				<div class="text-task-box bg-white">
+					<ul class="list-unstyled">
+						<li class="item">
+							<div class="flex-box flex-align-center">
+								<span class="flex-item task-tit">
+									形考任务一：
+								</span>
+								<a href="course-score-pass-fail.html" class="view-more as-link">查看</a>
+							</div>
+							<div class="flex-box flex-align-center margin-t_7rem">
+								<div class="socre-circle">
+									65分
+								</div>
+								<div class="flex-item tast-txt">
+									<ul class="list-unstyled">
+										<li>考试范围：第一章～第三章</li>
+										<li>权重： 17 %</li>
+										<li>类型： 测验</li>
+										<li>时间：2018 09 11 ~ 10-11</li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li class="item">
+							<div class="flex-box flex-align-center">
+								<span class="flex-item task-tit">
+									形考任务二：
+								</span>
+								<a href="course-score-pass-fail.html" class="view-more as-link">查看</a>
+							</div>
+							<div class="flex-box flex-align-center margin-t_7rem">
+								<div class="socre-circle">
+									80分
+								</div>
+								<div class="flex-item tast-txt">
+									<ul class="list-unstyled">
+										<li>考试范围：第一章～第三章</li>
+										<li>权重： 17 %</li>
+										<li>类型： 测验</li>
+										<li>时间：2018 09 11 ~ 10-11</li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li class="item">
+							<div class="flex-box flex-align-center">
+								<span class="flex-item task-tit">
+									形考任务三：
+								</span>
+								<a href="course-score-pass-fail.html" class="view-more as-link">查看</a>
+							</div>
+							<div class="flex-box flex-align-center margin-t_7rem">
+								<div class="socre-circle">
+									84分
+								</div>
+								<div class="flex-item tast-txt">
+									<ul class="list-unstyled">
+										<li>考试范围：第一章～第三章</li>
+										<li>权重： 17 %</li>
+										<li>类型： 测验</li>
+										<li>时间：2018 09 11 ~ 10-11</li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li class="item">
+							<div class="flex-box flex-align-center">
+								<span class="flex-item task-tit">
+									形考任务四：
+								</span>
+								<a href="course-score-pass-fail.html" class="view-more as-link">查看</a>
+							</div>
+							<div class="flex-box flex-align-center margin-t_7rem">
+								<div class="socre-circle">
+									96分
+								</div>
+								<div class="flex-item tast-txt">
+									<ul class="list-unstyled">
+										<li>考试范围：第一章～第三章</li>
+										<li>权重： 17 %</li>
+										<li>类型： 测验</li>
+										<li>时间：2018 09 11 ~ 10-11</li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>

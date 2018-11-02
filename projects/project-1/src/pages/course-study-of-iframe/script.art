@@ -1,0 +1,77 @@
+<script type="text/javascript">
+;(function(){
+	var token=commomLab.cacheUserCourseInfo.get().token;
+
+	document.title=commomLab.getQueryParam('pagetitle');
+
+	var url=commomLab.getQueryParam('url');//跳转url
+	//document.getElementById('ifrm').src=url+'&token='+token;
+		url=url+'&token='+token;
+
+	var pageid=commomLab.getQueryParam('pageid');//网页活动ID
+		pageid || (pageid=0);
+
+	//文件名，用以鉴别不同的资源
+	var filename=commomLab.getQueryParam('filename');
+		filename || (filename='');
+
+	var def=$.Deferred();
+
+	//如果是图片
+	if(/\.(jpg|jpeg|png|gif|bmp)/i.test(filename)){
+		$(frames['ifrm'].frameElement).remove();
+		$('.content').html('<img src="'+url+'">');
+		def.resolve();
+	}
+	else{
+		$.showIndicator();
+		//解析html代码
+		commomLab.ajaxProcess({
+			url: '/gkApp/news/html2Str',
+			data: {
+				htmlUrl: url
+			}
+		})
+		.done(function(res){
+			if(res.success && res.data){
+				var doc=frames['ifrm'].frameElement.contentWindow.document;
+				doc.body.innerHTML=res.data;
+
+				doc.head.innerHTML='\
+						<meta charset="utf-8">\
+						<meta http-equiv="X-UA-Compatible" content="IE=edge">\
+						<title></title>\
+						<meta name="viewport" content="initial-scale=1, maximum-scale=1">\
+						<style type="text/css">*{box-sizing: border-box;}</style>\
+					';
+				def.resolve();
+			}
+			else{
+				commomLab.myToast({
+		            msg:'资源加载出错'
+		        });
+			}
+		})
+		.fail(function(){
+			commomLab.myToast({
+	            msg:'资源加载出错'
+	        });
+		})
+		.always(function(){
+			$.hideIndicator();
+		})
+	}
+
+	//ended
+	def.done(function(){
+		commomLab.ajaxProcess({
+			url: '/gkApp/news/moodleUpdateActivityCompletionStatusManually',
+			data: {
+				cmid: pageid,
+				completed: 1,
+				token: token
+			}
+		});
+	})
+})();
+</script>

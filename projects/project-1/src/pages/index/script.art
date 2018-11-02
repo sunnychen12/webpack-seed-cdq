@@ -1,9 +1,542 @@
 <script type="text/javascript">
-	$('.page')
-	.on('click', '.course-dt', function(event) {
-		var that=this;
-		var $slidePanel=$(this).next('.course-list');
+;(function(){
+	var username=commomLab.getQueryParam('username');//	学号
+	username || (username='stutest');
 
-		$slidePanel.slideToggle();
-	})
+	var courseCode=commomLab.getQueryParam('courseCode');//课程号
+	courseCode || (courseCode='04384');
+
+	var realname=commomLab.getQueryParam('realname');//真实姓名
+	realname || (realname='张三');
+
+	if(!username && !courseCode && !realname){
+		commomLab.myToast({msg:'参数出错'});
+
+		return;
+	}
+	
+	var app = new Vue({
+        el: '#app',
+        data: {
+        	success:true,
+        	msg:'',
+        	//isShowMore:false,
+            isloaded:false,//是否所有数据都已经加载完毕
+        	hasFinItem:false,
+        	userCourseInfo:false,
+        	actCompleteStatus:{},
+			sectionList:[],
+			newSectionList:[]
+        },
+        created: function () {
+        	this.getData();
+        },
+        computed:{
+        	courseProgress:function(){
+        		if(
+        			this.userCourseInfo &&
+        			this.userCourseInfo.choose &&
+        			this.userCourseInfo.choose.progress
+        		){
+        			return parseFloat(this.userCourseInfo.choose.progress+'').toFixed(2);
+        		}
+        		else{
+        			return 0;
+        		}
+        	},
+        	//上次学到
+        	latestStudy:function(){
+        		var vm=this;
+        		var result=false;
+        		if(
+        			this.actCompleteStatus &&
+        			this.actCompleteStatus.statuses &&
+        			this.actCompleteStatus.statuses.length>0
+        		){
+        			var actStatus=this.actCompleteStatus.statuses;
+        			var targetItem=false, targetItemName='';
+        			for (var i = 0; i < actStatus.length; i++) {
+        				if(i==0){
+        					targetItem=actStatus[0];
+        				}
+        				else if(
+        					actStatus[i].timecompleted>0 &&
+        					actStatus[i].timecompleted > actStatus[i-1].timecompleted
+        				){
+        					targetItem=actStatus[i];
+        				}
+        			};
+
+        			if(targetItem && this.sectionList.length>0){
+        				$.each(vm.sectionList, function(i, section) {
+
+        					if(
+        						section.modulesList &&
+        						section.modulesList.length>0
+        					){
+        						$.each(section.modulesList, function(j, modules) {
+        							if(!targetItem.cmid){
+        								result=modules;
+        								return false;
+        							}
+		        					else if(targetItem.cmid==modules.id){
+		        						targetItemName=modules.name;
+		        						result=modules;
+		        						return false;
+		        					}
+		        				});
+
+		        				if(result){
+		        					return false;
+		        				}
+        					}
+	        				
+	        			});
+        			}
+        		}
+
+        		return result;
+
+        	}
+        },
+        methods:{
+            //结束异步，关键加载特殊，显示页面内容
+            showHtml:function(){
+                var vm=this;
+                vm.isloaded=true;
+                $.hideIndicator();
+            },
+        	getData:function(){
+        		var vm=this;
+        		$.showIndicator();
+
+        		this.getUserCourseInfo(
+        			username,
+        			courseCode,
+        			realname
+        		)
+        		.done(function(res){
+        			if(
+						res.success &&
+						res.data &&
+						res.data.code==200 &&
+						res.data.data &&
+						res.data.data.course &&
+						res.data.data.course.courseId
+					){
+						var resData=res.data.data;
+
+                        resData['realname']=realname;
+
+						//缓存第一个接口的数据
+		          		commomLab.cacheUserCourseInfo.set(resData);
+		          		document.title=resData.course.courseName;
+
+		          		$.showIndicator();
+		          		//获取课程章节活动信息
+		          		var def=$.Deferred();
+		          		commomLab.ajaxProcess({
+							url: '/gkApp/news/moodleGetCourseContents',
+							data: {
+								courseId: resData.course.courseId,
+								token: resData.token
+							},
+							success: function(res2){
+      							if(
+									res2.success &&
+									res2.data &&
+									res2.data.code==200 &&
+									res2.data.data
+								){
+									if(
+										res2.data.data.sectionList &&
+										res2.data.data.sectionList.length>0
+									){
+										vm.userCourseInfo=resData;
+										vm.sectionList=res2.data.data.sectionList;
+
+										//转换数据格式
+										vm.convertData(res2.data.data.sectionList);
+
+										def.resolve();
+										
+									}
+									else{
+										vm.success=false;
+				          				vm.msg='暂无数据';
+                                        vm.showHtml();
+									}
+								}
+								else{
+									vm.success=false;
+				          			vm.msg='数据查询出错';
+                                    vm.showHtml();
+								}
+					        },
+					        error: function (XMLHttpRequest, textStatus, errorThrown) {
+					        	vm.success=false;
+				          		vm.msg='数据查询出错';
+                                vm.showHtml();
+					        }
+						});
+
+						//获取学员完成活动的状态
+						def.done(function(){
+							$.showIndicator();
+							vm.getActivitiesCompletionStatus(
+	        					vm.userCourseInfo.user.id,
+	        					vm.userCourseInfo.course.courseId,
+	        					resData.token
+	        				).done(function(res3){
+	        					if(
+									res3.success &&
+									res3.data &&
+									res3.data.code==200 &&
+									res3.data.data &&
+									res3.data.data.statuses &&
+									res3.data.data.statuses.length>0
+								){
+
+									vm.actCompleteStatus=res3.data.data;
+
+									function searchState(cmid){
+										var r=false;
+										$.each(res3.data.data.statuses, function(index, item) {
+											if(cmid==item.cmid){
+												r=item.state;
+												return false;
+											}
+										});
+
+										return r;
+									}
+
+									$.each(vm.newSectionList, function(r, newSection) {
+										$.each(newSection.group, function(n, section) {
+											$.each(section.modulesList, function(m, module) {
+												var state=searchState(module.id);
+
+												if(state){
+													vm.$set(section.modulesList[m],'state',state)
+													if(!vm.hasFinItem && state==1){
+														vm.hasFinItem=true;
+													}
+												}
+											});
+										});
+									});
+								}
+	        				})
+	        				.always(function(){
+	        					vm.showHtml();
+
+                                vm.$nextTick(function(){
+                                    var $content=$('.content');
+                                    commomLab.moveTop($content);
+
+                                    //滚动定位到之前点击的活动
+                                    var pos=commomLab.cacheIndexScrollPos.get();
+                                    if(pos){
+                                        $content.scrollTop(pos);
+
+                                        commomLab.cacheIndexScrollPos.clear();
+                                    }
+                                });
+	        				});
+        				});
+		          	}
+		          	else{
+		          		vm.success=false;
+		          		vm.msg='数据查询出错';
+                        vm.showHtml();
+		          	}
+        		})
+        		.fail(function(XMLHttpRequest, textStatus, errorThrown){
+        			vm.success=false;
+					vm.msg='数据查询出错';
+                    vm.showHtml();
+        		})
+        	},
+        	convertData:function(sectionList){
+        		var vm=this;
+        		var rootItem=[];
+        		if(sectionList && sectionList.length>0){
+        			//查找根元素
+        			for(var index in sectionList){
+        				if(sectionList[index].parent==''){
+        					rootItem.push(sectionList[index]);
+
+        				}
+        			}
+
+        			//查找子元素
+        			if(rootItem.length>0){
+        				for(var n in rootItem){
+        					rootItem[n]['group']=[];
+	        				for(var m in sectionList){
+		        				if(
+		        					sectionList[m].parent!='' &&
+		        					rootItem[n].id==sectionList[m].parent
+		        				){
+		        					rootItem[n]['group'].push(sectionList[m]);
+		        				}
+		        			}
+	        			}
+        			}
+
+        			//console.log(rootItem);
+        		}
+        		vm.newSectionList=rootItem;
+        	},
+        	//获取学员课程选课信息
+			getUserCourseInfo : function(username,courseCode,realname){
+			    return commomLab.ajaxProcess({
+			      url: '/gkApp/news/moodleGetUserCourseInfo',
+			      data: {
+			        username: username,
+			        courseCode: courseCode,
+			        realname: realname
+			      }
+			    });
+			},
+        	//获取学员完成活动的状态
+        	getActivitiesCompletionStatus:function(userid,courseid,token){
+        		return commomLab.ajaxProcess({
+					url: '/gkApp/news/moodleGetActivitiesCompletionStatus',
+					data: {
+						userid: userid,
+						courseid: courseid,
+						token: token
+					}
+				});
+        	},
+        	//设置不同活动类型的标签颜色
+        	getLableColor:function(modname){
+        		var result='';
+        		switch(modname){
+        			case 'url'://视频
+        				result='#4c8ee0';
+        				break;
+        			case 'page'://网页
+        				result='#ff8126';
+        				break;
+        			case 'quiz'://测验
+        				result='#778ba5';
+        				break;
+        			case 'resource'://资源说明
+        				result='#14a956';
+        				break;
+        			case 'forum'://讨论
+        				result='#655de2';
+        				break;
+        			default:
+        				'#4c8ee0'
+        				break;
+        		}
+        		return result;
+        	},
+        	//根据活动 module 获取活动名称 和 跳转地址
+        	getModuleInfoAbout:function(module){
+        		var result={
+        			name:'',
+        			jumpUrl:''
+        		}
+        		switch(module.modname){
+        			case 'url':
+        				result.name='视频';
+        				result.jumpUrl='course-study-of-video.html?videourl='+
+        					(
+        						(
+        							module.contents &&
+        							module.contents.length>0 &&
+        							module.contents[0].fileurl
+        						)?
+        						module.contents[0].fileurl : ''
+        					)+
+        					'&'+
+        					('videoId='+module.id)+
+        					'&'+
+        					('pagetitle='+module.name);
+        				break;
+        			case 'page':
+        				result.name='网页';
+        				result.jumpUrl='course-study-of-iframe.html?url='+
+        					(
+                                (
+                                    module.contents &&
+                                    module.contents.length>0 &&
+                                    module.contents[0].fileurl
+                                )?
+                                module.contents[0].fileurl : ''
+                            )+
+        					'&'+
+        					('pagetitle='+module.name)+
+        					'&'+
+        					('pageid='+module.id)+
+                            '&'+
+                            'filename='+
+                            (
+                                (
+                                    module.contents &&
+                                    module.contents.length>0 &&
+                                    module.contents[0].filename
+                                )?
+                                module.contents[0].filename : ''
+                            );
+        				break;
+        			case 'quiz':
+        				result.name='测验';
+        				/*
+        				result.jumpUrl='course-study-of-practice.html?'+
+        					('pagetitle='+module.name)+
+        					'&'+
+        					('quizid='+module.instance);
+        					*/
+        				result.jumpUrl='course-study-of-practice-records-list.html?'+
+        					('pagetitle='+module.name)+
+        					'&'+
+        					('quizid='+module.instance);
+        				break;
+        			case 'resource':
+        				result.name='资源说明';
+        				result.jumpUrl='course-study-of-reading.html';
+        				break;
+        			case 'forum':
+        				result.name='讨论';
+        				result.jumpUrl='discussion-index.html';
+        				break;
+        			default:
+        				break;
+        		}
+        		return result;
+        	},
+        	//获取用户测验做题列表
+        	getUserExamList:function(quizid){
+        		return commomLab.ajaxProcess({
+					url: '/gkApp/news/moodleGetUserAttempts',
+					data: {
+						quizid: quizid,
+						token: commomLab.cacheUserCourseInfo.get().token
+					}
+				});
+        	},
+        	//判断是否可以进入“测验”活动
+        	checkQuizAccess:function(quizid){
+        		return commomLab.ajaxProcess({
+					url: '/gkApp/news/moodleGetQuizAccessInformation',
+					data: {
+						quizid: quizid,
+						token: commomLab.cacheUserCourseInfo.get().token
+					}
+				});
+        	},
+        	getModuleHref:function(module,event){
+        		var vm=this;
+
+                //标签类型，不对处理
+                if(module.modname=='label'){
+                    return
+                }
+
+                //视频 / 测验 活动
+                else if(module.modname=='url' || module.modname=='quiz'){
+                    if(module.contents){
+                        if(
+                            module.contents.length==0 ||
+                            !module.contents[0].fileurl ||
+                            module.contents[0].fileurl.length==0
+                        ){
+                            commomLab.myToast({
+                                msg:'资源地址为空'
+                            });
+                            return;
+                        }
+                    }
+                    else if(module.availabilityinfo){
+                        //视频
+                        if(module.modname=='url'){
+                            $.alert('专题内视频需按顺序进行学习，请先观看上一视频。');
+                        }
+                        //测验
+                        else if(module.modname=='quiz'){
+                            $.alert('请先观看完成本专题内的视频，再进行专题测验。');
+                        }
+                        return;
+                    }
+                }
+
+
+        		var jumpUrl=this.getModuleInfoAbout(module).jumpUrl;
+        		//测验 类型活动
+        		if(module.modname=='quiz'){
+        			$.showIndicator();
+        			this.checkQuizAccess(module.instance)
+        			.done(function(res){
+        				if(
+							res.success &&
+							res.data &&
+							res.data.code==200 &&
+							res.data.data &&
+							res.data.data.canattempt
+						){
+                            //允许测试次数
+                            var count=res.data.data.accessrules;
+
+                            if(count && count.length>0){
+                                location.href=jumpUrl+'&permitTestTimes='+count[0].split('：')[1];
+                            }
+							else{
+                                location.href=jumpUrl;
+                            }
+						}
+						else{
+							commomLab.myToast({
+								msg:res.data.data.message
+							})
+						}
+        			})
+        			.fail(function(){
+        				commomLab.myToast({
+							msg:'数据查询出错'
+						})
+        			})
+        			.always(function(){
+        				$.hideIndicator();
+        			});
+        		}
+
+        		else{
+        			location.href=jumpUrl;
+        		}
+        		
+                //缓存点击访问的活动的ID字段值
+                commomLab.cacheIndexScrollPos.set($('.content').scrollTop());
+        	},
+        	/*
+        	viewMore:function(event){
+        		var $wrapper=$('.content');
+				$wrapper.css('overflow-y', 'auto');
+	        	this.isShowMore=false;
+        	},
+        	*/
+        	slidePanel:function(event){
+        		var that=event.currentTarget;
+				var $slidePanel=$(that).next();
+
+				var $p=$(that).parent();
+				if(!$p.hasClass('expand-box')){
+					$p.addClass('expand-box');
+				}
+				else{
+					$p.removeClass('expand-box');
+				}
+
+				$slidePanel.slideToggle();
+        	}
+        }
+    });
+
+    //点击向上滚动
+    
+})();
 </script>

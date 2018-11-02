@@ -1,0 +1,100 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<template v-if="isloaded">
+				<div class="bar bar-footer-btn padding-none" v-if="success">
+					<div class="flex-box flex-align-center" v-if="permitTestTimes==-1 || permitTestTimes>attemptLen">
+						<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" @click="startAttempt">
+							开始测验
+						</button>
+					</div>
+					<div class="flex-box flex-align-center" v-else>
+						<a href="javascript:;" @click="leavePage" class="flex-item button button-big button-fill border-none flat btn-prev">不允许再试，返回</a>
+					</div>
+				</div>
+				<div class="content bg-white">				
+					<template v-if="success">
+						<div class="arc-area">
+							<div class="area-bg"></div>
+							<div class="flex-box flex-vertical flex-box-justify-center flex-align-center txt">
+								<h1 class="font-1rem margin-none text-no-bold txt1">模块测试</h1>
+								<div class="margin-t_7rem" v-if="graderaw>=0">
+									<span class="txt2">{{graderaw}}</span>
+									<span class="txt3">分</span>
+								</div>
+								<div class="margin-t_7rem" v-else>
+									<span class="txt3">未作答</span>
+								</div>
+							</div>
+
+							<a href="javascrpt:;" class="button flex-box flex-box-justify-center" v-if="permitTestTimes==-1 || permitTestTimes>attemptLen" @click="startAttempt">
+								<span>开始测验</span>
+								<span class="icon icon-right margin-l_3rem"></span>
+							</a>
+							<a href="javascrpt:;" class="button flex-box flex-box-justify-center" v-else>
+								<span>测试机会已用完</span>
+								<span class="icon icon-right margin-l_3rem"></span>
+							</a>
+
+						</div>			
+						<div class="padding_75rem">
+							<div class="flex-box flex-box-justify border-bottom padding-b_5rem padding-t_5rem">
+								<div class="font_75rem">测验记录</div>
+
+								<div class="font_65rem gray9">
+									<template v-if="permitTestTimes>=attemptLen">
+										还有{{permitTestTimes-attemptLen}}次机会
+									</template>
+									<template v-else-if="permitTestTimes==-1">
+										无限次机会
+									</template>
+								</div>
+							</div>
+							<div class="margin-t_7rem padding-t_5rem">
+								<div class="test-record-list" v-if="attemptData">
+									<dl class="test-record-item" v-for="(attemptRecord,index) in attemptData.attempts">
+										<dt>
+											<span v-if="attemptRecord.timefinish>0">{{formatDate(attemptRecord.timefinish*1000)}}</span>
+											<span v-else>--</span>
+										</dt>
+										<dd class="flex-box flex-align-center" @click="jumpController(attemptRecord, $event)">
+											<span class="icon icon-right"></span>
+											<div class="flex-item text-center">
+												<div class="txt1">
+													{{(attemptRecord.sumgrades>0 || attemptRecord.sumgrades===0)?attemptRecord.sumgrades:'--'}}
+												</div>
+												<div class="txt2">测验的分/100</div>
+											</div>
+											<div class="flex-item text-center">
+												<div class="txt1">
+													{{attemptRecord.itemGrade}}
+												</div>
+												<div class="txt2">成绩/{{gradeMax}}</div>
+											</div>
+										</dd>
+									</dl>
+								</div>
+								<div class="text-center" style="margin-top:2rem;" v-else>
+				    				<img src="../../images/no-data.png" width="45%" class="center-block">
+				    				<div class="gray9 margin-t_7rem font_75rem">
+				    					还没有测验记录哦~
+				    				</div>
+				    			</div>
+								<div class="font_55rem text-center gray" style="margin-top:1rem;">
+									<span>
+									说明：允许试答次数：{{permitTestTimes==-1?'不限':permitTestTimes}}
+									</span>
+									<span class="margin-l_75rem">
+										评分方法：最高分
+									</span>
+								</div>
+							</div>
+						</div>
+					</template>
+					<div class="text-center" style="margin:2.6rem 1rem;" v-else>
+						<i class="icomoon vertical-middle gray9" style="font-size:3.6rem;">&#xe904;</i>
+						<div class="font_75rem text-center margin-t-1rem">{{msg}}</div>
+					</div>
+				</div>
+			</template>
+		</div>
+	</div>

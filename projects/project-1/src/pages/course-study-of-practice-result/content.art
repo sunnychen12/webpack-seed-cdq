@@ -1,47 +1,48 @@
 	<div class="page-group">
-		<div class="page page-current">
-			<div class="bar bar-footer-btn padding-none">
-			  <div class="flex-box flex-align-center">
-			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev">查看解析</button>
-			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-next">重做一次</button>
-			  </div>
-			</div>
-			<div class="content">
-				<div class="text-center" style="margin:1rem;">
-					<i class="icomoon vertical-middle text-blue" style="font-size:2rem;">&#xe903;</i>
-					<span class="inline-block vertical-middle" style="font-size:1.2rem;">完成</span>
-					<div class="font_65rem margin-t_7rem gray9 line-height-1_75">
-						测试要求达60分以上，才算完成，<br>
-						您当前最高得分82
-					</div>
+		<div class="page page-current" id="app" v-cloak>
+			<template v-if="isloaded">
+				<div class="bar bar-footer-btn padding-none">
+				  <div class="flex-box flex-align-center">
+				  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" @click="viewAnalyze">查看解析</button>
+				  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-next" @click="leavePage">离开</button>
+				  </div>
 				</div>
+				<div class="content">
+					<div class="text-center" style="margin:1rem;">
+						<template v-if="questionMarkRight>=60">
+							<i class="icomoon vertical-middle text-blue" style="font-size:2rem;">&#xe903;</i>
+							<span class="inline-block vertical-middle" style="font-size:1.2rem;">完成</span>
+						</template>
+						<template v-else>
+							<i class="icomoon vertical-middle text-red" style="font-size:2rem;">&#xe904;</i>
+							<span class="inline-block vertical-middle" style="font-size:1.2rem;">未完成</span>
+						</template>
 
-				<div class="bg-white padding_75rem">
-					<div class="loadmore-line">
-						<span>答题情况</span>
+						<div class="font_65rem margin-t_7rem gray9 line-height-1_75">
+							测试要求达60分以上，才算完成
+						</div>
 					</div>
-					<div class="font_75rem margin-t_7rem">
-						本次测验搭82分，您已达本次测试要求。<br>
-						具体情况如下:<br>
-						共35题、100分，您答对了33题、得分82分。
-					</div>
-					<div class="margin-t_7rem">
-						<ul class="list-unstyled clearfix ans-card-list">
-							<li class="right">1</li>
-							<li class="right">2</li>
-							<li class="right">3</li>
-							<li class="wrong">4</li>
-							<li class="right">5</li>
-							<li class="wrong">6</li>
-							<li class="wrong">7</li>
-							<li>8</li>
-							<li>9</li>
-							<li>10</li>
-							<li class="wrong">11</li>
-							<li class="wrong">12</li>
-						</ul>
+
+					<div class="bg-white padding_75rem">
+						<div class="loadmore-line">
+							<span>答题情况</span>
+						</div>
+						<div class="font_75rem margin-t_7rem">
+							本次测验得{{questionMarkRight}}分，您{{questionMarkRight>=60?'已达到':'未达到'}}本次测试要求。<br>
+							具体情况如下:<br>
+							共{{questionLen}}题、{{totalMark}}分，您答对了{{questionRightLen}}题、得分{{questionMarkRight}}分。
+						</div>
+						<div class="margin-t_7rem">
+							<ul class="list-unstyled clearfix ans-card-list" v-if="attemptData.questions && attemptData.questions.length>0">
+								<template v-for="(question,index) in attemptData.questions">
+									<li :class="getStyleClass(question.state)">
+										{{question.number}}
+									</li>
+								</template>
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
+			</template>
 		</div>
 	</div>

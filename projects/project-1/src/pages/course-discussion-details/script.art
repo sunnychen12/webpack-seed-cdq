@@ -7,7 +7,7 @@
 		    	<button type="button" class="comment-btn close-popup comment-submit-btn" disabled>发表</button>
 		    </div>
 		    <div class="flex-item popup-comment-body">
-		    	<textarea placeholder="请输入{{type==1?'评论':'回复内容'}}" class="comment-textarea"></textarea>
+		    	<textarea placeholder="请输入{{label}}" class="comment-textarea"></textarea>
 		    </div>
 	    </div>
 	</div>
@@ -17,10 +17,11 @@
 	$('.page')
 	.on('click', '[data-role="open-comment-popup"]', function(event) {
 		var data=$(this).data('type').split(':')
-		var popupHTML=template('popup-tpl',{
-			title:(data[0]==2?('回复'+data[1]):data[1]),
-			type:data[0]
-		});
+
+		var popupHTML=$('#popup-tpl').html()
+					.replace(/\{\{title\}\}/ig, (data[0]==2?('回复'+data[1]):data[1]))
+					.replace(/\{\{label\}\}/ig, data[0]==1?'评论':'回复内容');
+					
 		var popup=$.popup(popupHTML);
 		$(popup).one('closed', function(event) {
 			//console.log('aa')

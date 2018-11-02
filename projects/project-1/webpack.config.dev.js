@@ -13,12 +13,14 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const prepareProj=require( path.resolve(__dirname, 'src/modules/prepareProj.dev.js') );
+const globalJSON = require( path.resolve(__dirname, "globalJSON.js") );
+
+const prepareProj=require( path.resolve(globalJSON.srcPath, 'modules/prepareProj.dev.js') );
 
 //const myPlugin=require( path.resolve(__dirname, 'src/modules/myPlugin.js') );
 
 module.exports= env => {
-    let paseBasePath = path.resolve(__dirname, 'src/pages');
+    let paseBasePath = path.resolve(globalJSON.srcPath, 'pages');
 
     //process.cwd()返回的是当前Node.js进程执行时的工作目录
     let pages=require( path.resolve(process.cwd(), 'modules/getChildrenDir.js') ).getChildrenDir( paseBasePath );
@@ -27,10 +29,10 @@ module.exports= env => {
     let isDevelopment=env.NODE_ENV=='development';
     let isNormalProduction=env.NODE_ENV=='production.normal';
 
-    let devPath='F:\\webpack-test\\test';
+    let devPath=globalJSON.devPath;
 
     //生成html前的准备与清理工作
-    prepareProj(isProduction,__dirname,path.resolve(devPath));
+    prepareProj(isProduction);
 
     let pluginsConfig=[
             new webpack.ProvidePlugin({
@@ -43,13 +45,13 @@ module.exports= env => {
                     //拷贝 脚本
                     {
                         // 源文件目录
-                        from: path.resolve(__dirname, "src/js/commonLab.js"),
+                        from: path.resolve(globalJSON.srcPath, "js/commonLab.js"),
                         // 目标目录 dist目录下
                         to: path.resolve(devPath, 'js/commonLab.js')
                     },
                     {
                         // 源文件目录
-                        from: path.resolve(__dirname, 'src/assets/js/**/*.js'),
+                        from: path.resolve(globalJSON.srcPath, 'assets/js/**/*.js'),
                         // 目标目录 dist目录下
                         to: path.resolve(devPath, 'assets/js/[name].[ext]'),
                         ignore: [
@@ -65,13 +67,13 @@ module.exports= env => {
                     //拷贝 图片
                     {
                         // 源文件目录
-                        from: path.resolve(__dirname, 'src/images'),
+                        from: path.resolve(globalJSON.srcPath, 'images'),
                         // 目标目录 dist目录下
                         to: path.resolve(devPath, 'images')
                     },
                     {
                         // 源文件目录
-                        from: path.resolve(__dirname, 'src/css/images'),
+                        from: path.resolve(globalJSON.srcPath, 'css/images'),
                         // 目标目录 dist目录下
                         to: path.resolve(devPath, 'css/images')
                     },
@@ -79,7 +81,7 @@ module.exports= env => {
                     //拷贝 字体
                     {
                         // 源文件目录
-                        from: path.resolve(__dirname, 'src/css/fonts'),
+                        from: path.resolve(globalJSON.srcPath, 'css/fonts'),
                         // 目标目录 dist目录下
                         to: path.resolve(devPath, 'css/fonts'),
                         ignore: [
@@ -89,14 +91,14 @@ module.exports= env => {
                     },
                     {
                         // 源文件目录
-                        from: path.resolve(__dirname, 'src/assets/css/font'),
+                        from: path.resolve(globalJSON.srcPath, 'assets/css/font'),
                         // 目标目录 dist目录下
                         to: path.resolve(devPath, 'css/font')
                     },
 
                     {
                         // 源文件目录
-                        from: path.resolve(__dirname, 'src/assets/css/sm-extend.min.css'),
+                        from: path.resolve(globalJSON.srcPath, 'assets/css/sm-extend.min.css'),
                         // 目标目录 dist目录下
                         to: path.resolve(devPath, 'assets/css/sm-extend.min.css')
                     },
@@ -104,7 +106,7 @@ module.exports= env => {
                     //拷贝 html
                     {
                         // 源文件目录
-                        from: path.resolve(__dirname, 'src/assets/html'),
+                        from: path.resolve(globalJSON.srcPath, 'assets/html'),
                         // 目标目录 dist目录下
                         to: path.resolve(devPath, 'assets/html')
                     }
@@ -120,35 +122,38 @@ module.exports= env => {
 
     pages.forEach(function(page){
 
-        pluginsConfig.push(
-            new HtmlWebpackPlugin({
-                filename: path.resolve(devPath, `${page}.html`),
-                //pageTitle:`${page} pageTitle`,//自定义
-                title:`${page}`,
-                template: paseBasePath+'/'+page+'/template.js',
-                inject: false,
-                chunks: ['main'],
-                chunksSortMode:'manual'
-            })
-        )
+        //只生成开发版的
+        if(page.indexOf('html_')==-1){
+            pluginsConfig.push(
+                new HtmlWebpackPlugin({
+                    filename: path.resolve(devPath, `${page}.html`),
+                    //pageTitle:`${page} pageTitle`,//自定义
+                    title:`${page}`,
+                    template: paseBasePath+'/'+page+'/template.js',
+                    inject: false,
+                    chunks: ['main'],
+                    chunksSortMode:'manual'
+                })
+            )
+        }
     })
 
     //pluginsConfig.push(new myPlugin({ options: '' }));
 
     return {
         entry:{
-            main: [path.join(__dirname, 'src/js/main.js')]
+            main: [path.join(globalJSON.srcPath, 'js/main.js')]
         },
 
         output:{
-            path:path.resolve(devPath),
+            path: devPath,
             filename:"js/[name].js"
             //,publicPath: "https://cdn.example.com/assets/"
         },  
         //devtool: 'inline-source-map',//调试用
         //启动webpack自带的服务器
         devServer: {
-            contentBase: path.join(__dirname, "dist"),
+            contentBase: globalJSON.distPath,
             compress: true,
             inline : true,
             headers: {
@@ -167,7 +172,7 @@ module.exports= env => {
             poll:500,//监测修改的时间(ms)
             aggregateTimeout:500, //防止重复按键，500毫米内算按键一次
             //ignored:['projects/**/dist/**', 'node_modules']///不监测
-            ignored:['node_modules',path.join(__dirname, "svg")]///不监测
+            ignored:['node_modules',path.join(globalJSON.srcPath, "css/fonts/svg")]///不监测
         },
         optimization: {
             

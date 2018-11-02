@@ -4,8 +4,21 @@
 }
 .border{
 	border: @border-color 1px solid;
+	>thead>tr,
+	>tbody>tr{
+		&>th,
+		&>td{
+			border: @border-color 1px solid;
+		}
+	}
 }
 .border-left{
 	border-left: @border-color 1px solid;
+}
+.border-top{
+	border-top: @border-color 1px solid;
+}
+.border-bottom{
+	border-bottom: @border-color 1px solid;
 }
 /*************边框 end*************/

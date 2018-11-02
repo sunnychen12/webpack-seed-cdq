@@ -5,7 +5,13 @@
 </head>
 <body>
 <%= content %>
-${require('../commonScript/commonScript.txt')}
+<%
+	var commonScript=require('../commonScript/commonScript.txt');
+	commonScript=commonScript.replace(/\{\{timemap\}\}/gm, new Date().getTime() )
+%>
+<%= commonScript %>
+
+
 <%= script %>
 <%= footer %>
 </body>

@@ -2,8 +2,8 @@
 		<div class="page page-current">
 			<div class="content">				
 				<div class="flex-box flex-vertical full-height">
-					<div>
-						<video class="video-player" src="http://video.eenet.com/resourse/gkzx/01gxx.mp4"
+					<div style="background:#000;">
+						<video class="video-player" src=""
 							x5-playsinline 
 							playsinline 
 							-webkit-playsinline 
@@ -11,14 +11,38 @@
 							style="height:10rem;"
 						></video>
 					</div>
+					<ul class="tabs-video list-unstyled">
+						<li class="item actived"><span>文档</span></li>
+						<li class="item"><span>聊天</span></li>
+						<li class="item"><span>问答</span></li>
+					</ul>
 					<div class="flex-item bg-white" style="overflow-y: auto;">
-						<div class="padding_75rem">
-							<h1 class="font_85rem margin-none">马戛尔尼访华</h1>
-							<div class="artical-content margin-t_3rem">
-								乾隆五十八年(1793)，英国马戛尔尼使团以为乾隆帝祝
-								寿的名义来到中国。这是到达中国的第一个英国外交使
-								团，是中英之间最重要的一次早期交往，堪称中西关系
-								史上的重大事件。
+						<div class="swiper-container padding-none position-relative full-height">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<div class="flex-box flex-vertical flex-box-justify-center flex-align-center full-height">
+					    				<img src="../../images/no-data.png" width="45%" class="center-block">
+					    				<div class="gray9 margin-t_7rem font_75rem">
+					    					暂无文档信息
+					    				</div>
+					    			</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="flex-box flex-vertical flex-box-justify-center flex-align-center full-height">
+					    				<img src="../../images/no-data.png" width="45%" class="center-block">
+					    				<div class="gray9 margin-t_7rem font_75rem">
+					    					暂无聊天信息
+					    				</div>
+					    			</div>
+								</div>
+								<div class="swiper-slide">
+									<div class="flex-box flex-vertical flex-box-justify-center flex-align-center full-height">
+					    				<img src="../../images/no-data.png" width="45%" class="center-block">
+					    				<div class="gray9 margin-t_7rem font_75rem">
+					    					暂无问答信息
+					    				</div>
+					    			</div>
+								</div>
 							</div>
 						</div>
 					</div>

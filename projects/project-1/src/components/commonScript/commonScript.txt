@@ -1,2 +1,2 @@
-	<script type="text/javascript" src="js/common.min.js"></script>
-	<script type="text/javascript" src="js/commonLab.min.js"></script>
+	<script type="text/javascript" src="js/common.min.js?v={{timemap}}"></script>
+	<script type="text/javascript" src="js/commonLab.min.js?v={{timemap}}"></script>
