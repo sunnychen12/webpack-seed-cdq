@@ -24,6 +24,7 @@ const prepareFiles=function(){
                       path.join(globalJSON.srcPath, 'assets/js/zepto.min.js'),
                       path.join(globalJSON.srcPath, 'assets/js/sm-config.js'),
                       path.join(globalJSON.srcPath, 'assets/js/sm.min.js'),
+                      path.join(globalJSON.srcPath, 'assets/js/vue.js'),
                       //path.join(globalJSON.srcPath, 'assets/js/template.js')
                   ],  path.join(globalJSON.distPath, 'js/common.js'), function(err) {
                       if (err) throw err

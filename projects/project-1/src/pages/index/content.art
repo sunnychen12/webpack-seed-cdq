@@ -1,7 +1,7 @@
 	<div class="page-group">
 		<div class="page page-current" id="app" v-cloak>
 			<template v-if="isloaded">
-				<template v-if="userCourseInfo">
+				<template v-if="success && userCourseInfo">
 					<div class="bar bar-footer-btn padding-none border-top">
 						<a :href="getModuleInfoAbout(latestStudy).jumpUrl" class="flex-box flex-align-center full-height flex-box-justify-center padding-l_75rem padding-r_75rem gray6">
 							<span v-if="courseProgress>0" class="text-ellipsis font_75rem">上次学到：{{latestStudy.name}}</span>
@@ -13,38 +13,14 @@
 					
 					<div class="content bg-white">
 						<div data-role="content">
-							<!--
-								<div class="course-study-header position-relative" style="min-height:7rem"
-										v-if="userCourseInfo"
-									>
-									<div class="position-absolute full-width full-height flex-box flex-vertical flex-box-justify-center">
-										<template v-if="courseProgress>0">
-											<div class="font_85rem text-center line-height-1_4 padding-l_5rem padding-r_5rem text-ellipsis">上次学到：{{latestStudy.name}}</div>
-											<div class="margin-t_3rem padding-l_75rem padding-r_75rem flex-box flex-box-justify-center flex-align-center">
-												<div class="progress-trail" style="width:65%;">
-													<div class="progress-bar" :style="{width: courseProgress+'%'}"></div>
-												</div>
-												<div class="font_5rem margin-l_5rem">
-													{{courseProgress+'%'}}
-												</div>
-											</div>
-											<div class="margin-t_7rem text-center">
-												<a :href="getModuleInfoAbout(latestStudy).jumpUrl" class="button button-round button-white inline-block font_65rem" style="width:8em;">继续学习</a>
-											</div>
-										</template>
-										<template v-else>
-											<div class="text-center">
-												<a :href="getModuleInfoAbout(latestStudy).jumpUrl" class="button button-round button-white inline-block font_65rem" style="width:8em;">开始学习</a>
-											</div>
-										</template>
-									</div>
-								</div>
-							-->
+							<!--课程banner图-->
 							<div :style="{
 									'background':'url('+userCourseInfo.course.courseImg+') no-repeat center top/auto 100%',
 									'height':'7rem'
-								}" v-if="userCourseInfo.course.courseImg">
-
+								}" v-if="userCourseInfo.course.courseImg" class="course-banner position-relative" :data-bg="userCourseInfo.course.courseImg">
+								<div class="position-absolute full-width full-height bg-gray">
+									<div class="preloader position-absolute" style="left:50%;top:50%;margin:-.5rem 0 0 -.5rem"></div>
+								</div>
 							</div>
 							<div class="position-relative padding_75rem" v-if="success">
 								<div :class="[
@@ -87,8 +63,8 @@
 																		v-for="(module,k2,i2) in section.modulesList"
 																	>
 																	<label class="course-label label label-blue" :style="{'background':getLableColor(module.modname)}" v-if="module.modname!='label'">{{getModuleInfoAbout(module).name}}</label>
-																	<div class="flex-item flex-box flex-align-center course-item-cnt">
-																		<span class="flex-item">{{module.name}}</span>
+																	<div class="flex-item course-item-cnt">
+																		{{module.name}}
 																	</div>
 																</a>
 															</div>
@@ -112,6 +88,9 @@
 						</div>
 					</div>
 				</template>
+				<div class="content" v-else>
+					${require('../../components/com/errorTips.txt')}
+    			</div>
 			</template>
 		</div>
 	</div>

@@ -1,0 +1,215 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+<script type="text/javascript">
+    //图片上传
+;(function() {
+    var userName=commomLab.getQueryParam('userName');// 学号
+        userName || (userName=commomLab.faqDefaultParams.userName);
+
+    var studentId=commomLab.getQueryParam('studentId');//学员ID
+        studentId || (studentId=commomLab.faqDefaultParams.studentId);
+
+    var signature=commomLab.faqDefaultParams.signature;//签名
+
+    if(!userName && !studentId && !signature){
+        commomLab.myToast({msg:'参数出错'});
+
+        return;
+    }
+
+    var baseParams={
+        userName: userName,
+        studentId: studentId,
+        signature: signature
+    };
+    var params={
+        feedBackTitle:'',//标题
+        feedBackText:'',//反馈内容
+        feedBackType:'1',
+        contacWay:2,//联系方式 1、QQ 2、手机号码 3、邮件
+        contactNumber:'',//联系号码
+        imgUrls:[]//图片附件
+    }
+
+    $.extend(params,baseParams);
+
+    window.app = new Vue({
+        el: '#app',
+        data: params,
+        methods:{
+            tabs:function(contacWay){
+                var vm=this;
+                vm.contacWay=contacWay;
+                vm.contactNumber='';
+            },
+            //提交表单
+            submitForm:function(event){
+                var vm=this;
+                if( commomLab.checkform( $('[data-id="theform"]') ) ){
+
+                    $.showIndicator();
+                    
+                    var imgUrlDoms=document.theform['imgUrls'];
+
+                    if(imgUrlDoms && imgUrlDoms.length>0){
+                        vm.imgUrls=$.map(imgUrlDoms,function(item,index){
+                                return item.value;
+                            })
+                    }
+                    
+                    //发帖
+                    commomLab.ajaxProcess({
+                        type:'POST',
+                        url: '/api/stud/space/postFeedBackInfo.json',
+                        data: params
+                    })
+                    .done(function(res){
+                        if(
+                            commomLab.checkAPIResult(res)
+                        ){
+                            var resData=res.data;
+                            if(resData.code!=5){
+                                commomLab.myToast({
+                                    msg:resData.msg
+                                });
+                            }
+                            else{
+                                commomLab.myToast({
+                                    msg:'提交成功'
+                                },function(){
+                                    location.replace('my-faq.html?'+$.param(baseParams))
+                                })
+                            }
+                        }
+                        else{
+                            commomLab.myToast({
+                                msg:'提交失败'
+                            })
+                        }
+                    })
+                    .fail(function(){
+                        commomLab.myToast({
+                            msg:'提交失败'
+                        })
+                    })
+                    .always(function(){
+                        $.hideIndicator();
+                    })
+                    
+                }
+            }
+        }
+    });
+
+
+    var count = 0;
+    $('.page').on('click', '.weui-uploader__file', function(e) {
+        var _this = this;
+        var url = $(_this).children('input').val();
+        var myPhotoBrowserCaptions = $.photoBrowser({
+            photos: [url],
+            theme: 'dark',
+            type: 'standalone',
+            navbarTemplate: ' ',
+            toolbarTemplate: '<nav class="bar bar-tab my-gallery-footer">' + '<a class="tab-item" href="javascript:;" data-role="remove-ga-pic">' + '删除' + '</a>' + '<a class="tab-item photo-browser-close-link" href="javascript:;">' + '返回' + '</a>' + '</nav>'
+        });
+        myPhotoBrowserCaptions.open();
+        $('[data-role="remove-ga-pic"]').click(function(event) {
+            event.preventDefault();
+            $(_this).remove();
+            myPhotoBrowserCaptions.close();
+        });
+    }).on("click", '#uploaderInput', function(e) {
+        e.preventDefault();
+        createUploadIframe();
+        ++count;
+        frames['ifr'].document.getElementById('file').click();
+    })
+    //查看图片大图
+    .on('click', '.addon-img-list img', function(event) {
+        event.preventDefault();
+        var $list=$(this).closest('.addon-img-list').find('img');
+        var index=$list.index(this);
+        var imgUrl=$list.map(function(index, elem) {
+          return this.getAttribute('title') || this.src;
+        }).get();
+
+        $.photoBrowser({
+            photos : imgUrl,
+            theme: 'dark',
+            type: 'standalone',
+            lazyLoading:true,
+            initialSlide:index,
+            toolbarTemplate:'<nav class="bar bar-tab my-gallery-footer">' +
+              '<a class="tab-item photo-browser-close-link" href="javascript:;">' +
+                '返回' +
+              '</a>' +
+            '</nav>'
+        }).open();
+    });
+    //图片回调处理方法（跨域上传图片时，图片上传后需要调用的方法）
+    window.imgCallback = function(ajaxFilelist) {
+        if (ajaxFilelist && ajaxFilelist.resultList && ajaxFilelist.resultList.length > 0) {
+            $.each(ajaxFilelist.resultList, function(index, node) {
+                var $item = $('.weui-uploader__file[data-upload-id="' + count + '_' + index + '"]');
+                $item.removeClass('weui-uploader__file_status').html('<input type="hidden" name="imgUrls" value="#url#">'.replace(/#url#/g, node.FILE_PATH))
+            });
+        }
+    }
+    window.createUploadIframe = function() {
+        var ifrm = $('#ifr');
+        if (ifrm) {
+            ifrm.remove();
+        }
+        $('body').append('<iframe id="ifr" name="ifr" src="about:blank" style="display:none;"></iframe>');
+        ifrm = document.getElementById('ifr');
+        var doc = ifrm.contentWindow.document;
+        doc.open();
+        doc.write('\
+            <html>\
+              <head></head>\
+              <body>\
+                <form id="submitForm" name="submitForm" method="post" enctype="multipart/form-data" action="http://eefile.gzedu.com/ossupload/uploadInterface.do">\
+                  <input type="file" name="files" id="file" accept="image/*" multiple>\
+                  <input type="hidden" name="formMap.FILE_TYPE" value="files">\
+                  <input type="hidden" name="formMap.origin" value="{{basePath}}/assets/html/uploadIframe.html">\
+                  <input type="hidden" name="formMap.filecwd" value="/APP038/xj/image">\
+                  <input type="hidden" name="formMap.ACCESS_KEY_ID" value="b49ca70bac1082b01318bd3cecf317e4">\
+                  <input type="hidden" name="formMap.ACCESS_KEY_SECRET" value="17b16aedf2f46e32ccfbd6049090925f">\
+                </form>\
+              </body>\
+            </html>\
+          '.replace('{{basePath}}',location.href.substring(0,location.href.lastIndexOf('/')))
+        );
+        doc.close();
+        //显示图片
+        $(ifrm.contentWindow.document).find('#file').on('change', function(e) {
+            e.preventDefault();
+            
+            var tmpl = '<li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(#url#)"  data-upload-id="#id#"><div class="weui-uploader__file-content"> <i class="weui-loading" style="width:30px;height:30px"></i> </div></li>';
+            var src, url = window.URL || window.webkitURL || window.mozURL,
+                files = e.target.files;
+            if (files.length > 5) { // 防止一下子选择过多文件
+                commomLab.myToast({msg:'最多只能上传5张图片，请重新选择'});
+                return;
+            }
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+                $("#uploaderFiles").append(tmpl.replace('#url#', src).replace('#id#', count + '_' + i));
+            }
+            var ifrm = document.getElementById('ifr');
+            var doc = ifrm.contentWindow.document;
+            doc.forms.submitForm.submit();
+        });
+    }
+
+    //监控浏览器后退
+    window.addEventListener("popstate", function(e) {
+        location.replace('my-faq.html?'+$.param(baseParams));
+    }, false);
+})();
+</script>

@@ -1,0 +1,36 @@
+<script type="text/javascript">
+	//搜索交互
+	$('#search').on('focus',function(){
+		$(this).siblings('.tip').hide();
+		$(this).siblings('.search_btn').css('display','block');	
+	})
+	.on('blur',function(){
+		if($(this).val() == ''){
+			$(this).siblings('.tip').show();
+			$(this).siblings('.search_btn').css('display','none');	
+		};
+	});
+
+	//提交搜索
+	$('#searchBtn').on('click',function(){
+		$('#searchForm').submit();
+	});
+
+	$('#searchForm').on('submit',function(event){
+		event.preventDefault();
+
+		$.showIndicator();
+		setTimeout(function () {
+			$.hideIndicator();
+		    $('#search').val('').blur();
+		}, 1000);
+	});
+
+	$('.page').on('click','.faq_list_dl dt',function(){
+		if(!$(this).parent().hasClass('cur')){
+			$(this).parent().addClass('cur');
+		}else{
+			$(this).parent().removeClass('cur');
+		}
+	});
+</script>

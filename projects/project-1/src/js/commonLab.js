@@ -133,8 +133,18 @@ var commomLab={
 
     options.type || (options.type='GET');
     options.dataType || (options.dataType='json');
+    typeof(options.cache)=='boolean' || (options.cache=false);
     //options.timeout || (options.timeout=1000*30);//默认异步请求超时时间为 30s
-    $.extend(true, options.data, {bathURL:ajaxBathPath});
+
+    //如果是首页接口“1、获取学员课程选课信息”，就不用增加参数“domainName”
+    if(options.url!='/api/stud/study/moodleGetUserCourseInfo'){
+      var cacheUserCourseInfo=this.cacheUserCourseInfo.get();
+      if(cacheUserCourseInfo){
+        options.data['domainName']=cacheUserCourseInfo.user.domainName;
+      }
+    }
+
+    //$.extend(true, options.data, {bathURL:ajaxBathPath});
     
     var opts=$.extend({}, $.ajaxSettings, options);
     return $.ajax(opts);
@@ -201,14 +211,67 @@ var commomLab={
     }
   },
 
+  //缓存某活动的某一次测验的状态
+  cacheAttemptState : {
+    para : {
+      qid: '-',//测验活动ID
+      aid: '-'//某一次测验的ID
+    },
+    key : 'attemptState',
+    clear: function(opts){
+      var key=this.key+''+opts.qid+'_'+opts.aid;
+
+      sessionStorage.removeItem(key);
+    },
+    set : function(opts, state){
+      var key=this.key+''+opts.qid+'_'+opts.aid;
+      
+      sessionStorage.setItem( key, state )
+    },
+    get : function(opts){
+      var key=this.key+''+opts.qid+'_'+opts.aid;
+
+      return sessionStorage.getItem( key );
+    }
+  },
+
   //检测接口的初步返回数据是否有问题
   checkAPIResult : function(res){
     return (
-              res.success &&
-              res.data &&
-              res.data.code==200 &&
-              res.data.data
+              res.msgCode==200 &&
+              res.data
             );
+  },
+  //找老师
+  callTeacher: function(){
+    try{
+      var userinfor=this.cacheUserCourseInfo.get().user;
+      if(
+        userinfor &&
+        userinfor.username &&
+        userinfor.studentId
+      ){
+        location.href='/statics/mobile-learning/faq-center.html?userName='+userinfor.username+'&studentId='+userinfor.studentId;
+      }
+    }catch(e){}
+  },
+
+  //监控浏览器后退离开页面
+  onPageBackAway:function(cb){
+    history.replaceState(null,null,'#t0');
+    window.onhashchange=function(){
+      if(typeof(cb)=='function'){
+        cb.call(window);
+      }
+    }
+
+  },
+
+  //问题反馈 板块 默认参数
+  faqDefaultParams:{
+    userName:'',//0961001464994
+    studentId:'',//00001de5b73e4dd282463e2105576011
+    signature:'feedgrrbackiktlsignaturewldpmo'
   }
 }
 

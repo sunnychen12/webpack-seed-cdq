@@ -1,20 +1,17 @@
 <script type="text/javascript">
 ;(function(){
 	var username=commomLab.getQueryParam('username');//	学号
-	username || (username='stutest');
+	username || (username='');
 
 	var courseCode=commomLab.getQueryParam('courseCode');//课程号
-	courseCode || (courseCode='04384');
+	courseCode || (courseCode='');
 
 	var realname=commomLab.getQueryParam('realname');//真实姓名
-	realname || (realname='张三');
+	realname || (realname='');
 
-	if(!username && !courseCode && !realname){
-		commomLab.myToast({msg:'参数出错'});
+    //清除缓存
+    //sessionStorage.clear();
 
-		return;
-	}
-	
 	var app = new Vue({
         el: '#app',
         data: {
@@ -29,7 +26,19 @@
 			newSectionList:[]
         },
         created: function () {
-        	this.getData();
+            if(!username && !courseCode && !realname){
+                this.success=false;
+                this.msg='参数出错';
+                this.showHtml();
+
+                this.$nextTick(function(){
+                    //删除“找老师”的按钮，因为传的参数不合法
+                    $('[data-id="call-box"]').remove();
+                });
+            }
+            else{
+        	   this.getData();
+            }
         },
         computed:{
         	courseProgress:function(){
@@ -108,154 +117,137 @@
             },
         	getData:function(){
         		var vm=this;
-        		$.showIndicator();
-
+        		
         		this.getUserCourseInfo(
         			username,
         			courseCode,
         			realname
         		)
-        		.done(function(res){
-        			if(
-						res.success &&
-						res.data &&
-						res.data.code==200 &&
-						res.data.data &&
-						res.data.data.course &&
-						res.data.data.course.courseId
-					){
-						var resData=res.data.data;
+        		.done(function(resData){
+                    document.title=resData.course.courseName;
 
-                        resData['realname']=realname;
+                    $.showIndicator();
+                    //获取课程章节活动信息
+                    var def=$.Deferred();
+                    commomLab.ajaxProcess({
+                        url: '/api/stud/study/moodleGetCourseContents',
+                        data: {
+                            courseId: resData.course.courseId,
+                            token: resData.token
+                        },
+                        success: function(res2){
+                            if(
+                                commomLab.checkAPIResult(res2)
+                            ){
+                                if(
+                                    res2.data.sectionList &&
+                                    res2.data.sectionList.length>0
+                                ){
+                                    vm.userCourseInfo=resData;
+                                    vm.sectionList=res2.data.sectionList;
 
-						//缓存第一个接口的数据
-		          		commomLab.cacheUserCourseInfo.set(resData);
-		          		document.title=resData.course.courseName;
+                                    //转换数据格式
+                                    vm.convertData(res2.data.sectionList);
 
-		          		$.showIndicator();
-		          		//获取课程章节活动信息
-		          		var def=$.Deferred();
-		          		commomLab.ajaxProcess({
-							url: '/gkApp/news/moodleGetCourseContents',
-							data: {
-								courseId: resData.course.courseId,
-								token: resData.token
-							},
-							success: function(res2){
-      							if(
-									res2.success &&
-									res2.data &&
-									res2.data.code==200 &&
-									res2.data.data
-								){
-									if(
-										res2.data.data.sectionList &&
-										res2.data.data.sectionList.length>0
-									){
-										vm.userCourseInfo=resData;
-										vm.sectionList=res2.data.data.sectionList;
-
-										//转换数据格式
-										vm.convertData(res2.data.data.sectionList);
-
-										def.resolve();
-										
-									}
-									else{
-										vm.success=false;
-				          				vm.msg='暂无数据';
-                                        vm.showHtml();
-									}
-								}
-								else{
-									vm.success=false;
-				          			vm.msg='数据查询出错';
+                                    def.resolve();
+                                    
+                                }
+                                else{
+                                    vm.success=false;
+                                    vm.msg='暂无数据';
                                     vm.showHtml();
-								}
-					        },
-					        error: function (XMLHttpRequest, textStatus, errorThrown) {
-					        	vm.success=false;
-				          		vm.msg='数据查询出错';
+                                }
+                            }
+                            else{
+                                vm.success=false;
+                                vm.msg='数据查询出错';
                                 vm.showHtml();
-					        }
-						});
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            vm.success=false;
+                            vm.msg='数据查询出错';
+                            vm.showHtml();
+                        }
+                    });
 
-						//获取学员完成活动的状态
-						def.done(function(){
-							$.showIndicator();
-							vm.getActivitiesCompletionStatus(
-	        					vm.userCourseInfo.user.id,
-	        					vm.userCourseInfo.course.courseId,
-	        					resData.token
-	        				).done(function(res3){
-	        					if(
-									res3.success &&
-									res3.data &&
-									res3.data.code==200 &&
-									res3.data.data &&
-									res3.data.data.statuses &&
-									res3.data.data.statuses.length>0
-								){
+                    //获取学员完成活动的状态
+                    def.done(function(){
+                        $.showIndicator();
+                        vm.getActivitiesCompletionStatus(
+                            vm.userCourseInfo.user.id,
+                            vm.userCourseInfo.course.courseId,
+                            resData.token
+                        ).done(function(res3){
+                            if(
+                                commomLab.checkAPIResult(res3) &&
+                                res3.data.statuses &&
+                                res3.data.statuses.length>0
+                            ){
 
-									vm.actCompleteStatus=res3.data.data;
+                                vm.actCompleteStatus=res3.data;
 
-									function searchState(cmid){
-										var r=false;
-										$.each(res3.data.data.statuses, function(index, item) {
-											if(cmid==item.cmid){
-												r=item.state;
-												return false;
-											}
-										});
+                                function searchState(cmid){
+                                    var r=false;
+                                    $.each(res3.data.statuses, function(index, item) {
+                                        if(cmid==item.cmid){
+                                            r=item.state;
+                                            return false;
+                                        }
+                                    });
 
-										return r;
-									}
+                                    return r;
+                                }
 
-									$.each(vm.newSectionList, function(r, newSection) {
-										$.each(newSection.group, function(n, section) {
-											$.each(section.modulesList, function(m, module) {
-												var state=searchState(module.id);
+                                $.each(vm.newSectionList, function(r, newSection) {
+                                    $.each(newSection.group, function(n, section) {
+                                        $.each(section.modulesList, function(m, module) {
+                                            var state=searchState(module.id);
 
-												if(state){
-													vm.$set(section.modulesList[m],'state',state)
-													if(!vm.hasFinItem && state==1){
-														vm.hasFinItem=true;
-													}
-												}
-											});
-										});
-									});
-								}
-	        				})
-	        				.always(function(){
-	        					vm.showHtml();
-
-                                vm.$nextTick(function(){
-                                    var $content=$('.content');
-                                    commomLab.moveTop($content);
-
-                                    //滚动定位到之前点击的活动
-                                    var pos=commomLab.cacheIndexScrollPos.get();
-                                    if(pos){
-                                        $content.scrollTop(pos);
-
-                                        commomLab.cacheIndexScrollPos.clear();
-                                    }
+                                            if(state){
+                                                vm.$set(section.modulesList[m],'state',state)
+                                                if(!vm.hasFinItem && state==1){
+                                                    vm.hasFinItem=true;
+                                                }
+                                            }
+                                        });
+                                    });
                                 });
-	        				});
-        				});
-		          	}
-		          	else{
-		          		vm.success=false;
-		          		vm.msg='数据查询出错';
-                        vm.showHtml();
-		          	}
-        		})
-        		.fail(function(XMLHttpRequest, textStatus, errorThrown){
-        			vm.success=false;
-					vm.msg='数据查询出错';
-                    vm.showHtml();
-        		})
+                            }
+                        })
+                        .always(function(){
+                            vm.showHtml();
+
+                            vm.$nextTick(function(){
+                                var $content=$('.content');
+                                commomLab.moveTop($content);
+
+                                //滚动定位到之前点击的活动
+                                var pos=commomLab.cacheIndexScrollPos.get();
+                                if(pos){
+                                    $content.scrollTop(pos);
+
+                                    commomLab.cacheIndexScrollPos.clear();
+                                }
+
+                                //banner背景预加载
+                                var $courseBanner=$('.course-banner')
+                                    , bgUrl=$courseBanner.attr('data-bg');
+
+                                if(bgUrl){
+                                    var img=new Image();
+                                    img.src=bgUrl;
+                                    img.onload=function(){
+                                        $courseBanner.empty();
+                                    }
+                                }
+                                else{
+                                    $courseBanner.empty();
+                                }
+                            });
+                        });
+                    });
+                })
         	},
         	convertData:function(sectionList){
         		var vm=this;
@@ -290,19 +282,76 @@
         	},
         	//获取学员课程选课信息
 			getUserCourseInfo : function(username,courseCode,realname){
-			    return commomLab.ajaxProcess({
-			      url: '/gkApp/news/moodleGetUserCourseInfo',
-			      data: {
-			        username: username,
-			        courseCode: courseCode,
-			        realname: realname
-			      }
-			    });
+                var vm=this, def=$.Deferred();
+                var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+                function getDataFromServer(){
+                    $.showIndicator();
+                    commomLab.ajaxProcess({
+                      url: '/api/stud/study/moodleGetUserCourseInfo',
+                      data: {
+                        username: username,
+                        courseCode: courseCode,
+                        realname: realname
+                      }
+                    })
+                    .done(function(res){
+                        if(
+                            commomLab.checkAPIResult(res) &&
+                            res.data.course &&
+                            res.data.course.courseId
+                        ){
+                            var resData=res.data;
+
+                            resData['realname']=realname;
+
+                            //缓存第一个接口的数据
+                            commomLab.cacheUserCourseInfo.set(resData);
+
+                            $.hideIndicator();
+                            /////////
+                            def.resolve(resData);
+                        }
+                        else{
+                            vm.success=false;
+                            vm.msg='数据查询出错';
+                            vm.showHtml();
+                        }
+                    })
+                    .fail(function(XMLHttpRequest, textStatus, errorThrown){
+                        vm.success=false;
+                        vm.msg='数据查询出错';
+                        vm.showHtml();
+                    });
+                }
+
+                //未缓存过
+                if(!cacheUserCourseInfo){
+                    getDataFromServer();
+                }
+                //已缓存过
+                else{
+                    //强制重新请求接口
+                    if( sessionStorage.getItem('redirecte') ){
+                        //删除，以免重新请求接口
+                        sessionStorage.removeItem('redirecte');
+
+                        getDataFromServer();
+                    }
+                    //直接获取缓存的数据
+                    else{
+                        setTimeout(function(){
+                            def.resolve(cacheUserCourseInfo);
+                        },0);
+                    }
+                }
+
+                return def.promise();
 			},
         	//获取学员完成活动的状态
         	getActivitiesCompletionStatus:function(userid,courseid,token){
         		return commomLab.ajaxProcess({
-					url: '/gkApp/news/moodleGetActivitiesCompletionStatus',
+					url: '/api/stud/study/moodleGetActivitiesCompletionStatus',
 					data: {
 						userid: userid,
 						courseid: courseid,
@@ -356,33 +405,53 @@
         					'&'+
         					('videoId='+module.id)+
         					'&'+
-        					('pagetitle='+module.name);
+        					('pagetitle='+module.name)+
+                            '&'+
+                            ('state='+module.state)+
+                            '&'+
+                            ('instance='+module.instance);
         				break;
         			case 'page':
         				result.name='网页';
-        				result.jumpUrl='course-study-of-iframe.html?url='+
-        					(
+                        var mCnts=module.contents;
+                        if(mCnts && mCnts.length>0){
+                            var targetModule=false;
+                            if(mCnts.length==1){
+                                targetModule=mCnts[0];
+                            }
+                            else{
+                                for (var i in mCnts) {
+                                    if(/\.html/i.test(mCnts[i].filename)){
+                                        targetModule=mCnts[i];
+                                        break;
+                                    }
+                                }
+
+                                if(!targetModule){
+                                    targetModule=mCnts[0];
+                                }
+                            }
+
+            				result.jumpUrl='course-study-of-iframe.html?url='+
+            					(
+                                    targetModule.fileurl?
+                                    targetModule.fileurl:''
+                                )+
+            					'&'+
+            					('pagetitle='+module.name)+
+            					'&'+
+            					('pageid='+module.id)+
+                                '&'+
+                                'filename='+
                                 (
-                                    module.contents &&
-                                    module.contents.length>0 &&
-                                    module.contents[0].fileurl
-                                )?
-                                module.contents[0].fileurl : ''
-                            )+
-        					'&'+
-        					('pagetitle='+module.name)+
-        					'&'+
-        					('pageid='+module.id)+
-                            '&'+
-                            'filename='+
-                            (
-                                (
-                                    module.contents &&
-                                    module.contents.length>0 &&
-                                    module.contents[0].filename
-                                )?
-                                module.contents[0].filename : ''
-                            );
+                                    targetModule.filename?
+                                    targetModule.filename : ''
+                                )+
+                                '&'+
+                                ('state='+module.state)+
+                                '&'+
+                                ('instance='+module.instance);
+                        }
         				break;
         			case 'quiz':
         				result.name='测验';
@@ -398,12 +467,22 @@
         					('quizid='+module.instance);
         				break;
         			case 'resource':
-        				result.name='资源说明';
-        				result.jumpUrl='course-study-of-reading.html';
+                        result.name='资源说明';
+            				//result.jumpUrl='course-study-of-reading.html';
+                        if(
+                            module.contents &&
+                            module.contents.length>0 &&
+                            module.contents[0].fileurl
+                        ){
+                            result.jumpUrl=module.contents[0].fileurl+'&token='+commomLab.cacheUserCourseInfo.get().token
+                        }
         				break;
         			case 'forum':
         				result.name='讨论';
-        				result.jumpUrl='discussion-index.html';
+        				result.jumpUrl='course-discussion-index.html?'+
+                            ('pagetitle='+module.name)+
+                            '&'+
+                            ('forumid='+module.instance);
         				break;
         			default:
         				break;
@@ -413,7 +492,7 @@
         	//获取用户测验做题列表
         	getUserExamList:function(quizid){
         		return commomLab.ajaxProcess({
-					url: '/gkApp/news/moodleGetUserAttempts',
+					url: '/api/stud/study/moodleGetUserAttempts',
 					data: {
 						quizid: quizid,
 						token: commomLab.cacheUserCourseInfo.get().token
@@ -423,7 +502,7 @@
         	//判断是否可以进入“测验”活动
         	checkQuizAccess:function(quizid){
         		return commomLab.ajaxProcess({
-					url: '/gkApp/news/moodleGetQuizAccessInformation',
+					url: '/api/stud/study/moodleGetQuizAccessInformation',
 					data: {
 						quizid: quizid,
 						token: commomLab.cacheUserCourseInfo.get().token
@@ -465,6 +544,8 @@
                     }
                 }
 
+                //缓存点击访问的活动的ID字段值
+                commomLab.cacheIndexScrollPos.set($('.content').scrollTop());
 
         		var jumpUrl=this.getModuleInfoAbout(module).jumpUrl;
         		//测验 类型活动
@@ -473,14 +554,11 @@
         			this.checkQuizAccess(module.instance)
         			.done(function(res){
         				if(
-							res.success &&
-							res.data &&
-							res.data.code==200 &&
-							res.data.data &&
-							res.data.data.canattempt
+							commomLab.checkAPIResult(res) &&
+							res.data.canattempt
 						){
                             //允许测试次数
-                            var count=res.data.data.accessrules;
+                            var count=res.data.accessrules;
 
                             if(count && count.length>0){
                                 location.href=jumpUrl+'&permitTestTimes='+count[0].split('：')[1];
@@ -491,7 +569,7 @@
 						}
 						else{
 							commomLab.myToast({
-								msg:res.data.data.message
+								msg:res.data.message
 							})
 						}
         			})
@@ -506,12 +584,49 @@
         		}
 
         		else{
-        			location.href=jumpUrl;
+                    if(module.modname=='resource'){
+                        //ios直接访问文件资源链接就可以实现下载
+                        if($.device.ios && $.device.webView){
+                            location.href=jumpUrl;
+                        }
+                        else{
+                            window.open(jumpUrl);
+                        }
+                        
+                    }
+                    else{
+        			     location.href=jumpUrl;
+                    }
         		}
-        		
-                //缓存点击访问的活动的ID字段值
-                commomLab.cacheIndexScrollPos.set($('.content').scrollTop());
         	},
+            //banner图片格式化
+            imgUrlFormat:function(url){
+                var result='';
+
+                var w=document.body.clientWidth,//图片宽度
+                    h=7*parseFloat($('html').css('font-size'));//图片高度 7rem
+
+                //?x-oss-process=image/crop,w_200,g_center
+
+                if(url){
+                    if(url.indexOf('http://eefile.')==-1){
+                      result=url;
+                    }
+                    else{
+                      if(url.indexOf('?x-oss-process=image')==-1){
+                          result=url+'?x-oss-process=image/resize,m_fixed,w_'+w+',h_'+h+'/sharpen,100/auto-orient,1'
+                      }
+                      else{
+                          result=url+'/'+
+                            url.indexOf('auto-orient,1')==-1?
+                            '/resize,m_fixed,w_{0},h_{1}/sharpen,100/auto-orient,1'.format(w,h):
+                            '/resize,m_fixed,w_{0},h_{1}/sharpen,100'.format(w,h);
+                      }
+                    }
+
+                }
+                return result;
+            },
         	/*
         	viewMore:function(event){
         		var $wrapper=$('.content');
@@ -535,8 +650,5 @@
         	}
         }
     });
-
-    //点击向上滚动
-    
 })();
 </script>

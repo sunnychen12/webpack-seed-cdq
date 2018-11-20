@@ -1,24 +1,27 @@
 	<div class="page-group">
-		<div class="page page-current">
+		<div class="page page-current" id="app">
 			<div class="bar bar-footer-btn padding-none">
 			  <div class="flex-box flex-align-center">
-			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-ask-teacher"><span class="font_85rem">发布</span></button>
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-ask-teacher" @click="submitForm"><span class="font_85rem">发布</span></button>
 			  </div>
 			</div>
 			<div class="content bg-white">
+				<div class="disc-tips">
+					来自课件：{{pagetitle}}
+				</div>
 				<div class="padding_75rem">
 				    <form data-id="theform" name="theform">
 				    	<div class="list-block margin-none">
-				          <input type="text" placeholder="加个标题呦~(非必填)" data-rule=".+" data-msg-empty="请输入标题" data-msg-error="请输入标题" data-check="1">
+				          <input type="text" placeholder="请输入标题" data-rule=".+" data-msg-empty="请输入标题" data-msg-error="请输入标题" data-check="1" v-model="subject" name="subject">
 				      	</div>
 				      	<div class="list-block margin-bottom-none" style="margin-top:.5rem;">
-				          <textarea style="height:7rem;" data-id="discuss-content" placeholder="请输入正文内容" data-check="1" data-rule=".+" data-msg-empty="请输入正文内容" data-msg-error="请输入正文内容" name="forum-content"></textarea>
+				          <textarea style="height:7rem;" data-id="discuss-content" placeholder="请输入正文内容" data-check="1" data-rule=".+" data-msg-empty="请输入正文内容" data-msg-error="请输入正文内容" v-model="message" name="message"></textarea>
 				      	</div>
 
 					    <div class="weui-uploader__bd margin-t-1rem">
 					         <ul class="weui-uploader__files" id="uploaderFiles"></ul>
 					         <div class="weui-uploader__input-box">
-					             <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" capture="camera" multiple="">
+					             <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
 					         </div>
 				      	</div>
 				    </form>

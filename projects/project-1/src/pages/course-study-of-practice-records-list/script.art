@@ -9,12 +9,24 @@
 		pagetitle || (pagetitle='');
 
     //允许测试次数
+    /*
     var permitTestTimes=commomLab.getQueryParam('permitTestTimes');
         permitTestTimes || (permitTestTimes=-1);
         //permitTestTimes=-1 代表无限次
+    */
 
 	//获取缓存数据
 	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+    /*
+    //监控浏览器后退离开页面
+    commomLab.onPageBackAway(function(){
+        //返回到最初始url状态
+        if(!location.hash){
+            console.log('离开该页面');
+        }
+    });
+    */
 
 	window.app = new Vue({
         el: '#app',
@@ -23,12 +35,15 @@
         	empty:false,
         	msg:'',
             isloaded:false,//是否所有数据都已经加载完毕
-            permitTestTimes:permitTestTimes,
+            permitTestTimes:false,
             testScore:'',//测试得分
             attemptLen:0,
             gradeMax:'--',//表头 成绩
             graderaw:'--',//成绩得分
         	attemptData:false,//测验记录列表
+            notFinAttempt:false,//最近未完成的测验对象
+            accessrules:false,//规则描述
+            preventaccessreasons:false //访问限制描述
         },
         created: function () {
         	var vm=this;
@@ -37,12 +52,9 @@
         	this.getUserAttempts()
         	.done(function(res){
         		if(
-					res.success &&
-					res.data &&
-					res.data.code==200 &&
-					res.data.data
+					commomLab.checkAPIResult(res)
 				){
-					var resData=res.data.data;
+					var resData=res.data;
 					if(resData.attempts){
 						if(resData.attempts.length>0){
                             //初始化成绩得分
@@ -52,6 +64,18 @@
 
 							vm.attemptData=resData;
                             vm.attemptLen=resData.attempts.length;
+
+                            //查找是否存在未结束的测验
+                            if(resData.attempts.length>0){
+                                var attempts=resData.attempts;
+                                for(var i in attempts){
+                                    if(attempts[i].state=='inprogress'){
+                                        vm.notFinAttempt=attempts[i];
+                                        
+                                        break;
+                                    }
+                                }
+                            }
                             //统计测验得分
                             //vm.getTestScore(resData.attempts[0]);
                             vm.getGradeMax();
@@ -82,7 +106,10 @@
     			vm.success=false;
 				vm.msg='数据查询出错';
                 vm.showHtml();
-    		});
+    		})
+            .always(function(){
+                vm.checkQuizAccess();
+            })
         },
         methods:{
             //结束异步，关键加载特殊，显示页面内容
@@ -91,48 +118,76 @@
                 vm.isloaded=true;
                 $.hideIndicator();
             },
+            hideHtml:function(){
+                var vm=this;
+                vm.isloaded=false;
+                $.showIndicator();
+            },
         	//开始测验考试
         	startAttempt:function(){
-        		$.showIndicator();
-        		commomLab.ajaxProcess({
-					url: '/gkApp/news/moodleStartAttempt',
-					data: {
-						quizid: quizid,
-						token: cacheUserCourseInfo.token
-					}
-				})
-				.done(function(resInfo){
-					if(
-						resInfo.success &&
-						resInfo.data &&
-						resInfo.data.code==200 &&
-						resInfo.data.data &&
-						resInfo.data.data.attempt
-					){
-						location.href='course-study-of-practice.html?'+
-        					('pagetitle='+pagetitle)+
-        					'&'+
-        					('quizid='+quizid)+
-        					'&'+
-        					('attemptid='+resInfo.data.data.attempt.id)+
-                            '&'+
-                            ('attemptstate=inprogress');
-					}
-					else{
-						commomLab.myToast({msg:resInfo.data.data.message});
-					}
-				})
-				.fail(function(){
-					commomLab.myToast({msg:'数据查询出错'});
-				})
-				.always(function(){
-					$.hideIndicator();
-				});
+                var vm=this;
+
+                //存在未完成的测验
+                if(vm.notFinAttempt){
+                    vm.jumpController(vm.notFinAttempt);
+                }
+                else{
+            		$.showIndicator();
+            		commomLab.ajaxProcess({
+    					url: '/api/stud/study/moodleStartAttempt',
+    					data: {
+    						quizid: quizid,
+    						token: cacheUserCourseInfo.token
+    					}
+    				})
+    				.done(function(resInfo){
+    					if(
+    						commomLab.checkAPIResult(resInfo)
+    					){
+                            var resData=resInfo.data;
+                            //数据提交异常
+                            if(resData.errorcode){
+                                commomLab.myToast({msg:resData.message});
+                                if(resData.errorcode=='attemptstillinprogress'){
+                                    $('.content').scrollTop(10000);
+                                }
+                            }
+                            else if(resData.attempt){
+                                //缓存状态
+                                /*
+                                commomLab.cacheAttemptState.set({
+                                    qid : quizid,
+                                    aid : resData.attempt.id
+                                },'inprogress');
+                                */
+
+        						location.href='course-study-of-practice.html?'+
+                					('pagetitle='+pagetitle)+
+                					'&'+
+                					('quizid='+quizid)+
+                					'&'+
+                					('attemptid='+resData.attempt.id);
+                            }
+                            else{
+                                commomLab.myToast({msg:'数据查询出错'});
+                            }
+    					}
+    					else{
+    						commomLab.myToast({msg:'数据查询出错'});
+    					}
+    				})
+    				.fail(function(){
+    					commomLab.myToast({msg:'数据查询出错'});
+    				})
+    				.always(function(){
+    					$.hideIndicator();
+    				});
+                }
         	},
         	//获取用户测验做题列表
         	getUserAttempts:function(){
         		return commomLab.ajaxProcess({
-					url: '/gkApp/news/moodleGetUserAttempts',
+					url: '/api/stud/study/moodleGetUserAttempts',
 					data: {
 						quizid: quizid,
 						userid: cacheUserCourseInfo.user.id,
@@ -141,13 +196,67 @@
 					}
 				})
         	},
+            //判断是否可以进入“测验”活动
+            checkQuizAccess:function(){
+                var vm=this;
+                vm.hideHtml();
+                commomLab.ajaxProcess({
+                    url: '/api/stud/study/moodleGetQuizAccessInformation',
+                    data: {
+                        quizid: quizid,
+                        token: commomLab.cacheUserCourseInfo.get().token
+                    }
+                })
+                .done(function(res){
+                    if(
+                        commomLab.checkAPIResult(res)
+                    ){
+                        var resData=res.data;
+                        //是否有 访问限制
+                        if(resData.preventaccessreasons && resData.preventaccessreasons.length>0){                  
+                            vm.preventaccessreasons=resData.preventaccessreasons;
+                        }
+
+                        //允许测试次数
+                        var rules=resData.accessrules;
+
+                        if(rules && rules.length>0){
+                            vm.accessrules=rules;
+
+                            for(var i in rules){
+                                if(rules[i].indexOf('允许试答次数')!=-1){
+                                    var splitRule=rules[i].split('：');
+                                    if(splitRule.length>0){
+                                        vm.permitTestTimes=rules[i].split('：')[1];
+                                    }
+                                    else{
+                                        vm.permitTestTimes=-1;//无限次
+                                    }
+                                    break;
+                                }
+                            }
+
+                            if(vm.permitTestTimes===false){
+                                vm.permitTestTimes=-1;//无限次
+                            }
+                            
+                        }
+                        else{
+                            vm.permitTestTimes=-1;//无限次
+                        }
+                    }
+                })
+                .always(function(){
+                    vm.showHtml();
+                })
+            },
             //统计测验得分
             getTestScore:function(attempt){
                 var vm=this;
                 
                 //回顾试卷
                 commomLab.ajaxProcess({
-                    url: '/gkApp/news/moodleGetAttemptReview',
+                    url: '/api/stud/study/moodleGetAttemptReview',
                     data: {
                         attemptid: attempt.id,
                         token: cacheUserCourseInfo.token
@@ -156,10 +265,10 @@
                 .done(function(res){
                     if(
                         commomLab.checkAPIResult(res) &&
-                        res.data.data.questions &&
-                        res.data.data.questions.length>0
+                        res.data.questions &&
+                        res.data.questions.length>0
                     ){
-                        var questions=res.data.data.questions;
+                        var questions=res.data.questions;
                         for(var i in questions){
                             if(questions[i].type!='description'){
                                 vm.testScore=vm.testScore-0+questions[i].maxmark;     
@@ -176,7 +285,7 @@
                 
                 //获取成绩列表
                 commomLab.ajaxProcess({
-                    url: '/gkApp/news/moodleGetGradeItems',
+                    url: '/api/stud/study/moodleGetGradeItems',
                     data: {
                         userid: cacheUserCourseInfo.user.id,
                         courseid: cacheUserCourseInfo.course.courseId,
@@ -186,10 +295,10 @@
                 .done(function(res){
                     if(
                         commomLab.checkAPIResult(res) &&
-                        res.data.data.usergrades &&
-                        res.data.data.usergrades.length>0
+                        res.data.usergrades &&
+                        res.data.usergrades.length>0
                     ){
-                        var usergrades=res.data.data.usergrades;
+                        var usergrades=res.data.usergrades;
                         var gradeitems=usergrades[0].gradeitems;
                         if(
                             gradeitems &&
@@ -199,13 +308,13 @@
                                 if(gradeitems[i].iteminstance==quizid){
                                     vm.gradeMax=gradeitems[i].grademax;
 
-                                    if( gradeitems[i].graderaw>=0 ){
+                                    if( gradeitems[i].graderaw===0 || gradeitems[i].graderaw>0 ){
                                         vm.graderaw=gradeitems[i].graderaw;
                                     }
 
                                     var attempts=vm.attemptData.attempts
                                     for(var j in attempts){
-                                        if(attempts[j].sumgrades>=0){
+                                        if(attempts[j].sumgrades===0 || attempts[j].sumgrades>0){
                                             attempts[j].itemGrade=attempts[j].sumgrades / 100 * gradeitems[i].grademax;
                                         }
                                     }
@@ -271,7 +380,7 @@
 		        		)
         	},
         	//查看记录详情
-        	jumpController:function(attempt,event){
+        	jumpController:function(attempt){
         		/*
 	        		inprogress 进行中  可继续答题，
 	        		overdue 未完成  逾期未提交， 
@@ -281,15 +390,21 @@
         		switch(attempt.state){
         			case 'inprogress'://进行中
         			case 'finished'://完成
+                        //缓存状态
+                        /*
+                        commomLab.cacheAttemptState.set({
+                            qid : quizid,
+                            aid : attempt.id
+                        },attempt.state);
+                        */
+
         				//查看解析
         				location.href='course-study-of-practice.html?'+
         					('pagetitle='+pagetitle)+
         					'&'+
         					('quizid='+quizid)+
         					'&'+
-        					('attemptid='+attempt.id)+
-        					'&'+
-        					('attemptstate='+attempt.state);
+        					('attemptid='+attempt.id);
         				break;
         			case 'overdue'://未完成
         				

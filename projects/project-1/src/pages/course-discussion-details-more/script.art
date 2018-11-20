@@ -1,0 +1,250 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+
+<script type="text/template" id="popup-tpl">
+	<div class="popup popup-comment">
+		<div class="full-height flex-box flex-vertical flex-box-justify">
+		    <div class="popup-comment-header flex-box flex-align-center flex-box-justify item-with-border">
+		    	<button type="button" class="comment-btn close-popup comment-cancel-btn">取消</button>
+		    	<div class="font_85rem margin-l_5rem margin-r_5rem flex-item overflow-hidden text-center text-ellipsis">{{title}}</div>
+		    	<button type="button" class="comment-btn comment-submit-btn" disabled>发表</button>
+		    </div>
+		    <div class="flex-item popup-comment-body">
+		    	<textarea placeholder="请输入{{label}}" class="comment-textarea"></textarea>
+		    </div>
+	    </div>
+	</div>
+</script>
+
+<script type="text/javascript">
+;(function() {
+	//帖子ID
+    var discussionid=commomLab.getQueryParam('discussionid');
+        discussionid || (discussionid='');
+
+    var pagetitle=commomLab.getQueryParam('pagetitle');
+        pagetitle || (pagetitle='');
+
+    //回帖ID
+    var postid=commomLab.getQueryParam('postid');
+        postid || (postid='');
+
+	//获取缓存数据
+    var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+    window.app = new Vue({
+        el: '#app',
+        data: {
+            success:true,
+            msg:'',
+            courseName:pagetitle,
+            isloaded:false,//是否所有数据都已经加载完毕
+            discussionData:false,
+            subjectParent:false,
+            replyList:[],
+        },
+        created: function () {
+        	var vm=this;
+        	$.showIndicator();
+
+        	//获取帖子回帖列表
+        	commomLab.ajaxProcess({
+				url: '/api/stud/study/moodleGetForumDiscussionPosts',
+				data: {
+					discussionid: discussionid,
+					token: cacheUserCourseInfo.token
+				}
+			})
+        	.done(function(res){
+        		if(
+					commomLab.checkAPIResult(res)
+				){
+					var resData=res.data;
+					
+                    //数据提交异常
+                    if(resData.errorcode){
+                        vm.success=false;
+                        vm.msg=resData.message;
+                    }
+                    else{
+                        vm.discussionData=resData;
+                        if(resData.posts && resData.posts.length>0){
+                        	//查找主题
+                        	for(var i in resData.posts){
+                        		if(resData.posts[i].id==postid){
+                        			vm.subjectParent=resData.posts[i];
+                        			break;
+                        		}
+                        	}
+
+                        	//查找回帖
+                        	if(vm.subjectParent){
+                        		for(var j in vm.subjectParent.children){
+	                        		for(var i in resData.posts){
+		                        		if(
+		                        			resData.posts[i].parent!==0 &&
+		                        			vm.subjectParent.children[j]==resData.posts[i].id
+		                        		){
+		                        			vm.replyList.push(resData.posts[i]);
+		                        		}
+		                        	}
+	                        	}
+                        	}
+                        }
+                        else{
+                        	vm.success=false;
+	          				vm.msg='数据为空';
+                        }
+                    }
+				}
+	          	else{
+	          		vm.success=false;
+	          		vm.msg='数据查询出错';
+	          	}
+                vm.showHtml();
+        	})
+        	.fail(function(XMLHttpRequest, textStatus, errorThrown){
+    			vm.success=false;
+				vm.msg='数据查询出错';
+                vm.showHtml();
+    		});
+        },
+        methods:{
+        	//结束异步，关键加载特殊，显示页面内容
+            showHtml:function(){
+                var vm=this;
+                vm.isloaded=true;
+                $.hideIndicator();
+            },
+            getImgHtml:function(url){
+            	if(url){
+            		return '<img src="'+url+'" class="img circle">';
+            	}
+            	else{
+            		return '';
+            	}
+            },
+            formatDate:function(timemap){
+                var date=new Date(timemap);
+
+                function formatDigit(d){
+                    return (d>=10)?d:('0'+d);
+                }
+
+                return  (
+                            date.getFullYear()+
+                            '-'+
+                            formatDigit((date.getMonth()+1))+
+                            '-'+
+                            formatDigit(date.getDate())+
+                            ' '+
+                            formatDigit(date.getHours())+
+                            ':'+
+                            formatDigit(date.getMinutes())
+                        )
+            },
+            openCommentPopup:function(postid,event){
+
+				var popupHTML=$('#popup-tpl').html()
+							.replace(/\{\{title\}\}/ig, '回复评论')
+							.replace(/\{\{label\}\}/ig, '回复内容');
+							
+				var popup=$.popup(popupHTML);
+				$(popup)
+                .one('closed', function(event) {
+					//console.log('aa')
+				})
+                .one('opened', function(event) {
+                    var _self=this;
+                    var $prev = $(_self).prev('.popup-overlay');
+                    var $next = $(_self).next('.popup-overlay');
+
+                    ($next.length>0 ? $next : $prev)
+                    .on('click', function(event) {
+                        $.closeModal($(_self))
+                    });
+                })
+				.on('click', '.comment-submit-btn', function(event) {
+					event.preventDefault();
+					//$.closeModal($(popup))
+					$.showIndicator();
+					commomLab.ajaxProcess({
+						type:'POST',
+						url: '/api/stud/study/moodleAddDiscussionPost',
+						data: {
+							postid: postid,
+							subject:'',
+							message:$('.comment-textarea').val(),
+							token: commomLab.cacheUserCourseInfo.get().token
+						}
+					})
+					.done(function(res){
+                        if(
+                            commomLab.checkAPIResult(res)
+                        ){
+                            var resData=res.data;
+                            if(resData.errorcode){
+                                commomLab.myToast({
+                                    msg:resData.message
+                                });
+                            }
+                            else{
+                                commomLab.myToast({
+                                    msg:'回复成功'
+                                },function(){
+                                    location.reload()
+                                })
+                            }
+                        }
+                        else{
+                            commomLab.myToast({
+                                msg:'回复失败'
+                            })
+                        }
+                    })
+                    .fail(function(){
+                        commomLab.myToast({
+                            msg:'回复失败'
+                        })
+                    })
+                    .always(function(){
+                        $.hideIndicator();
+                    })
+
+					
+				})
+				.on('input', '.comment-textarea', function(event) {
+					var $submit=$(popup).find('.comment-submit-btn');
+
+					$submit.prop('disabled', this.value.length>0?false:true)
+				});
+
+                
+            }
+        }
+    });
+
+    $('.page')
+    //查看图片大图
+    .on('click', '.addon-img-list img', function(event) {
+        event.preventDefault();
+        var $list=$(this).closest('.addon-img-list').find('img');
+        var index=$list.index(this);
+        var imgUrl=$list.map(function(index, elem) {
+          return this.getAttribute('title') || this.src;
+        }).get();
+
+        $.photoBrowser({
+            photos : imgUrl,
+            theme: 'dark',
+            type: 'standalone',
+            lazyLoading:true,
+            initialSlide:index,
+            toolbarTemplate:'<nav class="bar bar-tab my-gallery-footer">' +
+              '<a class="tab-item photo-browser-close-link" href="javascript:;">' +
+                '返回' +
+              '</a>' +
+            '</nav>'
+        }).open();
+    });
+})();
+</script>

@@ -13,8 +13,10 @@
 					</div>
 					<ul class="tabs-video list-unstyled">
 						<li class="item actived"><span>文档</span></li>
+						<!--
 						<li class="item"><span>聊天</span></li>
 						<li class="item"><span>问答</span></li>
+						-->
 					</ul>
 					<div class="flex-item bg-white" style="overflow-y: auto;">
 						<div class="swiper-container padding-none position-relative full-height">
@@ -27,6 +29,7 @@
 					    				</div>
 					    			</div>
 								</div>
+								<!--
 								<div class="swiper-slide">
 									<div class="flex-box flex-vertical flex-box-justify-center flex-align-center full-height">
 					    				<img src="../../images/no-data.png" width="45%" class="center-block">
@@ -43,6 +46,7 @@
 					    				</div>
 					    			</div>
 								</div>
+								-->
 							</div>
 						</div>
 					</div>

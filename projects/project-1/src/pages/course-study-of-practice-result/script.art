@@ -82,9 +82,7 @@
         					'&'+
         					('quizid='+quizid)+
         					'&'+
-        					('attemptid='+attemptid)+
-        					'&'+
-        					('attemptstate=finished');
+        					('attemptid='+attemptid);
 			},
 			leavePage:function(){
 				location.href='index.html?'+
@@ -100,7 +98,7 @@
         		var vm=this;
 
 				commomLab.ajaxProcess({
-					url: '/gkApp/news/moodleGetAttemptReview',
+					url: '/api/stud/study/moodleGetAttemptReview',
 					data: {
 						attemptid: attemptid,
 						token: cacheUserCourseInfo.token
@@ -109,10 +107,10 @@
 				.done(function(res){
 					if(
 						commomLab.checkAPIResult(res) &&
-						res.data.data.questions &&
-						res.data.data.questions.length>0
+						res.data.questions &&
+						res.data.questions.length>0
 					){
-						var resData=res.data.data;
+						var resData=res.data;
 
 						//删除描述，保留题目
 						resData.questions=$.grep(resData.questions,function(item){
@@ -138,8 +136,15 @@
 							vm.resetDom();
 						});
 					}
+					else{
+						vm.success=false;
+				        vm.msg='数据查询出错';
+						vm.showHtml();
+					}
 				})
 				.fail(function(){
+					vm.success=false;
+				    vm.msg='数据查询出错';
 					vm.showHtml();
 				})
 			}

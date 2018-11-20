@@ -1,8 +1,14 @@
 	<div class="page-group">
 		<div class="page page-current" id="app" v-cloak>
 			<template v-if="isloaded">
+				<!--
 				<div class="bar bar-footer-btn padding-none" v-if="success">
-					<div class="flex-box flex-align-center" v-if="permitTestTimes==-1 || permitTestTimes>attemptLen">
+					<div class="flex-box flex-align-center" v-if="preventaccessreasons">
+						<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" disabled>
+							<span class="gray9">测验未开放</span>
+						</button>
+					</div>
+					<div class="flex-box flex-align-center" v-else-if="permitTestTimes==-1 || permitTestTimes>attemptLen">
 						<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" @click="startAttempt">
 							开始测验
 						</button>
@@ -11,6 +17,7 @@
 						<a href="javascript:;" @click="leavePage" class="flex-item button button-big button-fill border-none flat btn-prev">不允许再试，返回</a>
 					</div>
 				</div>
+				-->
 				<div class="content bg-white">				
 					<template v-if="success">
 						<div class="arc-area">
@@ -26,17 +33,46 @@
 								</div>
 							</div>
 
-							<a href="javascrpt:;" class="button flex-box flex-box-justify-center" v-if="permitTestTimes==-1 || permitTestTimes>attemptLen" @click="startAttempt">
-								<span>开始测验</span>
+							<div class="button flex-box flex-box-justify-center" v-if="preventaccessreasons">
+								<span>测验未开放</span>
 								<span class="icon icon-right margin-l_3rem"></span>
-							</a>
-							<a href="javascrpt:;" class="button flex-box flex-box-justify-center" v-else>
-								<span>测试机会已用完</span>
+							</div>
+
+							<div class="button flex-box flex-box-justify-center" v-if="permitTestTimes==-1 || permitTestTimes>attemptLen" @click="startAttempt">
+								<!--存在未结束的测验-->
+								<span v-if="notFinAttempt">继续上次测验</span>
+
+								<span v-else>开始测验</span>
+
+								<span class="icon icon-right margin-l_3rem"></span>
+							</div>
+							<a href="javascrpt:;" class="button flex-box flex-box-justify-center" @click="leavePage" v-else>
+								<span>不允许再试，返回</span>
 								<span class="icon icon-right margin-l_3rem"></span>
 							</a>
 
 						</div>			
 						<div class="padding_75rem">
+							<div class="flex-box flex-box-justify border-bottom padding-b_5rem padding-t_5rem">
+								<div class="font_75rem">说明</div>
+							</div>
+							<div class="font_55rem gray6 margin-t_5rem padding-b_5rem">
+								<ul class="list-unstyled">
+									<li>1、评分方法：最高分</li>
+									<template v-if="permitTestTimes===-1">
+										<li>2、允许试答次数：无限</li>
+									</template>
+
+									<template v-if="accessrules && accessrules.length>0">
+										<li v-for="(item,index) in accessrules">
+											{{index+2+(permitTestTimes===-1?1:0)}}、{{item}}
+										</li>
+									</template>
+									
+								</ul>
+							</div>
+
+
 							<div class="flex-box flex-box-justify border-bottom padding-b_5rem padding-t_5rem">
 								<div class="font_75rem">测验记录</div>
 
@@ -54,9 +90,9 @@
 									<dl class="test-record-item" v-for="(attemptRecord,index) in attemptData.attempts">
 										<dt>
 											<span v-if="attemptRecord.timefinish>0">{{formatDate(attemptRecord.timefinish*1000)}}</span>
-											<span v-else>--</span>
+											<span v-else>答题进行中</span>
 										</dt>
-										<dd class="flex-box flex-align-center" @click="jumpController(attemptRecord, $event)">
+										<dd class="flex-box flex-align-center" @click="jumpController(attemptRecord)">
 											<span class="icon icon-right"></span>
 											<div class="flex-item text-center">
 												<div class="txt1">
@@ -79,14 +115,7 @@
 				    					还没有测验记录哦~
 				    				</div>
 				    			</div>
-								<div class="font_55rem text-center gray" style="margin-top:1rem;">
-									<span>
-									说明：允许试答次数：{{permitTestTimes==-1?'不限':permitTestTimes}}
-									</span>
-									<span class="margin-l_75rem">
-										评分方法：最高分
-									</span>
-								</div>
+								
 							</div>
 						</div>
 					</template>

@@ -1,0 +1,75 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<div class="content">
+				<div class="bg-white edu-model flex-box flex-align-center">
+					<a href="research-study-course.html" class="flex-item text-center gray3">
+						<img src="../../images/yxkk.png" width="40">
+						<div class="font_65rem">研修课程</div>
+					</a>
+					<a href="research-study-project-list.html" class="flex-item text-center">
+						<img src="../../images/yxxm.png" width="40">
+						<div class="font_65rem gray3">研修项目</div>
+					</a>
+					<a href="research-study-resourse.html" class="flex-item text-center">
+						<img src="../../images/yxzy.png" width="40">
+						<div class="font_65rem gray3">研修资源</div>
+					</a>
+					<a href="results-show-list.html" class="flex-item text-center">
+						<img src="../../images/cgzs.png" width="40">
+						<div class="font_65rem gray3">成果展示</div>
+					</a>
+				</div>
+				<div class="edu-model bg-white margin-t_7rem">
+					<h2 class="title-border-lef">
+						通知公告
+					</h2>
+					<ul class="list-unstyled dyn-info-list">
+						<li class="item-with-border" v-for="item in projectData">
+							<a class="as-link" href="#" @click.prevent="viewMore(item)">
+								<div class="name">{{item.name}}</div>
+								<div class="txt">{{item.publishTime}}</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="edu-model bg-white margin-t_7rem">
+					<h2 class="title-border-lef">
+						研修动态
+					</h2>
+					<ul class="list-unstyled dyn-info-list">
+						<li class="item-with-border" v-for="item in projectData2">
+							<a class="as-link" href="#" @click.prevent="viewMore(item)">
+								<div class="name">{{item.name}}</div>
+								<div class="txt">{{item.publishTime}}</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="popup" id="more">
+		<header class="bar bar-nav">
+		  <a class="icon icon-left pull-left close-popup"></a>
+		  <h1 class="title">信息详情</h1>
+		</header>
+		<div class="bar bar-footer-btn padding-none">
+			<div class="flex-box border-top">
+				<button type="button" class="flex-item button button-big button-fill border-none flat close-popup" style="background-color: #f7f7f8;">
+					<span class="text-blue">关闭</span>
+				</button>
+			</div>
+		</div>
+		<div class="content bg-white">
+			<div class="padding_75rem">
+				<h1 class="font_85rem text-center">{{name}}</h1>
+				<div class="gray font_55rem text-center">发布时间：{{publishTime}}</div>
+				<div class="artical-content margin-t-1rem">
+					<div class="gray6 proj-des" v-html="projIntroduce">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

@@ -10,8 +10,8 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta content="telephone=no" name="format-detection">
 	<meta content="email=no" name="format-detection">
-	<link rel="stylesheet" type="text/css" href="css/common.css?v=1540977274697">
-	<link rel="stylesheet" type="text/css" href="css/main.css?v=1540977274697">
+	<link rel="stylesheet" type="text/css" href="css/common.css?v=1542455463222">
+	<link rel="stylesheet" type="text/css" href="css/main.css?v=1542455463223">
 	
 </head>
 <body>
@@ -44,8 +44,11 @@
 								<a href="course-score-pass-fail.html" class="view-more as-link">查看</a>
 							</div>
 							<div class="flex-box flex-align-center margin-t_7rem">
-								<div class="socre-circle">
-									65分
+								<div class="socre-circle-box">
+									<div class="embed-responsive">
+										<div class="embed-responsive-item socre-circle" data-score="65">
+										</div>
+									</div>
 								</div>
 								<div class="flex-item tast-txt">
 									<ul class="list-unstyled">
@@ -65,8 +68,11 @@
 								<a href="course-score-pass-fail.html" class="view-more as-link">查看</a>
 							</div>
 							<div class="flex-box flex-align-center margin-t_7rem">
-								<div class="socre-circle">
-									80分
+								<div class="socre-circle-box">
+									<div class="embed-responsive">
+										<div class="embed-responsive-item socre-circle" data-score="80">
+										</div>
+									</div>
 								</div>
 								<div class="flex-item tast-txt">
 									<ul class="list-unstyled">
@@ -86,8 +92,11 @@
 								<a href="course-score-pass-fail.html" class="view-more as-link">查看</a>
 							</div>
 							<div class="flex-box flex-align-center margin-t_7rem">
-								<div class="socre-circle">
-									84分
+								<div class="socre-circle-box">
+									<div class="embed-responsive">
+										<div class="embed-responsive-item socre-circle" data-score="84">
+										</div>
+									</div>
 								</div>
 								<div class="flex-item tast-txt">
 									<ul class="list-unstyled">
@@ -107,8 +116,11 @@
 								<a href="course-score-pass-fail.html" class="view-more as-link">查看</a>
 							</div>
 							<div class="flex-box flex-align-center margin-t_7rem">
-								<div class="socre-circle">
-									96分
+								<div class="socre-circle-box">
+									<div class="embed-responsive">
+										<div class="embed-responsive-item socre-circle" data-score="96">
+										</div>
+									</div>
 								</div>
 								<div class="flex-item tast-txt">
 									<ul class="list-unstyled">
@@ -126,11 +138,44 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="js/common.min.js?v=1540977274697"></script>
-	<script type="text/javascript" src="js/commonLab.min.js?v=1540977274697"></script>
+	<script type="text/javascript" src="js/common.min.js?v=1542455463223"></script>
+	<script type="text/javascript" src="js/commonLab.min.js?v=1542455463223"></script>
 
+
+<script type="text/javascript" src="assets/js/progressbar.min.js"></script>
 
 <script type="text/javascript">
+	function circleProgress(canvasEle, percent){
+		var bar = new ProgressBar.Circle(canvasEle, {
+			strokeWidth: 3,
+			color: '#3385ff',
+			trailColor: '#f6f6f6',
+			trailWidth: 3,
+			text: {
+				value: percent+'分',
+				className:'text-nowrap',
+				style: {
+					position: 'absolute',
+					left: '50%',
+					top: '50%',
+					transform: {
+						prefix: true,
+						value: 'translate(-50%, -50%)'
+					}
+				}
+			}
+		});
+
+		bar.animate(percent/100);
+		//bar.set(percent/100)
+	}
+
+	var circle=document.querySelectorAll('.socre-circle');
+	if(circle.length>0){
+		for(var i=0;i<circle.length;i++){
+			circleProgress(circle[i],circle[i].getAttribute('data-score'));
+		}
+	}
 	
 </script>
 

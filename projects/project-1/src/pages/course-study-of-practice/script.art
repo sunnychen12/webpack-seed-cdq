@@ -13,8 +13,13 @@
 		attemptid || (attemptid='');
 
 	//测验状态，必填项。如果是“完成”，就查看解析；如果是“进行中”，就进行测验
-	var attemptstate=commomLab.getQueryParam('attemptstate');
+	/*
+	var attemptstate =  commomLab.cacheAttemptState.get({
+                        	qid : quizid,
+                        	aid : attemptid
+                    	});
 		attemptstate || (attemptstate='');
+	*/
 
 	//需要跳转到特定题目的索引，从0开始
 	var qIndex=commomLab.getQueryParam('qIndex');
@@ -34,7 +39,7 @@
         	questionLen: 0,
         	attemptid: attemptid,
         	hasNextPage: false,
-        	attemptstate: attemptstate,
+        	attemptstate: '',
         	attemptData:false,//测验记录列表
         },
         created: function () {
@@ -47,122 +52,193 @@
         		vm.isloaded=true;
 				$.hideIndicator();
         	},
+        	//获取用户测验做题列表
+        	//cb 回调方法
+        	getAttemptState:function(cb){
+        		var vm=this;
+        		if(vm.attemptstate===''){
+	        		commomLab.ajaxProcess({
+						url: '/api/stud/study/moodleGetUserAttempts',
+						data: {
+							quizid: quizid,
+							userid: cacheUserCourseInfo.user.id,
+							status: 'all',
+							token: cacheUserCourseInfo.token
+						}
+					})
+					.done(function(res){
+		        		if(
+							commomLab.checkAPIResult(res)
+						){
+							var resData=res.data;
+							if(resData.attempts){
+								if(resData.attempts.length>0){
+		                            //初始化成绩得分
+		                            for(var item in resData.attempts){
+		                                if(resData.attempts[item].id==attemptid){
+		                                	vm.attemptstate=resData.attempts[item].state;
+
+		                                	cb.call(vm,resData.attempts[item]);
+
+		                                	break;
+		                                }
+		                            }
+								}
+								else{
+									vm.success=false;
+			          				vm.msg='无测试记录';
+		                            vm.showHtml();
+								}
+							}
+							//出错
+							else if(resData.message){
+								vm.success=false;
+			          			vm.msg=resData.message;
+		                        vm.showHtml();
+							}
+		                    else{
+		                    	vm.success=false;
+			          			vm.msg='数据查询异常';
+		                        vm.showHtml();
+		                    }
+
+						}
+			          	else{
+			          		vm.success=false;
+			          		vm.msg='数据查询出错';
+		                    vm.showHtml();
+			          	}
+		                
+		        	})
+		        	.fail(function(XMLHttpRequest, textStatus, errorThrown){
+		    			vm.success=false;
+						vm.msg='数据查询出错';
+		                vm.showHtml();
+		    		});
+	    		}
+	    		else{
+	    			cb.call(vm);
+	    		}
+        	},
         	//获取测验下的题目列表
         	getAttemptData:function(){
         		$.showIndicator();
 
         		var vm=this;
-        		if(vm.attemptstate=='inprogress'){
-	        		commomLab.ajaxProcess({
-						url: '/gkApp/news/moodleGetAttemptData',
-						data: {
-							attemptid: vm.attemptid,
-							page: vm.pageIndex,
-							token: cacheUserCourseInfo.token
-						}
-					})
-					.done(function(res){
-						if(
-							commomLab.checkAPIResult(res) &&
-							res.data.data.questions &&
-							res.data.data.questions.length>0
-						){
-							
 
-							var resData=res.data.data;
-
-							//删除描述，保留题目
-							resData.questions=$.grep(resData.questions,function(item){
-							    return item.type!='description'
-							});
-
-							resData.questions=vm.convertHTML(resData.questions);
-
-							if(vm.pageIndex==0){
-								vm.attemptData=resData;
+        		vm.getAttemptState(function(){
+	        		if(vm.attemptstate=='inprogress'){
+		        		commomLab.ajaxProcess({
+							url: '/api/stud/study/moodleGetAttemptData',
+							data: {
+								attemptid: vm.attemptid,
+								page: vm.pageIndex,
+								token: cacheUserCourseInfo.token
 							}
-							else if(vm.pageIndex>0){
-								//vm.curQueIndex=vm.curQueIndex+1;
-								//vm.attemptData.nextpage=resData.nextpage;
-								for(var i in resData.questions){
-									vm.attemptData.questions.push(resData.questions[i]);
+						})
+						.done(function(res){
+							if(
+								commomLab.checkAPIResult(res) &&
+								res.data.questions &&
+								res.data.questions.length>0
+							){
+								
+
+								var resData=res.data;
+
+								//删除描述，保留题目
+								resData.questions=$.grep(resData.questions,function(item){
+								    return item.type!='description'
+								});
+
+								resData.questions=vm.convertHTML(resData.questions);
+
+								if(vm.pageIndex==0){
+									vm.attemptData=resData;
 								}
+								else if(vm.pageIndex>0){
+									//vm.curQueIndex=vm.curQueIndex+1;
+									//vm.attemptData.nextpage=resData.nextpage;
+									for(var i in resData.questions){
+										vm.attemptData.questions.push(resData.questions[i]);
+									}
+								}
+
+								vm.questionLen=vm.attemptData.questions.length;
+
+								//加载完所有题目后，根据题目索引跳转到对应题目
+								vm.isloaded=!(resData.nextpage>0);
+								if(!vm.isloaded && qIndex>=0){
+									vm.goQuestion(qIndex);
+								}
+
+								if(resData.nextpage>0){
+									vm.pageIndex=resData.nextpage;
+									vm.getAttemptData();
+								}
+
+								if(vm.isloaded){
+									vm.showHtml();
+								}
+
 							}
-
-							vm.questionLen=vm.attemptData.questions.length;
-
-							//加载完所有题目后，根据题目索引跳转到对应题目
-							vm.isloaded=!(resData.nextpage>0);
-							if(!vm.isloaded && qIndex>=0){
-								vm.goQuestion(qIndex);
-							}
-
-							if(resData.nextpage>0){
-								vm.pageIndex=resData.nextpage;
-								vm.getAttemptData();
-							}
-
-							if(vm.isloaded){
+							else if(res.data.errorcode){
+								vm.success=false;
+								vm.msg=res.data.message;
 								vm.showHtml();
 							}
-
-						}
-						else if(res.data.data.errorcode){
-							vm.success=false;
-							vm.msg=res.data.data.message;
+						})
+						.fail(function(){
 							vm.showHtml();
-						}
-					})
-					.fail(function(){
+						})
+					}
+					else if(vm.attemptstate=='finished'){
+						commomLab.ajaxProcess({
+							url: '/api/stud/study/moodleGetAttemptReview',
+							data: {
+								attemptid: vm.attemptid,
+								token: cacheUserCourseInfo.token
+							}
+						})
+						.done(function(res){
+							if(
+								commomLab.checkAPIResult(res) &&
+								res.data.questions &&
+								res.data.questions.length>0
+							){
+								var resData=res.data;
+
+								//删除描述，保留题目
+								resData.questions=$.grep(resData.questions,function(item){
+								    return item.type!='description'
+								});
+
+								resData.questions=vm.convertHTML(resData.questions);
+
+								vm.attemptData=resData;
+
+								vm.questionLen=resData.questions.length;
+							}
+							else if(res.data.errorcode){
+								vm.success=false;
+								vm.msg=res.data.message;
+							}
+						})
+						.always(function(){
+							vm.showHtml();
+						})
+					}
+					else{
+						vm.success=false;
+						vm.msg='数据查询异常';
 						vm.showHtml();
-					})
-				}
-				else if(vm.attemptstate=='finished'){
-					commomLab.ajaxProcess({
-						url: '/gkApp/news/moodleGetAttemptReview',
-						data: {
-							attemptid: vm.attemptid,
-							token: cacheUserCourseInfo.token
-						}
-					})
-					.done(function(res){
-						if(
-							commomLab.checkAPIResult(res) &&
-							res.data.data.questions &&
-							res.data.data.questions.length>0
-						){
-							var resData=res.data.data;
-
-							//删除描述，保留题目
-							resData.questions=$.grep(resData.questions,function(item){
-							    return item.type!='description'
-							});
-
-							resData.questions=vm.convertHTML(resData.questions);
-
-							vm.attemptData=resData;
-
-							vm.questionLen=resData.questions.length;
-						}
-						else if(res.data.data.errorcode){
-							vm.success=false;
-							vm.msg=res.data.data.message;
-						}
-					})
-					.always(function(){
-						vm.showHtml();
-					})
-				}
-				else{
-					vm.success=false;
-					vm.msg='数据查询异常';
-					vm.showHtml();
-				}
+					}
+				});
         	},
         	//获取能否参加开始考试（开始考试有前置条件）
         	getAttemptAccessInfo:function(attemptid){
         		return commomLab.ajaxProcess({
-					url: '/gkApp/news/moodleGetAttemptAccessInformation',
+					url: '/api/stud/study/moodleGetAttemptAccessInformation',
 					data: {
 						attemptid: attemptid,
 						quizid: quizid,
@@ -270,21 +346,14 @@
         		$('.qorder').eq(this.curQueIndex)
         		.text(this.curQueIndex+1);
         	},
+        	/*
         	//结束答题
         	endingExam:function(postData){
         		var vm=this;
-        		//var postData=$('#submit-form').serializeArray();
-        		/*
-        		if(postData.length==0){
-        			commomLab.myToast({msg:'请先做题'});
-        			return false;
-        		}
-        		*/
-
         		//$.showIndicator();
         		return commomLab.ajaxProcess({
         			type: 'POST',
-					url: '/gkApp/news/moodleProcessAttempt',
+					url: '/api/stud/study/moodleProcessAttempt',
 					data: {
 						attemptid: vm.attemptid,
 						preflightdata: JSON.stringify(postData),
@@ -292,6 +361,7 @@
 					}
 				})
         	},
+        	*/
         	//提交答题
         	submitExam:function(){
         		var vm=this;
@@ -302,27 +372,47 @@
 
 		        		$.showIndicator();
 
-		        		var def=$.Deferred();
-
-		        		//结束测验
-		        		vm.endingExam(postData)
-		        		.done(function(res){
+						//提交答卷
+		        		commomLab.ajaxProcess({
+		        			type: 'POST',
+							url: '/api/stud/study/moodleProcessAttempt',
+							data: {
+								attemptid: vm.attemptid,
+								finishattempt:1,
+								preflightdata: JSON.stringify(postData),
+								token: cacheUserCourseInfo.token
+							}
+						})
+						.done(function(res){
 		        			if(
 								commomLab.checkAPIResult(res)
 							){
 								//数据提交异常
-								if(res.data.data.errorcode){
+								if(res.data.errorcode){
 									commomLab.myToast({
-										msg:res.data.data.message
+										msg:res.data.message
 									})
 								}
 								else{
-									def.resolve();
+									//设置和缓存此次测验的状态
+									/*
+									commomLab.cacheAttemptState.set({
+			                            qid : quizid,
+			                            aid : attemptid
+			                        },'finished');
+			                        */
+
+									commomLab.myToast({
+										msg:'提交成功'
+									},function(){
+										//跳转到答题结果页
+										location.href='course-study-of-practice-result.html?pagetitle='+pagetitle+'&quizid='+quizid+'&attemptid='+attemptid
+									})
 								}
+								
 							}
 							else{
 								commomLab.myToast({
-									//msg:res.data.data.message
 									msg:'提交失败'
 								})
 							}
@@ -335,62 +425,6 @@
 						.always(function(){
 							$.hideIndicator();
 						});
-
-
-						def.done(function(){
-							$.showIndicator();
-							//提交答卷
-			        		commomLab.ajaxProcess({
-			        			type: 'POST',
-								url: '/gkApp/news/moodleSaveAttempt',
-								data: {
-									attemptid: vm.attemptid,
-									preflightdata: JSON.stringify(postData),
-									token: cacheUserCourseInfo.token
-								}
-							})
-							.done(function(res){
-			        			if(
-									commomLab.checkAPIResult(res)
-								){
-									//数据提交异常
-									if(res.data.data.errorcode){
-										commomLab.myToast({
-											msg:res.data.data.message
-										})
-									}
-									else{
-										if(res.data.data.status){
-											commomLab.myToast({
-												msg:'提交成功'
-											},function(){
-												//跳转到答题结果页
-												location.href='course-study-of-practice-result.html?pagetitle='+pagetitle+'&quizid='+quizid+'&attemptid='+attemptid
-											})
-										}
-										else{
-											commomLab.myToast({
-												msg:'提交失败'
-											})
-										}
-									}
-									
-								}
-								else{
-									commomLab.myToast({
-										msg:'提交失败'
-									})
-								}
-							})
-							.fail(function(){
-								commomLab.myToast({
-									msg:'提交失败'
-								})
-							})
-							.always(function(){
-								$.hideIndicator();
-							});
-						})
 			        },
 			        function () {
 			        	//取消

@@ -1,0 +1,127 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-footer-btn padding-none">
+				<div class="flex-box flex-align-center">
+					<a href="my-faq.html" type="button" class="flex-item button button-big button-fill border-none flat btn-blue">
+						我的提问
+					</a>
+				</div>
+			</div>
+			<div class="content">
+				<div class="search_mdl">
+					<form id="searchForm">
+						<input type="search" name="search" id="search" value="">
+						<span class="tip"><i class="icon icon-search"></i>输入你遇到的问题的关键字</span>
+						<button type="button" class="search_btn" id="searchBtn"><i class="icon icon-search font_85rem"></i></button>
+					</form>
+				</div>
+				<div>
+					<dl class="faq_list_dl cur">
+						<dt><i class="icon"></i>报读与入学</dt>
+						<dd class="faq_list">
+							<a href="faq-details.html" class="flex-box">
+								<span class="flex-item">
+									本科毕业多久才可以报读在职研？
+								</span>
+							</a>
+							<a href="faq-details.html" class="flex-box">
+								<span class="flex-item">
+									在广东，专科线都不够，可以报读哪些学校？
+								</span>
+							</a>
+							<a href="faq-details.html" class="flex-box">
+								<span class="flex-item">
+									请问已经年满三十岁的人还有必要去报读自考吗？
+								</span>
+							</a>
+							<a href="faq-details.html" class="flex-box">
+								<span class="flex-item">
+									为什么你会后悔报读暨南大学珠海校区？
+								</span>
+							</a>
+							<a href="faq-details.html" class="flex-box">
+								<span class="flex-item">
+									成人可以报读硕士吗?在职申硕都有哪些途径?
+								</span>
+							</a>
+							<a href="faq-details.html" class="flex-box">
+								<span class="flex-item">
+									请问现在是不是初中学历最后报读专本的机会？
+								</span>
+							</a>
+						</dd>
+					</dl>
+					<dl class="faq_list_dl">
+						<dt><i class="icon"></i>学习问题</dt>
+						<dd class="faq_list">
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									本科毕业多久才可以报读在职研？
+								</span>
+							</a>
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									在广东，专科线都不够，可以报读哪些学校？
+								</span>
+							</a>
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									请问已经年满三十岁的人还有必要去报读自考吗？
+								</span>
+							</a>
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									为什么你会后悔报读暨南大学珠海校区？
+								</span>
+							</a>
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									成人可以报读硕士吗?在职申硕都有哪些途径?
+								</span>
+							</a>
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									请问现在是不是初中学历最后报读专本的机会？
+								</span>
+							</a>
+						</dd>
+					</dl>
+					<dl class="faq_list_dl">
+						<dt><i class="icon"></i>考试问题</dt>
+						<dd class="faq_list">
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									本科毕业多久才可以报读在职研？
+								</span>
+							</a>
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									在广东，专科线都不够，可以报读哪些学校？
+								</span>
+							</a>
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									请问已经年满三十岁的人还有必要去报读自考吗？
+								</span>
+							</a>
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									为什么你会后悔报读暨南大学珠海校区？
+								</span>
+							</a>
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									成人可以报读硕士吗?在职申硕都有哪些途径?
+								</span>
+							</a>
+							<a href="#" class="flex-box">
+								<span class="flex-item">
+									请问现在是不是初中学历最后报读专本的机会？
+								</span>
+							</a>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>

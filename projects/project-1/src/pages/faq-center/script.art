@@ -1,0 +1,118 @@
+<script type="text/javascript">
+;(function(){
+	var userName=commomLab.getQueryParam('userName');// 学号
+        userName || (userName=commomLab.faqDefaultParams.userName);
+
+    var studentId=commomLab.getQueryParam('studentId');//学员ID
+        studentId || (studentId=commomLab.faqDefaultParams.studentId);
+
+    var signature=commomLab.faqDefaultParams.signature;//签名
+
+    var baseParams={
+        userName: userName,
+        studentId: studentId
+    };
+
+    var data={
+    	keyword:'',
+    	isSearch:false,
+    	success:true,
+        msg:'',
+    	faqData:{
+    		faqGroup:[{
+    			name:'常见问题',
+    			id:1,
+    			list:[
+    				{
+    					id:1,
+	    				name:'为什么不能随意点击视频？',
+	    				content:'思政课程需要按顺序完成学习，并且首次观看不能拖动进度条。',
+	    				visible:true
+	    			},
+	    			{
+    					id:2,
+	    				name:'为什么不能进行测验？',
+	    				content:'必须完成本专题核心学习，才能进行测验。',
+	    				visible:true
+	    			}
+    			]
+    		}]
+    	}
+    }
+
+    window.app = new Vue({
+        el: '#app',
+        data: data,
+        created:function(){
+        	if(!userName && !studentId){
+        		this.success=false;
+        		this.msg='参数出错';
+        		this.$nextTick(function(){
+                    //删除“找老师”的按钮，因为传的参数不合法
+                    $('[data-id="call-box"]').remove();
+                });
+        	}
+        },
+        computed:{
+        	searchData:function(){
+        		var faqGroup=this.faqData.faqGroup;
+
+        		for(var gIndex in faqGroup){
+	    			for(var i in faqGroup[gIndex].list){
+	    				var item=faqGroup[gIndex].list[i];
+	    				if(this.keyword!=''){
+		        			if(item.name.indexOf(this.keyword)!=-1){
+		        				item.visible=true;
+		        			}
+		        			else{
+		        				item.visible=false;
+		        			}
+	        			}
+	        			else{
+	        				item.visible=true;
+	        			}
+	        		}
+        		}
+
+        		return faqGroup;
+        	},
+        },
+        methods:{
+        	focusSearch:function(){
+        		this.isSearch=true;
+        	},
+        	blurSearch:function(){
+        		if(this.keyword==''){
+        			this.isSearch=false;
+        		}
+        	},
+        	viewMore:function(item){
+        		pop.name=item.name;
+        		pop.content=item.content;
+
+  				$.popup($('#more'));
+        	},
+        	toggleDt:function(event){
+        		var _self=event.currentTarget;
+        		if(!$(_self).parent().hasClass('cur')){
+					$(_self).parent().addClass('cur');
+				}else{
+					$(_self).parent().removeClass('cur');
+				}
+        	},
+        	linkMyFaq:function(){
+        		location.href='my-faq.html?'+$.param(baseParams);
+        	}
+        }
+    });
+
+    //弹窗
+    var pop = new Vue({
+    	el: '#more',
+        data: {
+        	name:'',
+        	content:''
+        }
+    });
+})();
+</script>

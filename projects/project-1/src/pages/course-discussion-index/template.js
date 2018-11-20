@@ -2,7 +2,8 @@ const layout = require('../../components/layout/layout.js');
 const content = require('./content.art');
 const script = require('./script.art');
 
-const title = '讨论';
+//讨论
+const title = '';
 
 const renderData={
 	headerData:{

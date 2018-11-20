@@ -1,0 +1,60 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content bg-white" style="overflow-x:hidden;">
+				<div style="padding:.5rem 0 1rem .75rem">
+					<div class="swiper-container" style="padding-top:1rem;overflow: visible;">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab actived">
+									<span>
+										课程的教学实施
+									</span>
+								</button>
+							</div>
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab">
+									<span>
+										教师研修实践
+									</span>
+								</button>
+							</div>
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab">
+									<span>
+										远程教育基础知识
+									</span>
+								</button>
+							</div>
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab">
+									<span>
+										课程与教学基础知识
+									</span>
+								</button>
+							</div>
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab">
+									<span>
+										教学研究
+									</span>
+								</button>
+							</div>
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab">
+									<span>
+										学习网教学操作练习
+									</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center margin-t-1rem">
+					<img src="../../images/no-data2.png" width="80">
+					<div class="gray9 margin-t_7rem font_75rem">
+						暂无资源
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

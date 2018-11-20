@@ -1,0 +1,63 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-footer-btn padding-none">
+				<div class="flex-box flex-align-center">
+					<a href="create-faq.html" type="button" class="flex-item button button-big button-fill border-none flat btn-blue">
+						提问
+					</a>
+				</div>
+			</div>
+			<div class="content">
+				<div class="my-faq">
+					<a href="my-faq-details.html" class="item flex-box">
+						<span class="faq-label ask">问</span>
+						<div class="flex-item txt">
+							<div class="subject">
+								如何理解资金时间价值的实质
+							</div>
+							<div class="time">2017.10.10  10:20</div>
+						</div>
+						<div>
+							<label class="label label-blue-boder">未回复</label>
+						</div>
+					</a>
+					<a href="my-faq-details.html" class="item flex-box">
+						<span class="faq-label ask">问</span>
+						<div class="flex-item txt">
+							<div class="subject">
+								如何理解资金时间价值的实质
+							</div>
+							<div class="time">2017.10.10  10:20</div>
+						</div>
+						<div>
+							<label class="label label-blue-boder">未回复</label>
+						</div>
+					</a>
+					<a href="my-faq-details.html" class="item flex-box">
+						<span class="faq-label ask">问</span>
+						<div class="flex-item txt">
+							<div class="subject">
+								如何理解资金时间价值的实质
+							</div>
+							<div class="time">2017.10.10  10:20</div>
+						</div>
+						<div>
+							<label class="label label-blue-boder">未回复</label>
+						</div>
+					</a>
+					<a href="my-faq-details.html" class="item flex-box">
+						<span class="faq-label ask">问</span>
+						<div class="flex-item txt">
+							<div class="subject">
+								如何理解资金时间价值的实质
+							</div>
+							<div class="time">2017.10.10  10:20</div>
+						</div>
+						<div>
+							<label class="label label-blue-boder resolved">已回复</label>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>

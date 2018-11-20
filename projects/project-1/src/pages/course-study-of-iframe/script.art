@@ -15,6 +15,12 @@
 	var filename=commomLab.getQueryParam('filename');
 		filename || (filename='');
 
+	var instance=commomLab.getQueryParam('instance');//instance
+		instance || (instance='');
+
+	var state=commomLab.getQueryParam('state');//活动 状态
+		state || (state='');
+
 	var def=$.Deferred();
 
 	//如果是图片
@@ -27,15 +33,15 @@
 		$.showIndicator();
 		//解析html代码
 		commomLab.ajaxProcess({
-			url: '/gkApp/news/html2Str',
+			url: '/api/stud/study/html2Str',
 			data: {
 				htmlUrl: url
 			}
 		})
 		.done(function(res){
-			if(res.success && res.data){
+			if(commomLab.checkAPIResult(res)){
 				var doc=frames['ifrm'].frameElement.contentWindow.document;
-				doc.body.innerHTML=res.data;
+				doc.body.innerHTML=res.data.htmlContent;
 
 				doc.head.innerHTML='\
 						<meta charset="utf-8">\
@@ -64,14 +70,28 @@
 
 	//ended
 	def.done(function(){
-		commomLab.ajaxProcess({
-			url: '/gkApp/news/moodleUpdateActivityCompletionStatusManually',
-			data: {
-				cmid: pageid,
-				completed: 1,
-				token: token
-			}
-		});
+		//如果该活动已是完成状态，不需要再请求该接口
+		if(state!=1){
+			/*
+			commomLab.ajaxProcess({
+				url: '/api/stud/study/moodleUpdateActivityCompletionStatusManually',
+				data: {
+					cmid: pageid,
+					completed: 1,
+					token: token
+				}
+			});
+			*/
+			commomLab.ajaxProcess({
+				url: '/api/stud/study/moodleViewPage',
+				data: {
+					cmid: pageid,
+					pageid: instance,
+					completed: 1,
+					token: token
+				}
+			});
+		}
 	})
 })();
 </script>

@@ -128,11 +128,12 @@ var commomLab={
   //ajax 统一方法
   ajaxProcess : function(options){
     //远程接口网址的域名
-    //var ajaxBathPath="http://beijinglms.eenet.com";
-    var ajaxBathPath="http://172.16.165.93:8081";
+    var ajaxBathPath="http://beijinglms.eenet.com";
+    //var ajaxBathPath="http://172.16.165.93:8081";
 
     options.type || (options.type='GET');
     options.dataType || (options.dataType='json');
+    typeof(options.cache)=='boolean' || (options.cache=false);
     //options.timeout || (options.timeout=1000*30);//默认异步请求超时时间为 30s
     $.extend(true, options.data, {bathURL:ajaxBathPath});
     
@@ -187,14 +188,70 @@ var commomLab={
     }
   },
 
+  //缓存首页用户滚动页面的位置
+  cacheIndexScrollPos : {
+    key : 'indexScrollPos',
+    clear: function(){
+      sessionStorage.removeItem(this.key);
+    },
+    set : function(val){
+      sessionStorage.setItem( this.key, val )
+    },
+    get : function(){
+      return sessionStorage.getItem( this.key );
+    }
+  },
+
+  //缓存某活动的某一次测验的状态
+  cacheAttemptState : {
+    para : {
+      qid: '-',//测验活动ID
+      aid: '-'//某一次测验的ID
+    },
+    key : 'attemptState',
+    clear: function(opts){
+      var key=this.key+''+opts.qid+'_'+opts.aid;
+
+      sessionStorage.removeItem(key);
+    },
+    set : function(opts, state){
+      var key=this.key+''+opts.qid+'_'+opts.aid;
+      
+      sessionStorage.setItem( key, state )
+    },
+    get : function(opts){
+      var key=this.key+''+opts.qid+'_'+opts.aid;
+
+      return sessionStorage.getItem( key );
+    }
+  },
+
   //检测接口的初步返回数据是否有问题
   checkAPIResult : function(res){
     return (
-              res.success &&
-              res.data &&
-              res.data.code==200 &&
-              res.data.data
+              res.msgCode==200 &&
+              res.data
             );
+  },
+  //找老师
+  callTeacher: function(){
+    try{
+      var userinfor=this.cacheUserCourseInfo.get().user;
+      if(
+        userinfor &&
+        userinfor.username &&
+        userinfor.studentId
+      ){
+        location.href='/statics/mobile-learning/faq-center.html?userName='+userinfor.username+'&studentId='+userinfor.studentId;
+      }
+    }catch(e){}
+  },
+
+  //问题反馈 板块 默认参数
+  faqDefaultParams:{
+    userName:'',//0961001464994
+    studentId:'',//00001de5b73e4dd282463e2105576011
+    signature:'feedgrrbackiktlsignaturewldpmo'
   }
 }
 

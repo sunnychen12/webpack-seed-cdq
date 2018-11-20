@@ -1,0 +1,51 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="bar bar-footer-btn padding-none">
+			  <div class="flex-box flex-align-center">
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-blue"><span class="font_85rem">确定</span></button>
+			  </div>
+			</div>
+			<div class="content bg-white">
+				<div class="padding_75rem">
+				    <form data-id="theform" name="theform">
+				      	<div class="list-block margin-bottom-none margin-top-none">
+				          <textarea style="height:7rem;" data-id="discuss-content" placeholder="请输入问题内容" data-check="1" data-rule=".+" data-msg-empty="请输入问题内容" data-msg-error="请输入问题内容" name="forum-content"></textarea>
+				      	</div>
+
+					    <div class="weui-uploader__bd margin-t-1rem">
+					         <ul class="weui-uploader__files" id="uploaderFiles"></ul>
+					         <div class="weui-uploader__input-box">
+					             <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" capture="camera" multiple="">
+					         </div>
+				      	</div>
+
+				      	<div class="border-top" style="padding-top:1rem;margin-top:1rem;">
+				      		<h4 class="margin-none font_75rem">回访方式</h4>
+				      		<div class="buttons-row margin-t_5rem">
+					      		<a href="#tab1" class="tab-link active button">手机</a>
+					      		<a href="#tab2" class="tab-link button">QQ</a>
+					      		<a href="#tab3" class="tab-link button">邮箱</a>
+				      		</div>
+				      		<div class="tabs margin-t_5rem">
+							    <div id="tab1" class="tab active">
+							      <div class="list-block margin-none">
+							          <input type="text" placeholder="请留下联系方式" data-rule="^1[3-9][0-9]{9}$" data-msg-empty="请留下联系方式" data-msg-error="手机号码格式错误" data-check="1">
+							      	</div>
+							    </div>
+							    <div id="tab2" class="tab">
+							    	<div class="list-block margin-none">
+							        	<input type="text" placeholder="请填写QQ号码" data-rule="^\d+$" data-msg-empty="请填写QQ号码" data-msg-error="QQ号码格式错误" data-check="1">
+							        </div>
+							    </div>
+							    <div id="tab3" class="tab">
+							    	<div class="list-block margin-none">
+								    	<input type="text" placeholder="请填写邮箱" data-rule="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" data-msg-empty="请填写邮箱" data-msg-error="邮箱格式错误" data-check="1">
+								   	</div>
+							    </div>
+							</div>
+				      	</div>
+				    </form>
+				</div>
+			</div>
+		</div>
+	</div>

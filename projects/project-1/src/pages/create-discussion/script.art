@@ -1,8 +1,98 @@
-<link rel="stylesheet" type="text/css" href="assets/css/sm-extend.min.css">
 <script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
 <script type="text/javascript">
 	//图片上传
 ;(function() {
+    //讨论 活动ID
+    var forumid=commomLab.getQueryParam('forumid');
+        forumid || (forumid='');
+
+    var pagetitle=commomLab.getQueryParam('pagetitle');
+        pagetitle || (pagetitle='');
+
+    //获取缓存数据
+    var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+    window.app = new Vue({
+        el: '#app',
+        data: {
+            success:true,
+            msg:'',
+            pagetitle:pagetitle,
+            forumid:forumid,
+            subject:'',//讨论标题
+            message:'',//讨论内容
+            attachments:[]//图片附件
+        },
+        methods:{
+            //提交表单
+            submitForm:function(event){
+                var vm=this;
+                if( commomLab.checkform( $('[data-id="theform"]') ) ){
+
+                    $.showIndicator();
+                    var params = {};
+                    params["forumid"] = vm.forumid;
+                    params["subject"] = encodeURIComponent(vm.subject);
+                    params["token"] = cacheUserCourseInfo.token;
+
+                    var imgBox=[];
+                    var $addonImgDom=$('[name="imgUrls"]');
+
+                    if($addonImgDom && $addonImgDom.length>0){
+                        imgBox.push(
+                          '<div class="addon-img-list margin-t_5rem clearfix">',
+                          $.map($addonImgDom,function(n){
+                            return '<div class="addon-img"><img title="{0}" src="{0}?x-oss-process=image/resize,h_60,w_60/auto-orient,1"></div>'.format(n.value);
+                          }).join(''),
+                          '</div>'
+                        );
+                    }
+
+                    params["message"] = encodeURIComponent(vm.message+imgBox.join(''));
+
+                    //发帖
+                    commomLab.ajaxProcess({
+                        type:'POST',
+                        url: '/api/stud/study/moodleAddDiscussion',
+                        data: params
+                    })
+                    .done(function(res){
+                        if(
+                            commomLab.checkAPIResult(res)
+                        ){
+                            var resData=res.data;
+                            if(resData.errorcode){
+                                commomLab.myToast({
+                                    msg:resData.message
+                                });
+                            }
+                            else{
+                                commomLab.myToast({
+                                    msg:'发布成功'
+                                },function(){
+                                    location.replace('course-discussion-index.html?pagetitle='+pagetitle+'&forumid='+forumid);
+                                })
+                            }
+                        }
+                        else{
+                            commomLab.myToast({
+                                msg:'发布失败'
+                            })
+                        }
+                    })
+                    .fail(function(){
+                        commomLab.myToast({
+                            msg:'发布失败'
+                        })
+                    })
+                    .always(function(){
+                        $.hideIndicator();
+                    })
+                }
+            }
+        }
+    });
+
+
     var count = 0;
     $('.page').on('click', '.weui-uploader__file', function(e) {
         var _this = this;
@@ -26,17 +116,27 @@
         ++count;
         frames['ifr'].document.getElementById('file').click();
     })
-    .on('click', '.btn-ask-teacher', function(event) {
-        if( commomLab.checkform( $('[data-id="theform"]') ) ){
-          $.showIndicator();
-          setTimeout(function () {
-              commomLab.myToast({msg:'发布成功'},function(){
-                console.log('发布成功1')
-              });
+    //查看图片大图
+    .on('click', '.addon-img-list img', function(event) {
+        event.preventDefault();
+        var $list=$(this).closest('.addon-img-list').find('img');
+        var index=$list.index(this);
+        var imgUrl=$list.map(function(index, elem) {
+          return this.getAttribute('title') || this.src;
+        }).get();
 
-              $.hideIndicator();
-          }, 2000);
-        }
+        $.photoBrowser({
+            photos : imgUrl,
+            theme: 'dark',
+            type: 'standalone',
+            lazyLoading:true,
+            initialSlide:index,
+            toolbarTemplate:'<nav class="bar bar-tab my-gallery-footer">' +
+              '<a class="tab-item photo-browser-close-link" href="javascript:;">' +
+                '返回' +
+              '</a>' +
+            '</nav>'
+        }).open();
     });
     //图片回调处理方法（跨域上传图片时，图片上传后需要调用的方法）
     window.imgCallback = function(ajaxFilelist) {
@@ -80,7 +180,7 @@
             var src, url = window.URL || window.webkitURL || window.mozURL,
                 files = e.target.files;
             if (files.length > 5) { // 防止一下子选择过多文件
-                weui.alert('最多只能上传5张图片，请重新选择');
+                commomLab.myToast({msg:'最多只能上传5张图片，请重新选择'});
                 return;
             }
             for (var i = 0, len = files.length; i < len; ++i) {
@@ -97,5 +197,10 @@
             doc.forms.submitForm.submit();
         });
     }
+
+    //监控浏览器后退
+    window.addEventListener("popstate", function(e) {
+        location.replace('course-discussion-index.html?pagetitle='+pagetitle+'&forumid='+forumid);
+    }, false);
 })();
 </script>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>研修资源</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" type="text/css" href="css/common.css?v=1542455464326">
+	<link rel="stylesheet" type="text/css" href="css/main.css?v=1542455464326">
+	
+</head>
+<body>
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content bg-white">
+				<div style="padding:.5rem 0 1rem .75rem">
+					<div class="swiper-container" style="padding-top:1rem;overflow: visible;">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab actived">
+									<span>
+										课程的教学实施
+									</span>
+								</button>
+							</div>
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab">
+									<span>
+										教师研修实践
+									</span>
+								</button>
+							</div>
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab">
+									<span>
+										远程教育基础知识
+									</span>
+								</button>
+							</div>
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab">
+									<span>
+										课程与教学基础知识
+									</span>
+								</button>
+							</div>
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab">
+									<span>
+										教学研究
+									</span>
+								</button>
+							</div>
+							<div class="swiper-slide">
+								<button type="button" class="button border-none resourse-tab">
+									<span>
+										学习网教学操作练习
+									</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center margin-t-1rem">
+					<img src="images/no-data2.png?6ecec" width="80">
+						<div class="gray9 margin-t_7rem font_75rem">
+						暂无资源
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/common.min.js?v=1542455464326"></script>
+	<script type="text/javascript" src="js/commonLab.min.js?v=1542455464326"></script>
+
+
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+<script type="text/javascript">
+	$('.resourse-tab').each(function(index, el) {
+		$(this).parent().width($(this).outerWidth());
+	}).on('click', function(event) {
+		event.preventDefault();
+		$('.resourse-tab').removeClass('actived')
+		$(this).addClass('actived')
+	});
+
+	var swiper = new $.Swiper('.swiper-container', {
+		spaceBetween: 15,
+        slidesPerView: 'auto'
+    });
+</script>
+
+</body>
+</html>

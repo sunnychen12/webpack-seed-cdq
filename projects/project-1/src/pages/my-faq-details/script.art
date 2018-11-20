@@ -1,0 +1,136 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+<script type="text/javascript">
+;(function(){
+	var userName=commomLab.getQueryParam('userName');// 学号
+        userName || (userName=commomLab.faqDefaultParams.userName);
+
+    var studentId=commomLab.getQueryParam('studentId');//学员ID
+        studentId || (studentId=commomLab.faqDefaultParams.studentId);
+
+    var signature=commomLab.faqDefaultParams.signature;//签名
+
+	var feedBackId=commomLab.getQueryParam('feedBackId');//反馈消息ID
+	feedBackId || (feedBackId='');
+
+	if(!userName && !studentId && !signature && !feedBackId){
+		commomLab.myToast({msg:'参数出错'});
+
+		return;
+	}
+
+	window.app = new Vue({
+        el: '#app',
+        data: {
+            success:true,
+            msg:'',
+            isloaded:false,//是否所有数据都已经加载完毕
+            feedbackData:false,
+        },
+        created: function () {
+        	var vm=this;
+        	$.showIndicator();
+
+        	//9、获取意见反馈回复信息
+        	commomLab.ajaxProcess({
+				url: '/api/stud/space/getReplyInfoListByFeedBack.json',
+				data: {
+					userName: userName,
+			        studentId: studentId,
+			        signature: signature,
+			        feedBackId: feedBackId
+				}
+			})
+        	.done(function(res){
+        		if(
+					commomLab.checkAPIResult(res)
+				){
+					var resData=res.data;
+					
+                    //数据提交异常
+                    if(resData.code!==0){
+                        vm.success=false;
+                        vm.msg='数据查询异常';
+                    }
+                    else{
+                        vm.feedbackData=resData;
+                    }
+				}
+	          	else{
+	          		vm.success=false;
+	          		vm.msg='数据查询出错';
+	          	}
+                vm.showHtml();
+        	})
+        	.fail(function(XMLHttpRequest, textStatus, errorThrown){
+    			vm.success=false;
+				vm.msg='数据查询出错';
+                vm.showHtml();
+    		});
+        },
+        methods:{
+        	//结束异步，关键加载特殊，显示页面内容
+            showHtml:function(){
+                var vm=this;
+                vm.isloaded=true;
+                $.hideIndicator();
+            },
+            getDateTime:function(dt){
+                if(dt){
+                    var r=dt.match(/^\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}/);
+                    if(r.length>0){
+                        return r[0];
+                    }
+                    else{
+                        return dt;
+                    }
+                }
+                else{
+                    return '--'
+                }
+            },
+            //图片格式化
+            imgUrlFormat:function(url){
+            	var result='';
+
+				var w=70,//图片宽度
+				  	h=60;//图片高度
+
+				if(url){
+					if(url.indexOf('http://eefile.')==-1){
+					  result=url;
+					}
+					else{
+					  if(url.indexOf('?x-oss-process=image')==-1){
+					      result=url+'?x-oss-process=image/resize,h_'+h+',w_'+w+'/auto-orient,1'
+					  }
+					  else{
+					      result=url+'/{0}';
+					      result=result.format(result.indexOf('resize,h_'+h+',w_'+w+'/auto-orient,1')==-1?'resize,h_'+h+',w_'+w+'/auto-orient,1':'');
+					  }
+					}
+
+				}
+				return result;
+            },
+            imgFancybox:function(index,imgList){
+		        var imgUrl=$.map(imgList, function(elem) {
+		          return elem.imgUrl;
+		        });
+
+		        $.photoBrowser({
+		            photos : imgUrl,
+		            theme: 'dark',
+		            type: 'standalone',
+		            lazyLoading:true,
+		            initialSlide:index,
+		            toolbarTemplate:'<nav class="bar bar-tab my-gallery-footer">' +
+		              '<a class="tab-item photo-browser-close-link" href="javascript:;">' +
+		                '返回' +
+		              '</a>' +
+		            '</nav>'
+		        }).open();
+            }
+        }
+    });
+})();
+</script>

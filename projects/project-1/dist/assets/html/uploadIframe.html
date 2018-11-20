@@ -7,6 +7,15 @@
   <body>
 
     <script>
+    	//创建一个新的历史记录
+    	try{
+    		var t=new Date().getTime();
+	    	top.history.pushState({
+	            title: top.document.title,
+	            url: "#"+t
+	        }, null, "#"+t);
+	    }catch(e){}
+
     	var getQueryString = function(url) {
     		
 			var noQuery = 1, paramStr;
