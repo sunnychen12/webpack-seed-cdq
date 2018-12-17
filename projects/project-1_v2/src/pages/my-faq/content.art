@@ -1,0 +1,59 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<template v-if="isloaded">
+				<div class="bar bar-footer-btn padding-none" v-if="success && feedbackList && feedbackList.length>0">
+					<div class="flex-box flex-align-center">
+						<button type="button" class="flex-item button button-big button-fill border-none flat btn-blue" @click="gotoAsk">
+							提问
+						</button>
+					</div>
+				</div>
+				<div class="content">
+					<template v-if="success">
+						<div class="my-faq" v-if="feedbackList && feedbackList.length>0">
+							<a href="#" class="item flex-box" v-for="(fd, index) in feedbackList" @click.prevent="linkA(fd)">
+								<span class="faq-label ask">问</span>
+								<div class="flex-item txt">
+									<div class="flex-box">
+										<div class="subject flex-item">
+											{{fd.feedbackTitle}}
+										</div>
+										<div>
+											<label class="label label-blue-boder" v-if="fd.replyCount<=0">未回复</label>
+
+											<label class="label label-blue-boder resolved" v-else>已回复</label>
+										</div>
+									</div>
+									<div class="addon-img-list margin-t_5rem clearfix" v-if="fd.imgList">
+										<div class="addon-img" v-for="(img,key) in fd.imgList">
+											<img :SRC="imgUrlFormat(img.imgUrl)" @click.prevent.stop="imgFancybox(key,fd.imgList)">
+										</div>
+									</div>
+									<div class="time">{{getDateTime(fd.feedbackDate)}}</div>
+								</div>
+								
+							</a>
+						</div>
+						<div class="flex-box flex-box-justify-center flex-align-center full-height flex-vertical" v-else>
+							<img src="../../images/no-data2.png" width="100">
+		    				<div class="gray9 margin-t_7rem font_85rem">
+		    					{{msg}}
+		    				</div>
+		    				<div class="margin-t-1rem">
+		    					<button type="button" class="button button-md button-fill border-none btn-blue" style="border-radius:1rem" @click="gotoAsk">
+									<span class="padding-l_75rem padding-r_75rem">
+										我要提问
+									</span>
+								</button>
+		    				</div>
+		    				
+		    			</div>
+					</template>
+					<div class="text-center" style="margin:2.6rem 1rem;" v-else>
+						<i class="icomoon vertical-middle gray9" style="font-size:3.6rem;">&#xe904;</i>
+						<div class="font_75rem text-center margin-t-1rem">{{msg}}</div>
+					</div>
+				</div>
+			</template>
+		</div>
+	</div>

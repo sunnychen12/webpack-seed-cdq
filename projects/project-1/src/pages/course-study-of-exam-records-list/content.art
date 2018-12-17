@@ -1,0 +1,179 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<template v-if="isloaded">
+				<div class="content bg-white">				
+					<template v-if="success">
+						<div class="arc-area">
+							<div class="area-bg"></div>
+							<div class="flex-box flex-vertical flex-box-justify-center flex-align-center txt">
+								<h1 class="font-1rem margin-none text-no-bold txt1">{{name}}</h1>
+
+								<div class="margin-t_3rem" v-if="differDays>0">
+									<span class="txt3">距离考试 {{differDays}} 还有天</span>
+								</div>
+								
+								<div class="margin-t_3rem" v-else-if="
+										attemptLen==0
+									">
+									<span class="txt3">未作答</span>
+								</div>
+
+								<template v-else-if="latestAttempt">
+									<div class="margin-t_3rem" v-if="(latestAttempt.itemGrade===0 || latestAttempt.itemGrade>0) && finnalMaxGrade">
+										<span class="txt2">{{finnalMaxGrade}}</span>
+										<span class="txt3">分</span>
+									</div>
+
+									<template v-else>
+										<div class="margin-t_3rem" v-if="latestAttempt.state=='inprogress'">
+											<span v-if="isExamEnd" class="txt3">
+												测验结束
+											</span>
+
+											<span class="txt3" v-else>
+												答题中
+											</span>
+										</div>
+										<div class="margin-t_3rem" v-else-if="latestAttempt.state=='overdue'">
+											<span class="txt3">
+												已过期
+											</span>
+										</div>
+										<div class="margin-t_3rem" v-else-if="latestAttempt.state=='abandoned'">
+											<span class="txt3">
+												未提交
+											</span>
+										</div>
+										<div class="margin-t_3rem" v-else-if="latestAttempt.state=='finished' && !latestAttempt.sumgrades && latestAttempt.sumgrades!==0">
+											<span class="txt3">
+												待批改
+											</span>
+										</div>
+									</template>
+								</template>
+
+								<!--显示 时限 与 次数-->
+								<div class="font_55rem margin-t_3rem">
+									<!--
+										<span class="margin-l_5rem" v-if="timelimit">
+											时间限制
+												{{timelimit}}
+											小时
+										</span>
+									-->
+
+									<span v-if="permitTestTimes===-1">
+										允许无限次机会
+									</span>
+
+									<span v-else-if="permitTestTimes>0 && attemptLen>=0 && permitTestTimes>=attemptLen">
+										还有{{permitTestTimes-attemptLen}}次机会
+									</span>
+								</div>
+								
+							</div>
+
+
+							<div class="button flex-box flex-box-justify-center" v-if="isExamEnd">
+								<span>已过期</span>
+							</div>
+
+							<div class="button flex-box flex-box-justify-center" v-else-if="preventaccessreasons">
+								<span>未开放</span>
+								<span class="icon icon-right margin-l_3rem"></span>
+							</div>
+
+							<!--存在未结束的测验-->
+							<template v-if="latestAttempt">
+								<div class="button flex-box flex-box-justify-center" @click="jumpController(latestAttempt)" v-if="latestAttempt.state=='inprogress'">
+									<span>继续上次作答</span>
+									<span class="icon icon-right margin-l_3rem"></span>
+								</div>
+
+								<div class="button flex-box flex-box-justify-center" @click="jumpController(latestAttempt)" v-else-if="
+										latestAttempt.state=='finished' ||
+										latestAttempt.state=='overdue' ||
+										latestAttempt.state=='abandoned'
+									">
+									<span>回顾</span>
+									<span class="icon icon-right margin-l_3rem"></span>
+								</div>
+							</template>
+
+							<div class="button flex-box flex-box-justify-center" v-if="permitTestTimes==-1 || (permitTestTimes>0 && permitTestTimes>attemptLen)" @click="startAttempt">
+								<span>开始作答</span>
+								<span class="icon icon-right margin-l_3rem"></span>
+							</div>
+
+						</div>			
+						<div class="padding_75rem">
+							<!--显示 说明-->
+							<template v-if="examInfor">
+								<div class="flex-box flex-box-justify border-bottom padding-b_5rem padding-t_5rem">
+									<div class="font_75rem">说明</div>
+								</div>
+								<div class="font_55rem gray6 margin-t_7rem padding-b_5rem exam-infor" v-html="examInfor">
+									
+								</div>
+							</template>
+
+							<!--显示 作答记录-->
+							<template v-if="attemptData && attemptData.attempts && attemptData.attempts.length>0">
+								<div class="border-bottom padding-b_5rem padding-t_5rem">
+									<div class="font_75rem">作答记录</div>
+								</div>
+								<div class="margin-t_7rem padding-t_5rem">
+									<div class="test-record-list">
+										<dl class="test-record-item" v-for="(attemptRecord,index) in attemptData.attempts">
+											<dt>
+												<span v-if="attemptRecord.timefinish>0">{{formatDate(attemptRecord.timefinish*1000)}}</span>
+												<span v-else-if="attemptRecord.state=='inprogress'">答题进行中</span>
+												<span v-else-if="attemptRecord.state=='overdue'">答题已结束</span>
+												<span v-else-if="attemptRecord.state=='abandoned'">从未提交</span>
+											</dt>
+											<dd class="flex-box flex-align-center" @click="jumpController(attemptRecord)">
+												<span class="icon icon-right"></span>
+												<div class="flex-item text-center">
+													<div class="txt1">
+														{{attemptRecord.itemGrade}}
+													</div>
+													<div class="txt2">成绩/{{gradeMax}}</div>
+												</div>
+
+												<div class="flex-item text-center">
+													<div class="txt1" style="font-size:.75rem;">
+														<template v-if="attemptRecord.state=='inprogress'">
+															未提交
+														</template>
+														<template v-else-if="attemptRecord.state=='overdue'">
+															已逾期
+														</template>
+														<template v-else-if="attemptRecord.state=='abandoned'">
+															已放弃
+														</template>
+														<template v-else-if="attemptRecord.state=='finished'">
+															<template v-if="attemptRecord.sumgrades>0 || attemptRecord.sumgrades===0">
+																已批改
+															</template>
+															<template v-else>
+																已提交
+															</template>
+														</template>
+													</div>
+													<div class="txt2">状态</div>
+												</div>
+											</dd>
+										</dl>
+									</div>
+								</div>
+							</template>
+						</div>
+					</template>
+					<div class="text-center" style="margin:2.6rem 1rem;" v-else>
+						<i class="icomoon vertical-middle gray9" style="font-size:3.6rem;">&#xe904;</i>
+						<div class="font_75rem text-center margin-t-1rem">{{msg}}</div>
+					</div>
+				</div>
+			</template>
+		</div>
+	</div>

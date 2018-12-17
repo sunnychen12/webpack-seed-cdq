@@ -1,17 +1,35 @@
 <script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
 <script type="text/javascript">
 ;(function(){
-	//讨论 活动ID
-	var forumid=commomLab.getQueryParam('forumid');
-		forumid || (forumid='');
+    var cmid=commomLab.getQueryParam('id');
+        cmid || (cmid='');
 
+    //获取缓存数据
+    var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+    var activities=commomLab.cacheCourseInfoActivities.get().allModules;
+
+    var activityInfo=commomLab.getActivityInfo(cmid);
+
+	//讨论 活动ID
+	/*var forumid=commomLab.getQueryParam('forumid');
+		forumid || (forumid='');
+    */
+    var forumid=activityInfo.instance;
+
+    /*
 	var pagetitle=commomLab.getQueryParam('pagetitle');
 		pagetitle || (pagetitle='');
-
+    */
+    var pagetitle=activityInfo.name;
 		document.title=pagetitle;
 
-	//获取缓存数据
-	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+    //记录学员学习行为
+    commomLab.addStudyAction({
+        actType:'C007',
+        actId:cmid,
+        actName:pagetitle
+    });
 
 	window.app = new Vue({
         el: '#app',
@@ -122,6 +140,9 @@
                             formatDigit(date.getMinutes())
                         )
             },
+            viewMore:function(discussion){
+                location.href='course-discussion-details.html?discussionid='+discussion.discussion+'&pagetitle='+pagetitle+'&cmid='+cmid;
+            },
             //发布讨论
             createDiscussion:function(){
                 $.showIndicator();
@@ -146,7 +167,7 @@
                         }
                         else{
                             if(resData.canpindiscussions){
-                                location.href='create-discussion.html?pagetitle='+pagetitle+'&forumid='+forumid;
+                                location.href='create-discussion.html?pagetitle='+pagetitle+'&forumid='+forumid+'&cmid='+cmid;
                             }
                             else{
                                 commomLab.myToast({

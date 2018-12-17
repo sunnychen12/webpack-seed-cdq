@@ -139,7 +139,7 @@ var commomLab={
     //如果是首页接口“1、获取学员课程选课信息”，就不用增加参数“domainName”
     if(options.url!='/api/stud/study/moodleGetUserCourseInfo'){
       var cacheUserCourseInfo=this.cacheUserCourseInfo.get();
-      if(cacheUserCourseInfo){
+      if(cacheUserCourseInfo && options.data){
         options.data['domainName']=cacheUserCourseInfo.user.domainName;
       }
     }
@@ -195,6 +195,37 @@ var commomLab={
 
       return result;
     }
+  },
+
+  //缓存学员课程选课信息
+  cacheCourseInfoActivities : {
+    key : 'courseActivities',
+    clear: function(){
+      sessionStorage.removeItem(this.key);
+    },
+    set : function(jsonData){
+      sessionStorage.setItem( this.key,JSON.stringify(jsonData) )
+    },
+    get : function(){
+      var result=false;
+      try{
+        result = JSON.parse(sessionStorage.getItem(this.key))
+      }
+      catch(e){}
+
+      return result;
+    }
+  },
+
+  //根据 id 查找活动
+  getActivityInfo : function(id){
+    var activities=this.cacheCourseInfoActivities.get().allModules;
+
+    var activityInfo=activities.filter(function(item){
+      return id==item.id
+    })[0];
+
+    return activityInfo?activityInfo:false;
   },
 
   //缓存首页用户滚动页面的位置
@@ -264,6 +295,82 @@ var commomLab={
         cb.call(window);
       }
     }
+
+  },
+
+  //学员学习行为记录
+  addStudyAction:function(opts){
+    var userinfor=this.cacheUserCourseInfo.get();
+    var act={//操作类型
+      C001: '进入课程',
+      C002: '文本学习',
+      C003: '视频学习',
+      C004: '进入测试',
+      C005: ' 进入测验做题',
+      C006: ' 提交测验做题',
+      C007: ' 进入讨论活动',
+      C008: ' 讨论发表回复',
+      C009: ' 讨论发表评论'
+    };
+
+    var defaultOps={
+      userNo: userinfor.user.username, //学号
+      courseCode: userinfor.course.courseCode, //课程编号
+      actId: '', //活动章节ID cmId（学习活动的时候填写，其它为空）
+      actTime: 0, //学习时长(s)
+      actType: '', //操作类型
+      actName: '', //活动名称
+      actDec: '', //操作描述
+      timeStamp: '', //时间戳（秒为单位,30分钟内有效）
+      nonce: '', //随机字符串
+      signature: '' //签名
+    }
+
+    //如果没自定义操作描述，当根据 操作类型 能找到对应的默认描述，就用该默认的
+    if(opts.actType){
+      if(act[opts.actType]){
+        if(!opts.actDec){
+          opts.actDec='“'+opts.actName+'”'+act[opts.actType];
+        }
+      }
+    }
+
+    opts=$.extend({},defaultOps,opts);
+
+    this.ajaxProcess({
+      url: '/api/stud/online/addStudyAction.json',
+      data: opts
+    });
+  },
+
+  //四舍五入
+  /*
+    int n 数值
+    int d 小数位
+  */
+  floatToFixed: function (n,d) { 
+      var s=n+""; 
+      if(!d)d=0; 
+      if(s.indexOf(".")==-1)s+="."; 
+      s+=new Array(d+1).join("0"); 
+      if(new RegExp("^(-|\\+)?(\\d+(\\.\\d{0,"+(d+1)+"})?)\\d*$").test(s)){
+          var s="0"+RegExp.$2,pm=RegExp.$1,a=RegExp.$3.length,b=true;
+          if(a==d+2){
+              a=s.match(/\d/g); 
+              if(parseInt(a[a.length-1])>4){
+                  for(var i=a.length-2;i>=0;i--){
+                      a[i]=parseInt(a[i])+1;
+                      if(a[i]==10){
+                          a[i]=0;
+                          b=i!=1;
+                      }else break;
+                  }
+              }
+              s=a.join("").replace(new RegExp("(\\d+)(\\d{"+d+"})\\d$"),"$1.$2");
+
+          }if(b)s=s.substr(1); 
+          return (pm+s).replace(/\.$/,"");
+      }return n+"";
 
   },
 

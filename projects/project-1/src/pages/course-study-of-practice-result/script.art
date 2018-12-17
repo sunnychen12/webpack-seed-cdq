@@ -1,21 +1,25 @@
 <script type="text/javascript">
 	//答题卡的显示处理
 ;(function(){
-	var pagetitle=commomLab.getQueryParam('pagetitle');
-		pagetitle || (pagetitle='');
+	//获取缓存数据
+	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+	//测验ID
+	var attemptid=commomLab.getQueryParam('attemptid');
+
+	var cmid=commomLab.getQueryParam('cmid');
+
+	var activities=commomLab.cacheCourseInfoActivities.get().allModules;
+
+	var activityInfo=commomLab.getActivityInfo(cmid);
+
+	var pagetitle=activityInfo.name;
 
 	document.title=pagetitle;
 
 	//测验活动ID
-	var quizid=commomLab.getQueryParam('quizid');
-		quizid || (quizid='');
+	var quizid=activityInfo.instance;
 
-	//测验ID
-	var attemptid=commomLab.getQueryParam('attemptid');
-		attemptid || (attemptid='');
-
-	//获取缓存数据
-	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
 
 	window.app = new Vue({
         el: '#app',
@@ -78,11 +82,9 @@
 			//查看解析
 			viewAnalyze:function(){
 				location.href='course-study-of-practice.html?'+
-        					('pagetitle='+pagetitle)+
+        					('attemptid='+attemptid)+
         					'&'+
-        					('quizid='+quizid)+
-        					'&'+
-        					('attemptid='+attemptid);
+        					('cmid='+cmid);
 			},
 			leavePage:function(){
 				location.href='index.html?'+

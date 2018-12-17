@@ -1,0 +1,16 @@
+<%= pageTopInsert %><!DOCTYPE html>
+<html>
+<head>
+<%= header %>
+</head>
+<body>
+<%= content %>
+<%
+	var commonScript=require('../commonScript/commonScript.txt');
+	commonScript=commonScript.replace(/\{\{timemap\}\}/gm, new Date().getTime() ).replace(/\{\{dependScript\}\}/gm, script )
+%>
+<%= commonScript %>
+
+<%= footer %>
+</body>
+</html>

@@ -28,6 +28,9 @@
     var postid=commomLab.getQueryParam('postid');
         postid || (postid='');
 
+    var cmid=commomLab.getQueryParam('cmid');
+        cmid || (cmid='');
+
 	//获取缓存数据
     var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
 
@@ -188,6 +191,13 @@
                                 });
                             }
                             else{
+                                //记录学员学习行为
+                                commomLab.addStudyAction({
+                                    actType:'C008',
+                                    actId:cmid,
+                                    actName:pagetitle
+                                });
+                                
                                 commomLab.myToast({
                                     msg:'回复成功'
                                 },function(){

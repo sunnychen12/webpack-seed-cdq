@@ -146,6 +146,27 @@
                                     vm.userCourseInfo=resData;
                                     vm.sectionList=res2.data.sectionList;
 
+                                    //缓存所有课程活动及其基础数据
+                                    if(res2.data.sectionList.length>0){
+                                        var allModules=[], count=-1;
+                                        $.each(res2.data.sectionList, function(i, section) {
+                                            if(section.modulesList && section.modulesList.length>0){
+                                                $.each(section.modulesList, function(j, module) {
+                                                    module['groupIndex']=i;
+                                                    //“标签”类型
+                                                    if(module.modname!='label'){
+                                                        module['arrayIndex']=++count;
+                                                        allModules.push(module);
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                        commomLab.cacheCourseInfoActivities.set({
+                                            allModules:allModules
+                                        });
+                                    }
+
                                     //转换数据格式
                                     vm.convertData(res2.data.sectionList);
 
@@ -308,6 +329,12 @@
                             //缓存第一个接口的数据
                             commomLab.cacheUserCourseInfo.set(resData);
 
+                            //记录学员学习行为
+                            commomLab.addStudyAction({
+                                actType:'C001',
+                                actName:resData.course.courseName
+                            });
+
                             $.hideIndicator();
                             /////////
                             def.resolve(resData);
@@ -393,6 +420,8 @@
         		switch(module.modname){
         			case 'url':
         				result.name='视频';
+                        result.jumpUrl='course-study-of-video.html?videoId='+module.id;
+                        /*    
         				result.jumpUrl='course-study-of-video.html?videourl='+
         					(
         						(
@@ -407,50 +436,52 @@
         					'&'+
         					('pagetitle='+module.name)+
                             '&'+
-                            ('state='+module.state)+
-                            '&'+
                             ('instance='+module.instance);
+                        */
         				break;
         			case 'page':
         				result.name='网页';
                         var mCnts=module.contents;
                         if(mCnts && mCnts.length>0){
-                            var targetModule=false;
-                            if(mCnts.length==1){
-                                targetModule=mCnts[0];
-                            }
-                            else{
-                                for (var i in mCnts) {
-                                    if(/\.html/i.test(mCnts[i].filename)){
-                                        targetModule=mCnts[i];
-                                        break;
+                            /*
+                                var targetModule=false;
+                                if(mCnts.length==1){
+                                    targetModule=mCnts[0];
+                                }
+                                else{
+                                    for (var i in mCnts) {
+                                        if(/\.html/i.test(mCnts[i].filename)){
+                                            targetModule=mCnts[i];
+                                            break;
+                                        }
+                                    }
+
+                                    if(!targetModule){
+                                        targetModule=mCnts[0];
                                     }
                                 }
 
-                                if(!targetModule){
-                                    targetModule=mCnts[0];
-                                }
-                            }
-
-            				result.jumpUrl='course-study-of-iframe.html?url='+
-            					(
-                                    targetModule.fileurl?
-                                    targetModule.fileurl:''
-                                )+
-            					'&'+
-            					('pagetitle='+module.name)+
-            					'&'+
-            					('pageid='+module.id)+
-                                '&'+
-                                'filename='+
-                                (
-                                    targetModule.filename?
-                                    targetModule.filename : ''
-                                )+
-                                '&'+
-                                ('state='+module.state)+
-                                '&'+
-                                ('instance='+module.instance);
+                				result.jumpUrl='course-study-of-iframe.html?url='+
+                					(
+                                        targetModule.fileurl?
+                                        targetModule.fileurl:''
+                                    )+
+                					'&'+
+                					('pagetitle='+module.name)+
+                					'&'+
+                					('pageid='+module.id)+
+                                    '&'+
+                                    'filename='+
+                                    (
+                                        targetModule.filename?
+                                        targetModule.filename : ''
+                                    )+
+                                    '&'+
+                                    ('state='+module.state)+
+                                    '&'+
+                                    ('instance='+module.instance);
+                            */
+                            result.jumpUrl='course-study-of-iframe.html?pageid='+module.id;
                         }
         				break;
         			case 'quiz':
@@ -461,10 +492,22 @@
         					'&'+
         					('quizid='+module.instance);
         					*/
+                        /*
         				result.jumpUrl='course-study-of-practice-records-list.html?'+
         					('pagetitle='+module.name)+
         					'&'+
-        					('quizid='+module.instance);
+        					('quizid='+module.instance)+
+                            '&'+
+                            ('id='+module.id);
+                        */
+                        //如果是期末考试
+                        if(module.name.indexOf('期末考试')!=-1){
+                            result.jumpUrl='course-study-of-exam-records-list.html?id='+module.id;
+                        }
+                        //普通测试
+                        else{
+                            result.jumpUrl='course-study-of-practice-records-list.html?id='+module.id;
+                        }
         				break;
         			case 'resource':
                         result.name='资源说明';
@@ -479,10 +522,7 @@
         				break;
         			case 'forum':
         				result.name='讨论';
-        				result.jumpUrl='course-discussion-index.html?'+
-                            ('pagetitle='+module.name)+
-                            '&'+
-                            ('forumid='+module.instance);
+        				result.jumpUrl='course-discussion-index.html?id='+module.id;
         				break;
         			default:
         				break;
@@ -558,6 +598,7 @@
 							res.data.canattempt
 						){
                             //允许测试次数
+                            /*
                             var count=res.data.accessrules;
 
                             if(count && count.length>0){
@@ -566,6 +607,8 @@
 							else{
                                 location.href=jumpUrl;
                             }
+                            */
+                            location.href=jumpUrl;
 						}
 						else{
 							commomLab.myToast({

@@ -1,0 +1,41 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<div class="content">
+				<div class="edu-model bg-white">
+					<ul class="list-unstyled dyn-info-list">
+						<li class="item-with-border" v-for="item in projectData">
+							<a class="as-link" href="#" @click.prevent="viewMore(item)">
+								<div class="name">{{item.name}}</div>
+								<div class="txt">{{item.publishTime}}</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="popup" id="more">
+		<header class="bar bar-nav">
+		  <a class="icon icon-left pull-left close-popup"></a>
+		  <h1 class="title">成果详情</h1>
+		</header>
+		<div class="bar bar-footer-btn padding-none">
+			<div class="flex-box border-top">
+				<button type="button" class="flex-item button button-big button-fill border-none flat close-popup" style="background-color: #f7f7f8;">
+					<span class="text-blue">关闭</span>
+				</button>
+			</div>
+		</div>
+		<div class="content bg-white">
+			<div class="padding_75rem">
+				<h1 class="font_85rem text-center">{{name}}</h1>
+				<div class="gray font_55rem text-center">发布时间：{{publishTime}}</div>
+				<div class="artical-content">
+					<div class="gray6 proj-des" v-html="projIntroduce">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

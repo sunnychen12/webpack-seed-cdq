@@ -1,0 +1,49 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content bg-white">
+				<div class="score-banner pass flex-box flex-box-justify-center flex-vertical flex-align-center">
+					<div>
+						<i class="icomoon vertical-middle"></i>
+						<span class="txt inline-block vertical-middle font-1rem">通过考核！</span>
+					</div>
+				</div>
+				<div class="score-banner fail flex-box flex-box-justify-center flex-vertical flex-align-center">
+					<div>
+						<i class="icomoon vertical-middle"></i>
+						<span class="txt inline-block vertical-middle font-1rem">未通过考核！</span>
+					</div>
+				</div>
+				<div class="padding_75rem padding-top-none">
+					<ul class="list-unstyled list-cutstom font_65rem">
+						<li class="list-cutstom-item flex-box">
+							<div class="flex-item gray9">
+								<ul class="list-unstyled line-height-1_75">
+									<li>学习成绩（达60分通过）</li>
+									<li>班平均成绩    60分</li>
+								</ul>
+							</div>
+							<div class="txt text-blue">80分</div>
+						</li>
+						<li class="list-cutstom-item flex-box">
+							<div class="flex-item gray9">
+								<ul class="list-unstyled line-height-1_75">
+									<li>学习进度</li>
+									<li>班级平均进度  60%</li>
+								</ul>
+							</div>
+							<div class="txt text-blue">60分</div>
+						</li>
+						<li class="list-cutstom-item flex-box">
+							<div class="flex-item gray9">
+								<ul class="list-unstyled line-height-1_75">
+									<li>学习时长</li>
+									<li>班级平均时长   0.7小时</li>
+								</ul>
+							</div>
+							<div class="txt text-blue">2.6小时</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>

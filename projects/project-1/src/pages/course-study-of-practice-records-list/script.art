@@ -1,12 +1,17 @@
 <!--<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>-->
 <script type="text/javascript">
 ;(function(){
-	//测验ID
-	var quizid=commomLab.getQueryParam('quizid');
-		quizid || (quizid='');
+    var cmid=commomLab.getQueryParam('id');
 
-	var pagetitle=commomLab.getQueryParam('pagetitle');
-		pagetitle || (pagetitle='');
+    var activities=commomLab.cacheCourseInfoActivities.get().allModules;
+
+    var activityInfo=commomLab.getActivityInfo(cmid);
+
+	//测验ID
+	var quizid=activityInfo.instance;
+
+	var pagetitle=activityInfo.name;
+        document.title=pagetitle+'-测验记录列表';
 
     //允许测试次数
     /*
@@ -17,6 +22,13 @@
 
 	//获取缓存数据
 	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+    //记录学员学习行为
+    commomLab.addStudyAction({
+        actType:'C004',
+        actId:cmid,
+        actName:pagetitle
+    });
 
     /*
     //监控浏览器后退离开页面
@@ -153,20 +165,10 @@
                                 }
                             }
                             else if(resData.attempt){
-                                //缓存状态
-                                /*
-                                commomLab.cacheAttemptState.set({
-                                    qid : quizid,
-                                    aid : resData.attempt.id
-                                },'inprogress');
-                                */
-
         						location.href='course-study-of-practice.html?'+
-                					('pagetitle='+pagetitle)+
-                					'&'+
-                					('quizid='+quizid)+
-                					'&'+
-                					('attemptid='+resData.attempt.id);
+                					('attemptid='+resData.attempt.id)+
+                                    '&'+
+                                    ('cmid='+cmid);
                             }
                             else{
                                 commomLab.myToast({msg:'数据查询出错'});
@@ -281,7 +283,7 @@
             //获取具体活动的 表头成绩
             getGradeMax:function(){
                 var vm=this;
-                $.showIndicator();
+                vm.hideHtml();
                 
                 //获取成绩列表
                 commomLab.ajaxProcess({
@@ -314,8 +316,14 @@
 
                                     var attempts=vm.attemptData.attempts
                                     for(var j in attempts){
-                                        if(attempts[j].sumgrades===0 || attempts[j].sumgrades>0){
-                                            attempts[j].itemGrade=attempts[j].sumgrades / 100 * gradeitems[i].grademax;
+                                        if(attempts[j].sumgrades===0){
+                                                attempts[j].itemGrade=0;
+                                        }
+                                        else if(attempts[j].sumgrades>0){
+                                            attempts[j].itemGrade=commomLab.floatToFixed(
+                                                attempts[j].sumgrades / 100 * gradeitems[i].grademax,
+                                                2
+                                            );
                                         }
                                     }
 
@@ -370,7 +378,7 @@
         		return 	(
 	        				date.getFullYear()+
 			        		'-'+
-			        		formatDigit((date.getMonth()+1))+
+			        		formatDigit(date.getMonth()+1)+
 			        		'-'+
 			        		formatDigit(date.getDate())+
 			        		' '+
@@ -390,21 +398,22 @@
         		switch(attempt.state){
         			case 'inprogress'://进行中
         			case 'finished'://完成
-                        //缓存状态
-                        /*
-                        commomLab.cacheAttemptState.set({
-                            qid : quizid,
-                            aid : attempt.id
-                        },attempt.state);
-                        */
 
         				//查看解析
+                        /*
         				location.href='course-study-of-practice.html?'+
         					('pagetitle='+pagetitle)+
         					'&'+
         					('quizid='+quizid)+
         					'&'+
-        					('attemptid='+attempt.id);
+        					('attemptid='+attempt.id)+
+                            '&'+
+                            ('cmid='+cmid);
+                        */
+                        location.href='course-study-of-practice.html?'+
+                            ('attemptid='+attempt.id)+
+                            '&'+
+                            ('cmid='+cmid);
         				break;
         			case 'overdue'://未完成
         				
@@ -418,20 +427,5 @@
         	}
         }
     });
-
-    /*
-    setTimeout(function(){
-    	//内容滑动
-		var mySwiper = new $.Swiper('.swiper-container',{
-			onSlideChangeEnd : function(swiper) {
-				console.log(mySwiper.activeIndex);
-					
-				$('.cloud-tab li.item')
-				.eq(mySwiper.activeIndex).addClass('actived')
-				.siblings().removeClass('actived');
-			}
-		});
-    },2000)
-    */
 })();
 </script>

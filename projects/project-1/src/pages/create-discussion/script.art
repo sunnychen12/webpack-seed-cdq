@@ -2,15 +2,20 @@
 <script type="text/javascript">
 	//图片上传
 ;(function() {
-    //讨论 活动ID
-    var forumid=commomLab.getQueryParam('forumid');
-        forumid || (forumid='');
-
-    var pagetitle=commomLab.getQueryParam('pagetitle');
-        pagetitle || (pagetitle='');
+    var cmid=commomLab.getQueryParam('cmid');
 
     //获取缓存数据
     var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+    var activities=commomLab.cacheCourseInfoActivities.get().allModules;
+
+    var activityInfo=commomLab.getActivityInfo(cmid);
+
+    //讨论 活动ID
+    var forumid=activityInfo.instance;
+
+    var pagetitle=activityInfo.name;
+    
     window.app = new Vue({
         el: '#app',
         data: {
@@ -66,10 +71,17 @@
                                 });
                             }
                             else{
+                                //记录学员学习行为
+                                commomLab.addStudyAction({
+                                    actType:'C009',
+                                    actId:cmid,
+                                    actName:pagetitle
+                                });
+
                                 commomLab.myToast({
                                     msg:'发布成功'
                                 },function(){
-                                    location.replace('course-discussion-index.html?pagetitle='+pagetitle+'&forumid='+forumid);
+                                    location.replace('course-discussion-index.html?id='+cmid);
                                 })
                             }
                         }
@@ -200,7 +212,7 @@
 
     //监控浏览器后退
     window.addEventListener("popstate", function(e) {
-        location.replace('course-discussion-index.html?pagetitle='+pagetitle+'&forumid='+forumid);
+        location.replace('course-discussion-index.html?id='+cmid);
     }, false);
 })();
 </script>

@@ -24,10 +24,17 @@
 							<div class="area-bg"></div>
 							<div class="flex-box flex-vertical flex-box-justify-center flex-align-center txt">
 								<h1 class="font-1rem margin-none text-no-bold txt1">模块测试</h1>
-								<div class="margin-t_7rem" v-if="graderaw>=0">
-									<span class="txt2">{{graderaw}}</span>
-									<span class="txt3">分</span>
+								<div class="margin-t_7rem" v-if="attemptLen>0">
+									<template v-if="graderaw>=0">
+										<span class="txt2">{{graderaw}}</span>
+										<span class="txt3">分</span>
+									</template>
+									<template v-else>
+										<span class="txt2">--</span>
+										<span class="txt3">分</span>
+									</template>
 								</div>
+								
 								<div class="margin-t_7rem" v-else>
 									<span class="txt3">未作答</span>
 								</div>
@@ -46,10 +53,10 @@
 
 								<span class="icon icon-right margin-l_3rem"></span>
 							</div>
-							<a href="javascrpt:;" class="button flex-box flex-box-justify-center" @click="leavePage" v-else>
+							<div class="button flex-box flex-box-justify-center" @click="leavePage" v-else>
 								<span>不允许再试，返回</span>
 								<span class="icon icon-right margin-l_3rem"></span>
-							</a>
+							</div>
 
 						</div>			
 						<div class="padding_75rem">
@@ -98,7 +105,7 @@
 												<div class="txt1">
 													{{(attemptRecord.sumgrades>0 || attemptRecord.sumgrades===0)?attemptRecord.sumgrades:'--'}}
 												</div>
-												<div class="txt2">测验的分/100</div>
+												<div class="txt2">测验得分/100</div>
 											</div>
 											<div class="flex-item text-center">
 												<div class="txt1">

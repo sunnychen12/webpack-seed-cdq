@@ -1,0 +1,24 @@
+<script type="text/javascript">
+	//答题卡的显示处理
+	;(function(){
+		var $card=$('.ans-card-list')
+			, cardWith=$card.width()-1
+			, $items=$card.children()
+			, $item=$items.eq(0)
+			, itemWidth=$item.outerWidth(true)+1
+			, counts=$items.length;
+
+		var w=0, m=0;
+		for (var i = 1; i <= counts; i++) {
+			w=itemWidth*i;
+			if(w>cardWith){
+				m=i;
+				break;
+			}
+		}
+
+		if(m>0){
+			$card.css('padding-left', (cardWith-itemWidth*(m-1))/2 );
+		}
+	})();
+</script>

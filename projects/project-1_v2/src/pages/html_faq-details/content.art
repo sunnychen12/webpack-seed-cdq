@@ -1,0 +1,37 @@
+	<div class="page-group">
+		<div class="page page-current">
+			<!--
+			<div class="fix-btm-btn flex-box">
+				<a href="question_create2.html" class="unsolved flex-item gray6">未解决</a>
+				<a href="javascript:;" class="solved flex-item">已解决</a>
+			</div>
+			-->
+			<div class="content">
+				<div class="faq-detail bg-white font_75rem">
+					<div class="flex-box padding_75rem item-with-border">
+						<span>Q：</span>
+						<div class="faq-detail-cnt">
+							<div class="txt text-justify">
+								本科毕业多久才可以报读在职研？
+							</div>
+
+						</div>
+					</div>
+					<div class="flex-box padding_75rem item-with-border">
+						<span>A：</span>
+						<div class="faq-detail-cnt">
+							<div class="txt text-justify">
+								有6月份考上的大学生才能发普通高等教育毕业证，也就是人事局所说的全日制毕业证。至于自考、成考大学生，只能发自考毕业证和成人毕业证，自考和成考大学生就是全脱产上课也不属全日制大学生。
+							</div>
+							<div class="addon-img-list margin-t_5rem clearfix">
+								<div class="addon-img"><img src="../../images/temp1.png"></div>
+								<div class="addon-img"><img src="../../images/temp1.png"></div>
+								<div class="addon-img"><img src="../../images/temp1.png"></div>
+								<div class="addon-img"><img src="../../images/temp1.png"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

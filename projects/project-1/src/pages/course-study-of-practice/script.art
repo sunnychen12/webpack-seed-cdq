@@ -1,25 +1,11 @@
 <script type="text/javascript">
-	var pagetitle=commomLab.getQueryParam('pagetitle');
-		pagetitle || (pagetitle='');
-
-		document.title=pagetitle;
+	
 
 	//测验活动ID，必填项
-	var quizid=commomLab.getQueryParam('quizid');
-		quizid || (quizid='');
+	var cmid=commomLab.getQueryParam('cmid');
 
-	//测验ID，必填项
+	//测验记录ID，必填项
 	var attemptid=commomLab.getQueryParam('attemptid');
-		attemptid || (attemptid='');
-
-	//测验状态，必填项。如果是“完成”，就查看解析；如果是“进行中”，就进行测验
-	/*
-	var attemptstate =  commomLab.cacheAttemptState.get({
-                        	qid : quizid,
-                        	aid : attemptid
-                    	});
-		attemptstate || (attemptstate='');
-	*/
 
 	//需要跳转到特定题目的索引，从0开始
 	var qIndex=commomLab.getQueryParam('qIndex');
@@ -27,6 +13,17 @@
 
 	//获取缓存数据
 	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+	var activities=commomLab.cacheCourseInfoActivities.get().allModules;
+
+	var activityInfo=commomLab.getActivityInfo(cmid);
+
+	var pagetitle=activityInfo.name;
+
+		document.title=pagetitle;
+
+	//测验活动ID，必填项
+	var quizid=activityInfo.instance;
 
 	window.app = new Vue({
         el: '#app',
@@ -38,9 +35,32 @@
         	curQueIndex: 0,
         	questionLen: 0,
         	attemptid: attemptid,
+        	isFinalExam: (activityInfo.name.indexOf('期末考试')!=-1),//是否期末考试
+        	timestart: false,//
+            examEndTime:false,//考试结束时间
+            serverTimestamp:false,
+        	countDownText:'00:00:00',
         	hasNextPage: false,
         	attemptstate: '',
         	attemptData:false,//测验记录列表
+        },
+        computed:{
+        	//考试是否结束-针对期末考试
+            isExamEnd:function(){
+                var vm=this;
+                return (
+                            vm.examEndTime!==false &&
+                            vm.serverTimestamp &&
+                            (
+                                new Date(
+                                    vm.examEndTime.year,
+                                    vm.examEndTime.month-1,
+                                    vm.examEndTime.day,
+                                    vm.examEndTime.hour,
+                                    vm.examEndTime.minute).getTime()
+                            )<=vm.serverTimestamp
+                        );
+            }
         },
         created: function () {
         	this.getAttemptData();
@@ -52,6 +72,11 @@
         		vm.isloaded=true;
 				$.hideIndicator();
         	},
+        	hideHtml:function(){
+                var vm=this;
+                vm.isloaded=false;
+                $.showIndicator();
+            },
         	//获取用户测验做题列表
         	//cb 回调方法
         	getAttemptState:function(cb){
@@ -77,6 +102,25 @@
 		                            for(var item in resData.attempts){
 		                                if(resData.attempts[item].id==attemptid){
 		                                	vm.attemptstate=resData.attempts[item].state;
+
+		                                	vm.timestart=resData.attempts[item].timestart;
+
+		                                	/*
+		                                	//期末考试 且 正在做题
+		                                	if(
+												vm.isFinalExam &&
+												vm.attemptstate=='inprogress'
+											){
+												vm.timeCountDown(res.nowTimestamp-0);//启动倒计时
+											}
+											*/
+											//期末考试 且 正在做题
+											if(
+												vm.isFinalExam &&
+												vm.attemptstate=='inprogress'
+											){
+												vm.checkQuizAccess();
+											}
 
 		                                	cb.call(vm,resData.attempts[item]);
 
@@ -122,12 +166,27 @@
         	},
         	//获取测验下的题目列表
         	getAttemptData:function(){
-        		$.showIndicator();
 
         		var vm=this;
 
+        		vm.hideHtml();
+
         		vm.getAttemptState(function(){
-	        		if(vm.attemptstate=='inprogress'){
+	        		if(
+	        			vm.attemptstate=='inprogress' ||
+	        			vm.attemptstate=='overdue' ||
+	        			vm.attemptstate=='abandoned'
+	        		){
+
+	        			//记录学员学习行为
+	        			if(vm.pageIndex==0){
+						    commomLab.addStudyAction({
+						        actType:'C005',
+						        actId:cmid,
+						        actName:pagetitle
+						    });
+					    }
+
 		        		commomLab.ajaxProcess({
 							url: '/api/stud/study/moodleGetAttemptData',
 							data: {
@@ -151,7 +210,7 @@
 								    return item.type!='description'
 								});
 
-								resData.questions=vm.convertHTML(resData.questions);
+								resData.questions=vm.convertHTML(resData);
 
 								if(vm.pageIndex==0){
 									vm.attemptData=resData;
@@ -213,7 +272,7 @@
 								    return item.type!='description'
 								});
 
-								resData.questions=vm.convertHTML(resData.questions);
+								resData.questions=vm.convertHTML(resData);
 
 								vm.attemptData=resData;
 
@@ -235,6 +294,51 @@
 					}
 				});
         	},
+        	//格式化时间
+			formatTime: function (t){
+				var h = Math.floor(t / 1000 / 60 / 60 % 24);
+				var m = Math.floor(t / 1000 / 60 % 60);
+				var s = Math.floor(t / 1000 % 60);
+
+
+				return ( h<10?('0'+h):h )+':'
+						+( m<10?('0'+m):m )+':'
+						+( s<10?('0'+s):s );
+			},
+        	//倒计时
+        	timeCountDown: function(nowTimestamp){
+        		var vm=this;
+
+				var start=vm.timestart*1000;
+				start=new Date(start);
+				var end=start.setHours(start.getHours()+3);
+
+				var differTime=end-nowTimestamp;//剩余时间
+
+				
+
+				//var $timerDom=$('[data-id="timer"]');
+
+				if(differTime>1000){
+                    var timer=setInterval(function(){
+                    	if(differTime>1000){
+                    		differTime=differTime-1000;
+                    		/*
+                    		if($timerDom.length==0){
+                    			$timerDom=$('[data-id="timer"]');
+                    		}
+                    		$timerDom.html( formatTime(differTime) );
+                    		*/
+                    		vm.countDownText=vm.formatTime(differTime)
+
+                    		if(differTime<=0){
+                    			clearInterval(timer);
+                    			vm.endingFinalExam(true);
+                    		}
+                    	}
+                    },1000)
+                }
+        	},
         	//获取能否参加开始考试（开始考试有前置条件）
         	getAttemptAccessInfo:function(attemptid){
         		return commomLab.ajaxProcess({
@@ -246,6 +350,56 @@
 					}
 				})
         	},
+        	//判断是否可以进入“测验”活动
+            checkQuizAccess:function(){
+                var vm=this;
+                vm.hideHtml();
+                commomLab.ajaxProcess({
+                    url: '/api/stud/study/moodleGetQuizAccessInformation',
+                    data: {
+                        quizid: quizid,
+                        token: cacheUserCourseInfo.token
+                    }
+                })
+                .done(function(res){
+                    if(
+                        commomLab.checkAPIResult(res)
+                    ){
+                        var resData=res.data;
+
+                        vm.serverTimestamp=res.nowTimestamp;
+
+                        //启动计时
+                        setInterval(function(){
+                            vm.serverTimestamp=vm.serverTimestamp-0+1000;
+                        },1000);
+
+
+                        //允许测试次数
+                        var rules=resData.accessrules;
+
+                        if(rules && rules.length>0){
+                            for(var i in rules){
+                                if(rules[i].indexOf('关闭')!=-1){
+                                    var m=rules[i].match(/.*关闭\D*(\d{4})年(\d{1,2})月(\d{1,2})日\D+(\d{1,2}):(\d{1,2})/);
+                                    if(m && m.length>5){
+                                        vm.examEndTime={
+                                            year : m[1],
+                                            month : m[2],
+                                            day : m[3],
+                                            hour: m[4],
+                                            minute : m[5]
+                                        };
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+                .always(function(){
+                    vm.showHtml();
+                })
+            },
         	//根据 测验状态 获取 测试记录对象
         	getTargetAttempt:function(collector,state){
         		var r=false;
@@ -260,20 +414,12 @@
         		return r;
         	},
         	//二次处理接口返回的数据，主要是'html'字段的数据
-        	convertHTML:function(arr){
+        	convertHTML:function(resData){
         		var vm=this;
+        		var arr=resData.questions, attemptInfo=resData.attempt;
         		for(var i in arr){
         			if(arr[i].html){
 	        			arr[i].html=arr[i].html.replace(/<script[^>]*>[\s\S]*<\/script>/ig,"");
-	        			var $temp=$('<div/>');
-
-	        			$temp.html(arr[i].html);
-
-	        			$temp.find('.content').removeClass('content').addClass('qcontent');
-
-	        			$temp.find('.info,.accesshide,.icon,.answer [type="hidden"]').remove();
-
-	        			$temp.find('.answer [type="radio"] + label,.answer [type="checkbox"] + label').prepend('<i class="icomoon"></i>');
 
 	        			var qTypeName='';
 	        			switch(arr[i].type){
@@ -286,25 +432,101 @@
 	        				case 'multichoiceset':
 	        					qTypeName='多选题';
 	        					break;
+	        				case 'essay':
+	        					qTypeName='简答题';
+	        					break;
 	        				default :
 	        					qTypeName='选择题';
 	        					break;
 	        			}
 
-	        			var $qtext=$temp.find('.qtext');
-	        			var html=$qtext.html();
+	        			var $temp=$('<div/>');
 
-	        			if(/(\d+\.)/g.test(html)){
-		        			$qtext.html(
-		        				$qtext.html().replace(/(\d+\.)/g, arr[i].number+'. ')
-		        			);
+	        			$temp.html(arr[i].html);
+
+	        			var $qcontent=$temp.find('.content').removeClass('content');
+
+	        			//简答题
+	        			if(arr[i].type=='essay'){
+	        				$qcontent.addClass('ans-qcontent')
+
+	        				$temp.find('.info,.accesshide').remove();
+
+	        				var $qtext=$temp.find('.qtext');
+
+	        				$qtext
+		        			.prepend('<div class="margin-b_7rem es-top clearfix"><label class="label label-blue-boder margin-r_5rem">'+qTypeName+'</label></div>');
+
+		        			//完成
+		        			if(attemptInfo.state=='finished'){
+		        				var $answer=$qcontent.find('.answer').addClass('view-ans');
+			        			//等待评分
+			        			if(!arr[i].mark && arr[i].mark!==0){
+			        				$answer.prepend([
+				        				'<div class="ans-tit clearfix">',
+					        				'<span class="pull-right">待评分</span>',
+					        				'回答',
+				        				'</div>'
+			        				].join(''));
+			        			}
+			        			//查看题目结果状态
+			        			else{
+			        				$answer.prepend('<div class="ans-tit">回答</div>');
+
+			        				var $comment=$qcontent.find('.comment');
+			        				if($comment.length>0){
+					        			var $commentHtml=$comment.html().replace(/评语：/gm, [
+					        				'<div class="comment-tit clearfix">',
+						        				'<span class="pull-right">',
+						        					'成绩：'+arr[i].mark+'分',
+						        				'</span>',
+						        				'评语',
+					        				'</div>'
+					        			].join(''));
+
+					        			$comment.html($commentHtml);
+				        			}
+			        			}
+		        			}
+		        			else if(attemptInfo.state=='inprogress'){
+			        			var $textarea=$qcontent.find('textarea');
+			        			//做题状态
+			        			if($textarea.length>0){
+			        				$textarea.attr('placeholder', '请在此答题');
+
+			        				var tVal=$textarea.val();
+			        				//转换 换行码 \n 为 <br>
+						        	tVal=tVal.replace(/<br\s{0,1}\/{0,1}>/gm,'\n')
+
+						        	$textarea.val(tVal);
+			        				//$qtext.find('.es-top').prepend('<div class="pull-right">倒计时：<span data-id="timer">00:00:00</span></div>');
+			        			}
+		        			}
+		        			
 	        			}
 	        			else{
-	        				$qtext.prepend(arr[i].number+'. ');
-	        			}
+	        				$qcontent.addClass('qcontent');
 
-	        			$qtext
-	        			.prepend('<label class="label label-blue-boder margin-r_5rem">'+qTypeName+'</label>')
+		        			$temp.find('.info,.accesshide,.icon,.answer [type="hidden"]').remove();
+
+		        			$temp.find('.answer [type="radio"] + label,.answer [type="checkbox"] + label').prepend('<i class="icomoon"></i>');
+
+		        			var $qtext=$temp.find('.qtext');
+		        			var html=$qtext.html();
+
+		        			if(/(\d+\.)/g.test(html)){
+			        			$qtext.html(
+			        				$qtext.html().replace(/(\d+\.)/g, arr[i].number+'. ')
+			        			);
+		        			}
+		        			else{
+		        				$qtext.prepend(arr[i].number+'. ');
+		        			}
+
+		        			$qtext
+		        			.prepend('<label class="label label-blue-boder margin-r_5rem">'+qTypeName+'</label>')
+
+	        			}
 
 	        			arr[i].html=$temp.html();
 	        		}
@@ -367,6 +589,12 @@
         		var vm=this;
         		$.confirm('确定提交答卷?',
 			        function () {
+			        	//记录学员学习行为
+					    commomLab.addStudyAction({
+					        actType:'C006',
+					        actId:cmid,
+					        actName:pagetitle
+					    });
 			        	//确定
 			        	var postData=$('#submit-form').serializeArray();
 
@@ -394,19 +622,21 @@
 									})
 								}
 								else{
-									//设置和缓存此次测验的状态
-									/*
-									commomLab.cacheAttemptState.set({
-			                            qid : quizid,
-			                            aid : attemptid
-			                        },'finished');
-			                        */
+			                        //手机调用该接口，设置已完成
+			                        commomLab.ajaxProcess({
+										url: '/api/stud/study/moodleUpdateActivityCompletionStatusManually',
+										data: {
+											cmid: cmid,
+											completed: 1,
+											token: cacheUserCourseInfo.token
+										}
+									});
 
 									commomLab.myToast({
 										msg:'提交成功'
 									},function(){
 										//跳转到答题结果页
-										location.href='course-study-of-practice-result.html?pagetitle='+pagetitle+'&quizid='+quizid+'&attemptid='+attemptid
+										location.href='course-study-of-practice-result.html?attemptid='+attemptid+'&cmid='+cmid
 									})
 								}
 								
@@ -430,6 +660,159 @@
 			        	//取消
 			        }
 			    );
+        	},
+        	//保存答题-期末考试
+        	savingFinalExam:function(){
+        		var vm=this;
+
+        		$.confirm('是否保存答卷，并退出此次答题',
+			        function () {
+			        	//记录学员学习行为
+					    commomLab.addStudyAction({
+					        actType:'C006',
+					        actId:cmid,
+					        actName:pagetitle
+					    });
+
+			        	var postData=$('#submit-form').serializeArray();
+
+			        	//转换 换行码 \n 为 <br>
+			        	$.each(postData, function(index, item) {
+			        		if( $('[name="'+item.name+'"]').is('textarea') ){
+			        			item.value=item.value.replace(/\n/gm,'<br>')
+			        		}
+			        	});
+
+		        		$.showIndicator();
+
+						//提交答卷
+		        		commomLab.ajaxProcess({
+		        			type: 'POST',
+							url: '/api/stud/study/moodleProcessAttempt',
+							data: {
+								attemptid: vm.attemptid,
+								finishattempt:0,
+								preflightdata: JSON.stringify(postData),
+								token: cacheUserCourseInfo.token
+							}
+						})
+						.done(function(res){
+		        			if(
+								commomLab.checkAPIResult(res)
+							){
+								//数据提交异常
+								if(res.data.errorcode){
+									commomLab.myToast({
+										msg:res.data.message
+									})
+								}
+								else{
+									commomLab.myToast({
+										msg:'保存成功'
+									},function(){
+										//跳转到答题结果页
+										location.href='course-study-of-exam-records-list.html?id='+cmid
+									})
+								}
+								
+							}
+							else{
+								commomLab.myToast({
+									msg:'保存失败'
+								})
+							}
+						})
+						.fail(function(){
+							commomLab.myToast({
+								msg:'保存失败'
+							})
+						})
+						.always(function(){
+							$.hideIndicator();
+						});
+			        },
+			        function () {
+			        	//取消
+			        }
+			    );
+        	},
+        	//结束答题-期末考试
+        	endingFinalExam:function(isAutoSubmit){
+        		var vm=this;
+        		isAutoSubmit || (isAutoSubmit=false);
+
+        		function submitFinalExam(){
+        			//记录学员学习行为
+				    commomLab.addStudyAction({
+				        actType:'C006',
+				        actId:cmid,
+				        actName:pagetitle
+				    });
+		        	//确定
+		        	var postData=$('#submit-form').serializeArray();
+
+	        		$.showIndicator();
+
+					//提交答卷
+	        		commomLab.ajaxProcess({
+	        			type: 'POST',
+						url: '/api/stud/study/moodleProcessAttempt',
+						data: {
+							attemptid: vm.attemptid,
+							finishattempt:1,
+							preflightdata: JSON.stringify(postData),
+							token: cacheUserCourseInfo.token
+						}
+					})
+					.done(function(res){
+	        			if(
+							commomLab.checkAPIResult(res)
+						){
+							//数据提交异常
+							if(res.data.errorcode){
+								commomLab.myToast({
+									msg:res.data.message
+								})
+							}
+							else{
+								commomLab.myToast({
+									msg:'提交成功'
+								},function(){
+									//跳转到答题结果页
+									location.href='course-study-of-exam-records-list.html?id='+cmid
+								})
+							}
+							
+						}
+						else{
+							commomLab.myToast({
+								msg:'提交失败'
+							})
+						}
+					})
+					.fail(function(){
+						commomLab.myToast({
+							msg:'提交失败'
+						})
+					})
+					.always(function(){
+						$.hideIndicator();
+					});     		
+        		}
+
+        		if(!isAutoSubmit){
+	        		$.confirm('是否提交答卷?',
+				        function () {
+				        	submitFinalExam();
+				        },
+				        function () {
+				        	//取消
+				        }
+				    );
+			    }
+			    else{
+			    	submitFinalExam();
+			    }
         	}
         }
     });

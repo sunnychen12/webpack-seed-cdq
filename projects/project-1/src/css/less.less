@@ -157,6 +157,17 @@
 	width: 100%;
 }
 
+.video-mark{
+	top:0;
+	left:0;
+	background:rgba(0,0,0,.6);
+	color:#fff;
+	.button{
+		border-radius: 1rem;
+		padding: 0 1rem;
+	}
+}
+
 .tabs-video{
 	text-align: center;
 	font-size: 0;
@@ -252,105 +263,167 @@
 		padding: .7rem 1.2rem;
 		font-size: .8rem;
 	}
-	.qtext{
+	.qcontent{
+		.qtext{
+			p{
+				margin: 0;
+				display: inline;
+			}
+		}
+		.answer{
+			>div{
+				margin: .5rem 0 .8rem;
+				&.incorrect,
+				&.correct{
+					input[type="radio"],
+					input[type="checkbox"]{
+						&:checked + label{
+							.icomoon{
+							    &:before {
+								    width: auto;
+								    height: auto;
+								    border-radius: 0;
+								    background: none;
+								}
+							}
+							
+						}
+					}
+				}
+				&.incorrect{
+					input[type="radio"],
+					input[type="checkbox"]{
+						&:checked + label{
+							.icomoon{
+								background: #e63939;
+							    border-color: #e63939;
+							    &:before {
+								    content: '\E906';
+								}
+							}
+							
+						}
+					}
+				}
+				&.correct{
+					input[type="radio"],
+					input[type="checkbox"]{
+						&:checked + label{
+							.icomoon{
+								background: #4c8ee0;
+							    &:before {
+								    content: '\E901';
+								}
+							}
+							
+						}
+					}
+				}
+			}
+			input[type="radio"],
+			input[type="checkbox"]{
+				display: none;
+				//&:checked + 
+				& + label{
+					display: block;
+				}
+				&:checked + label{
+					.icomoon{
+						//background: #4c8ee0;
+					    border-color: #4c8ee0;
+					    color: #fff;
+					    text-align: center;
+					    &:before {
+						    content: '';
+						    width: .6rem;
+						    height: .6rem;
+						    border-radius: 50%;
+						    background: #4c8ee0;
+						    display: inline-block;
+						    vertical-align: middle;
+						}
+					}
+					
+				}
+			}
+			.icomoon{
+				display: inline-block;
+			    border-radius: 50%;
+			    width: 1.2rem;
+			    height: 1.2rem;
+			    line-height: 1.15rem;
+			    border: 1px solid #d8d8d8;
+			    text-align: center;
+			    //font-size: 0.6rem;
+			    font-size: 0rem;
+			    position: relative;
+			    vertical-align: middle;
+			    margin-right: 0.5rem;
+			    &:before {
+			    	font-size: 0.6rem;
+			    }
+			}
+		}
+	}
+	.ans-qcontent{
 		p{
-			margin: 0;
-			display: inline;
+			margin: 0 !important;
+		}
+		.qtext{
+			font-size: .75rem;
+		}
+		.ablock{
+			.answer{
+				&.view-ans{
+					background-color: #d9edf7;
+				    border-top: #bcdff1  1px solid;
+				    border-bottom: #bcdff1  1px solid;
+				    color: #31708f;
+					padding:.5rem .75rem;
+					margin-left: -.75rem;
+					margin-right: -.75rem;
+					img{
+						max-width: 100%;
+					}
+				}
+				textarea{
+					resize:none;
+					width: 100%;
+					height: 12rem;
+					padding: .5rem;
+					border: 1px solid #ddd;
+					font-size: .75rem;
+				}
+			}
+		}
+		.comment{
+			background-color: #fcf8e3;
+		    border-top: #e6deb4 1px solid;
+		    border-bottom: #e6deb4 1px solid;
+		    color: #8a6d3b;
+		    padding:.5rem .75rem;
+		    margin-left: -.75rem;
+		    margin-right: -.75rem;
+			margin-top: 1rem;
+			img{
+				max-width: 100%;
+			}
+		}
+		.ans-tit{
+			border-bottom: #bcdff1 1px solid;
+			padding-bottom: .3rem;
+			margin-bottom: .3rem;
+		}
+		.comment-tit{
+			border-bottom: #e6deb4 1px solid;
+			padding-bottom: .3rem;
+			margin-bottom: .3rem;
 		}
 	}
 	.ablock{
 		margin-top: 1rem;
 	}
-	.answer{
-		>div{
-			margin: .5rem 0 .8rem;
-			&.incorrect,
-			&.correct{
-				input[type="radio"],
-				input[type="checkbox"]{
-					&:checked + label{
-						.icomoon{
-						    &:before {
-							    width: auto;
-							    height: auto;
-							    border-radius: 0;
-							    background: none;
-							}
-						}
-						
-					}
-				}
-			}
-			&.incorrect{
-				input[type="radio"],
-				input[type="checkbox"]{
-					&:checked + label{
-						.icomoon{
-							background: #e63939;
-						    border-color: #e63939;
-						    &:before {
-							    content: '\E906';
-							}
-						}
-						
-					}
-				}
-			}
-			&.correct{
-				input[type="radio"],
-				input[type="checkbox"]{
-					&:checked + label{
-						.icomoon{
-							background: #4c8ee0;
-						    &:before {
-							    content: '\E901';
-							}
-						}
-						
-					}
-				}
-			}
-		}
-		input[type="radio"],
-		input[type="checkbox"]{
-			display: none;
-			//&:checked + 
-			& + label{
-				display: block;
-			}
-			&:checked + label{
-				.icomoon{
-					//background: #4c8ee0;
-				    border-color: #4c8ee0;
-				    color: #fff;
-				    text-align: center;
-				    &:before {
-					    content: '';
-					    width: .6rem;
-					    height: .6rem;
-					    border-radius: 50%;
-					    background: #4c8ee0;
-					    display: inline-block;
-					    vertical-align: middle;
-					}
-				}
-				
-			}
-		}
-		.icomoon{
-			display: inline-block;
-		    border-radius: 50%;
-		    width: 1.2rem;
-		    height: 1.2rem;
-		    line-height: 1.05rem;
-		    border: 1px solid #d8d8d8;
-		    text-align: center;
-		    font-size: 0.6rem;
-		    position: relative;
-		    vertical-align: middle;
-		    margin-right: 0.5rem;
-		}
-	}
+	
 	.outcome{
 		background-color: #fff;
 	    padding: 1rem;
@@ -366,6 +439,22 @@
 }
 .practice-subject-sel-list{
 	
+}
+.exam-infor{
+	>.titleH3{
+		float: left;
+		margin: 0 .5rem 0 0;
+		font-size: .55rem;
+		font-weight: normal;
+	}
+	>.infor-txt{
+		overflow: hidden;
+		>p{
+			&:first-child{
+				margin-top: 0;
+			}
+		}
+	}
 }
 
 //练习测试-结果

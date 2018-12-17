@@ -1,0 +1,136 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+<script type="text/javascript">
+;(function(){
+	document.title=commomLab.getQueryParam('pagetitle');
+
+	var videourl=commomLab.getQueryParam('videourl');//跳转url
+		videourl || (videourl='');
+
+	var videoId=commomLab.getQueryParam('videoId');//videoId
+		videoId || (videoId='');
+
+	var instance=commomLab.getQueryParam('instance');//instance
+		instance || (instance='');
+
+	var state=commomLab.getQueryParam('state');//活动 状态
+		state || (state='');
+
+
+	var videoObj=document.querySelector(".video-player");
+	videoObj.src=videourl;
+
+	//内容滑动
+	var mySwiper = new $.Swiper('.swiper-container',{
+		onSlideChangeEnd : function(swiper) {
+			//console.log(mySwiper.activeIndex);
+				
+			$('.tabs-video li.item')
+			.eq(mySwiper.activeIndex).addClass('actived')
+			.siblings().removeClass('actived');
+		}
+	});
+
+	//选项卡
+	$('.tabs-video li.item').on('touchstart', function(event) {
+		var index=$(this).index();
+
+		mySwiper.slideTo(index);
+	});
+
+	//活动未完成
+	if(state!=1){
+		var pastTime=0
+			, isSeeking=false //"拖动"状态
+			, currentTimeBeforeSeek=0;
+
+		var tipAnimFin=true;//“提示”动画是否完成
+		
+		//返回视频拖动前的位置
+		function resetVideo(){
+			videoObj.currentTime=pastTime;
+			videoObj.pause();
+			videoObj.play();
+		}
+		
+		//监控 播放
+		videoObj.ontimeupdate=function(){
+			//如果出现拖动情况，重置状态
+			if(Math.abs(videoObj.currentTime-pastTime)>1){
+				resetVideo();
+			}
+			else{
+				pastTime=videoObj.currentTime;
+			}
+		};
+			
+		videoObj.onended=function() {
+			//如果出现拖动情况，重置状态
+			if(Math.abs(videoObj.duration-pastTime)>1){
+				//如果是瞬间拖拉到最后，就重位置
+				if(videoObj.currentTime==0){
+					pastTime=currentTimeBeforeSeek;
+				}
+				resetVideo();
+			}
+			
+			else{
+				pastTime=0;
+				currentTimeBeforeSeek=0;
+				isSeeking=false;
+
+				//如果该活动已是完成状态，不需要再请求该接口
+				
+				//播放完毕，提交数据
+				/*
+				commomLab.ajaxProcess({
+					url: '/api/stud/study/moodleUpdateActivityCompletionStatusManually',
+					data: {
+						cmid: videoId,
+						completed: 1,
+						token: commomLab.cacheUserCourseInfo.get().token
+					}
+				});
+				*/
+				state=1;
+				
+				commomLab.ajaxProcess({
+					url: '/api/stud/study/moodleViewUrl',
+					data: {
+						cmid: videoId,
+						urlid: instance,
+						completed: 1,
+						token: commomLab.cacheUserCourseInfo.get().token
+					}
+				});
+					
+				
+			}
+		};
+		
+		//如果是处于拖动状态
+		videoObj.onseeking=function(event){
+			if(!isSeeking){
+				isSeeking=true;
+
+				//动画完成了才允许再次提示
+				if(tipAnimFin){
+					tipAnimFin=false;
+					commomLab.myToast({
+			            msg:'首次学习，不允许跳跃观看'
+			        },function(){
+			        	tipAnimFin=true;
+			        });
+		        }
+
+				//缓存开始拖动时的播放时间
+				currentTimeBeforeSeek=videoObj.currentTime;
+			}
+		}
+		
+		//拖动结束
+		videoObj.onseeked=function(){
+			isSeeking=false;
+		}
+	}
+})();
+</script>

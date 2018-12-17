@@ -1,0 +1,82 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<template v-if="isloaded">
+				<div class="bar bar-footer bg-white submit-comment-placeholder flex-box flex-align-center as-link open-comment-popup" v-if="success && subjectParent" @click="openCommentPopup(subjectParent.id,'1:发布讨论')">
+				  <span class="flex-item">说说你的看法...</span>
+				  <label class="padding-l_75rem font_75rem gray9">发表</label>
+				</div>
+				<div class="content">
+					<template v-if="success">
+						<ul class="list-unstyled list-cutstom index-disc-list bg-white padding-top-none padding-bottom-none" v-if="subjectParent">
+							<li class="list-cutstom-item item">
+								<div class="item-in">
+									<div class="flex-box flex-box-justify flex-align-center">
+										
+										<div class="flex-item flex-box overflow-hidden">
+											<div class="disc-tit text-ellipsis">{{subjectParent.subject}}</div>
+										</div>
+										
+										<div class="time text-nowrap">{{formatDate(subjectParent.created*1000)}}</div>
+									</div>
+									<div class="disc-summary margin-t_5rem" v-html="subjectParent.message">
+									</div>
+									<div class="flex-box flex-align-center flex-box-justify font_5rem margin-t_5rem">
+										<div class="gray overflow-hidden text-ellipsis">
+											来自课件：{{courseName}}
+										</div>
+										<div class="padding-l_75rem flex-box flex-align-center text-nowrap">
+											<div>
+												<i class="icomoon gray6 font_75rem">&#xe908;</i>
+												<span class="gray9">{{replyList.length}}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<div class="margin-t_5rem bg-white comments-panel" v-if="replyList.length>0">
+							<div class="comments-panel-header padding_75rem item-with-border">
+								<div class="flex-box flex-box-justify flex-align-center font_75rem">
+									<div class="margin-r_5rem text-ellipsis">
+										全部回复
+									</div>
+								</div>
+							</div>
+							<div class="comments-panel-body">
+								<ul class="list-unstyled comments-list">
+									<li class="item flex-box" v-for="(reply, index) in replyList">
+
+										<!--img 标签的src属性使用大写，是为了回避webpack处理该图片属性-->
+										<img :SRC="reply.userpictureurl" class="img circle">
+
+										<div class="flex-item overflow-hidden">
+											<div class="flex-box flex-box-justify flex-align-center cnt-top">
+												<div class="replier">{{reply.userfullname}}</div>
+												<span class="reply-to-label"  @click="openCommentPopup(reply.id,'2:'+reply.userfullname)">
+													回复TA
+												</span>
+											</div>
+											<div class="disc-summary margin-t_5rem" v-html="reply.message">
+											</div>
+											<div class="margin-t_5rem font_5rem flex-box flex-box-justify flex-align-center">
+												<span class="time gray9 text-nowrap">{{formatDate(reply.created*1000)}}</span>
+											</div>
+											<div class="bg-gray margin-t_5rem font_55rem gray" style="padding:.2rem .5rem" v-if="reply.children.length>0" @click="viewMore(reply)">
+												查看全部{{reply.children.length}}条评论
+												<span class="icon icon-right"></span>
+											</div>
+										</div>
+
+									</li>
+								</ul>
+							</div>
+						</div>
+					</template>
+					<div class="text-center" style="margin:2.6rem 1rem;" v-else>
+						<i class="icomoon vertical-middle gray9" style="font-size:3.6rem;">&#xe904;</i>
+						<div class="font_75rem text-center margin-t-1rem">{{msg}}</div>
+					</div>
+				</div>
+			</template>
+		</div>
+	</div>

@@ -23,6 +23,10 @@
 
     var pagetitle=commomLab.getQueryParam('pagetitle');
         pagetitle || (pagetitle='');
+
+    var cmid=commomLab.getQueryParam('cmid');
+        cmid || (cmid='');
+
 	//获取缓存数据
     var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
 
@@ -111,7 +115,7 @@
                 $.hideIndicator();
             },
             viewMore:function(reply){
-            	location.href='course-discussion-details-more.html?discussionid='+discussionid+'&pagetitle='+pagetitle+'&postid='+reply.id;
+            	location.href='course-discussion-details-more.html?discussionid='+discussionid+'&pagetitle='+pagetitle+'&postid='+reply.id+'&cmid='+cmid;
             },
             formatDate:function(timemap){
                 var date=new Date(timemap);
@@ -178,6 +182,13 @@
                                 });
                             }
                             else{
+                                //记录学员学习行为
+                                commomLab.addStudyAction({
+                                    actType:'C008',
+                                    actId:cmid,
+                                    actName:pagetitle
+                                });
+
                                 commomLab.myToast({
                                     msg:(data[0]==2?'回复':'评论')+'成功'
                                 },function(){

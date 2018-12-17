@@ -1,0 +1,101 @@
+<%
+	const commonJson = require("../../../globalJSON.js");
+%>
+<!--[if lt IE 9]>
+<div class="modal ie8-tips-modal show">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">温馨提示</h4>
+      </div>
+      <div class="modal-body">
+        <div class="text-center margin_l15 margin_r15" style="border-bottom:#ebebeb 1px solid;padding:20px 20px 30px;">
+        	<img src="<%=commonJson.serverPath%>/dist/img/images/tips-sq.png">
+        	<div class="text-orange f18 margin_t10">
+        		您的浏览器版本过低<br>
+        		无法使用"考试组织平台"，请更换以下浏览器
+        	</div>
+        </div>
+        <div style="padding:15px 30px 20px">
+			<h3 class="gray6 f14 text-bold">请您更换以下浏览器（点击图标可下载）</h3>
+			<table width="100%" class="text-center margin_t15">
+				<tr>
+					<td>
+						<a href="http://download.pchome.net/internet/browser/browser/detail-141810.html" target="_blank">
+							<img src="<%=commonJson.serverPath%>/dist/img/images/google-browser.jpg">
+							<p class="margin_t5 gray6">谷歌浏览器</p>
+						</a>
+					</td>
+					<td>
+						<a href="http://dl.pconline.com.cn/download/60835.html" target="_blank">
+							<img src="<%=commonJson.serverPath%>/dist/img/images/ie-browser.jpg">
+							<p class="margin_t5 gray6">IE9+浏览器</p>
+						</a>
+					</td>
+					<td>
+						<a href="http://browser.qq.com/" target="_blank">
+							<img src="<%=commonJson.serverPath%>/dist/img/images/qq-browser.jpg">
+							<p class="margin_t5 gray6">QQ浏览器</p>
+						</a>
+					</td>
+					<td>
+						<a href="http://ie.sogou.com/" target="_blank">
+							<img src="<%=commonJson.serverPath%>/dist/img/images/sougo-browser.jpg">
+							<p class="margin_t5 gray6">搜狗浏览器</p>
+						</a>
+					</td>
+					<td>
+						<a href="http://se.360.cn/" target="_blank">
+							<img src="<%=commonJson.serverPath%>/dist/img/images/360-browser.jpg">
+							<p class="margin_t5 gray6">360浏览器</p>
+						</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade in ie8-tips-modal-backdrop"></div>
+<![endif]-->
+
+<!--
+	<div id="dialog-message" title="温馨提示" style="display:none">
+	  <p style="padding:20px 10px;margin:0;"> 本管理系统支持IE9以上版本浏览器，为了获取更好的体验，建议
+	    使用Firefox、Chrome、Opera等浏览器。 </p>
+	</div>
+	<script type="text/javascript">
+	//如果是ie8及以下IE浏览器，执行以下代码
+	if(itIE9){
+	  require(['jquery','jQueryUI'],function($){
+	    $(function() {
+	    var dialog=$( "#dialog-message" ).dialog({
+	      modal: true,
+	      width: 600,
+	      closeOnEscape:false
+	    }).dialog( "instance" );
+	    dialog.uiDialog.css("z-index",10001);
+	    dialog.overlay.css("z-index",10000);
+	    });
+	  });
+	}
+	</script> 
+-->
+
+<script type="text/javascript">
+//非ie及ie9及以上
+if(!(document.all && !document.addEventListener)){
+	requirejs(['jquery','common'],function($){
+
+		require(['index'],function(){
+			resetPageHeight();
+		});
+
+		$("iframe[name='homepage']").attr("src","在线监控.html")
+		.on('load',function(){
+			$('.loading').hide();
+		});
+	});
+}
+</script>

@@ -1,0 +1,376 @@
+	<section class="content-header clearfix">
+		<button class="btn btn-default btn-sm pull-right min-width-90px offset-margin-tb-15" data-role="back-off">返回</button>
+		<div class="pull-left">
+		    您所在位置：
+		</div>
+		<ol class="breadcrumb oh">
+			<li><a href="homepage.html"><i class="fa fa-home"></i> 考试组织</a></li>
+			<li><a href="#">数据申报</a></li>
+			<li class="active">详情</li>
+		</ol>
+	</section>
+	<section class="content">
+		<div class="nav-tabs-custom no-margin">
+			<div class="pad15">
+				<div class="row">
+					<div class="col-sm-4">
+						<h1 class="f24 no-margin">广州分部</h1>
+						<div class="text-gray margin_t10">提交时间：2018-12-01 09:00</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="clearfix">
+							<div class="status-grid">
+								<div class="text-orange f20">
+									待审核
+								</div>
+								<div class="text-gray margin_t5">审核状态</div>
+							</div>
+							<!--
+								<div class="status-grid">
+									<div class="text-green f20">
+										审核通过
+									</div>
+									<div class="text-gray margin_t5">审核状态</div>
+								</div>
+								
+								<div class="status-grid">
+									<div class="text-red f20">
+										审核不通过
+									</div>
+									<div class="text-gray margin_t5">审核状态</div>
+								</div>
+								
+								<div class="status-grid">
+									<div class="vertical-mid media-body" style="height:53px;">
+										<button type="button" class="btn btn-default btn-block center-block" style="max-width:150px;">更新数据</button>
+									</div>
+								</div>
+								
+								<div class="status-grid">
+									<div class="vertical-mid media-body" style="height:53px;">
+										<button type="button" class="btn btn-default btn-block center-block" style="max-width:150px;">重新提交</button>
+									</div>
+								</div>
+							-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="nav nav-tabs nav-tabs-lg">
+				<li class="active">
+					<a href="#tab_top_1" data-toggle="tab">办学规模</a>
+				</li>
+				<li>
+					<a href="#tab_top_2" data-toggle="tab">师资规模</a>
+				</li>
+				<li>
+					<a href="#tab_top_3" data-toggle="tab">校园图片</a>
+				</li>
+				<li>
+					<a href="#tab_top_4" data-toggle="tab">审核详情</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="tab_top_1">
+					<div class="margin_t5 margin_b15">
+						<h3 class="cnt-box-title f16">专业与课程</h3>
+						<table class="table-gray-th text-center margin_t10">
+							<thead>
+								<tr>
+									<th>学科门类</th>
+									<th>开设专业</th>
+									<th>课程资源</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>9个</td>
+									<td>120个</td>
+									<td>3874门</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="margin_t15 margin_b15">
+						<h3 class="cnt-box-title f16">学历规模</h3>
+						<table class="table-gray-th text-center margin_t10">
+							<thead>
+								<tr>
+									<th>学员总数</th>
+									<th>毕业人数</th>
+									<th>在籍人数</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>380000人</td>
+									<td>310000人</td>
+									<td>80000人</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="margin_t15 margin_b15">
+						<h3 class="cnt-box-title f16">非学历规模</h3>
+						<table class="table-gray-th text-center margin_t10">
+							<thead>
+								<tr>
+									<th>培训项目</th>
+									<th>培训人次</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>58个</td>
+									<td>38000000次</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="margin_t15 margin_b15">
+						<h3 class="cnt-box-title f16">校园规模</h3>
+						<table class="table-gray-th text-center margin_t10">
+							<thead>
+								<tr>
+									<th>校园占地面积</th>
+									<th>建筑面积</th>
+									<th>多媒体教室</th>
+									<th>图书馆规模</th>
+									<th>下设分校</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>16.9万平方米</td>
+									<td>6.9万平方米</td>
+									<td>34间</td>
+									<td>18760册</td>
+									<td>67所</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="tab-pane" id="tab_top_2">
+					<div class="margin_t5 margin_b15">
+						<h3 class="cnt-box-title f16">师资规模</h3>
+						<table class="table-gray-th text-center margin_t10">
+							<colgroup>
+								<col width="33.33%">
+								<col width="33.33%">
+								<col>
+							</colgroup>
+							<thead>
+								<tr>
+									<th>正高级教师</th>
+									<th>副高级教师</th>
+									<th>中专职教师</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>300人</td>
+									<td>200人</td>
+									<td>150人</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th>兼职教师</th>
+									<th>科研人员</th>
+									<th>管理人员</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>300人</td>
+									<td>200人</td>
+									<td>150人</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr>
+									<th>责任教师</th>
+									<th>辅导教师</th>
+									<th>教师团队</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>300人</td>
+									<td>200人</td>
+									<td>150人</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="margin_t15 margin_b15">
+						<h3 class="cnt-box-title f16">师生比例</h3>
+						<table class="table-gray-th margin_t10">
+							<tbody>
+								<tr>
+									<th width="120" class="text-right">师生比例</th>
+									<td>1:3000</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="tab-pane" id="tab_top_3">
+					<div class="pad-l15 pad-r15">
+						<ul class="school-pic-list row">
+							<li class="col-sm-4">
+								<figure>
+									<div class="img-box">
+										<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png" class="img">
+
+										<div class="zoom-pic">
+											<i class="fa fa-fw fa-search"></i>
+										</div>
+									</div>
+									<figcaption>校园全景图</figcaption>
+								</figure>
+							</li>
+							<li class="col-sm-4">
+								<figure>
+									<div class="img-box">
+										<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo2.png" class="img">
+
+										<div class="zoom-pic">
+											<i class="fa fa-fw fa-search"></i>
+										</div>
+									</div>
+									<figcaption>主教学楼图</figcaption>
+								</figure>
+							</li>
+							<li class="col-sm-4">
+								<figure>
+									<div class="img-box">
+										<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo3.jpg" class="img">
+
+										<div class="zoom-pic">
+											<i class="fa fa-fw fa-search"></i>
+										</div>
+									</div>
+									<figcaption>考试室图</figcaption>
+								</figure>
+							</li>
+							<li class="col-sm-4">
+								<figure>
+									<div class="img-box">
+										<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo3.jpg" class="img">
+
+										<div class="zoom-pic">
+											<i class="fa fa-fw fa-search"></i>
+										</div>
+									</div>
+									<figcaption>图书馆图</figcaption>
+								</figure>
+							</li>
+							<li class="col-sm-4">
+								<figure>
+									<div class="img-box">
+										<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png" class="img">
+
+										<div class="zoom-pic">
+											<i class="fa fa-fw fa-search"></i>
+										</div>
+									</div>
+									<figcaption>学生宿舍图</figcaption>
+								</figure>
+							</li>
+							<li class="col-sm-4">
+								<figure>
+									<div class="img-box">
+										<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo2.png" class="img">
+
+										<div class="zoom-pic">
+											<i class="fa fa-fw fa-search"></i>
+										</div>
+									</div>
+									<figcaption>电教室图</figcaption>
+								</figure>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+				<div class="tab-pane " id="tab_top_4">
+					<div class="approval-list clearfix margin_b20">
+						<dl class="approval-item">
+		                    <dt class="clearfix">
+		                      <b class="a-tit gray6">广州分部 李志斌 提交数据</b>
+		                      <span class="gray9 text-no-bold f12">2018-12-01 09:00</span>
+		                      <span class="fa fa-fw fa-dot-circle-o text-light-blue"></span>
+		                      <label class="state-lb">已提交</label>
+		                    </dt>
+		                </dl>
+		                <dl class="approval-item">
+		                    <dt class="clearfix text-red">
+		                      
+		                      <b class="a-tit">总部管理员 审核不通过</b>
+		                      <span class="fa fa-fw fa-times-circle"></span>
+		                      <label class="state-lb">审核不通过</label>
+		                    </dt>
+		                    <dd>
+		                      <div class="txt">
+		                          <div class="marin_b10">
+		                            上传的校园图片不符合要求，请重新上传！
+		                          </div>
+		                          <div class="text-right gray9">
+		                            总部管理员<br>
+		                            2018-12-01 09:00 
+		                          </div>
+		                      </div>
+		                    </dd>
+		                </dl>
+		                <dl class="approval-item">
+		                    <dt class="clearfix">
+		                      <b class="a-tit gray6">广州分部 李志斌 重新提交数据</b>
+		                      <span class="gray9 text-no-bold f12">2018-12-01 09:00</span>
+		                      <span class="fa fa-fw fa-dot-circle-o text-light-blue"></span>
+		                      <label class="state-lb">重新提交</label>
+		                    </dt>
+		                </dl>
+		                <dl class="approval-item">
+		                    <dt class="clearfix text-orange">
+		                      <b class="a-tit">总部管理员</b>
+		                      <span class="fa fa-fw fa-dot-circle-o"></span>
+		                      <label class="state-lb">待审核</label>
+		                    </dt>
+		                    <dd>
+		                      <div class="txt">
+		                          <textarea class="form-control" rows="5" placeholder="请填写审核不通过原因，审核通过可不填写！"></textarea>
+
+		                          <div class="text-right pad-t10 margin_t10 border-top" style="border-color:#ddd">
+		                            <button type="button" class="btn min-width-90px btn-warning margin_r10 btn-save-edit">审核不通过</button>
+		                            <button type="button" class="btn min-width-90px btn-success" data-role="btn-pass">审核通过</button>
+		                          </div>
+		                      </div>
+		                      
+		                    </dd>
+		                </dl>
+		                <dl class="approval-item">
+		                    <dt class="clearfix text-green">
+		                      <b class="a-tit">总部管理员 审核通过</b>
+		                      <span class="gray9 text-no-bold f12">2018-12-01 09:00</span>
+		                      <span class="fa fa-fw fa-dot-circle-o"></span>
+		                      <label class="state-lb">审核通过</label>
+		                    </dt>
+		                </dl>
+		                <dl class="approval-item white-border">
+		                    <dt class="clearfix">
+		                      <b class="a-tit gray6">总部管理员 设置为待更新</b>
+		                      <span class="gray9 text-no-bold f12">2018-12-01 09:00</span>
+		                      <span class="fa fa-fw fa-dot-circle-o text-light-blue"></span>
+		                      <label class="state-lb">待更新</label>
+		                    </dt>
+		                </dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>

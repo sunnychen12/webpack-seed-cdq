@@ -1,27 +1,75 @@
 <script type="text/javascript">
 ;(function(){
-	var token=commomLab.cacheUserCourseInfo.get().token;
-
-	document.title=commomLab.getQueryParam('pagetitle');
-
-	var url=commomLab.getQueryParam('url');//跳转url
-	//document.getElementById('ifrm').src=url+'&token='+token;
-		url=url+'&token='+token;
+	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+	var token=cacheUserCourseInfo.token;
 
 	var pageid=commomLab.getQueryParam('pageid');//网页活动ID
 		pageid || (pageid=0);
 
-	//文件名，用以鉴别不同的资源
-	var filename=commomLab.getQueryParam('filename');
-		filename || (filename='');
+	var activities=commomLab.cacheCourseInfoActivities.get().allModules;
 
-	var instance=commomLab.getQueryParam('instance');//instance
+	var activityInfo=commomLab.getActivityInfo(pageid);	
+
+	var pagetitle=activityInfo.name;
+		document.title=pagetitle;
+
+	var instance=activityInfo.instance;//instance
 		instance || (instance='');
 
+	var mCnts=activityInfo.contents;
+	var targetModule=false;
+
+	//如果存在“活动详情”
+    if(activities && activityInfo && mCnts && mCnts.length>0){
+    	//如果存在一条“活动详情”内容就直接用此信息
+        if(mCnts.length==1){
+            targetModule=mCnts[0];
+        }
+        //如果是多条，则优化使用“html”类型的
+        else{
+            for (var i in mCnts) {
+                if(/\.html/i.test(mCnts[i].filename)){
+                    targetModule=mCnts[i];
+                    break;
+                }
+            }
+
+            if(!targetModule){
+                targetModule=mCnts[0];
+            }
+        }
+		
+    }
+    else{
+    	commomLab.myToast({
+            msg:'资源加载出错'
+        });
+    	return false;
+    }
+
+
+	var url=targetModule.fileurl?targetModule.fileurl:'';
+		url=url+'&token='+token;
+
+	//文件名，用以鉴别不同的资源
+	var filename=targetModule.filename?targetModule.filename : '';
+		filename || (filename='');
+
+
+	/*
 	var state=commomLab.getQueryParam('state');//活动 状态
 		state || (state='');
+	*/
 
 	var def=$.Deferred();
+
+
+	//记录学员学习行为
+    commomLab.addStudyAction({
+        actType:'C002',
+        actId:pageid,
+        actName:pagetitle
+    });
 
 	//如果是图片
 	if(/\.(jpg|jpeg|png|gif|bmp)/i.test(filename)){
@@ -40,8 +88,22 @@
 		})
 		.done(function(res){
 			if(commomLab.checkAPIResult(res)){
+				var htmlContent=res.data.htmlContent;
 				var doc=frames['ifrm'].frameElement.contentWindow.document;
-				doc.body.innerHTML=res.data.htmlContent;
+
+				//如果是考试说明，删除内容下方的试卷入口列表
+				if(activityInfo.name.indexOf('终结性考试')!=-1){
+					var $t=$('<div/>').html(htmlContent);
+					var $testList=$t.find('.testList');
+					if($testList.length>0){
+						$testList.prev('.titleH3').remove();
+						$testList.remove();
+
+						htmlContent=$t.html();
+					}
+				}
+
+				doc.body.innerHTML=htmlContent;
 
 				doc.head.innerHTML='\
 						<meta charset="utf-8">\
@@ -70,28 +132,66 @@
 
 	//ended
 	def.done(function(){
-		//如果该活动已是完成状态，不需要再请求该接口
-		if(state!=1){
-			/*
-			commomLab.ajaxProcess({
-				url: '/api/stud/study/moodleUpdateActivityCompletionStatusManually',
-				data: {
-					cmid: pageid,
-					completed: 1,
-					token: token
-				}
-			});
-			*/
-			commomLab.ajaxProcess({
-				url: '/api/stud/study/moodleViewPage',
-				data: {
-					cmid: pageid,
-					pageid: instance,
-					completed: 1,
-					token: token
-				}
-			});
-		}
+		var def2=$.Deferred();
+		commomLab.ajaxProcess({
+			url: '/api/stud/study/moodleGetActivitiesCompletionStatus',
+			data: {
+				userid: cacheUserCourseInfo.user.id,
+				courseid: cacheUserCourseInfo.course.courseId,
+				token: cacheUserCourseInfo.token
+			}
+		})
+		.done(function(res){
+            if(
+                commomLab.checkAPIResult(res) &&
+                res.data.statuses &&
+                res.data.statuses.length>0
+            ){
+            	var state='0';
+                function searchState(cmid){
+                    var r=false;
+                    $.each(res.data.statuses, function(index, item) {
+                        if(cmid==item.cmid){
+                            r=item.state;
+                            return false;
+                        }
+                    });
+
+                    return r;
+                }
+
+
+                state=searchState(pageid);
+
+                def2.resolve(state);
+
+            }
+        })
+
+        def2.done(function(state){
+			//如果该活动已是完成状态，不需要再请求该接口
+			if(state!=1){
+				/*
+					commomLab.ajaxProcess({
+						url: '/api/stud/study/moodleUpdateActivityCompletionStatusManually',
+						data: {
+							cmid: pageid,
+							completed: 1,
+							token: token
+						}
+					});
+				*/
+				commomLab.ajaxProcess({
+					url: '/api/stud/study/moodleViewPage',
+					data: {
+						cmid: pageid,
+						pageid: instance,
+						completed: 1,
+						token: token
+					}
+				});
+			}
+		});
 	})
 })();
 </script>

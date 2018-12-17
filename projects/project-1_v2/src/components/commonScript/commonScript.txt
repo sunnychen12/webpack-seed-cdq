@@ -1,0 +1,3 @@
+	<script type="text/javascript" src="js/common.min.js?v={{timemap}}"></script>
+	{{dependScript}}
+	<script type="text/javascript" src="js/commonLab.js"></script>

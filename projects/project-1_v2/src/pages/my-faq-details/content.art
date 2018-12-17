@@ -1,0 +1,62 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<!--
+			<div class="fix-btm-btn flex-box">
+				<a href="question_create2.html" class="unsolved flex-item gray6">未解决</a>
+				<a href="javascript:;" class="solved flex-item">已解决</a>
+			</div>
+			-->
+			<template v-if="isloaded">
+				<div class="content">
+					<div class="my-faq" v-if="success">
+						<div class="item flex-box">
+							<span class="faq-label ask">问</span>
+							<div class="flex-item txt">
+								<div class="flex-box">
+									<div class="subject flex-item">
+										{{feedbackData.feedBackInfo.feedbackTitle}}
+									</div>
+									<div>
+										<label class="label label-blue-boder" v-if="feedbackData.feedBackInfo.replyCount<=0">未回复</label>
+									</div>
+								</div>
+								<div class="time">{{getDateTime(feedbackData.feedBackInfo.feedbackDate)}}</div>
+								<div class="reply-txt">
+									{{feedbackData.feedBackInfo.feedbackText}}
+								</div>
+
+								<div class="addon-img-list margin-t_5rem clearfix" v-if="feedbackData.feedBackInfo.imgList">
+									<div class="addon-img" v-for="(img,key) in feedbackData.feedBackInfo.imgList">
+										<img :SRC="imgUrlFormat(img.imgUrl)" @click.prevent.stop="imgFancybox(key,feedbackData.feedBackInfo.imgList)">
+									</div>
+								</div>
+							</div>
+						</div>
+						<template v-if="feedbackData.replyInfoList && feedbackData.replyInfoList.length>0">
+							<div class="item flex-box border-top margin-bottom-none" v-for="reply in feedbackData.replyInfoList">
+								<span class="faq-label ans">答</span>
+								<div class="flex-item txt">
+									<div class="subject">
+										{{reply.replytor}}
+									</div>
+									<div class="time">{{getDateTime(reply.replyDate)}}</div>
+									<div class="reply-txt">
+										{{reply.replyText}}
+									</div>
+									<div class="addon-img-list margin-t_5rem clearfix" v-if="reply.imgList">
+										<div class="addon-img" v-for="(img,key) in reply.imgList">
+											<img :SRC="imgUrlFormat(img.imgUrl)" @click.prevent.stop="imgFancybox(key,reply.imgList)">
+										</div>
+									</div>
+								</div>
+							</div>
+						</template>
+					</div>
+					<div class="text-center" style="margin:2.6rem 1rem;" v-else>
+						<i class="icomoon vertical-middle gray9" style="font-size:3.6rem;">&#xe904;</i>
+						<div class="font_75rem text-center margin-t-1rem">{{msg}}</div>
+					</div>
+				</div>
+			</template>
+		</div>
+	</div>

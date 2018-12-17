@@ -1,0 +1,293 @@
+<script type="text/javascript">
+//答题卡的显示处理
+;(function(){
+	var pagetitle=commomLab.getQueryParam('pagetitle');
+		pagetitle || (pagetitle='');
+
+		//document.title=pagetitle;
+
+	//测验活动ID
+	var quizid=commomLab.getQueryParam('quizid');
+		quizid || (quizid='');
+
+	//测验ID
+	var attemptid=commomLab.getQueryParam('attemptid');
+		attemptid || (attemptid='');
+
+		/*
+	//测验状态，如果是“完成”，就查看解析；如果是“进行中”，就进行测验
+	var attemptstate =	commomLab.cacheAttemptState.get({
+                        	qid : quizid,
+                        	aid : attemptid
+                    	});
+		attemptstate || (attemptstate='');
+	*/
+
+	//获取缓存数据
+	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+	window.app = new Vue({
+        el: '#app',
+        data: {
+        	success:true,
+        	msg:'',
+        	isloaded:false,
+        	pageIndex: 0,
+        	questionLen: 0,
+        	attemptid: attemptid,
+        	attemptstate: '',
+        	attemptData:false,//测验记录列表
+        },
+        created: function () {
+        	this.getAttemptData();
+        },
+        methods:{
+        	//结束异步，关键加载特殊，显示页面内容
+        	showHtml:function(){
+        		var vm=this;
+        		vm.isloaded=true;
+				$.hideIndicator();
+        	},
+        	//设置答题卡的题目的对错class名字
+			getStyleClass:function(state){
+				if(state){
+					if(state=='gradedright'){
+						return 'right';
+					}
+					else if(state=='gradedwrong'){
+						return 'wrong';
+					}
+					else{
+						return '';
+					}
+				}
+			},
+			//获取用户测验做题列表
+        	//cb 回调方法
+        	getAttemptState:function(cb){
+        		var vm=this;
+        		if(vm.attemptstate===''){
+	        		commomLab.ajaxProcess({
+						url: '/api/stud/study/moodleGetUserAttempts',
+						data: {
+							quizid: quizid,
+							userid: cacheUserCourseInfo.user.id,
+							status: 'all',
+							token: cacheUserCourseInfo.token
+						}
+					})
+					.done(function(res){
+		        		if(
+							commomLab.checkAPIResult(res)
+						){
+							var resData=res.data;
+							if(resData.attempts){
+								if(resData.attempts.length>0){
+		                            //初始化成绩得分
+		                            for(var item in resData.attempts){
+		                                if(resData.attempts[item].id==attemptid){
+		                                	vm.attemptstate=resData.attempts[item].state;
+
+		                                	cb.call(vm,resData.attempts[item]);
+
+		                                	break;
+		                                }
+		                            }
+								}
+								else{
+									vm.success=false;
+			          				vm.msg='无测试记录';
+		                            vm.showHtml();
+								}
+							}
+							//出错
+							else if(resData.message){
+								vm.success=false;
+			          			vm.msg=resData.message;
+		                        vm.showHtml();
+							}
+		                    else{
+		                    	vm.success=false;
+			          			vm.msg='数据查询异常';
+		                        vm.showHtml();
+		                    }
+
+						}
+			          	else{
+			          		vm.success=false;
+			          		vm.msg='数据查询出错';
+		                    vm.showHtml();
+			          	}
+		                
+		        	})
+		        	.fail(function(XMLHttpRequest, textStatus, errorThrown){
+		    			vm.success=false;
+						vm.msg='数据查询出错';
+		                vm.showHtml();
+		    		});
+	    		}
+	    		else{
+	    			cb.call(vm);
+	    		}
+        	},
+        	//获取测验下的题目列表
+        	getAttemptData:function(){
+        		$.showIndicator();
+
+        		var vm=this;
+        		vm.getAttemptState(function(){
+	        		if(vm.attemptstate=='inprogress'){
+		        		commomLab.ajaxProcess({
+							url: '/api/stud/study/moodleGetAttemptData',
+							data: {
+								attemptid: vm.attemptid,
+								page: vm.pageIndex,
+								token: cacheUserCourseInfo.token
+							}
+						})
+						.done(function(res){
+							if(
+								commomLab.checkAPIResult(res) &&
+								res.data.questions &&
+								res.data.questions.length>0
+							){
+								var resData=res.data;
+
+								//删除描述，保留题目
+								resData.questions=$.grep(resData.questions,function(item){
+								    return item.type!='description'
+								});
+
+								if(vm.pageIndex==0){
+									vm.attemptData=resData;
+								}
+								else if(vm.pageIndex>0){
+									for(var i in resData.questions){
+										vm.attemptData.questions.push(resData.questions[i]);
+									}
+								}
+
+								vm.questionLen=vm.attemptData.questions.length;
+
+								vm.isloaded=!(resData.nextpage>0);
+								if(vm.isloaded){
+									vm.$nextTick(function(){
+										vm.resetDom();
+									});
+								}
+
+								if(resData.nextpage>0){
+									vm.pageIndex=resData.nextpage;
+									vm.getAttemptData();
+								}
+								
+								if(vm.isloaded){
+									vm.showHtml();
+								}
+							}
+							else if(res.data.errorcode){
+								vm.success=false;
+								vm.msg=res.data.message;
+								vm.showHtml();
+							}
+						})
+						.fail(function(){
+							vm.showHtml();
+						})
+					}
+					else if(vm.attemptstate=='finished'){
+						commomLab.ajaxProcess({
+							url: '/api/stud/study/moodleGetAttemptReview',
+							data: {
+								attemptid: vm.attemptid,
+								token: cacheUserCourseInfo.token
+							}
+						})
+						.done(function(res){
+							if(
+								commomLab.checkAPIResult(res) &&
+								res.data.questions &&
+								res.data.questions.length>0
+							){
+								var resData=res.data;
+
+								//删除描述，保留题目
+								resData.questions=$.grep(resData.questions,function(item){
+								    return item.type!='description'
+								});
+
+								vm.attemptData=resData;
+
+								vm.questionLen=resData.questions.length;
+
+								vm.showHtml();
+								
+								vm.$nextTick(function(){
+									vm.resetDom();
+								});
+							}
+							else if(res.data.errorcode){
+								vm.success=false;
+								vm.msg=res.data.message;
+								vm.showHtml();
+							}
+						})
+						.fail(function(){
+							vm.showHtml();
+						})
+					}
+					else{
+						vm.success=false;
+						vm.msg='数据查询异常';
+						vm.showHtml();
+					}
+				});
+        	},
+        	//答题卡 居中对齐
+			resetDom:function(){
+				var $card=$('.ans-card-list')
+					, cardWith=$card.width()-1
+					, $items=$card.children()
+					, $item=$items.eq(0)
+					, itemWidth=$item.outerWidth(true)+1
+					, counts=$items.length;
+
+				var w=0, m=0;
+				for (var i = 1; i <= counts; i++) {
+					w=itemWidth*i;
+					if(w>cardWith){
+						m=i;
+						break;
+					}
+				}
+
+				if(m>0){
+					$card.css('padding-left', (cardWith-itemWidth*(m-1))/2 );
+				}
+			},
+        }
+    });
+
+    /*
+	var $card=$('.ans-card-list')
+		, cardWith=$card.width()-1
+		, $items=$card.children()
+		, $item=$items.eq(0)
+		, itemWidth=$item.outerWidth(true)+1
+		, counts=$items.length;
+
+	var w=0, m=0;
+	for (var i = 1; i <= counts; i++) {
+		w=itemWidth*i;
+		if(w>cardWith){
+			m=i;
+			break;
+		}
+	}
+
+	if(m>0){
+		$card.css('padding-left', (cardWith-itemWidth*(m-1))/2 );
+	}
+	*/
+})();
+</script>

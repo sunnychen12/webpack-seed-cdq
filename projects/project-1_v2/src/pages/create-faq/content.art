@@ -1,0 +1,51 @@
+	<div class="page-group">
+		<div class="page page-current" id="app">
+			<div class="bar bar-footer-btn padding-none">
+			  <div class="flex-box flex-align-center">
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-blue"><span class="font_85rem" @click="submitForm">确定</span></button>
+			  </div>
+			</div>
+			<div class="content bg-white">
+				<div class="padding_75rem">
+				    <form data-id="theform" name="theform">
+				    	<div class="list-block margin-none">
+				          <input type="text" placeholder="请输入标题" data-rule=".+" data-msg-empty="请输入标题" data-msg-error="请输入标题" data-check="1" v-model="feedBackTitle" name="feedBackTitle">
+				      	</div>
+				      	<div class="list-block margin-bottom-none" style="margin-top:.5rem;">
+				          <textarea style="height:7rem;" data-id="discuss-content" placeholder="请输入问题内容" data-check="1" data-rule=".+" data-msg-empty="请输入问题内容" data-msg-error="请输入问题内容" v-model="feedBackText" name="feedBackText"></textarea>
+				      	</div>
+				      	
+					    <div class="weui-uploader__bd margin-t-1rem">
+					         <ul class="weui-uploader__files" id="uploaderFiles"></ul>
+					         <div class="weui-uploader__input-box">
+					             <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" capture="camera" multiple="">
+					         </div>
+				      	</div>
+
+
+				      	<div class="border-top" style="padding-top:1rem;margin-top:1rem;">
+				      		<h4 class="margin-none font_75rem">回访方式</h4>
+				      		<div class="buttons-row margin-t_5rem">
+					      		<a href="#" :class="[contacWay==2?'active':'', 'button']" @click.prevent="tabs(2)">手机</a>
+					      		<a href="#" :class="[contacWay==1?'active':'', 'button']" @click.prevent="tabs(1)">QQ</a>
+					      		<a href="#" :class="[contacWay==3?'active':'', 'button']" @click.prevent="tabs(3)">邮箱</a>
+				      		</div>
+				      		<div class="margin-t_5rem">
+							    <div class="list-block margin-none">
+							    	<template v-if="contacWay==2">
+							        	<input type="text" placeholder="请留下联系方式" data-rule="^1[3-9][0-9]{9}$" data-msg-empty="请留下联系方式" data-msg-error="手机号码格式错误" data-check="1" v-model="contactNumber" name="contactNumber" >
+							       	</template>
+							       	<template v-if="contacWay==1">
+							        	<input type="text" placeholder="请填写QQ号码" data-rule="^\d+$" data-msg-empty="请填写QQ号码" data-msg-error="QQ号码格式错误" data-check="1" v-model="contactNumber" name="contactNumber">
+							        </template>
+							        <template v-if="contacWay==3">
+							        	<input type="text" placeholder="请填写邮箱" data-rule="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" data-msg-empty="请填写邮箱" data-msg-error="邮箱格式错误" data-check="1" v-model="contactNumber" name="contactNumber">
+							        </template>
+							    </div>
+							</div>
+				      	</div>
+				    </form>
+				</div>
+			</div>
+		</div>
+	</div>

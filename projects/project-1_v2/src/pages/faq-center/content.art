@@ -1,0 +1,73 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<template v-if="success">
+				<div class="bar bar-footer-btn padding-none">
+					<div class="flex-box flex-align-center">
+						<button type="button" class="flex-item button button-big button-fill border-none flat btn-blue" @click.prevent="linkMyFaq">
+							我的提问
+						</button>
+					</div>
+				</div>
+				<div class="content">
+					<div class="search_mdl">
+						<div id="searchForm">
+							<input type="search" name="search" id="search" v-model="keyword" @focus="focusSearch" @blur="blurSearch">
+							<span class="tip" v-show="!isSearch"><i class="icon icon-search"></i>输入你遇到的问题的关键字</span>
+							<button type="button" class="search_btn" id="searchBtn" v-show="isSearch"><i class="icon icon-search font_85rem"></i></button>
+						</div>
+					</div>
+					<div>
+						<dl class="faq_list_dl cur" v-for="(fd,i) in searchData">
+							<dt @click="toggleDt"><i class="icon"></i>{{fd.name}}</dt>
+							<dd class="faq_list" v-if="fd.list && fd.list.length>0">
+								<a href="#" class="flex-box" v-for="(item, index) in fd.list" v-show="item.visible" @click.prevent="viewMore(item)">
+									<span class="flex-item">
+										{{item.name}}
+									</span>
+								</a>
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</template>
+			<div class="content" v-else>
+				${require('../../components/com/errorTips.txt')}
+			</div>
+		</div>
+	</div>
+
+
+	<div class="popup" id="more">
+		<header class="bar bar-nav">
+		  <a class="icon icon-left pull-left close-popup"></a>
+		  <h1 class="title">问题详情</h1>
+		</header>
+		<div class="bar bar-footer-btn padding-none">
+			<div class="flex-box border-top">
+				<button type="button" class="flex-item button button-big button-fill border-none flat close-popup" style="background-color: #f7f7f8;">
+					<span class="text-blue">关闭</span>
+				</button>
+			</div>
+		</div>
+		<div class="content" style="background: #efeff4;">
+			<div class="faq-detail bg-white font_75rem">
+				<div class="flex-box padding_75rem item-with-border">
+					<span>Q：</span>
+					<div class="faq-detail-cnt">
+						<div class="txt text-justify">
+							{{name}}
+						</div>
+
+					</div>
+				</div>
+				<div class="flex-box padding_75rem item-with-border">
+					<span>A：</span>
+					<div class="faq-detail-cnt">
+						<div class="txt text-justify">
+							{{content}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

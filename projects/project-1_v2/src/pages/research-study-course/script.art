@@ -1,0 +1,11 @@
+<script type="text/javascript">
+	$('[data-id="close"]').click(function(event) {
+		$('.to-be-opened-mark').hide();
+	});
+
+	$('.yxkc-course-list').click(function(event) {
+		event.preventDefault();
+		$('.to-be-opened-mark').show();
+	});
+	
+</script>

@@ -1,0 +1,626 @@
+	<section class="content-header clearfix">
+		<button class="btn btn-default btn-sm pull-right min-width-90px offset-margin-tb-15" data-role="back-off">返回</button>
+		<div class="pull-left">
+		    您所在位置：
+		</div>
+		<ol class="breadcrumb oh">
+			<li><a href="homepage.html"><i class="fa fa-home"></i> 考试组织</a></li>
+			<li><a href="#">数据申报</a></li>
+			<li class="active">提交数据</li>
+		</ol>
+	</section>
+	<section class="content">
+		<div class="box box-border">
+		    <div class="box-body pad20">
+		    	<div class="box box-border">
+				  	<div class="box-header with-border">
+					  	<div class="progress-box">
+							<div class="progress-track"><i></i></div>
+							<div class="progress-list">
+								<div class="item">
+									<span class="txt">填写办学规模数据</span>
+								</div>
+								<div class="item">
+									<span class="txt">填写师资规模</span>
+								</div>
+								<div class="item">
+									<span class="txt">上传校园图片</span>
+								</div>
+								<div class="item">
+									<span class="txt">提交审核</span>
+								</div>
+							</div>
+						</div>
+				  	</div>
+				  	<div class="box-body pad20">
+				  		<div data-id="progress-item">
+					    	<fieldset class="form-control-group">
+						      	<legend class="group-title">专业与课程</legend>
+						      	<div class="group-body">
+						      		<table class="form-table">
+						      			<colgroup>
+						      				<col width="120">
+						      				<col>
+						      				<col width="120">
+						      			</colgroup>
+						      			<tbody>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							学科门类
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							个
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							开设专业
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							个
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							课程资源
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							门
+						      						</div>
+						      					</td>
+						      				</tr>
+						      			</tbody>
+						      		</table>
+						      	</div>
+						    </fieldset>
+						    <fieldset class="form-control-group margin_t20">
+						      	<legend class="group-title">学历规模</legend>
+						      	<div class="group-body">
+						      		<table class="form-table">
+						      			<colgroup>
+						      				<col width="120">
+						      				<col>
+						      				<col width="120">
+						      			</colgroup>
+						      			<tbody>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							学员总数
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							毕业人数
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							在籍人数
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      			</tbody>
+						      		</table>
+						      	</div>
+						    </fieldset>
+						    <fieldset class="form-control-group margin_t20">
+						      	<legend class="group-title">非学历规模</legend>
+						      	<div class="group-body">
+						      		<table class="form-table">
+						      			<colgroup>
+						      				<col width="120">
+						      				<col>
+						      				<col width="120">
+						      			</colgroup>
+						      			<tbody>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							培训项目
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							个
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							培训人次
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							次
+						      						</div>
+						      					</td>
+						      				</tr>
+						      			</tbody>
+						      		</table>
+						      	</div>
+						    </fieldset>
+						    <fieldset class="form-control-group margin_t20">
+						      	<legend class="group-title">校园规模</legend>
+						      	<div class="group-body">
+						      		<table class="form-table">
+						      			<colgroup>
+						      				<col width="120">
+						      				<col>
+						      				<col width="120">
+						      			</colgroup>
+						      			<tbody>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							校园占地面积
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							万平方米
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							建筑面积
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							万平方米
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							多媒体教室
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							间
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							图书馆规模
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							册
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							下设分校
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							所
+						      						</div>
+						      					</td>
+						      				</tr>
+						      			</tbody>
+						      		</table>
+						      	</div>
+						    </fieldset>
+					    </div>
+					    <div data-id="progress-item" style="display:none;">
+					    	<fieldset class="form-control-group">
+						      	<legend class="group-title">师资规模</legend>
+						      	<div class="group-body">
+						      		<table class="form-table">
+						      			<colgroup>
+						      				<col width="120">
+						      				<col>
+						      				<col width="120">
+						      			</colgroup>
+						      			<tbody>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							正高级教师
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							副高级教师
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							中专职教师
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							兼职教师
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							科研人员
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							管理人员
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							责任教师
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							辅导教师
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							教师团队
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<input type="text" class="form-control">
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							人
+						      						</div>
+						      					</td>
+						      				</tr>
+						      				<tr>
+						      					<td>
+						      						<div class="pad-t5 text-right">
+						      							<span class="text-red">*</span>
+						      							师生比例
+						      						</div>
+						      					</td>
+						      					<td>
+						      						<div class="input-group ">
+						      							<input type="text" class="form-control">
+						      							<p class="input-group-addon no-border">
+						      								:
+						      							</p>
+						      							<input type="text" class="form-control">
+						      						</div>
+						      						
+						      					</td>
+						      					<td>
+						      						<div class="pad-t5">
+						      							
+						      						</div>
+						      					</td>
+						      				</tr>
+						      			</tbody>
+						      		</table>
+						      	</div>
+						    </fieldset>
+					    </div>
+					    <div data-id="progress-item" style="display:none;">
+					    	<fieldset class="form-control-group">
+						      	<legend class="group-title">校园图片</legend>
+
+						      	<div class="pad-l15 pad-r15">
+									<ul class="school-pic-list row">
+										<li class="col-sm-4">
+											<figure>
+												<div class="img-box">
+													<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png" class="img">
+													<div class="upload-holder">
+													</div>
+
+													<div class="zoom-pic remove-pic" data-role="remove-pic">
+														<i class="fa fa-fw fa-trash-o"></i>
+													</div>
+													<div class="zoom-pic" data-role="zoom-pic">
+														<i class="fa fa-fw fa-search"></i>
+													</div>
+												</div>
+												<figcaption>校园全景图</figcaption>
+											</figure>
+										</li>
+										<li class="col-sm-4">
+											<figure>
+												<div class="img-box">
+													<!--<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png" class="img">-->
+													<div class="upload-holder">
+													</div>
+
+													<div class="zoom-pic remove-pic" data-role="remove-pic">
+														<i class="fa fa-fw fa-trash-o"></i>
+													</div>
+													<div class="zoom-pic" data-role="zoom-pic">
+														<i class="fa fa-fw fa-search"></i>
+													</div>
+												</div>
+												<figcaption>主教学楼图</figcaption>
+											</figure>
+										</li>
+										<li class="col-sm-4">
+											<figure>
+												<div class="img-box">
+													<!--<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png" class="img">-->
+													<div class="upload-holder">
+													</div>
+
+													<div class="zoom-pic remove-pic" data-role="remove-pic">
+														<i class="fa fa-fw fa-trash-o"></i>
+													</div>
+													<div class="zoom-pic" data-role="zoom-pic">
+														<i class="fa fa-fw fa-search"></i>
+													</div>
+												</div>
+												<figcaption>考试室图</figcaption>
+											</figure>
+										</li>
+										<li class="col-sm-4">
+											<figure>
+												<div class="img-box">
+													<!--<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png" class="img">-->
+													<div class="upload-holder">
+													</div>
+
+													<div class="zoom-pic remove-pic" data-role="remove-pic">
+														<i class="fa fa-fw fa-trash-o"></i>
+													</div>
+													<div class="zoom-pic" data-role="zoom-pic">
+														<i class="fa fa-fw fa-search"></i>
+													</div>
+												</div>
+												<figcaption>图书馆图</figcaption>
+											</figure>
+										</li>
+										<li class="col-sm-4">
+											<figure>
+												<div class="img-box">
+													<!--<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png" class="img">-->
+													<div class="upload-holder">
+													</div>
+
+													<div class="zoom-pic remove-pic" data-role="remove-pic">
+														<i class="fa fa-fw fa-trash-o"></i>
+													</div>
+													<div class="zoom-pic" data-role="zoom-pic">
+														<i class="fa fa-fw fa-search"></i>
+													</div>
+												</div>
+												<figcaption>学生宿舍图</figcaption>
+											</figure>
+										</li>
+										<li class="col-sm-4">
+											<figure>
+												<div class="img-box">
+													<!--<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png" class="img">-->
+													<div class="upload-holder">
+													</div>
+
+													<div class="zoom-pic remove-pic" data-role="remove-pic">
+														<i class="fa fa-fw fa-trash-o"></i>
+													</div>
+													<div class="zoom-pic" data-role="zoom-pic">
+														<i class="fa fa-fw fa-search"></i>
+													</div>
+												</div>
+												<figcaption>电教室图</figcaption>
+											</figure>
+										</li>
+										
+									</ul>
+								</div>
+							</fieldset>
+					    </div>
+					    <div data-id="progress-item" style="display:none;">
+					    	<div class="pad20 text-center">
+					    		<i class="fa fa-fw fa-check-circle-o text-green" style="font-size:80px;"></i>
+					    		<div class="f18 margin_t10">已提交数据，请等待审核结果！</div>
+					    		<button type="button" class="btn btn-success min-width-150px margin_t15">查看数据详情</button>
+					    	</div>
+					    </div>
+				  	</div>
+				  	<div class="box-footer text-right ">
+				  		<div data-id="progress-step">
+				  			<button type="button" class="btn btn-primary min-width-150px margin_r10" data-step="next">保存，进入下一步</button>
+				  		</div>
+				  		<div data-id="progress-step" style="display:none;">
+				  			<button type="button" class="btn btn-primary min-width-150px margin_r10" data-step="prev">上一步</button>
+							<button type="button" class="btn btn-primary min-width-150px margin_r10" data-step="next">保存，进入下一步</button>
+				  		</div>
+				  		<div data-id="progress-step" style="display:none;">
+				  			<button type="button" class="btn btn-primary min-width-150px margin_r10" data-step="prev">上一步</button>
+							<button type="button" class="btn btn-primary min-width-150px margin_r10" data-step="finnal">提交审核</button>
+				  		</div>
+					</div>
+				</div>
+		    </div>
+		    <!--loading 效果-->
+		    <div class="overlay" data-id="loading" style="display:none;">
+	          <i class="fa fa-refresh fa-spin"></i>
+	        </div>
+		</div>
+	</section>

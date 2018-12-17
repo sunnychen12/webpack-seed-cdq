@@ -1,0 +1,76 @@
+	<section class="content-header clearfix">
+		<ol class="breadcrumb oh">
+			<li><a href="homepage.html"><i class="fa fa-home"></i> 考试组织</a></li>
+			<li class="active">在线监控</li>
+		</ol>
+	</section>
+	<section class="content">
+
+		<div class="box box-border">
+		    <div class="box-body pad15">
+		      	<div class="table-responsive">
+					<table class="table table-bordered text-center vertical-middle bg-grayf9 no-margin">
+						<tbody>
+							<tr>
+								<td>
+									<b>实时在线人数</b>
+									<div class="margin_t5 gray9 f12">2,387</div>
+								</td>
+								<td>
+									<b>今日累计登录</b>
+									<div class="margin_t5 gray9 f12">668人/36547次</div>
+								</td>
+								<td>
+									<b>昨日累计登录</b>
+									<div class="margin_t5 gray9 f12">668人/36547次</div>
+								</td>
+								<td>
+									<b>本周累计登录</b>
+									<div class="margin_t5 gray9 f12">668人/36547次</div>
+								</td>
+								<td>
+									<b>本月累计登录</b>
+									<div class="margin_t5 gray9 f12">668人/36547次</div>
+								</td>
+								<td>
+									<b>本学期累计登录</b>
+									<div class="margin_t5 gray9 f12">668人/36547次</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="media">
+					<div class="media-left text-nowrap" style="vertical-align:middle;">实时在线动态：</div>
+					<div class="media-body box-border pad bg-grayf9">
+				      	<table class="vertical-middle" data-id="filter-tabs">
+							<tbody>
+								<tr>
+									<td role="button" class="td-s1 text-orange text-bold" style="padding-left:10px;">
+										今日
+									</td>
+									<td role="button" class="td-s1">
+										昨日
+									</td>
+									<td role="button" class="td-s1">
+										最近7天
+									</td>
+									<td role="button" class="td-s1">
+										最近30天
+									</td>
+									<td class="pad-l20" width="200">
+										<input class="form-control text-no-bold input-xs" data-role="daterangetime">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+		      	</div>
+
+		      	<div class="margin_t15 box-border pad15">
+					<div id="chart1" style="height:300px;"></div>
+				</div>
+		    </div>
+		</div>
+	</section>

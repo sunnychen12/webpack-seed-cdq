@@ -1,0 +1,100 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<div class="content bg-white">
+				<div class="edu-model">
+					<ul class="list-unstyled yxxm-project-list">
+						<li class="item-with-border" v-for="item in projectData">
+							<a class="as-link" href="#" @click.prevent="viewMore(item)">
+								<div class="flex-box">
+									<div class="img">
+										<img :SRC="item.img">
+									</div>
+									<div class="flex-item">
+										<h4>{{item.name}}</h4>
+									</div>
+								</div>
+								<div class="txt">
+									主办单位：{{item.organizers}}
+								</div>
+								<div class="txt">
+									培训时间：{{item.trainTime}}
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<div class="popup" id="more">
+		<header class="bar bar-nav">
+		  <a class="icon icon-left pull-left close-popup"></a>
+		  <h1 class="title">项目详情</h1>
+		</header>
+		<div class="bar bar-footer-btn padding-none">
+			<div class="flex-box border-top">
+				<button type="button" class="flex-item button button-big button-fill border-none flat close-popup" style="background-color: #f7f7f8;">
+					<span class="text-blue">关闭</span>
+				</button>
+			</div>
+		</div>
+		<div class="content bg-white">
+			<div class="padding_75rem">
+				<h1 class="font_85rem text-center">{{name}}</h1>
+				<div class="gray font_55rem text-center">发布时间：{{publishTime}}</div>
+				<div class="bg-gray padding_5em">
+					<div class="flex-box">
+						<div class="img margin-r_5rem">
+							<img :SRC="img" class="vertical-middle" style="width:5rem;">
+						</div>
+						<div class="flex-item font_65rem text-justify">
+							<div>主办单位：{{organizers}}</div>
+							<div class="margin-t_3rem">培训对象：{{trainee}}</div>
+						</div>
+					</div>
+					<div class="flex-box flex-box-justify gray font_55rem margin-t_5rem">
+						<span>课程数量：{{courseCount}}门</span>
+						<span class="margin-l_5rem">培训时间：{{trainTime}}</span>
+					</div>
+				</div>
+				<div class="artical-content">
+					<h2 class="gray3 font_75rem margin-b_5rem">项目介绍</h2>
+					<div class="gray6 proj-des" v-html="projIntroduce">
+					</div>
+					<h2 class="gray3 font_75rem margin-b_5rem margin-t_7rem">日期安排</h2>
+					<div class="gray6 proj-des">
+						<div>
+							<span class="gray3">报到时间：</span>
+
+							{{reportTime}}
+						</div>
+						<div>
+							<span class="gray3">报到地点：</span>
+
+							{{reportPlace}}
+						</div>
+						<div>
+							<span class="gray3">研修时间：</span>
+
+							{{researchStudyTime}}
+						</div>
+						<div>
+							<span class="gray3">研修地点：</span>
+
+							{{researchStudyPlace}}
+						</div>
+						<div>
+							<span class="gray3">注：</span>
+							<template v-html="remark"></template>
+						</div>
+					</div>
+					<h2 class="gray3 font_75rem margin-b_5rem margin-t_7rem">培训师资</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	

@@ -1,0 +1,36 @@
+<script type="text/javascript" src="assets/js/progressbar.min.js"></script>
+
+<script type="text/javascript">
+	function circleProgress(canvasEle, percent){
+		var bar = new ProgressBar.Circle(canvasEle, {
+			strokeWidth: 3,
+			color: '#3385ff',
+			trailColor: '#f6f6f6',
+			trailWidth: 3,
+			text: {
+				value: percent+'分',
+				className:'text-nowrap',
+				style: {
+					position: 'absolute',
+					left: '50%',
+					top: '50%',
+					transform: {
+						prefix: true,
+						value: 'translate(-50%, -50%)'
+					}
+				}
+			}
+		});
+
+		bar.animate(percent/100);
+		//bar.set(percent/100)
+	}
+
+	var circle=document.querySelectorAll('.socre-circle');
+	if(circle.length>0){
+		for(var i=0;i<circle.length;i++){
+			circleProgress(circle[i],circle[i].getAttribute('data-score'));
+		}
+	}
+	
+</script>

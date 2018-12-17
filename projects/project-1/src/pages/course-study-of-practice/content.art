@@ -1,19 +1,35 @@
 	<div class="page-group">
 		<div class="page page-current" id="app" v-cloak>
 			<template v-if="isloaded">
-				<div class="bar bar-footer-btn padding-none" v-if="success && questionLen>1">
-				  <div class="flex-box flex-align-center">
-				  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" @click="prevQuestion" :disabled="curQueIndex==0">上一题</button>
-				  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-next" @click="nextQuestion" v-if="(questionLen>1 && curQueIndex<questionLen-1)">下一题</button>
-				  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-entry-broadcast" @click="submitExam" v-if="
-				  		attemptstate=='inprogress' &&
-				  		questionLen>0 &&
-				  		curQueIndex==questionLen-1
-				  	">提交答卷</button>
-				  </div>
+				<div class="bar bar-footer-btn padding-none" v-if="success">
+					<!--是否期末考试-->
+					<div class="flex-box flex-align-center" v-if="isFinalExam && attemptstate=='inprogress'">
+						<template v-if="isExamEnd">
+							<button type="button" class="flex-item button button-big button-fill border-none flat" disabled>测验已结束</button>
+						</template>
+						<template v-else>
+							<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" @click="savingFinalExam">保存答题</button>
+						  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-next" @click="endingFinalExam">结束答题</button>
+					  	</template>
+					</div>
+				  	<div class="flex-box flex-align-center" v-else-if="questionLen>1">
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" @click="prevQuestion" :disabled="curQueIndex==0">上一题</button>
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-next" @click="nextQuestion" v-if="(questionLen>1 && curQueIndex<questionLen-1)">下一题</button>
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-entry-broadcast" @click="submitExam" v-if="
+					  		attemptstate=='inprogress' &&
+					  		questionLen>0 &&
+					  		curQueIndex==questionLen-1
+					  	">提交答卷</button>
+				  	</div>
 				</div>
 				<div class="content">
 					<form name="submit-form" id="submit-form" v-if="success">
+						<!--
+						<div style="padding:.75rem .75rem .5rem;" class="text-right border-bottom" v-if="isFinalExam && attemptstate=='inprogress'">
+							<span class="icon icon-clock font_85rem"></span>
+							<span data-id="timer" class="inline-block vertical-middle font_65rem margin-l_3rem">{{countDownText}}</span>
+						</div>
+						-->
 						<template v-for="(question,index) in attemptData.questions">
 							<transition name="fade" v-on:enter="transitionEnter">
 								<div class="practice-subject-item" v-show="index==curQueIndex">

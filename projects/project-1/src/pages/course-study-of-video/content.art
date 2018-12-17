@@ -1,56 +1,77 @@
 	<div class="page-group">
-		<div class="page page-current">
-			<div class="content">				
-				<div class="flex-box flex-vertical full-height">
-					<div style="background:#000;">
-						<video class="video-player" src=""
-							x5-playsinline 
-							playsinline 
-							-webkit-playsinline 
-							controls
-							style="height:10rem;"
-						></video>
-					</div>
-					<ul class="tabs-video list-unstyled">
-						<li class="item actived"><span>文档</span></li>
-						<!--
-						<li class="item"><span>聊天</span></li>
-						<li class="item"><span>问答</span></li>
-						-->
-					</ul>
-					<div class="flex-item bg-white" style="overflow-y: auto;">
-						<div class="swiper-container padding-none position-relative full-height">
-							<div class="swiper-wrapper">
-								<div class="swiper-slide">
-									<div class="flex-box flex-vertical flex-box-justify-center flex-align-center full-height">
-					    				<img src="../../images/no-data.png" width="45%" class="center-block">
-					    				<div class="gray9 margin-t_7rem font_75rem">
-					    					暂无文档信息
-					    				</div>
-					    			</div>
+		<div class="page page-current" id="app" v-cloak>
+			<template v-if="isloaded">
+				<div class="content" v-if="success">				
+					<div class="flex-box flex-vertical full-height">
+						<div class="position-relative" style="background:#000;">
+							<video class="video-player" :src="videourl"
+									x5-playsinline 
+									playsinline 
+									webkit-playsinline 
+									controls
+									style="height:10rem;"
+									autoplay="autoplay"
+									@seeking="seeking"
+									@timeupdate="timeupdate"
+									@ended="ended"
+									@seeked="seeked"
+								></video>
+
+							<div class="position-absolute full-width full-height video-mark" v-if="showMark">
+								<div class="flex-box flex-vertical flex-align-center flex-box-justify-center full-height">
+									<i class="icomoon" style="font-size:1.2rem;">&#xe901;</i>
+									<div class="margin-t_3rem">已完成本节学习</div>
+									<div class="flex-box margin-t_7rem">
+										<button type="button" class="button button-white" @click="replay">再学一遍</button>
+										<button type="button" class="button button-white" style="margin-left:1.2rem" @click="nextActivity">继续学习</button>
+									</div>
 								</div>
-								<!--
-								<div class="swiper-slide">
-									<div class="flex-box flex-vertical flex-box-justify-center flex-align-center full-height">
-					    				<img src="../../images/no-data.png" width="45%" class="center-block">
-					    				<div class="gray9 margin-t_7rem font_75rem">
-					    					暂无聊天信息
-					    				</div>
-					    			</div>
+							</div>
+						</div>
+						<ul class="tabs-video list-unstyled">
+							<li class="item actived"><span>文档</span></li>
+							<!--
+							<li class="item"><span>聊天</span></li>
+							<li class="item"><span>问答</span></li>
+							-->
+						</ul>
+						<div class="flex-item bg-white" style="overflow-y: auto;">
+							<div class="swiper-container padding-none position-relative full-height">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										<div class="flex-box flex-vertical flex-box-justify-center flex-align-center full-height">
+						    				<img src="../../images/no-data.png" width="45%" class="center-block">
+						    				<div class="gray9 margin-t_7rem font_75rem">
+						    					暂无文档信息
+						    				</div>
+						    			</div>
+									</div>
+									<!--
+									<div class="swiper-slide">
+										<div class="flex-box flex-vertical flex-box-justify-center flex-align-center full-height">
+						    				<img src="../../images/no-data.png" width="45%" class="center-block">
+						    				<div class="gray9 margin-t_7rem font_75rem">
+						    					暂无聊天信息
+						    				</div>
+						    			</div>
+									</div>
+									<div class="swiper-slide">
+										<div class="flex-box flex-vertical flex-box-justify-center flex-align-center full-height">
+						    				<img src="../../images/no-data.png" width="45%" class="center-block">
+						    				<div class="gray9 margin-t_7rem font_75rem">
+						    					暂无问答信息
+						    				</div>
+						    			</div>
+									</div>
+									-->
 								</div>
-								<div class="swiper-slide">
-									<div class="flex-box flex-vertical flex-box-justify-center flex-align-center full-height">
-					    				<img src="../../images/no-data.png" width="45%" class="center-block">
-					    				<div class="gray9 margin-t_7rem font_75rem">
-					    					暂无问答信息
-					    				</div>
-					    			</div>
-								</div>
-								-->
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+				<div class="content" v-else>
+					${require('../../components/com/errorTips.txt')}
+    			</div>
+			</template>
 		</div>
 	</div>

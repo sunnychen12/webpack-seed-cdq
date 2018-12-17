@@ -1,0 +1,33 @@
+<script type="text/javascript">
+	var $subjectList=$('.practice-subject-item')
+		, len=$subjectList.length
+		, curIndex=$('.practice-subject-item[show]').index();
+
+	$('.page')
+	//下一题
+	.on('click', '[data-subject="next"]', function(event) {
+		if(curIndex<len-1){
+			$subjectList.eq(++curIndex).fadeIn()
+			.siblings().hide();
+			if(curIndex==len-1){
+				$(this).prop('disabled', true);
+			}
+			if(curIndex>0){
+				$('[data-subject="prev"]').prop('disabled', false);
+			}
+		}
+	})
+	//上一题
+	.on('click', '[data-subject="prev"]', function(event) {
+		if(curIndex>0){
+			$subjectList.eq(--curIndex).fadeIn()
+			.siblings().hide();
+			if(curIndex==0){
+				$(this).prop('disabled', true);
+			}
+			if(len>1 && curIndex<len-1){
+				$('[data-subject="next"]').prop('disabled', false);
+			}
+		}
+	});
+</script>

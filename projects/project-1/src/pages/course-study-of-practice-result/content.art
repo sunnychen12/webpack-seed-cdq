@@ -9,17 +9,11 @@
 				</div>
 				<div class="content">
 					<div class="text-center" style="margin:1rem;">
-						<template v-if="questionMarkRight>=60">
-							<i class="icomoon vertical-middle text-blue" style="font-size:2rem;">&#xe903;</i>
-							<span class="inline-block vertical-middle" style="font-size:1.2rem;">完成</span>
-						</template>
-						<template v-else>
-							<i class="icomoon vertical-middle text-red" style="font-size:2rem;">&#xe904;</i>
-							<span class="inline-block vertical-middle" style="font-size:1.2rem;">未完成</span>
-						</template>
+						<i class="icomoon vertical-middle text-blue" style="font-size:2rem;">&#xe903;</i>
+						<span class="inline-block vertical-middle" style="font-size:1.2rem;">完成</span>
 
-						<div class="font_65rem margin-t_7rem gray9 line-height-1_75">
-							测试要求达60分以上，才算完成
+						<div class="margin-t_7rem gray9 line-height-1_75">
+							得分：{{questionMarkRight}}
 						</div>
 					</div>
 
@@ -28,8 +22,6 @@
 							<span>答题情况</span>
 						</div>
 						<div class="font_75rem margin-t_7rem">
-							本次测验得{{questionMarkRight}}分，您{{questionMarkRight>=60?'已达到':'未达到'}}本次测试要求。<br>
-							具体情况如下:<br>
 							共{{questionLen}}题、{{totalMark}}分，您答对了{{questionRightLen}}题、得分{{questionMarkRight}}分。
 						</div>
 						<div class="margin-t_7rem">

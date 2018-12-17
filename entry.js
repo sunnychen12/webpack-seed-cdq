@@ -30,9 +30,9 @@ if(process.argv.length>4){
       "prod": `webpack --config ${pConfig} --mode production --env.NODE_ENV=production --progress`,
       "prod.normal": `webpack --config ${pConfig} --mode production --env.NODE_ENV=production.normal --progress`,
       "dev": `webpack --config ${pConfig} --mode development --env.NODE_ENV=development --progress`,
-      "start:dev": `webpack-dev-server --config ${pConfig} --mode development --env.NODE_ENV=development --open`,
-      "start:prod": `webpack-dev-server --config ${pConfig} --mode production --env.NODE_ENV=production --open`,
-      "start:prod.normal": `webpack-dev-server --config ${pConfig} --mode production --env.NODE_ENV=production.normal --open`,
+      "start:dev": `webpack-dev-server --hot --config ${pConfig} --mode development --env.NODE_ENV=development --open`,
+      "start:prod": `webpack-dev-server --hot --config ${pConfig} --mode production --env.NODE_ENV=production --open`,
+      "start:prod.normal": `webpack-dev-server --hot --config ${pConfig} --mode production --env.NODE_ENV=production.normal --open`,
       "auto:prod": `webpack --config ${pConfig} --mode production --env.NODE_ENV=production --watch`,
       "auto:prod.normal": `webpack --config ${pConfig} --mode production --env.NODE_ENV=production.normal --watch`,
       "auto:prod.dev": `webpack --config ${pConfig} --mode development --env.NODE_ENV=development --watch`

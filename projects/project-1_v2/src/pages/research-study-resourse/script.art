@@ -1,0 +1,15 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+<script type="text/javascript">
+	$('.resourse-tab').each(function(index, el) {
+		$(this).parent().width($(this).outerWidth());
+	}).on('click', function(event) {
+		event.preventDefault();
+		$('.resourse-tab').removeClass('actived')
+		$(this).addClass('actived')
+	});
+
+	var swiper = new $.Swiper('.swiper-container', {
+		spaceBetween: 15,
+        slidesPerView: 'auto'
+    });
+</script>

@@ -1,0 +1,10 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+<script type="text/javascript">
+	//内容滑动
+	$('[data-id="swiper"]').each(function(index, el) {
+		var swiper = new $.Swiper(el, {
+	        slidesPerView: 1.3
+	    });
+	});
+	
+</script>

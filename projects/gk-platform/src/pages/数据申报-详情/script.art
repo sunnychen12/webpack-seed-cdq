@@ -1,0 +1,51 @@
+<script type="text/javascript">
+
+require(['jquery','common'],function($){
+	//数据筛选
+	$(".filter-tabs li").click(function(event) {
+		if($(this).hasClass('actived')){
+			$(this).removeClass('actived');
+		}
+		else{
+			$(this).addClass('actived');
+		}
+	});
+
+
+	$(document)
+	//批量选择
+	.on('click', '.select-all', function(event) {
+		if($(this).is(":checked")){
+		    $('[data-id="select-item"]').prop("checked",true);
+		}
+		else{
+		    $('[data-id="select-item"]').prop("checked",false);
+		}
+	});
+
+	//图片放大
+	require(['css!http://css.gzedu.com/common/js/fancybox/jquery.fancybox.css','http://css.gzedu.com/common/js/fancybox/jquery.fancybox.js'],function(){
+		$(document)
+		.on('click', '.zoom-pic', function(event) {
+			var $box=$(this).closest('.school-pic-list');
+			var $img=$(".img",$box);
+			var imgGroup=$.map( $img, function(n){
+				return {
+					'href':$(n).attr('src')
+				};
+			});
+
+			var index=$('.zoom-pic',$box).index(this);
+			$.fancybox(imgGroup, {
+				'index'		: index,
+				'type'      : 'image',
+				'loop'		: false,
+				'helpers'	: {title:{'type':'float'}},
+				beforeShow	: function(){
+					this.locked.css('zIndex', 10001);
+				}
+			});
+		});
+	});
+});
+</script>

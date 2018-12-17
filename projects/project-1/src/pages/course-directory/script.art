@@ -216,45 +216,11 @@
         		switch(module.modname){
         			case 'url':
         				result.name='视频';
-        				result.jumpUrl='course-study-of-video.html?videourl='+
-        					(
-        						(
-        							module.contents &&
-        							module.contents.length>0 &&
-        							module.contents[0].fileurl
-        						)?
-        						module.contents[0].fileurl : ''
-        					)+
-        					'&'+
-        					('videoId='+module.id)+
-        					'&'+
-        					('pagetitle='+module.name);
+        				result.jumpUrl='course-study-of-video.html?videoId='+module.id;
         				break;
         			case 'page':
         				result.name='网页';
-        				result.jumpUrl='course-study-of-iframe.html?url='+
-        					(
-                                (
-                                    module.contents &&
-                                    module.contents.length>0 &&
-                                    module.contents[0].fileurl
-                                )?
-                                module.contents[0].fileurl : ''
-                            )+
-        					'&'+
-        					('pagetitle='+module.name)+
-        					'&'+
-        					('pageid='+module.id)+
-                            '&'+
-                            'filename='+
-                            (
-                                (
-                                    module.contents &&
-                                    module.contents.length>0 &&
-                                    module.contents[0].filename
-                                )?
-                                module.contents[0].filename : ''
-                            );
+        				result.jumpUrl='course-study-of-iframe.html?pageid='+module.id;
         				break;
         			case 'quiz':
         				result.name='测验';
@@ -264,18 +230,21 @@
         					'&'+
         					('quizid='+module.instance);
         					*/
-        				result.jumpUrl='course-study-of-practice-records-list.html?'+
-        					('pagetitle='+module.name)+
-        					'&'+
-        					('quizid='+module.instance);
+        				result.jumpUrl='course-study-of-practice-records-list.html?id='+module.id;
         				break;
         			case 'resource':
         				result.name='资源说明';
-        				result.jumpUrl='course-study-of-reading.html';
+        				if(
+                            module.contents &&
+                            module.contents.length>0 &&
+                            module.contents[0].fileurl
+                        ){
+                            result.jumpUrl=module.contents[0].fileurl+'&token='+commomLab.cacheUserCourseInfo.get().token
+                        }
         				break;
         			case 'forum':
         				result.name='讨论';
-        				result.jumpUrl='discussion-index.html';
+        				result.jumpUrl='course-discussion-index.html?id='+module.id;
         				break;
         			default:
         				break;

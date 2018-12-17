@@ -1,0 +1,196 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+<script type="text/javascript">
+;(function(){
+	//讨论 活动ID
+	var forumid=commomLab.getQueryParam('forumid');
+		forumid || (forumid='');
+
+	var pagetitle=commomLab.getQueryParam('pagetitle');
+		pagetitle || (pagetitle='');
+
+		document.title=pagetitle;
+
+	//获取缓存数据
+	var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+
+	window.app = new Vue({
+        el: '#app',
+        data: {
+        	success:true,
+        	empty:false,
+        	msg:'',
+            courseName:pagetitle,
+            isloaded:false,//是否所有数据都已经加载完毕
+        	forumData:false,//测验记录列表
+        },
+        created: function () {
+        	var vm=this;
+        	$.showIndicator();
+
+        	commomLab.ajaxProcess({
+				url: '/api/stud/study/moodleGetForumDiscussionsPaginated',
+				data: {
+					forumid: forumid,
+					page : 0,
+					perpage : 1000,
+					token: cacheUserCourseInfo.token
+				}
+			})
+        	.done(function(res){
+        		if(
+					commomLab.checkAPIResult(res)
+				){
+					var resData=res.data;
+					
+                    //数据提交异常
+                    if(resData.errorcode){
+                        vm.success=false;
+                        vm.msg=resData.message;
+                    }
+                    else{
+                        var len = resData.discussions.length,
+                            pageSize = 5,
+                            totalPages = len%pageSize==0 ?
+                                        len/pageSize :
+                                        parseInt(len/pageSize)+1;
+
+                        if(resData.discussions && len>0){
+                            resData['pageInfo']={
+                                curPage:0,
+                                totalPages:totalPages,
+                                pageSize:pageSize
+                            }
+                        }
+                        vm.forumData=resData;
+                    }
+				}
+	          	else{
+	          		vm.success=false;
+	          		vm.msg='数据查询出错';
+	          	}
+        	})
+        	.fail(function(XMLHttpRequest, textStatus, errorThrown){
+    			vm.success=false;
+				vm.msg='数据查询出错';
+    		})
+            .always(function(){
+                vm.showHtml();
+            });
+        },
+        methods:{
+            //结束异步，关键加载特殊，显示页面内容
+            showHtml:function(){
+                var vm=this;
+                vm.isloaded=true;
+                $.hideIndicator();
+            },
+            contentScroll:function(event){
+                var vm=this;
+                if(!vm.forumData.pageInfo) return;
+                
+                var totalPages = vm.forumData.pageInfo.totalPages;
+                var that=event.currentTarget;
+                if(totalPages>0){
+                    
+                    var contentInner=document.querySelector('.content-in');
+
+                    if(
+                        that.scrollTop+20>=contentInner.clientHeight-that.clientHeight &&
+                        vm.forumData.pageInfo.curPage<totalPages-1
+                    ){
+                        vm.forumData.pageInfo.curPage=vm.forumData.pageInfo.curPage+1;
+                    }
+                    
+                }
+            },
+            formatDate:function(timemap){
+                var date=new Date(timemap);
+
+                function formatDigit(d){
+                    return (d>=10)?d:('0'+d);
+                }
+
+                return  (
+                            date.getFullYear()+
+                            '-'+
+                            formatDigit((date.getMonth()+1))+
+                            '-'+
+                            formatDigit(date.getDate())+
+                            ' '+
+                            formatDigit(date.getHours())+
+                            ':'+
+                            formatDigit(date.getMinutes())
+                        )
+            },
+            //发布讨论
+            createDiscussion:function(){
+                $.showIndicator();
+                commomLab.ajaxProcess({
+                    url: '/api/stud/study/moodleCanAddDiscussion',
+                    data: {
+                        forumid: forumid,
+                        token: cacheUserCourseInfo.token
+                    }
+                })
+                .done(function(res){
+                    if(
+                        commomLab.checkAPIResult(res)
+                    ){
+                        var resData=res.data;
+                        
+                        //数据提交异常
+                        if(resData.errorcode){
+                            commomLab.myToast({
+                                msg:resData.message
+                            });
+                        }
+                        else{
+                            if(resData.canpindiscussions){
+                                location.href='create-discussion.html?pagetitle='+pagetitle+'&forumid='+forumid;
+                            }
+                            else{
+                                commomLab.myToast({
+                                    msg:'暂不可以发布讨论'
+                                }) 
+                            }
+                        }
+                    }
+                    else{
+                        commomLab.myToast({
+                            msg:'数据查询出错'
+                        })
+                    }
+                })
+                .always(function(){
+                    $.hideIndicator();
+                });
+                
+            }
+        }
+    });
+
+    $('.page')
+    //查看图片大图
+    .on('click', '.addon-img-list img', function(event) {
+        event.preventDefault();
+        var $list=$(this).closest('.addon-img-list').find('img');
+        var index=$list.index(this);
+        var imgUrl=$list.map(function(index, elem) {
+          return this.getAttribute('title') || this.src;
+        }).get();
+
+        $.photoBrowser({
+            photos : imgUrl,
+            theme: 'dark',
+            type: 'standalone',
+            lazyLoading:true,
+            initialSlide:index,
+            toolbarTemplate:'<nav class="bar bar-tab my-gallery-footer">' +
+              '<a class="tab-item photo-browser-close-link" href="javascript:;">' +
+                '返回' +
+              '</a>' +
+            '</nav>'
+        }).open();
+    });
+})();
+</script>

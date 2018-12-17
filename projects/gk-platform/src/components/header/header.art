@@ -1,0 +1,20 @@
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+	<title><%=title%></title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<!-- Bootstrap 3.3.5 -->
+	<link rel="stylesheet" href="<%= bathPath%>/bootstrap/css/bootstrap.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="<%= bathPath%>/font-awesome/4.4.0/css/font-awesome.min.css">
+	<!-- AdminLTE Skins-->
+	<link rel="stylesheet" href="<%= bathPath%>/dist/css/skins/skin-blue.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="<%= bathPath%>/dist/css/AdminLTE.min.css">
+	<link rel="stylesheet" href="<%= bathPath%>/dist/css/reset.css">
+	<!--[if lt IE 9]>
+	    <script src="<%= bathPath%>/dist/js/html5shiv.min.js"></script>
+	    <script src="<%= bathPath%>/dist/js/respond.min.js"></script>
+	<![endif]-->
+	<% if (appendContent) { %> <%= appendContent %> <% } %>

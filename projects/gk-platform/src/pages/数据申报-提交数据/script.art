@@ -1,0 +1,75 @@
+<script type="text/javascript">
+
+require(['jquery','common'],function($){
+	;(function(){
+		var curStepIndex=1;
+		//步骤显示
+		function goStep(index){
+			//index 从1开始，代表第一步
+			var $that=$('.progress-box');
+			var $dl=$that.find('.item');
+			var length=$dl.length;
+			$dl.eq(index-1).addClass('on');
+			$dl.each(function(i, el) {
+				if(i<index){
+					$(this).addClass('actived')
+				}
+				$(this).css('left',i*(100/(length-1))+"%");
+
+				if($(this).hasClass('on')){
+					$that.find(".progress-track i").width($(this).position().left)
+				}
+			});
+
+			$('[data-id="progress-item"]').hide().eq(index-1).show();
+
+			$('[data-id="progress-step"]').hide().eq(index-1).show();
+		}
+
+		//初始
+		goStep(curStepIndex);
+
+		$(document)
+		//前一步
+		.on('click', '[data-step="prev"]', function(event) {
+
+			goStep(--curStepIndex);
+		})
+		//下一步
+		.on('click', '[data-step="next"]', function(event) {
+			goStep(++curStepIndex);
+		})
+		//提交
+		.on('click', '[data-step="finnal"]', function(event) {
+			var $loading=$('[data-id="loading"]').show();
+			setTimeout(function(){
+				goStep(4);
+				$loading.hide();
+			},1000)
+			
+		});
+	})();
+
+	
+	require(['css!http://css.gzedu.com/common/js/fancybox/jquery.fancybox.css','http://css.gzedu.com/common/js/fancybox/jquery.fancybox.js'],function(){
+		$(document)
+		//图片放大
+		.on('click', '[data-role="zoom-pic"]', function(event) {
+			$.fancybox([$(this).siblings('.img').attr('src')], {
+				'type'      : 'image',
+				'loop'		: false,
+				'helpers'	: {title:{'type':'float'}},
+				beforeShow	: function(){
+					this.locked.css('zIndex', 10001);
+				}
+			});
+		});
+	});
+
+	$(document)
+	//图片删除
+	.on('click', '[data-role="remove-pic"]', function(event) {
+		$(this).siblings('.img').remove();
+	});
+});
+</script>

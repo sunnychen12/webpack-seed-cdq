@@ -13,7 +13,7 @@
 						</div>
 						<ul class="list-unstyled list-cutstom padding-top-none padding-bottom-none index-disc-list" v-if="forumData.discussions && forumData.discussions.length>0">
 							<li class="list-cutstom-item item" v-for="(discussion,index) in forumData.discussions" v-show="index<(forumData.pageInfo.curPage+1)*forumData.pageInfo.pageSize">
-								<a :href="'course-discussion-details.html?discussionid='+discussion.discussion+'&pagetitle='+courseName" class="as-link item-in">
+								<a href="javascript:;" class="as-link item-in" @click.prevent="viewMore(discussion)">
 									<div class="flex-box flex-box-justify flex-align-center">
 										
 										<div class="flex-item flex-box overflow-hidden">

@@ -1,0 +1,75 @@
+@import "media.less";
+@import "flex-box.less";
+@import "embed-responsive.less";
+@import "form.less";
+@import "animate.less";
+
+//链接元素
+.as-link{
+	&:active{
+		background-color: #f2f2f2;
+	}
+}
+
+
+//列表
+.list-cutstom{
+	>.list-cutstom-item{
+		padding: .8rem 0;
+		position: relative;
+		&:after{
+			content: ' ';
+			height: 1px;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			left: 0;
+			background:@border-color;
+		}
+		&:last-child{
+			&:after{
+				display: none;
+			}
+		}
+	}
+}
+
+//标签
+.label{
+	font-size: .45rem;
+	padding: .5em .5em .3em;
+	line-height: 1;
+	display: inline-block;
+	vertical-align: middle;
+	&.label-red{
+		color: #fff;
+		background-color: @color-red;
+	}
+	&.label-blue{
+		color: #fff;
+		background-color: @color-blue;
+	}
+	&.label-orange{
+		color: #fff;
+		background-color: @color-orange;
+	}
+	&.label-dark-gray{
+		color: #fff;
+		background:#778ba5;
+	}
+	&.label-blue-boder{
+		border:1px solid @color-lighten-blue;
+		color: @color-lighten-blue;
+	}
+}
+
+.moveTop {
+    width: 2rem;
+    height: 2rem;
+    position: fixed;
+    bottom: 3rem;
+    right: .6rem;
+    z-index: 10000;
+    background: url(images/moveTop.png) no-repeat center center / 100% 100%;
+    display: none;
+}

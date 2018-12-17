@@ -1,0 +1,349 @@
+	<section class="content-header clearfix">
+		<ol class="breadcrumb oh">
+			<li><a href="homepage.html"><i class="fa fa-home"></i> 考试组织</a></li>
+			<li class="active">数据申报</li>
+		</ol>
+	</section>
+	<section class="content">
+
+		<div class="box box-border">
+		    <div class="box-body">
+		      <form class="form-horizontal">
+		        <div class="row pad-t15">		          
+
+		          <div class="col-sm-4">
+		            <div class="form-group">
+		              <label class="control-label col-sm-3 text-nowrap">分部</label>
+		              <div class="col-sm-9">
+		                <select class="form-control">
+		                	<option>请选择</option>
+		                	<option>全部</option>
+		                </select>
+		              </div>
+		            </div>
+		          </div>
+
+		          <div class="col-xs-6 col-sm-4">
+		            <div class="form-group">
+		              <label class="control-label col-sm-3 text-nowrap">提交时间</label>
+		              <div class="col-sm-9">
+		                <div class="input-group input-daterange" data-role="date-group">
+		                  <input type="text" class="form-control" data-role="date-start">
+		                  <span class="input-group-addon nobg">－</span>
+		                  <input type="text" class="form-control" data-role="date-end">
+		              	</div>
+		              </div>
+		            </div>
+		          </div>
+
+		          <div class="col-sm-4">
+		            <div class="form-group">
+		              <label class="control-label col-sm-3 text-nowrap">审核状态</label>
+		              <div class="col-sm-9">
+		                <select class="form-control">
+		                	<option>请选择</option>
+		                	<option>全部</option>
+		                </select>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </form>
+		    </div>
+		    <div class="box-footer text-right">
+	          <button type="button" class="btn min-width-90px btn-primary margin_r15">搜索</button>
+	          <button type="button" class="btn min-width-90px btn-default">重置</button>
+	        </div>
+		</div>
+		<div class="box box-border">
+			<div class="box-header with-border">
+				<h3 class="box-title pad-t5">申报列表</h3>
+				<div class="pull-right">
+					<button type="button" class="btn btn-default btn-sm"><i class="fa fa-fw fa-gear"></i> 批量设置为待更新</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<div class="filter-tabs clearfix">
+					<ul class="list-unstyled">
+						<li class="actived margin_t5">全部（879）</li>
+						<li class="margin_t5">待审核（879）</li>
+						<li class="margin_t5">审核通过（2）</li>
+						<li class="margin_t5">审核不通过（2）</li>
+						<li class="margin_t5">待提交（2）</li>
+						<li class="margin_t5">待更新（2）</li>
+					</ul>
+				</div>
+
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped vertical-mid text-center table-font">
+						<colgroup>
+							<col width="30">
+							<col width="20%">
+							<col width="20%">
+							<col width="20%">
+							<col width="20%">
+							<col>
+						</colgroup>
+						<thead>
+			              <tr>
+			              	<th><input type="checkbox" class="select-all no-margin"></th>
+			              	<th>分部</th>
+			                <th>提交人</th>
+			                <th>提交时间</th>
+			                <th>审核状态</th>
+			                <th>操作</th>
+			              </tr>
+			            </thead>
+			            <tbody>
+			            	<tr>
+			            		<td><input type="checkbox" data-id="select-item"></td>
+			            		<td>
+			            			广州分部
+			            		</td>
+			            		<td>
+			            			李志斌
+			            		</td>
+			            		<td>
+			            			2018-12-01 09:00
+			            		</td>
+			            		<td>
+			            			<span class="text-orange">待审核</span>
+			            		</td>
+			            		<td>
+			            			<a href="#" class="operion-item" data-toggle="tooltip" title="审核" data-container="body"><i class="fa">&#xf30b;</i></a>
+			            		</td>
+			            	</tr>
+			            	<tr>
+			            		<td><input type="checkbox" data-id="select-item"></td>
+			            		<td>
+			            			北京分部
+			            		</td>
+			            		<td>
+			            			梁小民
+			            		</td>
+			            		<td>
+			            			2018-12-01 09:00
+			            		</td>
+			            		<td>
+			            			<span class="text-red">审核不通过</span>
+			            		</td>
+			            		<td>
+			            			<a href="数据申报-详情.html" class="operion-item" data-toggle="tooltip" title="查看详情" data-container="body"><i class="fa fa-view-more"></i></a>
+			            		</td>
+			            	</tr>
+			            	<tr>
+			            		<td><input type="checkbox" data-id="select-item"></td>
+			            		<td>
+			            			深圳分部
+			            		</td>
+			            		<td>
+			            			张小花
+			            		</td>
+			            		<td>
+			            			2018-12-01 09:00
+			            		</td>
+			            		<td>
+			            			<span class="text-green">审核通过</span>
+			            		</td>
+			            		<td>
+			            			<a href="数据申报-详情.html" class="operion-item" data-toggle="tooltip" title="查看详情" data-container="body"><i class="fa fa-view-more"></i></a>
+			            		</td>
+			            	</tr>
+			            	<tr>
+			            		<td><input type="checkbox" data-id="select-item"></td>
+			            		<td>
+			            			广东分部
+			            		</td>
+			            		<td>
+			            			--
+			            		</td>
+			            		<td>
+			            			--
+			            		</td>
+			            		<td>
+			            			<span class="text-gray">待提交</span>
+			            		</td>
+			            		<td>
+			            			--
+			            		</td>
+			            	</tr>
+			            	<tr>
+			            		<td><input type="checkbox" data-id="select-item"></td>
+			            		<td>
+			            			湖南分部
+			            		</td>
+			            		<td>
+			            			--
+			            		</td>
+			            		<td>
+			            			--
+			            		</td>
+			            		<td>
+			            			<span class="text-gray">待更新</span>
+			            		</td>
+			            		<td>
+			            			<a href="数据申报-详情.html" class="operion-item" data-toggle="tooltip" title="查看详情" data-container="body"><i class="fa fa-view-more"></i></a>
+			            		</td>
+			            	</tr>
+			            </tbody>
+					</table>
+					<div class="page-container clearfix margin_r10 left10">
+						<div class="pageing-info">
+							<div class="dataTables_info">共 2 页，到第 <input type="text" class="form-control jump-page-input" value="1"> 页 <button class="btn btn-block btn-default sure-btn">确定</button>
+							</div>
+						</div>
+						<div class="pageing-list">
+							<div class="dataTables_paginate paging_simple_numbers">
+								<ul class="pagination">
+									<li class="paginate_button previous disabled"><a href="#">上一页</a></li>
+									<li class="paginate_button active"><a href="#">1</a></li>
+									<li class="paginate_button"><a href="#">2</a></li>
+									<li class="paginate_button"><a href="#">3</a></li>
+									<li class="paginate_button"><a href="#">4</a></li>
+									<li class="paginate_button disabled" ><a href="#">…</a></li>
+									<li class="paginate_button"><a href="#">5</a></li>
+									<li class="paginate_button next"><a href="#">下一页</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="box box-border">
+			<div class="box-header with-border">
+				<h3 class="box-title pad-t5">申报列表</h3>
+			</div>
+			<div class="box-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped vertical-mid text-center table-font">
+						<colgroup>
+							<col width="20%">
+							<col width="20%">
+							<col width="20%">
+							<col width="20%">
+							<col>
+						</colgroup>
+						<thead>
+			              <tr>
+			              	<th>分部</th>
+			                <th>提交人</th>
+			                <th>提交时间</th>
+			                <th>审核状态</th>
+			                <th>操作</th>
+			              </tr>
+			            </thead>
+			            <tbody>
+			            	<tr>
+			            		<td>
+			            			广州分部
+			            		</td>
+			            		<td>
+			            			李志斌
+			            		</td>
+			            		<td>
+			            			2018-12-01 09:00
+			            		</td>
+			            		<td>
+			            			<span class="text-orange">待审核</span>
+			            		</td>
+			            		<td>
+			            			<a href="#" class="operion-item" data-toggle="tooltip" title="审核" data-container="body"><i class="fa">&#xf30b;</i></a>
+			            		</td>
+			            	</tr>
+			            	<tr>
+			            		<td>
+			            			北京分部
+			            		</td>
+			            		<td>
+			            			梁小民
+			            		</td>
+			            		<td>
+			            			2018-12-01 09:00
+			            		</td>
+			            		<td>
+			            			<span class="text-red">审核不通过</span>
+			            		</td>
+			            		<td>
+			            			<a href="数据申报-提交数据.html" class="operion-item" data-toggle="tooltip" title="重新提交数据" data-container="body"><i class="fa fa-edit"></i></a>
+			            			<a href="数据申报-详情.html" class="operion-item" data-toggle="tooltip" title="查看详情" data-container="body"><i class="fa fa-view-more"></i></a>
+			            		</td>
+			            	</tr>
+			            	<tr>
+			            		<td>
+			            			深圳分部
+			            		</td>
+			            		<td>
+			            			张小花
+			            		</td>
+			            		<td>
+			            			2018-12-01 09:00
+			            		</td>
+			            		<td>
+			            			<span class="text-green">审核通过</span>
+			            		</td>
+			            		<td>
+			            			<a href="数据申报-详情.html" class="operion-item" data-toggle="tooltip" title="查看详情" data-container="body"><i class="fa fa-view-more"></i></a>
+			            		</td>
+			            	</tr>
+			            	<tr>
+			            		<td>
+			            			广东分部
+			            		</td>
+			            		<td>
+			            			--
+			            		</td>
+			            		<td>
+			            			--
+			            		</td>
+			            		<td>
+			            			<span class="text-gray">待提交</span>
+			            		</td>
+			            		<td>
+			            			<a href="数据申报-提交数据.html" class="operion-item" data-toggle="tooltip" title="提交数据" data-container="body"><i class="fa fa-edit"></i></a>
+			            		</td>
+			            	</tr>
+			            	<tr>
+			            		<td>
+			            			湖南分部
+			            		</td>
+			            		<td>
+			            			--
+			            		</td>
+			            		<td>
+			            			--
+			            		</td>
+			            		<td>
+			            			<span class="text-gray">待更新</span>
+			            		</td>
+			            		<td>
+			            			<a href="数据申报-提交数据.html" class="operion-item" data-toggle="tooltip" title="重新提交数据" data-container="body"><i class="fa fa-edit"></i></a>
+			            			<a href="数据申报-详情.html" class="operion-item" data-toggle="tooltip" title="查看详情" data-container="body"><i class="fa fa-view-more"></i></a>
+			            		</td>
+			            	</tr>
+			            </tbody>
+					</table>
+					<div class="page-container clearfix margin_r10 left10">
+						<div class="pageing-info">
+							<div class="dataTables_info">共 2 页，到第 <input type="text" class="form-control jump-page-input" value="1"> 页 <button class="btn btn-block btn-default sure-btn">确定</button>
+							</div>
+						</div>
+						<div class="pageing-list">
+							<div class="dataTables_paginate paging_simple_numbers">
+								<ul class="pagination">
+									<li class="paginate_button previous disabled"><a href="#">上一页</a></li>
+									<li class="paginate_button active"><a href="#">1</a></li>
+									<li class="paginate_button"><a href="#">2</a></li>
+									<li class="paginate_button"><a href="#">3</a></li>
+									<li class="paginate_button"><a href="#">4</a></li>
+									<li class="paginate_button disabled" ><a href="#">…</a></li>
+									<li class="paginate_button"><a href="#">5</a></li>
+									<li class="paginate_button next"><a href="#">下一页</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
