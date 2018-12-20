@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%= header %>
+</head>
+<body class="<%= bodyCssSelectors%>">
+<%= content %>
+${require('../commonScript/commonScript.txt')}
+<%= script %>
+<%= footer %>
+</body>
+</html>

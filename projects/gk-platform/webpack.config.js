@@ -3,7 +3,6 @@
 const path = require("path");
 const webpack = require('webpack');
 const fs = require("fs");
-const commonJson = require( path.resolve(__dirname, 'src/modules/common.json') );
 
 //const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -24,7 +23,7 @@ module.exports= env => {
     let paseBasePath = path.resolve(__dirname, 'src/pages');
 
     //process.cwd()返回的是当前Node.js进程执行时的工作目录
-    let pages=require( path.resolve(process.cwd(), 'modules/getChildrenDir.js') ).getChildrenDir( paseBasePath );
+    let pages=require( path.resolve(__dirname, '../../modules/getChildrenDir.js') ).getChildrenDir( paseBasePath );
 
     let isProduction=env.NODE_ENV=='production';
     let isDevelopment=env.NODE_ENV=='development';

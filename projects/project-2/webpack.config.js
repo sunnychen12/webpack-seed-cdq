@@ -19,7 +19,7 @@ module.exports= env => {
     let paseBasePath = path.resolve(__dirname, 'src/pages');
 
     //process.cwd()返回的是当前Node.js进程执行时的工作目录
-    let pages=require( path.resolve(process.cwd(), 'modules/getChildrenDir.js') ).getChildrenDir( paseBasePath );
+    let pages=require( path.resolve(__dirname, '../../modules/getChildrenDir.js') ).getChildrenDir( paseBasePath );
 
     let isProduction=env.NODE_ENV=='production';
     let isDevelopment=env.NODE_ENV=='development';
@@ -143,7 +143,7 @@ module.exports= env => {
             compress: true,
             inline : true,
             host: '172.16.165.93',
-            port: 9100,
+            port: 9300,
             overlay: {
               warnings: true,
               errors: true

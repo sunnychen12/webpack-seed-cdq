@@ -1,0 +1,257 @@
+	<section class="content">
+		<div class="box box-border margin-bottom-none">
+		    <div class="box-body pad20">
+		    	<div class="box box-border no-shadow margin-bottom-none">
+				  	<div class="box-header with-border">
+					  	<div class="progress-box">
+							<div class="progress-track"><i></i></div>
+							<div class="progress-list">
+								<div class="item on actived" style="left: 0%;">
+									<span class="txt">上传校园图片</span>
+								</div>
+								<div class="item" style="left: 100%;">
+									<span class="txt">提交审核</span>
+								</div>
+							</div>
+						</div>
+				  	</div>
+				  	<div class="box-body no-padding">
+					    <div data-id="progress-item">
+					    	<div class="pad20">
+						    	<fieldset class="form-control-group">
+							      	<legend class="group-title">校园图片</legend>
+
+							      	<div class="pad-l15 pad-r15">
+										<ul class="school-pic-list row">
+											<li class="col-sm-4">
+												<figure>
+													<div class="img-box">
+														<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png" class="img">
+														
+														<div class="upload-holder" data-sample="assets/images/school-view.png" data-title="校园全景图">
+														</div>
+
+														<div class="zoom-pic remove-pic" data-role="remove-pic">
+															<i class="fa fa-fw fa-trash-o"></i>
+														</div>
+														<div class="zoom-pic" data-role="zoom-pic">
+															<i class="fa fa-fw fa-search"></i>
+														</div>
+
+														<input type="hidden" class="img-val" value="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png">
+													</div>
+													<figcaption>校园全景图</figcaption>
+												</figure>
+											</li>
+											<li class="col-sm-4">
+												<figure>
+													<div class="img-box">
+														
+														<div class="upload-holder" data-sample="assets/images/archbishop-building.jpg" data-title="主教学楼图">
+														</div>
+
+														<div class="zoom-pic remove-pic" data-role="remove-pic">
+															<i class="fa fa-fw fa-trash-o"></i>
+														</div>
+														<div class="zoom-pic" data-role="zoom-pic">
+															<i class="fa fa-fw fa-search"></i>
+														</div>
+
+														<input type="hidden" class="img-val">
+													</div>
+													<figcaption>主教学楼图</figcaption>
+												</figure>
+											</li>
+											<li class="col-sm-4">
+												<figure>
+													<div class="img-box">
+														
+														<div class="upload-holder" data-sample="assets/images/exam-room.png" data-title="考试室图">
+														</div>
+
+														<div class="zoom-pic remove-pic" data-role="remove-pic">
+															<i class="fa fa-fw fa-trash-o"></i>
+														</div>
+														<div class="zoom-pic" data-role="zoom-pic">
+															<i class="fa fa-fw fa-search"></i>
+														</div>
+
+														<input type="hidden" class="img-val">
+													</div>
+													<figcaption>考试室图</figcaption>
+												</figure>
+											</li>
+											<li class="col-sm-4">
+												<figure>
+													<div class="img-box">
+														
+														<div class="upload-holder" data-sample="assets/images/library.png" data-title="图书馆图">
+														</div>
+
+														<div class="zoom-pic remove-pic" data-role="remove-pic">
+															<i class="fa fa-fw fa-trash-o"></i>
+														</div>
+														<div class="zoom-pic" data-role="zoom-pic">
+															<i class="fa fa-fw fa-search"></i>
+														</div>
+
+														<input type="hidden" class="img-val">
+													</div>
+													<figcaption>图书馆图</figcaption>
+												</figure>
+											</li>
+											<li class="col-sm-4">
+												<figure>
+													<div class="img-box">
+														
+														<div class="upload-holder" data-sample="assets/images/student-dormitory.jpg" data-title="学生宿舍图">
+														</div>
+
+														<div class="zoom-pic remove-pic" data-role="remove-pic">
+															<i class="fa fa-fw fa-trash-o"></i>
+														</div>
+														<div class="zoom-pic" data-role="zoom-pic">
+															<i class="fa fa-fw fa-search"></i>
+														</div>
+
+														<input type="hidden" class="img-val">
+													</div>
+													<figcaption>学生宿舍图</figcaption>
+												</figure>
+											</li>
+											<li class="col-sm-4">
+												<figure>
+													<div class="img-box">
+														
+														<div class="upload-holder" data-sample="assets/images/audiovisual-room.png" data-title="电教室图">
+														</div>
+
+														<div class="zoom-pic remove-pic" data-role="remove-pic">
+															<i class="fa fa-fw fa-trash-o"></i>
+														</div>
+														<div class="zoom-pic" data-role="zoom-pic">
+															<i class="fa fa-fw fa-search"></i>
+														</div>
+
+														<input type="hidden" class="img-val">
+													</div>
+													<figcaption>电教室图</figcaption>
+												</figure>
+											</li>
+											
+										</ul>
+									</div>
+								</fieldset>
+							</div>
+							<div class="border-top text-center pad20">
+								<button type="button" class="btn btn-primary btn-lg min-width-150px" data-role="submit">提交图片</button>
+							</div>
+					    </div>
+					    <div data-id="progress-item" style="display:none;">
+
+					    	<div class="text-center" style="padding:100px 20px;">
+					    		<!--操作成功 提示 start-->
+					    		<i class="fa fa-fw fa-check-circle-o text-green" style="font-size:80px;"></i>
+					    		<div class="f18 margin_t10 margin_l10">已成功提交数据！</div>
+					    		<!--操作成功 提示 end-->
+
+					    		<!--操作失败 提示 start-->
+					    		<i class="fa fa-fw fa-times-circle-o text-red" style="font-size:80px;"></i>
+					    		<div class="f18 margin_t10 margin_l10">提交数据失败！</div>
+
+					    		<div class="margin_t30">
+					    			<button type="button" class="btn btn-primary btn-lg min-width-150px" data-role="reback">重新上传</button>
+					    		</div>
+					    		<!--操作失败 提示 end-->
+					    	</div>
+					    </div>
+				  	</div>
+				</div>
+		    </div>
+		    <!--loading 效果-->
+		    <div class="overlay" data-id="loading" style="display:none;">
+	          <i class="fa fa-refresh fa-spin"></i>
+	        </div>
+		</div>
+	</section>
+
+	<script type="text/template" data-role="pop-tpl">
+	
+		<div class="pad10">
+			<div class="center-block" style="width:95%;">
+				
+				<div class="row">
+					<div class="col-sm-7">
+						<div class="position-relative">
+							<div class="embed-responsive embed-responsive-4by3 box-border">
+								<div class="embed-responsive-item overlay-wrapper">
+									<div class="crop-container">
+										<!--<img src="http://css.gzedu.com/exam_chinaeenet_com/exam_css/dist/img/photo1.png" data-role="process-image">-->
+									</div>
+									<div class="overlay hide-block" data-id="img-loading">
+					                  <i class="fa fa-refresh fa-spin"></i>
+					                </div>
+								</div>
+							</div>
+							<div class="img-preview-container">
+								<div class="img-preview"></div>
+								<div class="img-mark-label">
+									预览图
+								</div>
+							</div>
+						</div>
+
+						<div class="clearfix gray9 box-border pad10" style="background: #fcfcfc;">
+							<table width="100%">
+								<tr>
+									<td width="10" class="pad-r15">
+										<div style="font-size:0;">
+											<i class="fa fa-minus-square-o f16" title="缩小" role="button" data-role="zoomin"></i>
+										<div>
+									</td>
+									<td>
+										<input id="slider-bar" data-slider-id='ex1Slider' type="hidden"/>
+									</td>
+									<td width="10" class="pad-l15">
+										<div style="font-size:0;">
+											<i class="fa fa-plus-square-o f16" title="放大" role="button" data-role="zoomout"></i>
+										</div>
+									</td>
+									<td width="10" class="pad-l20">
+										<i class="fa fa-refresh f18 gray6" title="重置" role="button" data-role="reset"></i>
+									</td>
+									<td width="10" class="pad-l10">
+										<i class="fa fa-rotate-right f18 gray6" title="向右旋转" role="button" data-role="rotate-right"></i>
+									</td>
+									<td width="10" class="pad-l10">
+										<i class="fa fa-folder-open-o f18 gray6" title="选择本地文件" role="button" data-role="select-file"></i>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="col-sm-5">
+						<div class="text-center">
+							<div class="inline-block">
+								<div class="thumbnail position-relative margin_b15">
+									<img SRC="{sample-pic}" width="100%">
+									<div class="img-mark-label">
+										标准示例图
+									</div>
+								</div>
+
+								<div class="text-left">
+									1.上传的照片必须保证清晰<br>
+									2.图片尺寸：1920px*950px<br>
+									3.可参照标准示例，对照片进行裁切操作
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	
+	</script>

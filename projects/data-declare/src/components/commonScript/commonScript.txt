@@ -1,0 +1,8 @@
+	<script src="assets/js/jquery-1.12.4.min.js"></script>
+
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script> 
+
+	<!-- custom-model --> 
+	<script src="assets/plugins/custom-model/custom-model.js"></script>
+
+	<script src="assets/js/common.js"></script>

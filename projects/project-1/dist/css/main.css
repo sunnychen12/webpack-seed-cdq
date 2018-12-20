@@ -859,6 +859,18 @@ hr {
   display: block;
   width: 100%;
 }
+.video-mark {
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+}
+.video-mark .button {
+  -webkit-border-radius: 1rem;
+     -moz-border-radius: 1rem;
+          border-radius: 1rem;
+  padding: 0 1rem;
+}
 .tabs-video {
   text-align: center;
   font-size: 0;
@@ -947,58 +959,136 @@ hr {
   padding: 0.7rem 1.2rem;
   font-size: 0.8rem;
 }
-.practice-subject-item .qtext p {
+.practice-subject-item .qcontent .qtext p {
   margin: 0;
   display: inline;
 }
-.practice-subject-item .ablock {
-  margin-top: 1rem;
-}
-.practice-subject-item .answer > div {
+.practice-subject-item .qcontent .answer > div {
   margin: 0.5rem 0 0.8rem;
 }
-.practice-subject-item .answer > div.incorrect input[type="radio"]:checked + label .icomoon,
-.practice-subject-item .answer > div.incorrect input[type="checkbox"]:checked + label .icomoon {
+.practice-subject-item .qcontent .answer > div.incorrect input[type="radio"]:checked + label .icomoon:before,
+.practice-subject-item .qcontent .answer > div.correct input[type="radio"]:checked + label .icomoon:before,
+.practice-subject-item .qcontent .answer > div.incorrect input[type="checkbox"]:checked + label .icomoon:before,
+.practice-subject-item .qcontent .answer > div.correct input[type="checkbox"]:checked + label .icomoon:before {
+  width: auto;
+  height: auto;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+  background: none;
+}
+.practice-subject-item .qcontent .answer > div.incorrect input[type="radio"]:checked + label .icomoon,
+.practice-subject-item .qcontent .answer > div.incorrect input[type="checkbox"]:checked + label .icomoon {
   background: #e63939;
   border-color: #e63939;
 }
-.practice-subject-item .answer > div.incorrect input[type="radio"]:checked + label .icomoon:before,
-.practice-subject-item .answer > div.incorrect input[type="checkbox"]:checked + label .icomoon:before {
+.practice-subject-item .qcontent .answer > div.incorrect input[type="radio"]:checked + label .icomoon:before,
+.practice-subject-item .qcontent .answer > div.incorrect input[type="checkbox"]:checked + label .icomoon:before {
   content: '\E906';
 }
-.practice-subject-item .answer input[type="radio"],
-.practice-subject-item .answer input[type="checkbox"] {
+.practice-subject-item .qcontent .answer > div.correct input[type="radio"]:checked + label .icomoon,
+.practice-subject-item .qcontent .answer > div.correct input[type="checkbox"]:checked + label .icomoon {
+  background: #4c8ee0;
+}
+.practice-subject-item .qcontent .answer > div.correct input[type="radio"]:checked + label .icomoon:before,
+.practice-subject-item .qcontent .answer > div.correct input[type="checkbox"]:checked + label .icomoon:before {
+  content: '\E901';
+}
+.practice-subject-item .qcontent .answer input[type="radio"],
+.practice-subject-item .qcontent .answer input[type="checkbox"] {
   display: none;
 }
-.practice-subject-item .answer input[type="radio"] + label,
-.practice-subject-item .answer input[type="checkbox"] + label {
+.practice-subject-item .qcontent .answer input[type="radio"] + label,
+.practice-subject-item .qcontent .answer input[type="checkbox"] + label {
   display: block;
 }
-.practice-subject-item .answer input[type="radio"]:checked + label .icomoon,
-.practice-subject-item .answer input[type="checkbox"]:checked + label .icomoon {
-  background: #4c8ee0;
+.practice-subject-item .qcontent .answer input[type="radio"]:checked + label .icomoon,
+.practice-subject-item .qcontent .answer input[type="checkbox"]:checked + label .icomoon {
   border-color: #4c8ee0;
   color: #fff;
+  text-align: center;
 }
-.practice-subject-item .answer input[type="radio"]:checked + label .icomoon:before,
-.practice-subject-item .answer input[type="checkbox"]:checked + label .icomoon:before {
-  content: '\E901';
+.practice-subject-item .qcontent .answer input[type="radio"]:checked + label .icomoon:before,
+.practice-subject-item .qcontent .answer input[type="checkbox"]:checked + label .icomoon:before {
+  content: '';
+  width: 0.6rem;
+  height: 0.6rem;
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+          border-radius: 50%;
+  background: #4c8ee0;
   display: inline-block;
+  vertical-align: middle;
 }
-.practice-subject-item .answer .icomoon {
+.practice-subject-item .qcontent .answer .icomoon {
   display: inline-block;
   -webkit-border-radius: 50%;
      -moz-border-radius: 50%;
           border-radius: 50%;
   width: 1.2rem;
   height: 1.2rem;
-  line-height: 1.05rem;
+  line-height: 1.15rem;
   border: 1px solid #d8d8d8;
   text-align: center;
-  font-size: 0.6rem;
+  font-size: 0rem;
   position: relative;
   vertical-align: middle;
   margin-right: 0.5rem;
+}
+.practice-subject-item .qcontent .answer .icomoon:before {
+  font-size: 0.6rem;
+}
+.practice-subject-item .ans-qcontent p {
+  margin: 0 !important;
+}
+.practice-subject-item .ans-qcontent .qtext {
+  font-size: 0.75rem;
+}
+.practice-subject-item .ans-qcontent .ablock .answer.view-ans {
+  background-color: #d9edf7;
+  border-top: #bcdff1 1px solid;
+  border-bottom: #bcdff1 1px solid;
+  color: #31708f;
+  padding: 0.5rem 0.75rem;
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
+}
+.practice-subject-item .ans-qcontent .ablock .answer.view-ans img {
+  max-width: 100%;
+}
+.practice-subject-item .ans-qcontent .ablock .answer textarea {
+  resize: none;
+  width: 100%;
+  height: 12rem;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  font-size: 0.75rem;
+}
+.practice-subject-item .ans-qcontent .comment {
+  background-color: #fcf8e3;
+  border-top: #e6deb4 1px solid;
+  border-bottom: #e6deb4 1px solid;
+  color: #8a6d3b;
+  padding: 0.5rem 0.75rem;
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
+  margin-top: 1rem;
+}
+.practice-subject-item .ans-qcontent .comment img {
+  max-width: 100%;
+}
+.practice-subject-item .ans-qcontent .ans-tit {
+  border-bottom: #bcdff1 1px solid;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+.practice-subject-item .ans-qcontent .comment-tit {
+  border-bottom: #e6deb4 1px solid;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+.practice-subject-item .ablock {
+  margin-top: 1rem;
 }
 .practice-subject-item .outcome {
   background-color: #fff;
@@ -1009,6 +1099,18 @@ hr {
 .practice-subject-item .outcome .specificfeedback p {
   margin-top: 0;
   margin-bottom: 0.5rem;
+}
+.exam-infor > .titleH3 {
+  float: left;
+  margin: 0 0.5rem 0 0;
+  font-size: 0.55rem;
+  font-weight: normal;
+}
+.exam-infor > .infor-txt {
+  overflow: hidden;
+}
+.exam-infor > .infor-txt > p:first-child {
+  margin-top: 0;
 }
 .loadmore-line {
   position: relative;

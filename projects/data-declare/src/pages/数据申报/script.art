@@ -1,0 +1,419 @@
+<!-- bootstrap-slider -->
+<link rel="stylesheet" href="assets/plugins/bootstrap-slider/bootstrap-slider.min.css">
+<style type="text/css">
+	.slider-selection{
+		background: #ccc;
+	}
+	.slider.slider-horizontal{
+		width: 100%;
+	}
+</style>
+<script src="assets/plugins/bootstrap-slider/bootstrap-slider.min.js"></script>
+
+<!-- cropper4 -->
+<link rel="stylesheet" href="assets/plugins/cropper/cropper.min.css">
+<script src="assets/plugins/cropper/cropper.min.js"></script>
+
+<!-- fancybox -->
+<link rel="stylesheet" href="http://css.gzedu.com/common/js/fancybox/jquery.fancybox.css">
+<script src="http://css.gzedu.com/common/js/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	;(function(){
+		var curStepIndex=1;
+		//步骤显示
+		function goStep(index){
+			//index 从1开始，代表第一步
+			var $that=$('.progress-box');
+			var $dl=$that.find('.item');
+			var length=$dl.length;
+			$dl.removeClass('on').eq(index-1).addClass('on');
+			$dl.each(function(i, el) {
+				if(i<index){
+					$(this).addClass('actived').nextAll().removeClass('actived');
+				}
+
+				if($(this).hasClass('on')){
+					$that.find(".progress-track i").width($(this).position().left)
+				}
+			});
+
+			$('[data-id="progress-item"]').hide().eq(index-1).show();
+		}
+
+		$(document)
+		//提交
+		.on('click', '[data-role="submit"]', function(event) {
+			var $loading=$('[data-id="loading"]').show();
+			setTimeout(function(){
+				goStep(++curStepIndex);
+				$loading.hide();
+			},1000)
+			
+		})
+		//返回 重新上传
+		.on('click', '[data-role="reback"]', function(event) {
+			goStep(--curStepIndex);
+		});
+	})();
+
+	//阿里云图片裁切规则
+	var cropPicRule=[
+			'?x-oss-process=image',
+			'/resize,m_pad,h_950,w_1920',
+			'/auto-orient,1'
+		],
+		//拖动条参数配置
+		sliderParams={
+			min:1,
+			max:100,
+			step:1,
+			tooltip:'hide',
+			value:1
+		};
+
+	$(document)
+	//图片放大
+	.on('click', '[data-role="zoom-pic"]', function(event) {
+		$.fancybox([$(this).siblings('.img').attr('src')], {
+			'type'      : 'image',
+			'loop'		: false,
+			'helpers'	: {title:{'type':'float'}},
+			beforeShow	: function(){
+				this.locked.css('zIndex', 10001);
+			}
+		});
+	})
+	//图片删除
+	.on('click', '[data-role="remove-pic"]', function(event) {
+		$(this).siblings('.img-val').get(0).value='';
+		$(this).siblings('.img').remove();
+	})
+	//点击上传图片
+	.on('click', '.upload-holder', function(event) {
+		var popContent=$('[data-role="pop-tpl"]').html();
+		popContent=popContent.replace(/\{sample\-pic\}/gi, $(this).data('sample'));
+
+		$('.img-box').removeClass('actived');
+		$(this).parent().addClass('actived');
+
+		var $modelBox=$.alertDialog({
+			id:'upload-pic',
+			title:'上传'+$(this).data('title'),
+			width : (function(){
+						var wh=$(window).width();
+						if(wh>960){
+							wh=960;
+						}
+
+						return wh;
+					})(),
+			height : 560,
+			ok:function(){//“确定”按钮的回调方法
+				//这里 this 指向弹窗对象
+				var $mb=this;
+
+				var $postLoading=$mb.find('[data-id="post-loading"]');
+
+				var $img=$('[data-role="process-image"]');
+
+			    //$img.cropper("enable");
+
+			    if($img.length>0 && $img.attr('src')){
+			      $postLoading.show().find('[data-id="p-txt"]').text('图片处理中');
+
+			      var href=$img.attr('src');
+			      var data=$img.cropper('getData');
+
+			      href =  href.replace(/\/auto\-orient,1/g,'');
+
+			      var imgUrl=href+'{5}/rotate,{0}/crop,x_{1},y_{2},w_{3},h_{4}{6}{7}';
+			      
+			      imgUrl=imgUrl.format(
+			        Math.round(data.rotate),
+			        Math.round(data.x),
+			        Math.round(data.y),
+			        Math.round(data.width),
+			        Math.round(data.height),
+			        (href.indexOf(cropPicRule[0])==-1?cropPicRule[0]:''),
+			        cropPicRule[1],
+			        cropPicRule[2],
+			      );
+
+			      var $box=parent.$('.img-box.actived');
+			      var $pic=$box.find('.img');
+			      if($pic.length==0){
+			        $box.prepend('<img src="{0}" class="img">'.format(imgUrl));
+			        $pic=parent.$('.img-box.actived').find('.img');
+			      }
+			      else{
+			        $pic.attr('src',imgUrl);
+			      }
+
+			      $box.find('.img-val').val(imgUrl);
+
+			      $pic.get(0).onload=function(){
+			        $.closeDialog($mb);
+			      };
+			    }
+			    else{
+			      $.closeDialog($mb);
+			    }
+			},
+			content:popContent,
+			onShown : function(){
+				var $postLoading=this.find('[data-id="post-loading"]');
+
+				if( $postLoading.length==0 ){
+					this.find('.box').append('\
+						<div class="overlay hide-block" data-id="post-loading">\
+					      <table width="100%" height="100%">\
+					        <tr>\
+					          <td class="vertical-mid text-center">\
+					            <i class="fa fa-refresh fa-spin f30"></i>\
+					            <div data-id="p-txt"></div>\
+					          </td>\
+					        </tr>\
+					      </table>\
+					    </div>\
+					')
+				}
+
+				mainProgress(this);
+			}
+		});
+	});
+
+	//弹窗显示后的业务处理
+	function mainProgress($mb){
+		var imgCropperInstance;
+
+		var $previewContainer=$('.img-preview-container');
+
+		var $processImage=parent.$('.img-box.actived .img-val');
+		var imgURL=$processImage.val();
+
+		if(imgURL && imgURL!=''){
+		    $('.crop-container').append('<img data-role="process-image" src="'+imgURL+'">')
+		    var $loading=$('[data-id="img-loading"]').show();
+		    $('[data-role="process-image"]').load(function() {
+		        $loading.hide();
+		    });
+
+		    //裁切图初始化
+			imgCropperInstance=imgCropper();
+		}
+
+		//拖动条
+		var $sliderBar=$('#slider-bar').slider(sliderParams);
+
+		if(!imgCropperInstance){
+			//关闭拖动条
+			$sliderBar.slider('disable');
+		}
+
+		$sliderBar
+		.on('change', function(event) {
+			$('[data-role="process-image"]').cropper(
+				"zoom", 
+				(event.value.newValue-event.value.oldValue)/sliderParams.max*sliderParams.step
+			);
+			//console.log(event.value.newValue,event.value.oldValue)
+		})
+		.on('slide', function(event) {
+			$previewContainer
+			.css('left', '100%')
+			.stop(true,true)
+			.show();
+
+			$(this).data('isSliding',true);
+		})
+		.on('slideStop', function(event) {
+			$previewContainer.fadeOut('fast');
+
+			$(this).data('isSliding',false);
+		});
+
+		$mb
+		//重置
+		.on('click', '[data-role="reset"]', function(event) {
+			$sliderBar.slider('setValue', sliderParams.step);
+
+			$('[data-role="process-image"]').cropper('reset');
+
+			showPreviewImg();
+		})
+		//向右旋转
+		.on('click', '[data-role="rotate-right"]', function(event) {
+			$('[data-role="process-image"]').cropper('rotate', 45);
+
+			showPreviewImg();
+		})
+		//放大
+		.on('click', '[data-role="zoomout"]', function(event) {
+			if(imgCropperInstance){
+				var value=$sliderBar.slider('getValue');
+				
+				if(value<sliderParams.max){
+					$sliderBar.slider('setValue',value+sliderParams.step);
+
+					$('[data-role="process-image"]').cropper("zoom", sliderParams.step/sliderParams.max);
+				}
+			}
+		})
+		//缩小
+		.on('click', '[data-role="zoomin"]', function(event) {
+			if(imgCropperInstance){
+				var value=$sliderBar.slider('getValue');
+				
+				if(value>=sliderParams.min){
+					$sliderBar.slider('setValue',value-sliderParams.step);
+
+					$('[data-role="process-image"]').cropper("zoom", -sliderParams.step/sliderParams.max);
+				}
+			}
+		})
+		//选择本地上传文件
+		.on('click', '[data-role="select-file"]', function(event) {
+			var $postLoading=$mb.find('[data-id="post-loading"]');
+
+			var defSuc=$.Deferred(), src='';
+
+			ultil.uploadSingleFile(
+		      	{
+			        fileType:'png|gif|jpeg|jpg|bmp',
+			        onUploadBefore: function(){
+			          $postLoading.show()
+			          .find('[data-id="p-txt"]').text('图片上传中...');
+			        },
+			        onSuccess: function(filelist){   
+			          	src=filelist[0].FILE_PATH;
+
+			          	if(src){
+			          		//调用阿里云接口，获取 图片信息，检测图片是否符合裁切规则
+			          	  	$.getJSON(src+'?x-oss-process=image/info')
+			          	  	.done(function(res){
+			          	  		var errorMsg='';
+			          	  		if(res.ImageHeight.value > 4096 || res.ImageWidth.value > 4096){
+			          	  			errorMsg='目标缩略图宽与高的乘积不能超过4096 * 4096';
+			          	  		}
+			          	  		//不能超过20MB
+			          	  		else if(res.FileSize.value>20*1024*1024){
+			          	  			errorMsg='文件大小不能超过20MB';
+			          	  		}
+
+			          	  		if(errorMsg){
+			          	  			$.when(
+				          	  			$.resultDialog({
+					          	  			msg:errorMsg,
+					          	  			width:300,
+					          	  			timer:2500
+				          	  			})
+			          	  			)
+			          	  			.done(function(){
+					                    $postLoading.hide();
+					                });
+			          	  		}
+			          	  		else{
+			          	  			defSuc.resolve(res);
+			          	  		}
+			          	  		
+				          	})
+			          	  	.fail(function(){
+			          	  		$postLoading.hide();
+			          	  		alert('图片信息获取失败');
+			          	  	});
+			          	}
+			        }
+		    	}
+		    );
+
+		    //图片上传成功后，处理图片的业务
+		    defSuc.done(function(res){
+		    	var $processImage = $('[data-role="process-image"]');
+				$postLoading.find('[data-id="p-txt"]').text('图片初始化中...');
+				if ($processImage.length == 0) {
+				    $('.crop-container').append('<img data-role="process-image" src="' + src + cropPicRule[0] + '/resize,h_4000,w_4000' + cropPicRule[2] + '">');
+				    imgCropperInstance = imgCropper();
+				} else {
+				    $processImage.attr('src', src).cropper('replace', src + cropPicRule.join(''));
+				}
+				var def = $.Deferred(),
+				    def2 = $.Deferred(),
+				    def3 = $.Deferred();
+				$processImage = $('[data-role="process-image"]');
+				$processImage[0].onload = function() {
+				    def2.resolve();
+				}
+				$processImage.next('img')[0].onload = function() {
+				    def3.resolve();
+				}
+				$.when(def2, def3).done(function() {
+				    def.resolve();
+				})
+				def.done(function() {
+				    setTimeout(function() {
+				        $postLoading.hide();
+				        //激活拖动条
+				        $sliderBar.slider('enable');
+				    }, 500);
+				});
+		    });
+		});
+	}
+	
+	//图片裁切方法
+	function imgCropper(){
+		var $previewContainer=$('.img-preview-container');
+		var $img=$('[data-role="process-image"]');
+		if($img.length<=0 && !$img.attr('src')) return false;
+		
+		$img.cropper({
+		  aspectRatio: 1920 / 950,
+		  //resizable:false,
+		  checkImageOrigin:false,//需要增加
+		  preview: '.img-preview',
+		  crop: function(data) {
+		  	
+		    // 出来裁切后的图片数据.
+		  },
+		  built: function () {
+		  	//缩略图显示
+		    $img
+		    .on('dragstart.cropper', function(event) {
+	          	$previewContainer.css('left', '100%').show();
+	        })
+	        .on('dragend.cropper', function(event) {
+	          	$previewContainer.stop(true,true).delay(200).fadeOut('fast');
+	        })
+	        .on('zoomin.cropper zoomout.cropper', function(event) {
+	          	$previewContainer.show().stop(true,true).delay(1000).fadeOut('fast');
+
+	          	var $sliderBar=$('#slider-bar');
+
+	          	if(!$sliderBar.data('isSliding')){
+	          		var value=$sliderBar.slider('getValue');
+		          	if(event.type=='zoomin'){
+						if(value<sliderParams.max){
+							$sliderBar.slider('setValue',value+sliderParams.step);
+						}
+		          	}
+		          	else if(event.type=='zoomout'){
+						if(value>=sliderParams.min){
+							$sliderBar.slider('setValue',value-sliderParams.step);
+						}
+		          	}
+	          	}
+	        });
+		  }
+		});
+
+		return $img;
+	}
+
+	//显示缩略图
+	function showPreviewImg(){
+		$('.img-preview-container')
+		.show().stop(true,true).delay(1000).fadeOut('fast');
+	}
+</script>
