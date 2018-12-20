@@ -24,8 +24,6 @@ module.exports= env => {
     let pages=require( path.resolve(__dirname, '../../modules/getChildrenDir.js') ).getChildrenDir( paseBasePath );
 
     let isProduction=env.NODE_ENV=='production';
-    let isDevelopment=env.NODE_ENV=='development';
-    let isNormalProduction=env.NODE_ENV=='production.normal';
 
     //生成html前的准备与清理工作
     prepareProj(isProduction,__dirname);
@@ -59,21 +57,6 @@ module.exports= env => {
                             'lazyload.js'
                         ]
                     },
-
-                    //拷贝 图片
-                    {
-                        // 源文件目录
-                        from: path.resolve(__dirname, 'src/images'),
-                        // 目标目录 dist目录下
-                        to: path.resolve(__dirname, 'dist/images')
-                    },
-                    {
-                        // 源文件目录
-                        from: path.resolve(__dirname, 'src/css/images'),
-                        // 目标目录 dist目录下
-                        to: path.resolve(__dirname, 'dist/css/images')
-                    },
-
                     //拷贝 字体
                     {
                         // 源文件目录
@@ -84,27 +67,6 @@ module.exports= env => {
                             'style.css',
                             'svg/*'
                         ]
-                    },
-                    {
-                        // 源文件目录
-                        from: path.resolve(__dirname, 'src/assets/css/font'),
-                        // 目标目录 dist目录下
-                        to: path.resolve(__dirname, 'dist/css/font')
-                    },
-
-                    {
-                        // 源文件目录
-                        from: path.resolve(__dirname, 'src/assets/css/sm-extend.min.css'),
-                        // 目标目录 dist目录下
-                        to: path.resolve(__dirname, 'dist/assets/css/sm-extend.min.css')
-                    },
-
-                    //拷贝 html
-                    {
-                        // 源文件目录
-                        from: path.resolve(__dirname, 'src/assets/html'),
-                        // 目标目录 dist目录下
-                        to: path.resolve(__dirname, 'dist/assets/html')
                     }
                     
                 ]
