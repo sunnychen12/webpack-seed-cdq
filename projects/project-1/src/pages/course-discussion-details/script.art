@@ -30,13 +30,14 @@
 	//获取缓存数据
     var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
 
-    window.app = new Vue({
+    var app = new Vue({
         el: '#app',
         data: {
             success:true,
             msg:'',
             courseName:pagetitle,
             isloaded:false,//是否所有数据都已经加载完毕
+            isVisitor: cacheUserCourseInfo.user.studentType==2,//是否游客
             discussionData:false,
             subjectParent:false,
             replyList:[],
@@ -45,67 +46,104 @@
         	var vm=this;
         	$.showIndicator();
 
-        	//获取帖子回帖列表
-        	commomLab.ajaxProcess({
-				url: '/api/stud/study/moodleGetForumDiscussionPosts',
-				data: {
-					discussionid: discussionid,
-					token: cacheUserCourseInfo.token
-				}
-			})
-        	.done(function(res){
-        		if(
-					commomLab.checkAPIResult(res)
-				){
-					var resData=res.data;
-					
-                    //数据提交异常
-                    if(resData.errorcode){
-                        vm.success=false;
-                        vm.msg=resData.message;
+            //游客
+            if(vm.isVisitor){
+                //27、获取评论列表
+                commomLab.ajaxProcess({
+                    url: '/api/stud/study/visitorGetForumDiscussionPosts',
+                    data: {
+                        forumId: discussionid
                     }
-                    else{
-                        vm.discussionData=resData;
-                        if(resData.posts && resData.posts.length>0){
-                        	//查找主题
-                        	for(var i in resData.posts){
-                        		if(resData.posts[i].parent===0){
-                        			vm.subjectParent=resData.posts[i];
-                        			break;
-                        		}
-                        	}
+                })
+                .done(function(res){
+                    if(res.state){
+                        var resData=res.data;
 
-                        	//查找回帖
-                        	if(vm.subjectParent){
-                        		for(var j in vm.subjectParent.children){
-	                        		for(var i in resData.posts){
-		                        		if(
-		                        			resData.posts[i].parent!==0 &&
-		                        			vm.subjectParent.children[j]==resData.posts[i].id
-		                        		){
-		                        			vm.replyList.push(resData.posts[i]);
-		                        		}
-		                        	}
-	                        	}
-                        	}
+                        if(resData){
+                            //查找主题
+                            vm.subjectParent=resData;
                         }
                         else{
-                        	vm.success=false;
-	          				vm.msg='数据为空';
+                            vm.success=false;
+                            vm.msg='数据为空';
                         }
+                        
                     }
-				}
-	          	else{
-	          		vm.success=false;
-	          		vm.msg='数据查询出错';
-	          	}
-                vm.showHtml();
-        	})
-        	.fail(function(XMLHttpRequest, textStatus, errorThrown){
-    			vm.success=false;
-				vm.msg='数据查询出错';
-                vm.showHtml();
-    		});
+                    else{
+                        vm.success=false;
+                        vm.msg='数据查询出错';
+                    }
+                    vm.showHtml();
+                })
+                .fail(function(XMLHttpRequest, textStatus, errorThrown){
+                    vm.success=false;
+                    vm.msg='数据查询出错';
+                    vm.showHtml();
+                });
+            }
+            else{
+            	//获取帖子回帖列表
+            	commomLab.ajaxProcess({
+    				url: '/api/stud/study/moodleGetForumDiscussionPosts',
+    				data: {
+    					discussionid: discussionid,
+    					token: cacheUserCourseInfo.token
+    				}
+    			})
+            	.done(function(res){
+            		if(
+    					commomLab.checkAPIResult(res)
+    				){
+    					var resData=res.data;
+    					
+                        //数据提交异常
+                        if(resData.errorcode){
+                            vm.success=false;
+                            vm.msg=resData.message;
+                        }
+                        else{
+                            vm.discussionData=resData;
+                            if(resData.posts && resData.posts.length>0){
+                            	//查找主题
+                            	for(var i in resData.posts){
+                            		if(resData.posts[i].parent===0){
+                            			vm.subjectParent=resData.posts[i];
+                            			break;
+                            		}
+                            	}
+
+                            	//查找回帖
+                            	if(vm.subjectParent){
+                            		for(var j in vm.subjectParent.children){
+    	                        		for(var i in resData.posts){
+    		                        		if(
+    		                        			resData.posts[i].parent!==0 &&
+    		                        			vm.subjectParent.children[j]==resData.posts[i].id
+    		                        		){
+    		                        			vm.replyList.push(resData.posts[i]);
+    		                        		}
+    		                        	}
+    	                        	}
+                            	}
+                            }
+                            else{
+                            	vm.success=false;
+    	          				vm.msg='数据为空';
+                            }
+                        }
+    				}
+    	          	else{
+    	          		vm.success=false;
+    	          		vm.msg='数据查询出错';
+    	          	}
+                    vm.showHtml();
+            	})
+            	.fail(function(XMLHttpRequest, textStatus, errorThrown){
+        			vm.success=false;
+    				vm.msg='数据查询出错';
+                    vm.showHtml();
+        		});
+            }
         },
         methods:{
         	//结束异步，关键加载特殊，显示页面内容
@@ -115,7 +153,11 @@
                 $.hideIndicator();
             },
             viewMore:function(reply){
-            	location.href='course-discussion-details-more.html?discussionid='+discussionid+'&pagetitle='+pagetitle+'&postid='+reply.id+'&cmid='+cmid;
+            	location.href='course-discussion-details-more.html?discussionid='+discussionid+
+                    '&pagetitle='+pagetitle+
+                    '&postid='+
+                    (this.isVisitor?reply.replyId:reply.id)+
+                    '&cmid='+cmid;
             },
             formatDate:function(timemap){
                 var date=new Date(timemap);
@@ -137,6 +179,7 @@
                         )
             },
             openCommentPopup:function(postid,type,event){
+                var vm=this;
             	var data=type.split(':')
 
 				var popupHTML=$('#popup-tpl').html()
@@ -161,27 +204,22 @@
 					event.preventDefault();
 					//$.closeModal($(popup))
 					$.showIndicator();
-					commomLab.ajaxProcess({
-						type:'POST',
-						url: '/api/stud/study/moodleAddDiscussionPost',
-						data: {
-							postid: postid,
-							subject:'',
-							message:$('.comment-textarea').val(),
-							token: commomLab.cacheUserCourseInfo.get().token
-						}
-					})
-					.done(function(res){
-                        if(
-                            commomLab.checkAPIResult(res)
-                        ){
-                            var resData=res.data;
-                            if(resData.errorcode){
-                                commomLab.myToast({
-                                    msg:resData.message
-                                });
+
+                    if(vm.isVisitor){
+                        //25、游客回贴
+                        commomLab.ajaxProcess({
+                            type:'POST',
+                            url: '/api/stud/study/visitorAddDiscussionPost',
+                            data: {
+                                forumId: discussionid,
+                                replyId: (data[0]==1?discussionid:postid),
+                                replyContent:$('.comment-textarea').val(),
+                                chooseId: cacheUserCourseInfo.choose.chooseId,
+                                studentId: cacheUserCourseInfo.user.studentId
                             }
-                            else{
+                        })
+                        .done(function(res){
+                            if(res.state){
                                 //记录学员学习行为
                                 commomLab.addStudyAction({
                                     actType:'C008',
@@ -195,22 +233,72 @@
                                     location.reload()
                                 })
                             }
-                        }
-                        else{
+                            else{
+                                commomLab.myToast({
+                                    msg:(data[0]==2?'回复':'评论')+'失败'
+                                })
+                            }
+                        })
+                        .fail(function(){
                             commomLab.myToast({
                                 msg:(data[0]==2?'回复':'评论')+'失败'
                             })
-                        }
-                    })
-                    .fail(function(){
-                        commomLab.myToast({
-                            msg:(data[0]==2?'回复':'评论')+'失败'
                         })
-                    })
-                    .always(function(){
-                        $.hideIndicator();
-                    })
+                        .always(function(){
+                            $.hideIndicator();
+                        });
+                    }
+                    else{
+    					commomLab.ajaxProcess({
+    						type:'POST',
+    						url: '/api/stud/study/moodleAddDiscussionPost',
+    						data: {
+    							postid: postid,
+    							subject:'',
+    							message:$('.comment-textarea').val(),
+    							token: commomLab.cacheUserCourseInfo.get().token
+    						}
+    					})
+    					.done(function(res){
+                            if(
+                                commomLab.checkAPIResult(res)
+                            ){
+                                var resData=res.data;
+                                if(resData.errorcode){
+                                    commomLab.myToast({
+                                        msg:resData.message
+                                    });
+                                }
+                                else{
+                                    //记录学员学习行为
+                                    commomLab.addStudyAction({
+                                        actType:'C008',
+                                        actId:cmid,
+                                        actName:pagetitle
+                                    });
 
+                                    commomLab.myToast({
+                                        msg:(data[0]==2?'回复':'评论')+'成功'
+                                    },function(){
+                                        location.reload()
+                                    })
+                                }
+                            }
+                            else{
+                                commomLab.myToast({
+                                    msg:(data[0]==2?'回复':'评论')+'失败'
+                                })
+                            }
+                        })
+                        .fail(function(){
+                            commomLab.myToast({
+                                msg:(data[0]==2?'回复':'评论')+'失败'
+                            })
+                        })
+                        .always(function(){
+                            $.hideIndicator();
+                        });
+                    }
 					
 				})
 				.on('input', '.comment-textarea', function(event) {
@@ -218,6 +306,23 @@
 
 					$submit.prop('disabled', this.value.length>0?false:true)
 				});
+            },
+            //图片放大(游客 类型 使用)
+            fancyImg:function(index, imgUrl){
+                imgUrl=imgUrl.split(',');
+
+                $.photoBrowser({
+                    photos : imgUrl,
+                    theme: 'dark',
+                    type: 'standalone',
+                    lazyLoading:true,
+                    initialSlide:index,
+                    toolbarTemplate:'<nav class="bar bar-tab my-gallery-footer">' +
+                      '<a class="tab-item photo-browser-close-link" href="javascript:;">' +
+                        '返回' +
+                      '</a>' +
+                    '</nav>'
+                }).open();
             }
         }
     });

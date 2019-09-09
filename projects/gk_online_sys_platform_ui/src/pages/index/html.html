@@ -1,0 +1,27 @@
+<%
+  let pageType='index';
+  let title='教学教务组织平台-UI';
+%><% 
+  	let header = require("../../components/header/header.art"); 
+%><%= header({
+  title: title,
+  indexjsPath: indexjsPath,
+  bathPath:commonSkinPath,
+  pageType: pageType
+})%>
+
+<% 
+  let content = require("./content.art"); 
+%><%= content({
+  commonSkinPath:commonSkinPath
+})%>
+
+<% 
+  let commonFooter = require("../../components/footer/commonFooter.art"); 
+  let selfScript = require("./script.art"); 
+%><%= commonFooter({
+  commonSkinPath:commonSkinPath,
+  pageType: pageType,
+  indexjsPath: indexjsPath,
+  selfScript: selfScript({indexjsPath: indexjsPath})
+})%>

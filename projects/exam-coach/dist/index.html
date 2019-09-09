@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<!--<link rel="shortcut icon" href="/favicon.ico">-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" href="http://css.eenet.com/common/msui/css/sm.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="http://css.eenet.com/common/font-awesome/css/font-awesome.min.css">
+
+	
+	<link href="http://css.eenet.com/exam_chinaeenet_com/exam-coach/css/main.min.css" rel="stylesheet">
+	
+</head>
+
+<body>
+
+
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<header class="bar bar-nav">
+			  <a class="icon icon-left pull-left"></a>
+			  <h1 class="title">考试辅导</h1>
+			</header>
+			<div class="content">
+			    <ul class="item-of-list">
+			        <li v-for="item in listData">
+			            <a href="course-index.html" class="flex-box flex-align-stretch item-box">
+		                    <div class="flex-item">
+		                        <div class="tit">{{item.courseName}}</div>
+
+		                        <div class="info">
+			                        <div>科目编号：{{item.courseNo}}</div>
+			                    	<div>课程：{{item.courseName}}</div>
+		                    	</div>
+		                    </div>
+		                    <div class="flex-box flex-box-justify-center flex-vertical width-border-left">
+		                    	<div class="text-center padding-l_75rem padding-r_75rem">
+			                    	<div>{{item.courseStudyNum}}</div>
+			                    	<div class="gray9 font_55rem">练习次数</div>
+			                    </div>
+		                    </div>
+		                    <div class="flex-box flex-box-justify-center flex-vertical">
+		                    	<span class="icon icon-right"></span>
+		                    </div>
+		                    
+			            </a>
+			        </li>
+			    </ul>
+			</div>
+		</div>
+	</div>
+
+
+<!-- 加载公共插件 -->
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/zepto.min.js"></script>
+<script type="text/javascript">$.config = {router: false}</script>
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/sm.min.js"></script>
+<script type="text/javascript" src="http://css.eenet.com/common/js/vue.js"></script>
+
+<script type="text/javascript" src="http://css.eenet.com/exam_chinaeenet_com/exam-coach/js/commonLab.min.js"></script>
+
+<script type="text/javascript">
+	var app=new Vue({
+		el:"#app",
+		data:{
+			success:true,
+	        msg:'',
+	        isloaded:false,//是否所有数据都已经加载完毕
+	        listData:[
+	        	{
+	        		courseName: '实用法律基础',
+	        		courseNo: 'WK0001',
+	        		courseStudyNum: 0
+	        	},
+	        	{
+	        		courseName: '管理学基础',
+	        		courseNo: 'WK0002',
+	        		courseStudyNum: 0
+	        	},
+	        	{
+	        		courseName: '管理方法与艺术',
+	        		courseNo: 'WK0003',
+	        		courseStudyNum: 0
+	        	}
+	        ]
+		},
+		methods:{
+			showHtml:function(){
+	            var vm=this;
+	            vm.isloaded=true;
+	            $.hideIndicator();
+	        },
+		}
+	});
+
+	//提示，考试期间不允许练题
+	/*
+	$.modal({
+      text: '<div class="text-orange"><span class="icon line-height-1" style="font-size:3rem;">&#xe620;</span></div>考试期间不允许练题，请在今天20:00后进行练题！',
+      buttons: [
+        {
+          text: '我知道了',
+          onClick: function() {
+            
+          }
+        }
+      ]
+    });
+    */
+</script>
+</body>
+</html>

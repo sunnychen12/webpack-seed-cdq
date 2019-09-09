@@ -1,0 +1,348 @@
+<div class="wrapper"> 
+  
+  <!-- Left side column. contains the logo and sidebar -->
+  <header class="main-header"> 
+  	<a href="#" class="logo">
+	    <span class="logo-mini"><i class="fa fa-fw fa-tv"></i></span>
+	    <span class="logo-lg"><i class="fa fa-fw fa-tv"></i>教学教务组织平台</span>
+	</a>
+    <nav class="navbar navbar-static-top" role="navigation"> <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"> <span class="sr-only">首页</span> </a>
+		<div class="navbar-custom-menu">
+			<ul class="nav navbar-nav">
+			  <!-- Notifications: style can be found in dropdown.less --> 
+			  <!-- Messages: style can be found in dropdown.less-->
+			  <li class="first-level-wrap">
+				<div class="dropdown operion-more-menu"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> 更多 <i class="fa fa-fw fa-caret-down"></i> </a>
+				  <ul class="dropdown-menu">
+					<li> <a role="menuitem" href="homepage.html">首页</a>
+					  <ul class="menu-temp hide">
+						<li class="header">首页</li>
+						<li class="treeview active"> <a href="homepage.html"> <i class="fa fa-home"></i> <span>首页</span></a>
+						</li>
+						<li class="treeview"> <a href="通知公告.html"> <i class="fa fa-cubes"></i> <span>活动组织</span></a>
+						</li>
+						<li class="treeview"> <a href="短信通知.html"> <i class="fa fa-envelope-o"></i> <span>短信通知</span></a>
+						</li>
+						<li class="treeview"> <a href="文章管理.html"> <i class="fa fa-article-manage"></i> <span>文章管理</span></a>
+						</li>
+						<li class="treeview"> <a href="学期计划.html"> <i class="fa fa-rule-set"></i> <span>学期计划</span></a>
+						</li>
+						<li class="treeview"> <a href="答疑服务.html"> <i class="fa fa-question-circle"></i> <span>答疑服务</span></a>
+						</li>
+						<li class="treeview"> <a href="我的工单.html"> <i class="fa fa-list-alt"></i> <span>我的工单</span></a>
+						</li>
+						<li class="treeview"> <a href="我的计划.html"> <i class="fa fa-tasks"></i> <span>我的计划</span></a>
+						</li>
+						<li class="treeview"> <a href="工作统计.html"> <i class="fa fa-bar-chart"></i> <span>工作统计</span></a>
+						</li>
+						<li class="treeview"> <a href="直播活动.html"> <i class="fa fa-video-camera"></i> <span>直播活动</span></a>
+						</li>
+						<li class="treeview"> <a href="学情数据统计-招生.html"> <i class="fa fa-video-camera"></i> <span>学情数据统计</span></a>
+						</li>
+					  </ul>
+					</li>
+					<li> <a role="menuitem" href="#">机构管理</a>
+					  <ul class="menu-temp hide">
+						<li class="header">机构管理</li>
+						<li class="treeview"> <a href="院校管理.html"> <i class="fa fa-yx-manage"></i> <span>院校管理</span></a>
+						</li>
+						<li class="treeview"> <a href="分校管理.html"> <i class="fa fa-fx-manage"></i> <span>分校管理</span></a>
+						</li>
+						<li class="treeview"> <a href="学习中心.html"> <i class="fa fa-xxzx-manage"></i> <span>学习中心</span></a>
+
+						</li>
+					  </ul>
+					</li>
+					<li> <a role="menuitem" href="#">招生管理</a>
+					  <ul class="menu-temp hide">
+						<li class="header">招生管理</li>
+						<li class="treeview"> <a href="招生计划.html"> <i class="fa fa-zsjh"></i> <span>招生计划</span></a>
+						</li>
+						<li class="treeview"> <a href="报读信息.html"> <i class="fa fa-bdxx"></i> <span>报读信息</span></a>
+						</li>
+						<li class="treeview"> <a href="缴费管理.html"> <i class="fa fa-jfgl"></i> <span>缴费管理</span></a>
+						</li>
+					  </ul>
+					</li>
+					<li> <a role="menuitem" href="#">学籍管理</a>
+					  <ul class="menu-temp hide">
+						<li class="header">学籍管理</li>
+						<li class="treeview"> <a href="学籍资料.html"> <i class="fa fa-xjzl"></i> <span>学籍资料</span></a>
+						</li>
+						<li class="treeview"> <a href="学籍信息.html"> <i class="fa fa-xjxx"></i> <span>学籍信息</span></a>
+						</li>
+						<li class="treeview"> <a href="学籍异动.html"> <i class="fa fa-xjyd"></i> <span>学籍异动</span></a>
+						</li>
+						<li class="treeview"> <a href="学籍统计.html"> <i class="fa fa-pie-chart"></i> <span>学籍统计</span></a>
+						</li>
+						<li class="treeview"> <a href="免修免考.html"> <i class="fa fa-credit-card f16"></i> <span>免修免考</span></a>
+						</li>
+						<li class="treeview"> <a href="学生证管理.html"> <i class="fa fa-newspaper-o f16"></i> <span>学生证管理</span></a>
+						</li>
+					  </ul>
+					</li>
+					<li> <a role="menuitem" href="#">教材管理</a>
+						<ul class="menu-temp hide">
+							<li class="header">教材管理</li>
+							<li class="treeview"> <a href="教材管理.html"> <i class="fa fa-jc-manage"></i> <span>教材管理</span> </a>
+							</li>
+							<li class="treeview"> <a href="库存管理.html"> <i class="fa fa-stock-manage"></i> <span>库存管理</span></a>
+							</li>
+							<li class="treeview"> <a href="教材计划.html"> <i class="fa fa-calendar-check-o"></i> <span>教材计划</span></a>
+							</li>
+							<li class="treeview"> <a href="发放编排.html"> <i class="fa fa-dedent"></i> <span>发放编排</span></a>
+							</li>
+							<li class="treeview"> <a href="教材订购.html"> <i class="fa fa-yen"></i> <span>教材订购</span></a>
+							</li>
+							<li class="treeview"> <a href="教材发放.html"> <i class="fa fa-jq-distribute"></i> <span>发放教材</span></a>
+							</li>
+							<li class="treeview"> <a href="学员反馈.html"> <i class="fa fa-commenting"></i> <span>学员反馈</span></a>
+							</li>
+							<li class="treeview"> <a href="订单管理.html"> <i class="fa fa-file-text-o"></i> <span>订单管理</span></a>
+							</li>
+						</ul>
+					</li>
+					<li> <a role="menuitem" href="#">学习中心教材管理</a>
+						<ul class="menu-temp hide">
+							<li class="header">学习中心教材管理</li>
+							<li class="treeview"> <a href="学习中心教材管理-教材计划.html"> <i class="fa fa-calendar-check-o"></i> <span>教材计划</span></a>
+							</li>
+							<li class="treeview"> <a href="学习中心教材管理-签收教材.html"> <i class="fa fa-dedent"></i> <span>签收教材</span></a>
+							</li>
+							<li class="treeview"> <a href="学习中心教材管理-教材发放.html"> <i class="fa fa-jq-distribute"></i> <span>发放教材</span></a>
+							</li>
+							<li class="treeview"> <a href="学员反馈.html"> <i class="fa fa-commenting"></i> <span>学员反馈</span></a>
+							</li>
+						</ul>
+					</li>
+					<li> <a role="menuitem" href="#">毕业管理</a>
+						<ul class="menu-temp hide">
+							<li class="header">毕业管理</li>
+							<li class="treeview"> <a href="毕业批次.html"> <i class="fa fa-ksyy"></i> <span>毕业计划</span> </a>
+							</li>
+							<li class="treeview"> <a href="毕业申请.html"> <i class="fa fa-pkap"></i> <span>毕业申请</span></a>
+							</li>
+							<li class="treeview"> <a href="学位申请.html"> <i class="fa fa-graduate-2"></i> <span>学位申请</span> </a>
+							</li>
+							<li class="treeview"> <a href="学位设置.html"> <i class="fa fa-rule-set"></i> <span>学位设置</span></a>
+							</li>
+							<li class="treeview"> <a href="资格查询.html"> <i class="fa fa-view-more"></i> <span>资格查询</span></a>
+							</li>
+							<li class="treeview"> <a href="证书发放.html"> <i class="fa fa-ccap"></i> <span>证书发放</span></a>
+							</li>
+
+							<li class="treeview"> <a href="毕业安排.html"> <i class="fa fa-graduate-2"></i> <span>毕业安排</span> </a>
+							</li>
+							<li class="treeview"> <a href="毕业学员.html"> <i class="fa fa-graduate-3"></i> <span>毕业学员</span> </a>
+							</li>
+							<li class="treeview"> <a href="毕业学员管理.html"> <i class="fa fa-graduate-3"></i> <span>毕业学员管理</span> </a>
+							</li>
+							<li class="treeview"> <a href="毕业老师.html"> <i class="fa fa-graduate-4"></i> <span>毕业老师</span> </a>
+							</li>
+							<li class="treeview"> <a href="毕业生登记表.html"> <i class="fa fa-pkap"></i> <span>毕业生登记表</span></a>
+							</li>
+							<li class="treeview"> <a href="拍摄点管理.html"> <i class="fa fa-camera-retro"></i> <span>拍摄点管理</span></a>
+							</li>
+						</ul>
+					</li>
+					<li> <a role="menuitem" href="#">学支管理</a>
+						<ul class="menu-temp hide">
+							<li class="header">学支管理</li>
+							<li class="treeview"> <a href="学支团队.html"> <i class="fa fa-users"></i> <span>学支团队</span> </a>
+							</li>
+							<li class="treeview"> <a href="学支统计.html" data-id="1_8"> <i class="fa fa-bar-chart"></i> <span>学支统计</span></a>
+							</li>
+							<li class="treeview"> <a href="班主任管理.html"> <i class="fa fa-user"></i> <span>班主任管理</span> </a>
+							</li>
+							<li class="treeview"> <a href="班主任考勤.html"> <i class="fa fa-calendar-check-o"></i> <span>班主任考勤</span> </a>
+							</li>
+							<li class="treeview"> <a href="周报日报.html"> <i class="fa fa-kscj"></i> <span>周报日报</span> </a>
+							</li>
+						</ul>
+					</li>
+					<li> <a role="menuitem" href="#">论文管理</a>
+					  <ul class="menu-temp hide">
+						<li class="header">论文管理</li>
+						<li class="treeview"> <a href="我的指导.html"> <i class="fa fa-hand-o-right"></i> <span>我的指导</span></a>
+						</li>
+						<li class="treeview"> <a href="我的学员.html"> <i class="fa fa-user-md"></i> <span>我的学员</span></a>
+						</li>
+						<li class="treeview"> <a href="论文计划.html"> <i class="fa fa-tasks"></i> <span>论文计划</span></a>
+						</li>
+						<li class="treeview"> <a href="论文安排.html"> <i class="fa fa-ksyy"></i> <span>论文安排</span></a>
+						</li>
+					  </ul>
+					</li>
+					<li> <a role="menuitem" href="#">实践管理</a>
+					  <ul class="menu-temp hide">
+						<li class="header">实践管理</li>
+						<li class="treeview"> <a href="实践计划.html"> <i class="fa fa-ksyy"></i> <span>实践计划</span></a>
+						</li>
+						<li class="treeview"> <a href="实践安排.html"> <i class="fa fa-ccap"></i> <span>实践安排</span></a>
+						</li>
+						<li class="treeview"> <a href="实践记录.html"> <i class="fa fa-pkap"></i> <span>实践记录</span></a>
+						</li>
+						<li class="treeview"> <a href="指导记录.html"> <i class="fa fa-kscj"></i> <span>指导记录</span></a>
+						</li>
+					  </ul>
+					</li>
+					<li> <a role="menuitem" href="#">论文和实践</a>
+					  <ul class="menu-temp hide">
+						<li class="header">论文和实践</li>
+						<li class="treeview"> <a href="论文指导.html"> <i class="fa fa-kscj"></i> <span>论文指导</span></a>
+						</li>
+						<li class="treeview"> <a href="社会实践指导.html"> <i class="fa fa-ccap"></i> <span>社会实践指导</span></a>
+						</li>
+					  </ul>
+					</li>
+					<li> <a role="menuitem" href="#">教学管理</a>
+					  <ul class="menu-temp hide">
+						<li class="header">教学管理</li>
+						<li class="treeview"> <a href="课程管理.html"> <i class="fa fa-kcgl"></i> <span>课程管理</span></a>
+						</li>
+						<li class="treeview"> <a href="专业管理.html"> <i class="fa fa-article-manage"></i> <span>专业规则</span></a>
+						</li>
+						<li class="treeview"> <a href="专业管理2.html"> <i class="fa fa-article-manage"></i> <span>专业管理</span></a>
+						</li>
+						<li class="treeview"> <a href="开课管理.html"> <i class="fa fa-kkgl"></i> <span>开课管理</span></a>
+						</li>
+						<li class="treeview"> <a href="课程班级.html"> <i class="fa fa-users"></i> <span>课程班级</span></a>
+						</li>
+						<li class="treeview"> <a href="学年度管理.html"> <i class="fa fa-xndgl"></i> <span>学年度管理</span></a>
+						</li>
+						<li class="treeview"> <a href="定制课程.html"> <i class="fa fa-chain-broken"></i> <span>定制课程</span></a>
+						</li>
+						<li class="treeview"> <a href="定制课程（审核）.html"> <i class="fa fa-chain-broken"></i> <span>定制课程（审核）</span></a>
+						</li>
+						<li class="treeview"> <a href="任教管理.html"> <i class="fa fa-users"></i> <span>任教管理(国开在线)</span></a>
+						</li>
+					  </ul>
+					</li>
+					<li> <a role="menuitem" href="#">教务管理</a>
+					  <ul class="menu-temp hide">
+						<li class="header">教务管理</li>
+						<li class="treeview"> <a href="年级管理.html"> <i class="fa fa-njgl"></i> <span>年级管理</span></a>
+						</li>
+						<li class="treeview"> <a href="学期管理.html"> <i class="fa fa-rule-set"></i> <span>学期管理</span></a>
+						</li>
+						<li class="treeview"> <a href="开设专业.html"> <i class="fa fa-kszj"></i> <span>开设专业</span></a>
+						</li>
+						<li class="treeview"> <a href="教学班级.html"> <i class="fa fa-jxbj"></i> <span>教务班级</span></a>
+						</li>
+						<li class="treeview"> <a href="教职人员.html"> <i class="fa fa-user"></i> <span>教职人员</span></a>
+						</li>
+					  </ul>
+					</li>
+					<li> <a role="menuitem" href="#">考试管理</a>
+					  <ul class="menu-temp hide">
+						<li class="header">考试管理</li>
+						<li class="treeview"> <a href="考试科目.html"> <i class="fa fa-kskm"></i> <span>考试科目</span></a>
+						</li>
+						<li class="treeview"> <a href="考试批次.html"> <i class="fa fa-clone"></i> <span>考试批次</span></a>
+						</li>
+						<li class="treeview"> <a href="考试计划.html"> <i class="fa fa-calendar-check-o"></i> <span>考试计划</span></a>
+						</li>
+						<li class="treeview"> <a href="考试预约.html"> <i class="fa fa-ksyy"></i> <span>考试预约</span></a>
+						</li>
+						<li class="treeview"> <a href="补考缴费.html"> <i class="fa fa-bkjf"></i> <span>补考缴费</span></a>
+						</li>
+						<li class="treeview"> <a href="考点管理.html"> <i class="fa fa-map-marker"></i> <span>考点管理</span></a>
+						</li>
+						<li class="treeview"> <a href="考场管理.html"> <i class="fa fa-user-md"></i> <span>考场管理</span></a>
+						</li>
+						<li class="treeview"> <a href="场次安排.html"> <i class="fa fa-ccap"></i> <span>场次安排</span></a>
+						</li>
+						<li class="treeview"> <a href="排考安排.html"> <i class="fa fa-pkap"></i> <span>排考安排</span></a>
+						</li>
+						<li class="treeview"> <a href="考试成绩.html"> <i class="fa fa-kscj"></i> <span>考试成绩</span></a>
+						</li>
+						<li class="treeview"> <a href="考情分析.html"> <i class="fa fa-bar-chart-o"></i> <span>考情分析</span></a>
+						</li>
+						<li class="treeview"> <a href="批改报告.html"> <i class="fa fa-edit"></i> <span>批改报告</span></a>
+						</li>
+					  </ul>
+					</li>
+					
+					<li> <a role="menuitem" href="#">学习管理</a>
+						<ul class="menu-temp hide">
+							<li class="header">学习管理</li>
+							<li class="treeview"> <a href="成绩查询.html"> <i class="fa fa-view-more"></i> <span>成绩查询</span></a>
+							</li>
+							<li class="treeview"> <a href="学情分析.html"> <i class="fa fa-bar-chart-o"></i> <span>学情分析</span></a>
+							</li>
+							<li class="treeview"> <a href="考勤分析.html"> <i class="fa fa-calendar-check-o"></i> <span>考勤分析</span></a>
+							</li>
+						</ul>
+					</li>
+
+					<li> <a role="menuitem" href="#">系统管理</a>
+						<ul class="menu-temp hide">
+							<li class="header">系统管理</li>
+							<li class="treeview"> <a href="用户管理.html"> <i class="fa fa-group-person"></i> <span>用户管理</span></a>
+							</li>
+							<li class="treeview"> <a href="角色管理.html"> <i class="fa fa-jsgl"></i> <span>角色管理</span></a>
+							</li>
+							<li class="treeview"> <a href="模块管理.html"> <i class="fa fa-th-large"></i> <span>模块管理</span></a>
+							</li>
+							<li class="treeview"> <a href="操作管理.html"> <i class="fa fa-cjgl"></i> <span>操作管理</span></a>
+							</li>
+							<li class="treeview"> <a href="登录菜单设置.html"> <i class="fa fa-cjgl"></i> <span>登录菜单设置</span></a>
+							</li>
+							<li class="treeview"> <a href="角色权限设置.html"> <i class="fa fa-cjgl"></i> <span>角色权限设置</span></a>
+							</li>
+							<li class="treeview"> <a href="模块设置.html"> <i class="fa fa-cjgl"></i> <span>模块设置</span></a>
+							</li>
+						</ul>
+					</li>
+					
+				  </ul>
+				</div>
+			  </li>
+			  
+			  <li class="dropdown user user-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <img
+								src="${commonSkinPath}/AdminLTE/img/user-placehoder.png"
+								class="user-image" alt="User Image"> <span class="hidden-xs"> boss </span> </a>
+				<ul class="dropdown-menu">
+	              <li><a href="个人资料管理.html" data-id='personal-info' data-page-role="single-page" title="个人资料管理" role="menuitem">编辑个人资料</a></li>
+	              <li><a href="#">退出平台</a></li>
+	            </ul>
+			  </li>
+			</ul>
+		</div>
+		<ul class="first-level-menu">
+		<!--
+		  <li data-id="1" data-url="homepage.html">首页</li>
+		  <li data-id="3" data-url="院校管理.html">机构管理</li>
+		  <li data-id="4">用户管理</li>
+		  <li data-id="5">教学管理</li>
+		  <li data-id="6">教务管理</li>
+		  <li data-id="7">考务管理</li>
+		  <li data-id="8" data-url="毕业批次.html">毕业管理</li>
+		  <li data-id="9">学习管理</li>
+		  <li data-id="10">招生管理</li>
+		  <li data-id="11" data-url="教材管理.html">教材管理</li>
+		-->
+		</ul>
+	</nav>
+  </header>
+  <aside class="main-sidebar">
+    <section class="sidebar">
+
+      <ul class="sidebar-menu"></ul>
+    </section>
+    <!-- /.sidebar --> 
+  </aside>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper pos-rel">
+    <div class="overlay-wrapper loading" style="display: block;">
+    	<div class="overlay">
+    		<i class="fa fa-refresh fa-spin" style="top:200px !important"></i>
+    	</div>
+    </div>
+    <div class="page">
+        <iframe name='homepage' frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+    </div>
+  </div>
+</div>
+<!-- ./wrapper --> 

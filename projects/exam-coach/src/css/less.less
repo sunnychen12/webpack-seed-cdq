@@ -1,0 +1,418 @@
+@import "variables.less";
+@import "normalize.less";
+@import "common.less";
+@import "layout-style-reset.less";
+
+@import "icons.less";
+@import "fonts.less";
+@import "layout.less";
+@import "size.less";
+@import "margin-padding.less";
+@import "border.less";
+@import "background.less";
+
+@import "components.less";
+
+.item-of-list{
+	margin:0;
+	list-style: none;
+	padding: 0;
+	ul{
+		background:none;
+	}
+	li{
+		background:#fff;
+		padding:.75rem;
+		margin:.75rem 0;
+		overflow: hidden;
+	}
+	.info{
+		font-size: .55rem;
+		color: #999;
+		margin-top: .4rem;
+	}
+	.tit{
+		font-size: .85rem;
+	}
+	.item-box{
+		color: #3d4145;
+	}
+	.width-border-left{
+		border-left: @border-color 1px solid;
+	}
+	.course-icon-circle{
+		@size:3.6rem;
+		width: @size;
+		height: @size;
+		border: @color-blue 1px solid;
+		border-radius: 50%;
+		text-align: center;
+    	line-height: @size;
+    	font-size: 1.5rem;
+    	color: @color-blue;
+	}
+}
+
+.bar-footer-btn{
+	@h:2.5rem;
+	position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: @h;
+	.button{
+		height: @h;
+		position: static;
+		font-size: .75rem;
+		margin-right: 1px;
+		&:last-child{
+			margin-right: 0;
+		}
+		&.button-blue{
+			background:@color-blue;
+		}
+		&.btn-entry-broadcast{
+			background:#fe8e3c;
+		}
+		&.btn-red{
+			background:@color-red;
+		}
+	}
+	~.content{
+		bottom: @h;
+	}
+}
+
+/*选择知识点练题*/
+.course-type-label{
+	margin-right: .3rem;
+	>span{
+		display: inline-block;
+		vertical-align: middle;
+	}
+	&:before{
+		width: .85rem;
+		height: .85rem;
+		content: '';
+		border-radius: 50%;
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: .2rem;
+	}
+	&.not-done{
+		&:before{
+			background: #c5c5c5;
+		}
+	}
+	&.not-mastered{
+		&:before{
+			background: #f4511e;
+		}
+	}
+	&.good{
+		&:before{
+			background: #7cb342;
+		}
+	}
+	&.excellent{
+		&:before{
+			background: #388e3c;
+		}
+	}
+}
+
+.sel-all{
+	border: @border-color 1px solid;
+	display: inline-block;
+	border-radius: .3rem;
+	padding: .2rem .5rem;
+	input{
+		vertical-align: middle;
+		margin-right: .3rem;
+	}
+}
+
+.slide-box{
+	overflow: hidden;
+	transition: height 0.2s ease-out;
+	.expand{
+		height: auto;
+	}
+}
+
+.knowlege-cate-list{
+	@size:1.4rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	.holder{
+		border-top: @border-color 1px solid;
+		margin-left: @size*2;
+		position: relative;
+		padding: .7rem 0;
+		.info{
+			font-size: .55rem;
+			color: #999;
+			margin-top: .1rem;
+		}
+		&:before,
+		&:after{
+			content: '';
+			width: 1px;
+			left: -(@size*2-@size*1.4+@size*1.4/2);
+			background: @border-color;
+			position: absolute;
+		}
+		&:before{
+			bottom: 1.1rem + @size/2;
+			top: 0;
+		}
+		&:after{
+			bottom: 0;
+			top: 1.1rem + @size/2;
+		}
+		&.close{
+			&:after{
+				display: none;
+			}
+		}
+		>.toggle{
+			width: @size;
+			height: @size;
+			background: #c5c5c5;
+			border-radius: 50%;
+			position: absolute;
+			left: -(@size*2-@size*1.4+@size*1.4/2);
+			top: 1.1rem;
+			margin-left: -@size/2;
+			z-index: 2;
+			&.not-done{
+				background: #c5c5c5;
+			}
+			&.not-mastered{
+				background: #f4511e;
+			}
+			&.good{
+				background: #7cb342;
+			}
+			&.excellent{
+				background: #388e3c;
+			}
+		}
+	}
+	>.item{
+		border: @border-color 1px solid;
+		border-radius: .5rem;
+		padding: .75rem;
+		margin: .75rem 0;
+		position: relative;
+		ul{
+			margin-top: .75rem;
+		}
+		>.holder{
+			border-top: 0 none;
+			padding: 0;
+			&:before{
+				display: none;
+			}
+			&:after{
+				left: -(@size*2-@size*1.4+@size*1.4/2);
+				top: 1.1rem;
+				bottom: -.75rem;
+			}
+			>.toggle{
+				width: @size*1.4;
+				height: @size*1.4;
+				margin-left: -@size*1.4/2;
+				margin-top: 0;
+				top: 0rem;
+				&:before,
+				&:after{
+					content: '';
+					position: absolute;
+					background-color:#fff;
+				}
+				&:after{
+					display: none;
+					width:1px;
+					height: 50%;
+					left: 50%;
+					top: 50%;
+					margin-top: 0.5px;
+					transform:translateY(-50%);
+				}
+				&:before{
+					width:50%;
+					height: 1px;
+					left: 50%;
+					top: 50%;
+					transform:translateX(-50%);
+					margin-left: 0.5px;
+				}
+			}
+			&.close{
+				>.toggle{
+					&:after{
+						display: block;
+					}
+				}
+			}
+		}
+		.item{
+			&:last-child{
+				.holder{
+					&:after{
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+//练习测试
+.practice-subject-item{
+	font-size: .8rem;
+	.label-blue-boder{
+		border-radius: 3px;
+	}
+	.checkbox-group{
+		counter-increment: order;
+		.checkbox-order:before{
+			content: counter(order,upper-alpha);
+		}
+	}
+	
+	.practice-subject-ans{
+		background-color: #fff;
+		font-size: .7rem;
+		>table{
+			border: @border-color 1px solid;
+		}
+		td{
+			border-bottom: 1px @border-color solid;
+			padding: .4rem .75rem;
+			&.td-label{
+				padding-right: .2rem;
+				width: 1%;
+				white-space: nowrap;
+				vertical-align: top;
+			}
+			&.td-cnt{
+				padding-left: .2rem;
+				word-break: break-all;
+			}
+		}
+
+	}
+
+	.sub-practice-list{
+		
+	}
+	.practice-subject-header{
+		margin-bottom: 1rem;
+		padding-bottom: 1rem;
+		border-bottom: 1px dotted #ccc;
+	}
+
+	
+	
+	.sub-practice-item{
+		margin: 1rem 0 1.5rem;
+		&:first-child{
+			margin-top: 0
+		}
+		&:last-child{
+			margin-bottom: 0;
+		}
+		.practice-subject-sel-list{
+			//border-top: 1px dotted #ccc;
+		}
+	}
+
+	textarea{
+		resize: none;
+		background: #fff;
+	}
+}
+
+//答题卡
+.ans-card-list{
+	>li{
+		float: left;
+		font-size: 1rem;
+		width: 2.5rem;
+		height: 2.5rem;
+		line-height: 2.5rem;
+		text-align: center;
+		color:#333333;
+		background:#eeeeee;
+		border-radius:100%;
+		margin: .5rem .7rem;
+		&.right{
+			background: @color-green;
+			color: #fff;
+		}
+		&.wrong{
+			background: @color-orange;
+			color: #fff;
+		}
+		&.cur{
+			background: @color-blue;
+			color: #fff;
+		}
+	}
+}
+
+.record-tabs{
+	padding: 0 !important;
+	&:after {
+	    content: '';
+	    position: absolute;
+	    left: 0;
+	    bottom: 0;
+	    right: auto;
+	    top: auto;
+	    height: 1px;
+	    width: 100%;
+	    background-color: @border-color;
+	    display: block;
+	    z-index: 15;
+	    transform-origin: 50% 100%;
+	}
+	.swiper-slide{
+		width: auto;
+		span{
+			color: #5f646e;
+		    font-size: 0.8rem;
+		    height: 2rem;
+		    line-height: 2rem;
+		    border: 0;
+		    border-bottom: 2px solid transparent;
+		    border-radius: 0;
+		    display: block;
+		    text-align: center;
+		    padding: 0 1em;
+		}
+		&.active{
+			span{
+				color: #0894ec;
+			    border-color: #0894ec;
+			    z-index: 100;
+			}
+		}
+	}
+}
+
+.record-tabs-content{
+	position: absolute;
+	width: 100%;
+	top: 2rem;
+	bottom: 0;
+	.swiper-container{
+		height: 100%;
+	}
+	.swiper-slide{
+		overflow-y: auto;
+	}
+}

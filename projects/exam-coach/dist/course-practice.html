@@ -1,0 +1,786 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<!--<link rel="shortcut icon" href="/favicon.ico">-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" href="http://css.eenet.com/common/msui/css/sm.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="http://css.eenet.com/common/font-awesome/css/font-awesome.min.css">
+
+	
+	<link href="http://css.eenet.com/exam_chinaeenet_com/exam-coach/css/main.min.css" rel="stylesheet">
+	
+</head>
+
+<body>
+
+
+	<div class="page-group" id="app" v-cloak>
+		<div class="page page-current">
+			<header class="bar bar-nav">
+			  <a class="icon icon-left pull-left" @click.prevent="historyBack"></a>
+			  <a class="button button-link pull-right open-popup" data-popup=".popup-about">
+			    1/100
+			  </a>
+			  <h1 class="title">练题</h1>
+			</header>
+			<div class="bar bar-footer-btn padding-none">
+			  <div class="flex-box flex-align-center">
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" data-subject="prev" disabled>上一题</button>
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" data-subject="next">下一题</button>
+			  </div>
+			</div>
+			<div class="content">
+				<div class="padding_75rem">
+				    <div class="practice-subject-item">
+						<label class="label label-blue-boder">单选题 第1题</label>
+						<div class="practice-subject-header margin-t_3rem">
+							伊利集团的王展根据产品线和产品的述求制作了多种在线游戏，消费者可以免费进行游戏，这类活动属于直效营销。
+						</div>
+
+						<div class="sub-practice-list">
+							<div class="sub-practice-item">
+								<div class="practice-subject-sel-list">
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r1" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">A</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											直销营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r1" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">B</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											饥饿营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r1" checked disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">C</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											传统营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r1" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">D</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											市场营销
+										</div>
+									</label>
+								</div>
+
+								<div class="practice-subject-ans">
+									<table width="100%">
+										<tbody>
+											<tr>
+												<td class="td-label">正确答案：</td>
+												<td class="td-cnt">C</td>
+											</tr>
+											<tr>
+												<td class="td-label">题目解析：</td>
+												<td class="td-cnt">因为需要填写正确的格式才能导入</td>
+											</tr>
+											<tr>
+												<td class="td-label">知识点：</td>
+												<td class="td-cnt">知识点1</td>
+											</tr>
+											<tr>
+												<td class="td-label">答对次数：</td>
+												<td class="td-cnt">10</td>
+											</tr>
+											<tr>
+												<td class="td-label">答错次数：</td>
+												<td class="td-cnt">0</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
+					<div class="practice-subject-item" style="display:none">
+						
+						<label class="label label-blue-boder">多选题 第2题</label>
+						<div class="practice-subject-header margin-t_3rem">
+							伊利集团的王展根据产品线和产品的述求制作了多种在线游戏，消费者可以免费进行游戏，这类活动属于直效营销。
+						</div>
+
+						<div class="sub-practice-list">
+							<div class="sub-practice-item">
+								<div class="practice-subject-sel-list">
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="checkbox" class="checkbox-control" name="ck1" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">A</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											直销营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="checkbox" class="checkbox-control" name="ck1" disabled checked>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">B</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											饥饿营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="checkbox" class="checkbox-control" name="ck1" checked disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">C</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											传统营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="checkbox" class="checkbox-control" name="ck1" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">D</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											市场营销
+										</div>
+									</label>
+								</div>
+
+								<div class="practice-subject-ans">
+									<table width="100%">
+										<tbody>
+											<tr>
+												<td class="td-label">正确答案：</td>
+												<td class="td-cnt">BC</td>
+											</tr>
+											<tr>
+												<td class="td-label">题目解析：</td>
+												<td class="td-cnt">因为需要填写正确的格式才能导入</td>
+											</tr>
+											<tr>
+												<td class="td-label">知识点：</td>
+												<td class="td-cnt">知识点1</td>
+											</tr>
+											<tr>
+												<td class="td-label">答对次数：</td>
+												<td class="td-cnt">10</td>
+											</tr>
+											<tr>
+												<td class="td-label">答错次数：</td>
+												<td class="td-cnt">0</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
+					<div class="practice-subject-item" style="display:none">
+						
+						<label class="label label-blue-boder">判断题 第3题</label>
+						<div class="practice-subject-header margin-t_3rem">
+							伊利集团的王展根据产品线和产品的述求制作了多种在线游戏，消费者可以免费进行游戏，这类活动属于直效营销。
+						</div>
+
+						<div class="sub-practice-list">
+							<div class="sub-practice-item">
+								<div class="practice-subject-sel-list">
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r2" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">A</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											是
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r2" checked disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">B</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											否
+										</div>
+									</label>
+								</div>
+
+								<div class="practice-subject-ans">
+									<table width="100%">
+										<tbody>
+											<tr>
+												<td class="td-label">正确答案：</td>
+												<td class="td-cnt">B</td>
+											</tr>
+											<tr>
+												<td class="td-label">题目解析：</td>
+												<td class="td-cnt">因为需要填写正确的格式才能导入</td>
+											</tr>
+											<tr>
+												<td class="td-label">知识点：</td>
+												<td class="td-cnt">知识点1</td>
+											</tr>
+											<tr>
+												<td class="td-label">答对次数：</td>
+												<td class="td-cnt">10</td>
+											</tr>
+											<tr>
+												<td class="td-label">答错次数：</td>
+												<td class="td-cnt">0</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
+					<div class="practice-subject-item" style="display:none">
+						
+						<label class="label label-blue-boder">填空题 第4题</label>
+						<div class="practice-subject-header margin-t_3rem">
+							在现实管理中的一个难题是
+							<input type="text" class="edit-input" disabled>
+							相反在企业管理中的一个难题是
+							<input type="text" class="edit-input" disabled>
+						</div>
+
+						<div class="sub-practice-list">
+							<div class="sub-practice-item">
+								<div class="practice-subject-sel-list">
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r2" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">A</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											是
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r2" checked disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">B</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											否
+										</div>
+									</label>
+								</div>
+
+								<div class="practice-subject-ans">
+									<table width="100%">
+										<tbody>
+											<tr>
+												<td class="td-label">正确答案：</td>
+												<td class="td-cnt">B</td>
+											</tr>
+											<tr>
+												<td class="td-label">题目解析：</td>
+												<td class="td-cnt">因为需要填写正确的格式才能导入</td>
+											</tr>
+											<tr>
+												<td class="td-label">知识点：</td>
+												<td class="td-cnt">知识点1</td>
+											</tr>
+											<tr>
+												<td class="td-label">答对次数：</td>
+												<td class="td-cnt">10</td>
+											</tr>
+											<tr>
+												<td class="td-label">答错次数：</td>
+												<td class="td-cnt">0</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
+					<div class="practice-subject-item" style="display:none">
+						<label class="label label-blue-boder">综合题 第5题</label>
+						<div class="practice-subject-header margin-t_3rem">
+							伊利集团的王展根据产品线和产品的述求制作了多种在线游戏，消费者可以免费进行游戏，这类活动属于直效营销。
+						</div>
+
+						<div class="sub-practice-list">
+							<div class="sub-practice-item">
+								<label class="label label-blue-boder">单选题 第1题</label>
+								<div class="practice-subject-header margin-t_3rem">
+									在现实管理中的一个难题是（）
+								</div>
+
+								<div class="practice-subject-sel-list">
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r11" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">A</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											直销营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r11" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">B</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											饥饿营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r11" checked disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">C</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											传统营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="radio" class="checkbox-control" name="r11" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">D</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											市场营销
+										</div>
+									</label>
+								</div>
+
+								<div class="practice-subject-ans">
+									<table width="100%">
+										<tbody>
+											<tr>
+												<td class="td-label">正确答案：</td>
+												<td class="td-cnt">C</td>
+											</tr>
+											<tr>
+												<td class="td-label">题目解析：</td>
+												<td class="td-cnt">因为需要填写正确的格式才能导入</td>
+											</tr>
+											<tr>
+												<td class="td-label">知识点：</td>
+												<td class="td-cnt">知识点1</td>
+											</tr>
+											<tr>
+												<td class="td-label">答对次数：</td>
+												<td class="td-cnt">10</td>
+											</tr>
+											<tr>
+												<td class="td-label">答错次数：</td>
+												<td class="td-cnt">0</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="sub-practice-item">
+								<label class="label label-blue-boder">多选题 第2题</label>
+								<div class="practice-subject-header margin-t_3rem">
+									在现实管理中的一个难题是（）
+								</div>
+
+								<div class="practice-subject-sel-list">
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="checkbox" class="checkbox-control" name="ck21" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">A</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											直销营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="checkbox" class="checkbox-control" name="ck21" disabled checked>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">B</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											饥饿营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="checkbox" class="checkbox-control" name="ck21" checked disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">C</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											传统营销
+										</div>
+									</label>
+									<label class="checkbox-group flex-box flex-align-center">
+										<input type="checkbox" class="checkbox-control" name="ck21" disabled>
+										<span class="checkbox-icon">
+											<i class="icomoon"></i>
+											<em class="checkbox-order">D</em>
+										</span>
+										<div class="flex-item checkbox-txt">
+											市场营销
+										</div>
+									</label>
+								</div>
+
+								<div class="practice-subject-ans">
+									<table width="100%">
+										<tbody>
+											<tr>
+												<td class="td-label">正确答案：</td>
+												<td class="td-cnt">BC</td>
+											</tr>
+											<tr>
+												<td class="td-label">题目解析：</td>
+												<td class="td-cnt">因为需要填写正确的格式才能导入</td>
+											</tr>
+											<tr>
+												<td class="td-label">知识点：</td>
+												<td class="td-cnt">知识点1</td>
+											</tr>
+											<tr>
+												<td class="td-label">答对次数：</td>
+												<td class="td-cnt">10</td>
+											</tr>
+											<tr>
+												<td class="td-label">答错次数：</td>
+												<td class="td-cnt">0</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="sub-practice-item">
+								<label class="label label-blue-boder">判断题 第3题</label>
+								<div class="practice-subject-header margin-t_3rem">
+									伊利集团的王展根据产品线和产品的述求制作了多种在线游戏，消费者可以免费进行游戏，这类活动属于直效营销。
+								</div>
+
+								<div class="sub-practice-list">
+									<div class="sub-practice-item">
+										<div class="practice-subject-sel-list">
+											<label class="checkbox-group flex-box flex-align-center">
+												<input type="radio" class="checkbox-control" name="r2" disabled>
+												<span class="checkbox-icon">
+													<i class="icomoon"></i>
+													<em class="checkbox-order">A</em>
+												</span>
+												<div class="flex-item checkbox-txt">
+													是
+												</div>
+											</label>
+											<label class="checkbox-group flex-box flex-align-center">
+												<input type="radio" class="checkbox-control" name="r2" checked disabled>
+												<span class="checkbox-icon">
+													<i class="icomoon"></i>
+													<em class="checkbox-order">B</em>
+												</span>
+												<div class="flex-item checkbox-txt">
+													否
+												</div>
+											</label>
+										</div>
+
+										<div class="practice-subject-ans">
+											<table width="100%">
+												<tbody>
+													<tr>
+														<td class="td-label">正确答案：</td>
+														<td class="td-cnt">B</td>
+													</tr>
+													<tr>
+														<td class="td-label">题目解析：</td>
+														<td class="td-cnt">因为需要填写正确的格式才能导入</td>
+													</tr>
+													<tr>
+														<td class="td-label">知识点：</td>
+														<td class="td-cnt">知识点1</td>
+													</tr>
+													<tr>
+														<td class="td-label">答对次数：</td>
+														<td class="td-cnt">10</td>
+													</tr>
+													<tr>
+														<td class="td-label">答错次数：</td>
+														<td class="td-cnt">0</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="sub-practice-item">
+								<label class="label label-blue-boder">填空题 第4题</label>
+								<div class="practice-subject-header margin-t_3rem">
+									在现实管理中的一个难题是
+									<input type="text" class="edit-input" disabled>
+									相反在企业管理中的一个难题是
+									<input type="text" class="edit-input" disabled>
+								</div>
+
+								<div class="sub-practice-list">
+									<div class="sub-practice-item">
+										<div class="practice-subject-sel-list">
+											<label class="checkbox-group flex-box flex-align-center">
+												<input type="radio" class="checkbox-control" name="r2" disabled>
+												<span class="checkbox-icon">
+													<i class="icomoon"></i>
+													<em class="checkbox-order">A</em>
+												</span>
+												<div class="flex-item checkbox-txt">
+													是
+												</div>
+											</label>
+											<label class="checkbox-group flex-box flex-align-center">
+												<input type="radio" class="checkbox-control" name="r2" checked disabled>
+												<span class="checkbox-icon">
+													<i class="icomoon"></i>
+													<em class="checkbox-order">B</em>
+												</span>
+												<div class="flex-item checkbox-txt">
+													否
+												</div>
+											</label>
+										</div>
+
+										<div class="practice-subject-ans">
+											<table width="100%">
+												<tbody>
+													<tr>
+														<td class="td-label">正确答案：</td>
+														<td class="td-cnt">B</td>
+													</tr>
+													<tr>
+														<td class="td-label">题目解析：</td>
+														<td class="td-cnt">因为需要填写正确的格式才能导入</td>
+													</tr>
+													<tr>
+														<td class="td-label">知识点：</td>
+														<td class="td-cnt">知识点1</td>
+													</tr>
+													<tr>
+														<td class="td-label">答对次数：</td>
+														<td class="td-cnt">10</td>
+													</tr>
+													<tr>
+														<td class="td-label">答错次数：</td>
+														<td class="td-cnt">0</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="popup popup-about">
+			<header class="bar bar-nav">
+			  <a class="icon icon-left pull-left close-popup"></a>
+			  <h1 class="title">答题卡</h1>
+			</header>
+		    <div class="bar bar-footer-btn padding-none">
+			  <div class="flex-box flex-align-center">
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat close-popup button-gray"><span class="gray9">按钮1</span></button>
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue">按钮2</button>
+			  </div>
+			</div>
+			
+			<div class="content">
+				<div class="padding_75rem">
+					<ul class="list-unstyled clearfix ans-card-list">
+						<li class="right">1</li>
+						<li class="right">2</li>
+						<li class="right">3</li>
+						<li class="wrong">4</li>
+						<li class="right">5</li>
+						<li class="wrong">6</li>
+						<li class="wrong">7</li>
+						<li>8</li>
+						<li>9</li>
+						<li>10</li>
+						<li class="wrong">11</li>
+						<li class="wrong">12</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	
+
+
+<!-- 加载公共插件 -->
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/zepto.min.js"></script>
+<script type="text/javascript">$.config = {router: false}</script>
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/sm.min.js"></script>
+<script type="text/javascript" src="http://css.eenet.com/common/js/vue.js"></script>
+
+<script type="text/javascript" src="http://css.eenet.com/exam_chinaeenet_com/exam-coach/js/commonLab.min.js"></script>
+
+<script type="text/javascript">
+	/*
+	$.modal({
+		extraClass: 'reset-model model-button-6by4',
+      	text: [
+      		'<div class="text-orange">',
+      			'<span class="icon line-height-1" style="font-size:3rem;">&#xe620;</span>',
+			'</div>',
+			'上次练习还未提交，请继续练习！',
+			'<div class="font_65rem gray6 margin-t_5rem">',
+				'<div>',
+					'你上次答到',
+					'<span class="text-orange">第2题</span>，剩余',
+					'<span class="text-orange">18题</span> 未答！',
+				'</div>',
+				'<div>你可以选择"继续上一次答题"或"提交练习"</div>',
+			'</div>'
+      	].join(''),
+      	buttons: [
+	        {
+	          text: '提交练习',
+	          onClick: function() {
+	          
+	          }
+	        },
+	        {
+	          text: '继续上次答题',
+	          onClick: function() {
+	          
+	          }
+	        }
+      	]
+    });
+    
+    
+    $.modal({
+    	extraClass: 'model-md',
+      	text: [
+      		'<div class="text-orange">',
+      			'<span class="icon line-height-1" style="font-size:3rem;">&#xe620;</span>',
+			'</div>',
+			'确定提交练习？',
+			'<div class="font_65rem gray6 margin-t_5rem">',
+				'共 100 题目，已答 100 题，剩余 0 题',
+			'</div>'
+      	].join(''),
+      	buttons: [
+	        {
+	          text: '取消',
+	          onClick: function() {
+	          
+	          }
+	        },
+	        {
+	          text: '提交练习',
+	          onClick: function() {
+	          
+	          }
+	        }
+      	]
+    });
+    */
+    var appVm=new Vue({
+		el:"#app",
+		mixins:[mixin],
+		data:{
+			text:''
+		}
+	});
+
+    var $subjectList=$('.practice-subject-item')
+		, len=$subjectList.length
+		, curIndex=0;
+
+    $('.page')
+	//下一题
+	.on('click', '[data-subject="next"]', function(event) {
+		if(curIndex<len-1){
+			$subjectList.eq(++curIndex).fadeIn()
+			.siblings().hide();
+			if(curIndex==len-1){
+				$(this).prop('disabled', true);
+			}
+			if(curIndex>0){
+				$('[data-subject="prev"]').prop('disabled', false);
+			}
+		}
+	})
+	//上一题
+	.on('click', '[data-subject="prev"]', function(event) {
+		if(curIndex>0){
+			$subjectList.eq(--curIndex).fadeIn()
+			.siblings().hide();
+			if(curIndex==0){
+				$(this).prop('disabled', true);
+			}
+			if(len>1 && curIndex<len-1){
+				$('[data-subject="next"]').prop('disabled', false);
+			}
+		}
+	});
+
+
+	$('.popup-about')
+	.on('open', function(event) {
+		//答题卡的显示处理
+		commomLab.resetAnsCard();
+	});
+	
+
+</script>
+</body>
+</html>

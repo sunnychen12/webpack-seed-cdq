@@ -1,0 +1,777 @@
+	<!--main-->
+	<div class="main_wrapper">
+	  <div class="body_area">
+	    <div class="main_content block margin_t20">
+	    	<div class="clearfix">
+	    		<div class="fr padding_r20 padding_t10">
+	    			<a class="medbtn medbtn-gray" href="javascript:"><span>返回</span></a>
+	    		</div>
+		    	<ul class="bread_crumbs nomargin padding_t10 padding_b10 padding_l20 padding_r20">
+					<li class="location">当前位置：</li>
+					<li><a href="#">监考老师</a></li>
+					<li><a href="#">监考科目</a></li>
+					<li class="last"><a href="#">详情</a></li>
+		        </ul>
+	    	</div>
+	    	<div class="padding20">
+	    		<table class="stu-pic-tbl nomargin" width="100%">
+	    			<tbody>
+	    				<tr>
+	    					<th class="text-right">考试科目</th>
+	    					<td>《职业道德修养》期末考试</td>
+
+	    					<th class="text-right">考试计划</th>
+	    					<td>2019春期末考试</td>
+
+	    					<th class="text-right">考试时间</th>
+	    					<td>2019-01-01至2019-01-21</td>
+
+	    					<th class="text-right">科目状态</th>
+	    					<td>
+	    						<span class="font_orange">进行中</span>
+	    					</td>
+	    				</tr>
+	    				<tr>
+	    					<th class="text-right">监考老师</th>
+	    					<td>李老师</td>
+
+	    					<th class="text-right">帐号</th>
+	    					<td>lilaoshi</td>
+
+	    					<th class="text-right">所属机构</th>
+	    					<td>国家开放大学（广州）</td>
+
+	    					<th class="text-right">在线状态</th>
+	    					<td>
+	    						<span class="font_green">在线</span>
+	    						<span class="font_gray">（20分钟前登录）</span>
+	    						
+	    					</td>
+	    				</tr>
+	    			</tbody>
+	    		</table>
+                
+                <div class="box-border padding_t20 padding_b20 padding_l10 padding_r10 margin_t15">
+	    			<table width="100%" class="text-center">
+	    				<colgroup>
+	    					<col>
+	    					<col width="14.28%">
+	    					<col width="14.28%">
+	    					<col width="14.28%">
+	    					<col width="14.28%">
+	    					<col width="14.28%">
+	    					<col width="14.28%">
+	    				</colgroup>
+	    				<tbody>
+	    					<tr>
+	    						<td>
+	    							<div class="f36 line-height-1">20</div>
+	    							<div class="font_gray margin_t5">视频监考总次数</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">5</div>
+	    							<div class="font_gray margin_t5">发起警告总次数</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">200</div>
+	    							<div class="font_gray margin_t5">发起即时聊天总次数</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">200</div>
+	    							<div class="font_gray margin_t5">截图总张数</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">500</div>
+	    							<div class="font_gray margin_t5">待审核人数</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">50%</div>
+	    							<div class="font_gray margin_t5">监考通过率</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">50%</div>
+	    							<div class="font_gray margin_t5">监考覆盖率</div>
+	    						</td>
+	    					</tr>
+	    				</tbody>
+	    			</table>
+	    		</div>
+            </div>
+	    </div>
+
+	    <div class="tabs-top clearfix margin_t10 block">
+	        <ul class="font18">
+	            <li class="cur" data-target="tab-1" data-toggle="tab">考试中(100)<i></i></li>
+	            <li data-target="tab-2" data-toggle="tab">暂时退出考试(100)<i></i></li>
+	            <li data-target="tab-3" data-toggle="tab">已完成考试(100)<i></i></li>
+	            <li class="last" data-target="tab-4" data-toggle="tab">未开始考试(100)<i></i></li>
+	        </ul>
+	    </div>
+
+	    <div class="block padding15">
+    		<div class="tabs-top-content">
+		    	<div class="tabs-top-panel" data-id="tab-1">
+	    			<div class="box-border form">
+		    			<div class="padding15">
+			    			<table width="100%" class="table-pad">
+			    				<colgroup>
+			    					<col width="60">
+			    					<col width="20%">
+
+			    					<col width="60">
+			    					<col width="20%">
+
+									<col>
+			    				</colgroup>
+			    				<tbody>
+			    					<tr>
+			    						<td class="text-nowrap text-right">学号</td>
+			    						<td>
+			    							<input class="textInput textInput-reset full-width">
+			    						</td>
+
+			    						<td class="text-nowrap text-right">姓名</td>
+			    						<td>
+			    							<input class="textInput textInput-reset full-width">
+			    						</td>
+
+			    						<td>
+			    							<button type="button" class="btn btn-dark-blue btn-sm min-width-100 margin_l5 vertical-middel">搜索</button>
+			    						</td>
+			    					</tr>
+			    				</tbody>
+			    			</table>
+		    			</div>
+		    		</div>
+			      	<div class="clearfix box-border padding15 margin_t15">
+		                <div class="fl">
+		                  <div class="clearfix">
+		                    <ul class="tabs-2">
+		                      <li class="cur" data-target="tab-111" data-toggle="tab">全部（2）</li>
+		                      <li data-target="tab-111" data-toggle="tab">监考中（1）</li>
+		                      <li data-target="tab-111" data-toggle="tab">监考已通过（1）</li>
+		                      <li data-target="tab-111" data-toggle="tab">监考未通过（1）</li>
+		                      <li data-target="tab-111" data-toggle="tab">待监考（1）</li>
+		                      <li data-target="tab-111" data-toggle="tab">警告中（1）</li>
+		                      <li data-target="tab-111" data-toggle="tab">有警告（1）</li>
+		                      <li class="last" data-target="tab-111" data-toggle="tab">暂停中（1）</li>
+		                    </ul>
+		                  </div>
+		                </div>
+		            </div>
+		            
+		            <div class="tabs-2-content">
+		            	<div class="tabs-2-panel" data-id="tab-111">
+			                <table class="table-basic f12 text-center">
+			                	<colgroup>
+			                		<col width="100">
+			                		<col width="18%">
+			                		<col>
+			                		<col width="8%">
+			                		<col width="11%">
+			                		<col width="10%">
+			                		<col width="8%">
+			                		<col width="8%">
+			                		<col width="8%">
+			                		<col width="8%">
+			                	</colgroup>
+			                    <thead>
+			                      <tr>
+			                        <th>头像</th>
+			                        <th>考生信息</th>
+			                        <th>考试统计</th>
+			                        <th>警告次数</th>
+			                        <th>人脸抓拍验证照片</th>
+			                        <th>视频监考记录</th>
+			                        <th>聊天记录</th>
+			                        <th>截图记录</th>
+			                        <th>监考状态</th>
+			                        <th>操作</th>
+			                      </tr>
+			                    </thead>
+			                    <tbody>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：刘丽文</li>
+				                        		<li>学号：101433588</li>
+				                        		<li>身份证：440105199901012356</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>考试进度：5%</li>
+				                        		<li>进入考试：09:00:00</li>
+				                        		<li>考试已用：00:10:00</li>
+				                        		<li>答题剩余：01:20:00</li>
+				                        		<li>考试状态：答题中</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	2
+				                        	<div class="font_red">（警告中）</div>
+				                        </td>
+				                        <td>
+				                        	<div class="font_orange">
+				                        		<div>10张</div>
+				                        		<div>（识别率 30%）</div>
+				                        	</div>
+				                        </td>
+				                        <td>
+				                        	1个
+				                        </td>
+				                        <td>1个</td>
+				                        <td>1张</td>
+				                        <td>
+				                        	<span class="font_orange">监考中</span>
+				                        	<div class="font_gray">（监考老师1）</div>
+				                        </td>
+				                        <td><a href="查看监考行为记录.html" data-role="view-inv-record">查看监考行为</a></td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：刘丽文</li>
+				                        		<li>学号：101433588</li>
+				                        		<li>身份证：440105199901012356</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>考试进度：5%</li>
+				                        		<li>进入考试：09:00:00</li>
+				                        		<li>考试已用：00:10:00</li>
+				                        		<li>答题剩余：01:20:00</li>
+				                        		<li>考试状态：暂停中</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	1
+				                        </td>
+				                        <td>
+				                        	<div class="font_orange">
+				                        		<div>6张</div>
+				                        		<div>（识别率 40%）</div>
+				                        	</div>
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>--</td>
+				                        <td>--</td>
+				                        <td>
+				                        	<span class="font_green">已通过</span>
+				                        	<div class="font_gray">（监考老师1）</div>
+				                        </td>
+				                        <td><a href="查看监考行为记录.html" data-role="view-inv-record">查看监考行为</a></td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：刘丽文</li>
+				                        		<li>学号：101433588</li>
+				                        		<li>身份证：440105199901012356</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>考试进度：5%</li>
+				                        		<li>进入考试：09:00:00</li>
+				                        		<li>考试已用：00:10:00</li>
+				                        		<li>答题剩余：01:20:00</li>
+				                        		<li>考试状态：暂停中</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	0
+				                        </td>
+				                        <td>
+				                        	<div class="font_green">
+				                        		<div>10张</div>
+				                        		<div>（识别率 80%）</div>
+				                        	</div>
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>--</td>
+				                        <td>--</td>
+				                        <td>
+				                        	
+				                        	<div class="font_gray">未监考</div>
+				                        </td>
+				                        <td><a href="查看监考行为记录.html" data-role="view-inv-record">查看监考行为</a></td>
+			                      	</tr>
+			                    </tbody>
+			                  </table>
+			                <div class="paging f12"><a href="javascript:;" class="disabled"> &lt;上一页 </a><a href="javascript:;" class="current">1</a><a href="javascript:;">2</a><a href="javascript:;">3</a><a href="javascript:;">4</a><a href="#">5</a><a href="javascript:;">6</a><a href="javascript:;">7</a>...<a href="javascript:;">199</a><a href="javascript:;">200</a><a href="javascript:;"> 下一页&gt; </a><span class="font_gray left10">共 100 页，到第
+			                  <input type="text">
+			                  页<a href="javascript:;" class="left5">确定</a></span></div>
+
+			                <div class="no-data margin_t20">
+				              <i class="icon-1"></i>
+				              <span class="gray margin_l15">暂无数据</span>
+				            </div>
+			            </div>
+		            </div>
+	            </div>
+	            <div class="tabs-top-panel hide" data-id="tab-2">
+	            	与前一tab项相同的排版
+	            </div>
+	            <div class="tabs-top-panel hide" data-id="tab-3">
+	    			<div class="box-border form">
+		    			<div class="padding15">
+			    			<table width="100%" class="table-pad">
+			    				<colgroup>
+			    					<col width="60">
+			    					<col width="20%">
+
+			    					<col width="60">
+			    					<col width="20%">
+
+									<col>
+			    				</colgroup>
+			    				<tbody>
+			    					<tr>
+			    						<td class="text-nowrap text-right">学号</td>
+			    						<td>
+			    							<input class="textInput textInput-reset full-width">
+			    						</td>
+
+			    						<td class="text-nowrap text-right">姓名</td>
+			    						<td>
+			    							<input class="textInput textInput-reset full-width">
+			    						</td>
+
+			    						<td>
+			    							<button type="button" class="btn btn-dark-blue btn-sm min-width-100 margin_l5 vertical-middel">搜索</button>
+			    						</td>
+			    					</tr>
+			    				</tbody>
+			    			</table>
+		    			</div>
+		    		</div>
+			      	<div class="clearfix box-border padding15 margin_t15">
+		                <div class="fl">
+		                  <div class="clearfix">
+		                    <ul class="tabs-2">
+		                      <li class="cur" data-target="tab-112" data-toggle="tab">全部（5）</li>
+		                      <li data-target="tab-112" data-toggle="tab">待审核（1）</li>
+		                      <li data-target="tab-112" data-toggle="tab">监考已通过（1）</li>
+		                      <li data-target="tab-112" data-toggle="tab">监考未通过（1）</li>
+		                      <li data-target="tab-112" data-toggle="tab">未监考（1）</li>
+		                      <li data-target="tab-112" data-toggle="tab">及格（1）</li>
+		                      <li data-target="tab-112" data-toggle="tab">不及格（1）</li>
+		                      <li data-target="tab-112" data-toggle="tab">成绩无效（1）</li>
+		                      <li class="last" data-target="tab-112" data-toggle="tab">待阅卷（1）</li>
+		                    </ul>
+		                  </div>
+		                </div>
+		            </div>
+		            
+		            <div class="tabs-2-content">
+		            	<div class="tabs-2-panel" data-id="tab-112">
+			                <table class="table-basic f12 text-center">
+			                	<colgroup>
+			                		<col width="100">
+			                		<col width="16%">
+			                		<col>
+			                		<col width="7%">
+			                		<col width="10%">
+			                		<col width="8%">
+			                		<col width="7%">
+			                		<col width="7%">
+			                		<col width="8%">
+			                		<col width="8%">
+			                		<col width="8%">
+			                	</colgroup>
+			                    <thead>
+			                      <tr>
+			                        <th>头像</th>
+			                        <th>考生信息</th>
+			                        <th>考试统计</th>
+			                        <th>警告次数</th>
+			                        <th>人脸抓拍验证照片</th>
+			                        <th>视频监考记录</th>
+			                        <th>聊天记录</th>
+			                        <th>截图记录</th>
+			                        <th>监考状态</th>
+			                        <th>最终审核状态</th>
+			                        <th>操作</th>
+			                      </tr>
+			                    </thead>
+			                    <tbody>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：刘丽文</li>
+				                        		<li>学号：101433588</li>
+				                        		<li>身份证：440105199901012356</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>考试次数：1/1</li>
+				                        		<li>最高得分：90</li>
+				                        		<li>本次得分：89</li>
+				                        		<li>进入考试：09:00:00</li>
+				                        		<li>提交试卷：09:30:00</li>
+				                        		<li>考试用时：00:30:00</li>
+				                        		<li>考试结果：
+				                        			<span class="font_green">	
+				                        				考试及格
+				                        			</span>
+				                        		</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	2
+				                        </td>
+				                        <td>
+				                        	<div class="font_orange">
+				                        		<u role="link">10张</u>
+				                        		<div>未通过验证</div>
+				                        		<div>（识别率 30%）</div>
+				                        	</div>
+				                        </td>
+				                        <td>
+				                        	<u role="link">1个</u>
+				                        </td>
+				                        <td>
+				                        	<u role="link">1个</u>
+				                        </td>
+				                        <td>
+				                        	<u role="link">1张</u>
+				                        </td>
+				                        <td>
+				                        	<span class="font_green">已通过</span>
+				                        	<div class="font_gray">（监考老师1）</div>
+				                        </td>
+				                        <td>
+				                        	<span class="font_orange">待审核</span>
+				                        </td>
+				                        <td><a href="查看监考行为记录2.html" data-role="view-inv-record">查看监考行为</a></td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：刘丽文</li>
+				                        		<li>学号：101433588</li>
+				                        		<li>身份证：440105199901012356</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>考试次数：1/1</li>
+				                        		<li>最高得分：90</li>
+				                        		<li>本次得分：89</li>
+				                        		<li>进入考试：09:00:00</li>
+				                        		<li>提交试卷：09:30:00</li>
+				                        		<li>考试用时：00:30:00</li>
+				                        		<li>考试结果：
+				                        			<span class="font_orange">	
+				                        				考试不及格
+				                        			</span>
+				                        		</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	1
+				                        </td>
+				                        <td>
+				                        	<div class="font_orange">
+				                        		<u role="link">6张</u>
+				                        		<div>未通过验证</div>
+				                        		<div>（识别率 30%）</div>
+				                        	</div>
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	<span class="font_green">已通过</span>
+				                        	<div class="font_gray">（监考老师1）</div>
+				                        </td>
+				                        <td>
+				                        	<span class="font_red">不通过</span>
+				                        	<div class="font_gray">（监考老师1）</div>
+				                        </td>
+				                        <td><a href="查看监考行为记录2.html" data-role="view-inv-record">查看监考行为</a></td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：刘丽文</li>
+				                        		<li>学号：101433588</li>
+				                        		<li>身份证：440105199901012356</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>考试次数：1/1</li>
+				                        		<li>最高得分：90</li>
+				                        		<li>本次得分：89</li>
+				                        		<li>进入考试：09:00:00</li>
+				                        		<li>提交试卷：09:30:00</li>
+				                        		<li>考试用时：00:30:00</li>
+				                        		<li>考试结果：
+				                        			<span class="font_orange">	
+				                        				考试成绩无效
+				                        			</span>
+				                        		</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	0
+				                        </td>
+				                        <td>
+				                        	<div class="font_green">
+				                        		<u role="link">10张</u>
+				                        		<div>已通过验证</div>
+				                        		<div>（识别率 83%）</div>
+				                        	</div>
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	<div class="font_gray">未监考</div>
+				                        </td>
+				                        <td>
+				                        	<span class="font_green">已通过</span>
+				                        	<div class="font_gray">（监考老师1）</div>
+				                        </td>
+				                        <td><a href="查看监考行为记录2.html" data-role="view-inv-record">查看监考行为</a></td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：刘丽文</li>
+				                        		<li>学号：101433588</li>
+				                        		<li>身份证：440105199901012356</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>考试次数：1/1</li>
+				                        		<li>最高得分：--</li>
+				                        		<li>本次得分：--</li>
+				                        		<li>进入考试：09:00:00</li>
+				                        		<li>提交试卷：09:30:00</li>
+				                        		<li>考试用时：00:30:00</li>
+				                        		<li>考试结果：
+				                        			<span class="font_gray">	
+				                        				考试待阅卷
+				                        			</span>
+				                        		</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	0
+				                        </td>
+				                        <td>
+				                        	<div class="font_green">
+				                        		<u role="link">10张</u>
+				                        		<div>已通过验证</div>
+				                        		<div>（识别率 83%）</div>
+				                        	</div>
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	<div class="font_gray">未监考</div>
+				                        </td>
+				                        <td>
+				                        	<span class="font_green">已通过</span>
+				                        	<div class="font_gray">（监考老师1）</div>
+				                        </td>
+				                        <td><a href="查看监考行为记录2.html" data-role="view-inv-record">查看监考行为</a></td>
+			                      	</tr>
+			                    </tbody>
+			                  </table>
+			                <div class="paging f12"><a href="javascript:;" class="disabled"> &lt;上一页 </a><a href="javascript:;" class="current">1</a><a href="javascript:;">2</a><a href="javascript:;">3</a><a href="javascript:;">4</a><a href="#">5</a><a href="javascript:;">6</a><a href="javascript:;">7</a>...<a href="javascript:;">199</a><a href="javascript:;">200</a><a href="javascript:;"> 下一页&gt; </a><span class="font_gray left10">共 100 页，到第
+			                  <input type="text">
+			                  页<a href="javascript:;" class="left5">确定</a></span></div>
+
+			                <div class="no-data margin_t20">
+				              <i class="icon-1"></i>
+				              <span class="gray margin_l15">暂无数据</span>
+				            </div>
+			            </div>
+		            </div>
+	            </div>
+	            <div class="tabs-top-panel hide" data-id="tab-4">
+	    			<div class="box-border form">
+		    			<div class="padding15">
+			    			<table width="100%" class="table-pad">
+			    				<colgroup>
+			    					<col width="60">
+			    					<col width="20%">
+
+			    					<col width="60">
+			    					<col width="20%">
+
+									<col>
+			    				</colgroup>
+			    				<tbody>
+			    					<tr>
+			    						<td class="text-nowrap text-right">学号</td>
+			    						<td>
+			    							<input class="textInput textInput-reset full-width">
+			    						</td>
+
+			    						<td class="text-nowrap text-right">姓名</td>
+			    						<td>
+			    							<input class="textInput textInput-reset full-width">
+			    						</td>
+
+			    						<td>
+			    							<button type="button" class="btn btn-dark-blue btn-sm min-width-100 margin_l5 vertical-middel">搜索</button>
+			    						</td>
+			    					</tr>
+			    				</tbody>
+			    			</table>
+		    			</div>
+		    		</div>
+	                <table class="table-basic f12 text-center margin_t15">
+	                	<colgroup>
+	                		<col width="15%">
+	                		<col width="25%">
+	                		<col width="25%">
+	                		<col>
+	                	</colgroup>
+	                    <thead>
+	                      <tr>
+	                        <th>头像</th>
+	                        <th>考生姓名</th>
+	                        <th>学号</th>
+	                        <th>身份证号码</th>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                      	<tr>
+		                        <td>
+		                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+		                        </td>
+		                        <td>
+		                        	刘丽文
+		                        </td>
+		                        <td>
+		                        	101433588
+		                        </td>
+		                        <td>
+		                        	440105199901012356
+		                        </td>
+	                      	</tr>
+	                      	<tr>
+		                        <td>
+		                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+		                        </td>
+		                        <td>
+		                        	刘丽文
+		                        </td>
+		                        <td>
+		                        	101433588
+		                        </td>
+		                        <td>
+		                        	440105199901012356
+		                        </td>
+	                      	</tr>
+	                      	<tr>
+		                        <td>
+		                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+		                        </td>
+		                        <td>
+		                        	刘丽文
+		                        </td>
+		                        <td>
+		                        	101433588
+		                        </td>
+		                        <td>
+		                        	440105199901012356
+		                        </td>
+	                      	</tr>
+	                      	<tr>
+		                        <td>
+		                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+		                        </td>
+		                        <td>
+		                        	刘丽文
+		                        </td>
+		                        <td>
+		                        	101433588
+		                        </td>
+		                        <td>
+		                        	440105199901012356
+		                        </td>
+	                      	</tr>
+	                      	<tr>
+		                        <td>
+		                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+		                        </td>
+		                        <td>
+		                        	刘丽文
+		                        </td>
+		                        <td>
+		                        	101433588
+		                        </td>
+		                        <td>
+		                        	440105199901012356
+		                        </td>
+	                      	</tr>
+	                    </tbody>
+	                  </table>
+	                <div class="paging f12"><a href="javascript:;" class="disabled"> &lt;上一页 </a><a href="javascript:;" class="current">1</a><a href="javascript:;">2</a><a href="javascript:;">3</a><a href="javascript:;">4</a><a href="#">5</a><a href="javascript:;">6</a><a href="javascript:;">7</a>...<a href="javascript:;">199</a><a href="javascript:;">200</a><a href="javascript:;"> 下一页&gt; </a><span class="font_gray left10">共 100 页，到第
+	                  <input type="text">
+	                  页<a href="javascript:;" class="left5">确定</a></span></div>
+
+	                <div class="no-data margin_t20">
+		              <i class="icon-1"></i>
+		              <span class="gray margin_l15">暂无数据</span>
+		            </div>
+	            </div>
+            </div>
+	    </div>
+	  </div>
+	</div>
+	<!--main--> 

@@ -1,0 +1,373 @@
+<script type="text/javascript">
+;(function(){
+	var USER_ID = commomLab.getQueryParam('formMap.USER_ID');
+	var PROJECT_ID = commomLab.getQueryParam('formMap.PROJECT_ID');
+
+	//参数不能为空
+	if(!USER_ID || !PROJECT_ID){
+		commomLab.myToast({msg:'参数不能为空'})
+		return;
+	}
+
+	window.appVm=new Vue({
+		el:"#app",
+		mixins:[mixin],
+		data:{
+			resData:false
+		},
+		created:function(){
+			var vm=this;
+
+			$.showIndicator();
+			//2、科目做题记录统计
+			commomLab.ajaxProcess({
+				url: '/api/coach/getExercisesInfo.do',
+				data: {
+					'formMap.USER_ID': USER_ID,
+					'formMap.PROJECT_ID': PROJECT_ID
+				}
+			})
+			.done(function(res){
+				if(res.code==200){
+					if(res.result){
+						vm.resData=res.result;
+
+						document.title=res.result.PROJECT_NAME;
+
+						vm.showHtml();
+					}
+					else{
+						vm.showHtml('数据为空');
+					}
+				}
+				else{
+					vm.showHtml(res.message);
+                }
+			})
+			.fail(function(){
+				vm.showHtml('数据查询异常');
+            });
+		},
+		methods:{
+	        openPopup:function(){
+	        	$.popup('#popoup');
+	        },
+	        startPractice:function(){
+	        	var vm=this;
+	        	if(vm.$refs.mypopup.selItem.length==0){
+		        	$.modal({
+				      	text: '<div class="text-orange"><span class="icon line-height-1" style="font-size:3rem;">&#xe620;</span></div>请先选择需要练习的知识点',
+				      	buttons: [
+					        {
+					          text: '确定',
+					          onClick: function() {
+					          
+					          }
+					        }
+				      	]
+				    });
+			    }
+			    else{
+			    	var params=[
+						{
+							name: 'formMap.USER_ID',
+							value: USER_ID
+						},
+						{
+							name: 'formMap.PROJECT_ID',
+							value: PROJECT_ID
+						},
+						{
+							name: 'formMap.EXERCISES_TYPE',
+							value: 3
+						},
+						{
+							name: 'formMap.KNOW_ID',
+							value: vm.$refs.mypopup.selItem.join(',')
+						}
+					];
+
+					params=$.param(params);
+
+					location.href='course-practice.html?'+params;
+			    }
+	        },
+	        entryPractice:function(type){
+	        	var vm=this;
+	        	var params=[
+					{
+						name: 'formMap.USER_ID',
+						value: USER_ID
+					},
+					{
+						name: 'formMap.PROJECT_ID',
+						value: PROJECT_ID
+					},
+					{
+						name: 'formMap.EXERCISES_TYPE',
+						value: type
+					}
+				];
+
+				params=$.param(params);
+
+				location.href='course-practice.html?'+params;
+	        },
+	        myErrorPractice:function(){
+	        	var vm=this;
+	        	var params=[
+					{
+						name: 'formMap.USER_ID',
+						value: USER_ID
+					},
+					{
+						name: 'formMap.PROJECT_ID',
+						value: PROJECT_ID
+					}
+				];
+
+				params=$.param(params);
+
+				location.href='course-practice-error.html?'+params;
+	        }
+		},
+		components:{
+			'popup-model':{
+				template:'#tpl',
+				mixins:[mixin],
+				data:function(){
+					return {
+						isAll:false,
+						selItem:[],
+						selCateItem:[],
+						cateList:false
+					}
+				},
+				created:function(){
+					var vm=this;
+
+					vm.$nextTick(function(){
+						//弹出窗口 并且 未加载过 时才加载数据	
+						$('#popoup').on('opened', function(event) {
+							if(!vm.isloaded){
+								vm.getKnowlegeList();
+							}
+						});
+					});
+				},
+				computed:{
+					allKnowleges:function(){
+						var vm=this;
+						var result=[];
+						$.each(vm.cateList, function(index, cate) {
+							//result.push(cate);
+							if(cate.KNOWLIST && cate.KNOWLIST.length>0){
+								$.each(cate.KNOWLIST, function(index, knowlege) {
+									result.push(knowlege);
+								});
+							}
+						});
+						return result
+					}
+				},
+				methods:{
+					getKnowlegeList:function(){
+						var vm=this;
+						
+						//知识点列表
+						commomLab.ajaxProcess({
+							url: '/api/coach/getKnowList.do',
+							data: {
+								'formMap.USER_ID': USER_ID,
+								'formMap.PROJECT_ID': PROJECT_ID,
+								'formMap.EXERCISES_TYPE':3
+							}
+						})
+						.done(function(res){
+							if(res.code==200){
+								if(
+									res.result &&
+									res.result.CLASSLIST &&
+									res.result.CLASSLIST.length>0
+								){
+									vm.cateList=res.result.CLASSLIST;
+
+									vm.isloaded=true;
+								}
+								else{
+									vm.showHtml('暂无知识点可选');
+								}
+							}
+						});
+
+					},
+					getStatus:function(status){
+						var result='';
+						status=status-0
+						switch(status){
+							case 1:
+								result = 'not-done';
+								break;
+							case 2:
+								result = 'not-mastered';
+								break;
+							case 3:
+								result = 'good';
+								break;
+							case 4:
+								result = 'excellent';
+								break;
+							default:
+								break;
+						}
+						return result;
+					},
+					slidePanel:function(event){
+						var that=event.target;
+						var $p=$(that).parent();
+						var $slidePanel=$p.siblings('.slide-box');
+
+						$slidePanel.slideToggle(function(){
+							if(!$(this).hasClass('expand')){
+								$p.addClass('close');
+							}
+							else{
+								$p.removeClass('close');
+							}
+							
+						});
+					},
+					selAll:function(e){
+						var vm=this;
+						vm.selItem=[];
+						vm.selCateItem=[];
+						if(e.target.checked){
+							$.each(vm.cateList, function(index, node) {
+								vm.selCateItem.push(node.KNOW_CLASS_ID);
+							});
+
+							$.each(vm.allKnowleges, function(index, node) {
+								vm.selItem.push(node.KNOW_ID);
+							});
+
+							vm.isAll=true;
+						}
+						else{
+							vm.isAll=false;
+						}
+					},
+					selCate:function(cateID,e){
+						var vm=this;
+						var children=[];
+						$.each(vm.cateList, function(index, cate) {
+							if(cate.KNOW_CLASS_ID==cateID){
+								children=cate.KNOWLIST;
+								return false;
+							}
+						});
+
+						//如果没有子结点，不做以下操作
+						if(children.length==0) return false;
+
+
+						if(e.target.checked){
+							$.each(children, function(n, knowlege) {
+								var isFound=false;
+								$.each(vm.selItem, function(m, selID) {
+									if(knowlege.KNOW_ID==selID){
+										isFound=true;
+										return false;
+									}
+								});
+
+								//缓存里不存在的时候才添加
+								if(!isFound){
+									vm.selItem.push(knowlege.KNOW_ID);
+								}
+							});
+
+							vm.$nextTick(function(){
+								//如果所有知识点都选
+								if(vm.selItem.length>0 && vm.selItem.length==vm.allKnowleges.length){
+									vm.isAll=true;
+								}
+							})
+						}
+						else{
+							if(vm.selItem.length>0){
+								//删除分类下的知识点
+								$.each(children, function(n, knowlege) {
+									$.each(vm.selItem, function(m, selID) {
+										if(knowlege.KNOW_ID==selID){
+											vm.selItem.splice(m, 1);
+											return false;
+										}
+									});
+								});
+							}
+
+							vm.isAll=false;
+						}
+					},
+					selNode:function(cateID, knowlegeID, e){
+						var vm=this;
+						if(e.target.checked){
+							var isFound=false;
+							$.each(vm.selCateItem, function(index, itemID) {
+								if(cateID==itemID){
+									isFound=true;
+									return false;
+								}
+							});
+
+							if(!isFound){
+								vm.selCateItem.push(cateID);
+							}
+
+							vm.$nextTick(function(){
+								if(vm.selItem.length>0 && vm.selItem.length==vm.allKnowleges.length){
+									vm.isAll=true;
+								}
+							});
+						}
+						else{
+							vm.isAll=false;
+							var children=[];
+							$.each(vm.cateList, function(index, cate) {
+								if(cate.KNOW_CLASS_ID==cateID){
+									children=cate.KNOWLIST;
+									return false;
+								}
+							});
+
+							vm.$nextTick(function(){
+								var counter=children.length;
+								$.each(children, function(index, knowlege) {
+
+									$.each(vm.selItem, function(index, item) {
+										if(knowlege.KNOW_ID==item){
+											--counter;
+											return false
+										}
+									});
+								});
+
+								if(counter==0){
+									$.each(vm.selCateItem, function(index, item) {
+										if(cateID==item){
+											vm.selCateItem.splice(index, 1)
+											return false
+										}
+									});
+								}
+
+							});
+							
+						}
+					}
+				}
+			}
+		}
+	});
+})();
+</script>

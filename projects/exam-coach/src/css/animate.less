@@ -1,0 +1,25 @@
+.animated {
+  animation-fill-mode: both;
+  animation-duration: 200ms;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+.fade-enter-active {
+  animation: fadeIn .2s;
+}
+.fade-leave-active{
+  display: none;
+}

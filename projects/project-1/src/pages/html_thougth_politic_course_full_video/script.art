@@ -1,0 +1,73 @@
+<script type="text/javascript">
+	window.app = new Vue({
+        el: '#app',
+        data: {
+        	isVidieoVisible:false,
+        	videourl:'http://172.16.165.93:8080/sample.mp4',
+			isVideoStop:true,
+			isVideoEnding:false
+        },
+        created:function(){
+        	
+        },
+        methods:{
+        	closeScreen:function(){
+        		var vm=this;
+        		var video=document.querySelector('[data-id="video"]');
+
+        		if(vm.isVideoEnding){
+        			vm.leavePage();
+        		}
+        		else{
+        			video.pause();
+
+				    $.modal({
+						title:  false,
+						text: '视频中将会教您如何快速有效<br>的学习思政课哦，<br>确定退出？',
+						buttons: [
+							{
+							  	text: '确定',
+							  	onClick: function() {
+							    	vm.leavePage();
+							  	}
+							},
+							{
+							  	text: '<span class="gray6">继续看</span>',
+							  	onClick: function() {
+							    	vm.playVideo();
+							  	}
+							}
+						]
+					})
+				}
+        	},
+			playVideo:function(){
+				var vm=this;
+				this.isVideoStop=false;
+				this.isVidieoVisible=true;
+				document.querySelector('[data-id="video"]').play();
+			},
+			ended:function(event) {
+				var vm=this;
+				var videoObj=event.target;
+
+				vm.isVideoEnding=true;
+				vm.isVidieoVisible=false;
+				vm.isVideoStop=true;
+
+				//vm.leavePage();
+				
+			},
+			leavePage:function(){
+				var url=location.origin+"/thougth_politic_course_index.html";
+				try{
+					//如果是APP端环境，就用该方法打开页面
+					Phone.goToSeePoliticCourse(url)
+				}catch(e){
+					location.href=url
+				}
+				
+			}
+        }
+    });
+</script>

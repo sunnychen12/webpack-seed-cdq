@@ -84,26 +84,39 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ "./src/css/less.less":
+/*!***************************!*\
+  !*** ./src/css/less.less ***!
+  \***************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(1);
-
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/css/less.less?");
 
 /***/ }),
-/* 1 */
+
+/***/ "./src/js/main.js":
+/*!************************!*\
+  !*** ./src/js/main.js ***!
+  \************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(2)
-//require('../pages/index/index.less')
-//import { commonLab } from './commonLab.js'
+eval("__webpack_require__(/*! ../css/less.less */ \"./src/css/less.less\")\r\n//require('../pages/index/index.less')\r\n//import { commonLab } from './commonLab.js'\n\n//# sourceURL=webpack:///./src/js/main.js?");
 
 /***/ }),
-/* 2 */
+
+/***/ 0:
+/*!******************************!*\
+  !*** multi ./src/js/main.js ***!
+  \******************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-// extracted by mini-css-extract-plugin
+eval("module.exports = __webpack_require__(/*! F:\\webpack-test\\webpack-seed-cdq\\projects\\project-1\\src\\js\\main.js */\"./src/js/main.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/main.js?");
 
 /***/ })
-/******/ ]);
+
+/******/ });

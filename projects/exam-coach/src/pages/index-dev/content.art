@@ -1,0 +1,44 @@
+	<div class="page-group" id="app" v-cloak>
+		<template v-if="isloaded">
+			<div class="page page-current" v-if="success">
+				<header class="bar bar-nav">
+				  <a class="icon icon-left pull-left"></a>
+				  <h1 class="title">考试辅导</h1>
+				</header>
+
+				<div class="content">
+				    <ul class="item-of-list">
+				        <li v-for="item in resData.COACHLIST">
+				            <a href="javascript:;" class="flex-box flex-align-stretch item-box" @click.prevent="jumpLink(item)">
+			                    <div class="flex-item">
+			                        <div class="tit">{{item.PROJECT_NAME}}</div>
+
+			                        <div class="info">
+				                        <div>科目编号：{{item.PROJECT_CODE}}</div>
+				                    	<div>课程：{{item.PROJECT_NAME}}</div>
+			                    	</div>
+			                    </div>
+			                    <div class="flex-box flex-box-justify-center flex-vertical width-border-left">
+			                    	<div class="text-center padding-l_75rem padding-r_75rem">
+				                    	<div>{{item.PASS_QASTORE_COUNT}}</div>
+				                    	<div class="gray9 font_55rem">练习次数</div>
+				                    </div>
+			                    </div>
+			                    <div class="flex-box flex-box-justify-center flex-vertical">
+			                    	<span class="icon icon-right"></span>
+			                    </div>
+			                    
+				            </a>
+				        </li>
+				    </ul>
+				</div>
+			</div>
+
+			<template v-else>
+				<% 
+					let errorTpl=require('../../components/com/errorTips.msg') 
+				%>
+				<%=errorTpl.replace(/\$\{PATH\}/g, host+'/'+commonSkinPath+'/') %>
+			</template>
+		</template>
+	</div>

@@ -1,0 +1,31 @@
+<script type="text/javascript">
+$(document)
+//tab选项卡
+.off('click', '[data-toggle="tab"]')
+.on('click', '[data-toggle="tab"]', function(event) {
+	var containerID=$(this).data('target');
+	var $relDiv=$('[data-id="'+containerID+'"]');
+
+	//选项卡方法
+	tabsLoad($(this), $relDiv.parent(), function(){
+		setTimeout(function(){
+			$relDiv.removeClass('hide')
+			.siblings().addClass('hide');
+
+			$(".over-mark").hide();
+		},1000);
+	});
+})
+//全选
+.on("click",'[data-role="sel-all"]',function(){
+  var $tbl=$(this).closest('.table-basic');
+  if($(this).is(":checked")){
+    $('[data-role="sel-item"]',$tbl).prop("checked",true);
+  }
+  else{
+    $('[data-role="sel-item"]',$tbl).prop("checked",false);
+  }
+});
+
+
+</script>

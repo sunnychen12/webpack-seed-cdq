@@ -4,7 +4,9 @@
 <%= header %>
 </head>
 <body>
-<%= content %>
+<div class="wrap">
+	<%= content %>
+</div>
 <%
 	var commonScript=require('../commonScript/commonScript.txt');
 	commonScript=commonScript.replace(/\{\{timemap\}\}/gm, new Date().getTime() )
@@ -14,5 +16,6 @@
 
 <%= script %>
 <%= footer %>
+
 </body>
 </html>

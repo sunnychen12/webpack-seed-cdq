@@ -1,0 +1,2 @@
+<!-- 加载公共插件 -->
+<script src="<%= commonSkinPath%>/requirejs/require.js" data-require-path="<%= commonSkinPath%>/"></script>

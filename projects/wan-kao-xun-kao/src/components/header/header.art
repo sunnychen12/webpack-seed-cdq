@@ -1,0 +1,22 @@
+	<!--header-->
+	<div class="global_header">
+	  <div class="body_area">
+	    <div class="clearfix">
+	      <div class="float_left"> 
+	      	<a href="index.html" class="logo text-white font20 margin_t20">
+	      		网考巡考平台
+	      	</a>
+	      </div>
+	      <ul class="xk-menu">
+	      	<li class="cur">
+	      		<a href="老师监考情况.html">老师监考情况</a>
+	      	</li>
+	      	<li>
+	      		<a href="学生考试情况.html">学生考试情况</a>
+	      	</li>
+	      </ul>
+	      <div class="float_right">admin，欢迎进入网考巡考平台！ [<a href="#">退出</a>]</div>
+	    </div>
+	  </div>
+	</div>
+	<!--header--> 

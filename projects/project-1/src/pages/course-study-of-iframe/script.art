@@ -189,6 +189,17 @@
 						completed: 1,
 						token: token
 					}
+				})
+				.done(function(res){
+					if(commomLab.checkAPIResult(res)){
+						//记录学员学习行为
+					    commomLab.addStudyAction({
+					        actType:'C002',
+					        actId:pageid,
+					        actName:pagetitle,
+					        actIsFin:true //标志活动为已完成
+					    });
+					}
 				});
 			}
 		});

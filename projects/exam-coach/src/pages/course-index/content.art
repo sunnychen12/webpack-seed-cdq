@@ -1,0 +1,174 @@
+	<div class="page-group" id="app" v-cloak>
+		<div class="page page-current">
+			<header class="bar bar-nav">
+			  <a class="icon icon-left pull-left" @click.prevent="historyBack"></a>
+			  <h1 class="title"><%=title%></h1>
+			</header>
+			<div class="content">
+			    <ul class="item-of-list">
+			    	<li>
+			            <div class="flex-box flex-align-center item-box">
+			            	<div class="text-center flex-item">
+		                    	<div class="font-1rem">10次</div>
+		                    	<div class="gray9 font_55rem margin-t_3rem">答题次数</div>
+		                    </div>
+		                    <div class="text-center flex-item width-border-left">
+		                    	<div class="font-1rem">10%</div>
+		                    	<div class="gray9 font_55rem margin-t_3rem">正确率</div>
+		                    </div>
+			            </div>
+			        </li>
+			        <li>
+			            <a href="course-practice.html" class="flex-box flex-align-center item-box">
+			            	<div class="margin-r_75rem">
+			            		<i class="fa fa-pencil course-icon-circle"></i>
+			            	</div>
+		                    <div class="flex-item">
+		                        <div class="tit">快速练题</div>
+
+		                        <div class="info">
+			                        <div>每次从题库中随机抽提20道题目</div>
+			                    	<div>已练习 1 次，答题 3 道，正确率 10%</div>
+		                    	</div>
+		                    </div>
+		                    <div class="padding-l_75rem">
+		                    	<span class="icon icon-right"></span>
+		                    </div>
+			            </a>
+			        </li>
+			        <li>
+			            <a href="course-practice.html" class="flex-box flex-align-center item-box">
+			            	<div class="margin-r_75rem">
+			            		<i class="fa fa-file-text course-icon-circle"></i>
+			            	</div>
+		                    <div class="flex-item">
+		                        <div class="tit">错题巩固</div>
+
+		                        <div class="info">
+			                        <div>每次从错题中随机抽提题目</div>
+			                    	<div>已练习 1 次，答题 3 道，正确率 10%</div>
+		                    	</div>
+		                    </div>
+		                    <div class="padding-l_75rem">
+		                    	<span class="icon icon-right"></span>
+		                    </div>
+			            </a>
+			        </li>
+			        <li>
+			            <div class="flex-box flex-align-center item-box" @click="openPopup">
+			            	<div class="margin-r_75rem">
+			            		<i class="fa fa-list course-icon-circle"></i>
+			            	</div>
+		                    <div class="flex-item">
+		                        <div class="tit">知识点练题</div>
+
+		                        <div class="info">
+			                        <div>根据知识点随机抽取题目</div>
+			                    	<div>已练习 1 次，答题 3 道，正确率 10%</div>
+		                    	</div>
+		                    </div>
+		                    <div class="padding-l_75rem">
+		                    	<span class="icon icon-right"></span>
+		                    </div>
+			            </div>
+			        </li>
+			        <li>
+			            <a href="course-practice.html" class="flex-box flex-align-center item-box">
+			            	<div class="margin-r_75rem">
+			            		<i class="fa fa-calendar-times-o course-icon-circle"></i>
+			            	</div>
+		                    <div class="flex-item">
+		                        <div class="tit">我的错题</div>
+
+		                        <div class="info">
+			                        <div>查看做错了的题目</div>
+			                    	<div>错题共 0 道</div>
+		                    	</div>
+		                    </div>
+		                    <div class="padding-l_75rem">
+		                    	<span class="icon icon-right"></span>
+		                    </div>
+			            </a>
+			        </li>
+			    </ul>
+			</div>
+		</div>
+
+		<div class="popup popup-select-knowlege" id="popoup">
+			<header class="bar bar-nav">
+			  <a class="icon icon-left pull-left close-popup"></a>
+			  <h1 class="title">请选择知识点练题</h1>
+			</header>
+		    <div class="bar bar-footer-btn padding-none">
+			  <div class="flex-box flex-align-center">
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat close-popup button-gray"><span class="gray9">取消</span></button>
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="startPractice">开始练题</button>
+			  </div>
+			</div>
+			
+			<popup-model ref="mypopup"></popup-model>
+		</div>
+	</div>
+
+
+
+	<script type="text/template" id="tpl">
+		<div class="content">
+			<div class="flex-box full-height flex-vertical flex-box-justify-center flex-align-center" v-if="!isloaded">
+				<div class="preloader"></div>
+			</div>
+
+			<div class="padding_75rem" else>
+				<div class="flex-box flex-align-center font_65rem">
+					<div class="flex-item">
+						<label class="course-type-label not-done"><span>未做题</span></label>
+						<label class="course-type-label not-mastered"><span>未掌握</span></label>
+						<label class="course-type-label good"><span>良好</span></label>
+						<label class="course-type-label excellent"><span>优秀</span></label>
+					</div>
+					<div>
+						<label class="sel-all">
+							<input type="checkbox" @click="selAll" :checked="isAll">
+							全部
+						</label>
+					</div>
+				</div>
+
+				<ul class="knowlege-cate-list">
+					<li class="item" v-for="(cate, index) in cateList">
+						<div class="flex-box flex-align-center holder" :class="[index!=0?'close':'']">
+							<i :class="['toggle', getStatus(cate.finishStatus)]" data-role="toggle"></i>
+							<div class="flex-item">
+								<div class="tit">{{cate.name}}</div>
+								<div class="info">知识掌握度：{{cate.masterDegree}}</div>
+							</div>
+							<div>
+								<input type="checkbox" :value="cate.id" v-model="selItem" @click="selCate(cate.id, $event)">
+							</div>
+						</div>
+						<div :class="['slide-box', index==0?'expand':'']" :style="{'height':index!=0?'0px':'auto'}">
+							<div class="slide-cnt">
+								<ul class="list-unstyled">
+									<li class="item" v-for="knowlege in cate.children">
+										<div class="flex-box flex-align-center holder">
+											<i :class="['toggle', getStatus(knowlege.finishStatus)]" data-role="toggle"></i>
+											<div class="flex-item">
+												<div class="tit">{{knowlege.name}}</div>
+												<div class="info">知识掌握度：{{knowlege.masterDegree}}</div>
+											</div>
+											<div>
+												<input type="checkbox" :value="knowlege.id" v-model="selItem" @click="selNode(cate.id, knowlege.id, $event)" :rel-cate-id="cate.id">
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</script>
+
+
+	

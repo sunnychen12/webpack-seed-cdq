@@ -1,0 +1,314 @@
+<script type="text/javascript">
+	var appVm=new Vue({
+		el:"#app",
+		mixins:[mixin],
+		data:{
+			text:''
+		},
+		methods:{
+			showHtml:function(){
+	            var vm=this;
+	            vm.isloaded=true;
+	            $.hideIndicator();
+	        },
+	        openPopup:function(){
+	        	$.popup('#popoup');
+	        },
+	        startPractice:function(){
+	        	var vm=this;
+	        	if(appVm.$refs.mypopup.selItem.length==0){
+		        	$.modal({
+				      	text: '<div class="text-orange"><span class="icon line-height-1" style="font-size:3rem;">&#xe620;</span></div>请先选择需要练习的知识点',
+				      	buttons: [
+					        {
+					          text: '确定',
+					          onClick: function() {
+					          
+					          }
+					        }
+				      	]
+				    });
+			    }
+	        }
+		},
+		components:{
+			'popup-model':{
+				template:'#tpl',
+				mixins:[mixin],
+				data:function(){
+					return {
+						isAll:false,
+						selItem:[],
+						cateList:[
+							{
+								id:1,
+								name:'知识点分类1',
+								masterDegree:'0%',
+								finishStatus: 1,
+								children:[
+									{
+										id:11,
+										name:'知识点1',
+										masterDegree:'0%',
+										finishStatus: 0,
+									},
+									{
+										id:12,
+										name:'知识点2',
+										masterDegree:'0%',
+										finishStatus: 1,
+									},
+									{
+										id:13,
+										name:'知识点3',
+										masterDegree:'0%',
+										finishStatus: 2,
+									},
+									{
+										id:14,
+										name:'知识点4',
+										masterDegree:'0%',
+										finishStatus: 3,
+									}
+								]
+							},
+							{
+								id:2,
+								name:'知识点分类2',
+								masterDegree:'0%',
+								finishStatus: 1,
+								children:[
+									{
+										id:21,
+										name:'知识点21',
+										masterDegree:'0%',
+										finishStatus: 0,
+									},
+									{
+										id:22,
+										name:'知识点22',
+										masterDegree:'0%',
+										finishStatus: 1,
+									},
+									{
+										id:23,
+										name:'知识点23',
+										masterDegree:'0%',
+										finishStatus: 2,
+									},
+									{
+										id:24,
+										name:'知识点24',
+										masterDegree:'0%',
+										finishStatus: 3,
+									}
+								]
+							},
+							{
+								id:3,
+								name:'知识点分类3',
+								masterDegree:'0%',
+								finishStatus: 0,
+								children:[
+									{
+										id:31,
+										name:'知识点31',
+										masterDegree:'0%',
+										finishStatus: 0,
+									},
+									{
+										id:32,
+										name:'知识点32',
+										masterDegree:'0%',
+										finishStatus: 1,
+									},
+									{
+										id:33,
+										name:'知识点33',
+										masterDegree:'0%',
+										finishStatus: 2,
+									},
+									{
+										id:34,
+										name:'知识点34',
+										masterDegree:'0%',
+										finishStatus: 3,
+									}
+								]
+							}
+						]
+					}
+				},
+				created:function(){
+					var vm=this;
+
+					vm.$nextTick(function(){
+						$('#popoup')
+						.on('closed', function(event) {
+							vm.isloaded=false;
+						})
+						.on('opened', function(event) {
+							vm.isloaded=true;
+						});
+
+						$('body')
+						.on('click', '[data-role="toggle"]', function(event) {
+							var that=this;
+							var $p=$(this).parent();
+							var $slidePanel=$p.siblings('.slide-box');
+
+							$slidePanel.slideToggle(function(){
+								if(!$(this).hasClass('expand')){
+									$p.addClass('close');
+								}
+								else{
+									$p.removeClass('close');
+								}
+								
+							});
+						});
+					});
+				},
+				computed:{
+					cateAllNode:function(){
+						var vm=this;
+						var result=[];
+						$.each(vm.cateList, function(index, cate) {
+							result.push(cate);
+							if(cate.children && cate.children.length>0){
+								$.each(cate.children, function(index, knowlege) {
+									result.push(knowlege);
+								});
+							}
+						});
+						return result
+					}
+				},
+				methods:{
+					getStatus:function(status){
+						var result='';
+						switch(status){
+							case 0:
+								result = 'not-done';
+								break;
+							case 1:
+								result = 'not-mastered';
+								break;
+							case 2:
+								result = 'good';
+								break;
+							case 3:
+								result = 'excellent';
+								break;
+							default:
+								break;
+						}
+						return result;
+					},
+					selAll:function(e){
+						var vm=this;
+						vm.selItem=[];
+						if(e.target.checked){
+							$.each(vm.cateAllNode, function(index, node) {
+								vm.selItem.push(node.id);
+							});
+
+							vm.isAll=true;
+						}
+						else{
+							vm.isAll=false;
+						}
+					},
+					selCate:function(cateID,e){
+						var vm=this;
+						var children=[];
+						$.each(vm.cateList, function(index, cate) {
+							if(cate.id==cateID){
+								children=cate.children;
+								return false;
+							}
+						});
+
+						//如果没有子结点，不做以下操作
+						if(children.length==0) return false;
+
+
+						if(e.target.checked){
+							$.each(children, function(n, knowlege) {
+								var isFound=false;
+								$.each(vm.selItem, function(m, selID) {
+									if(knowlege.id==selID){
+										isFound=true;
+										return false;
+									}
+								});
+
+								if(!isFound){
+									vm.selItem.push(knowlege.id);
+								}
+							});
+
+							vm.$nextTick(function(){
+								if(vm.selItem.length>0 && vm.selItem.length==vm.cateAllNode.length){
+									vm.isAll=true;
+								}
+							})
+						}
+						else{
+							if(vm.selItem.length>0){
+								$.each(children, function(n, knowlege) {
+									$.each(vm.selItem, function(m, selID) {
+										if(knowlege.id==selID){
+											vm.selItem.splice(m, 1);
+											return false;
+										}
+									});
+								});
+							}
+
+							vm.isAll=false;
+						}
+					},
+					selNode:function(cateID, knowlegeID, e){
+						var vm=this;
+						if(e.target.checked){
+							var isFound=false;
+							$.each(vm.selItem, function(index, itemID) {
+								if(cateID==itemID){
+									isFound=true;
+									return false;
+								}
+							});
+
+							if(!isFound){
+								vm.selItem.push(cateID);
+							}
+
+							vm.$nextTick(function(){
+								if(vm.selItem.length>0 && vm.selItem.length==vm.cateAllNode.length){
+									vm.isAll=true;
+								}
+							});
+						}
+						else{
+							vm.isAll=false;
+							vm.$nextTick(function(){
+								if(document.querySelectorAll('[rel-cate-id="'+cateID+'"]:checked').length==0){
+									$.each(vm.selItem, function(index, itemID) {
+										if(cateID==itemID){
+											vm.selItem.splice(index, 1);
+											return false;
+										}
+									});
+								}
+							})
+							
+						}
+					}
+				}
+			}
+		}
+	});
+
+	
+</script>

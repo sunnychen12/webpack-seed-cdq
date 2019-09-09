@@ -1,0 +1,145 @@
+/*************表单 start*************/
+.button.button-danger.button-big{
+	background-color: @color-red;
+	height: 2rem;
+	line-height: 2rem;
+	font-size: .7rem;
+}
+.button.button-gray{
+	border:1px solid #999999;
+    color:#fff;
+    background:#dddddd !important;
+}
+.button[disabled]{
+    color:#fff !important;
+    background:#dddddd !important;
+}
+.button.button-white{
+	border:1px solid #fff;
+    color:#fff;
+}
+.button-md {
+    font-size: 0.85rem;
+    height: 2rem !important;
+    line-height: 2.2rem !important;
+}
+
+//单选/多选
+.checkbox-group{
+	margin: 1rem .5rem;
+	.checkbox-control{
+		position: absolute;
+    	left: -9999em;
+		&:checked,&[data-result="1"]{
+			 + .checkbox-icon{
+				background: @color-blue;
+				border-color: @color-blue;
+				color: #fff;
+			}
+			~ .checkbox-txt{
+				color: @color-blue;
+			}
+		}
+		&[disabled]{
+			&[data-result="1"]:not(:checked),
+			&:checked[data-result="0"]{
+				+ .checkbox-icon{
+					.icomoon{
+						display: block;
+						color: #fff;
+						&:before{
+							display: inline-block;
+						}
+					}
+					.checkbox-order{
+						display: none;
+					}
+				}
+			}
+
+			&[data-result="1"]:not(:checked){
+				+ .checkbox-icon{
+					.icomoon{
+						&:before{
+							content: '\e901';
+						}
+					}
+				}
+			}
+
+			&:checked{
+				&[data-result="0"]{
+					+ .checkbox-icon{
+						background: @color-red;
+						border-color: @color-red;
+						color: #fff;
+						.icomoon{
+							&:before{
+								content: '\e906';
+							}
+						}
+					}
+					~ .checkbox-txt{
+						color: @color-red;
+					}
+				}
+				
+			}
+		}
+		&[type="checkbox"]{
+			&+.checkbox-icon{
+				border-radius: .1rem;
+			}
+		}
+	}
+	.checkbox-icon{
+		display: inline-block;
+		border-radius: 50%;
+		width: 1.2rem;
+		height: 1.2rem;
+		border:1px solid #d8d8d8;
+		text-align: center;
+		font-size: 0;
+		position: relative;
+		vertical-align: middle;
+		.checkbox-order{
+			line-height: 1.1rem;
+			width: 1.15rem;
+			text-align: center;
+			display: block;
+			font-size: .75rem;
+			font-style: normal;
+		}
+		.icomoon{
+			font-size: .6rem;
+			line-height: 1;
+			height: 1em;
+			color: #666;
+			top: 50%;
+			left: 50%;
+			margin: -.5em 0 0 -0.5em;
+			position: absolute;
+			display: none;
+		}
+		
+	}
+	.checkbox-txt{
+		line-height: 1.2rem;
+		margin-left: .5rem;
+	}
+}
+
+.edit-input,
+.fillAnswer{
+	border: 0 none;
+	border-bottom: 1px solid #ccc;
+	padding: 0 .2rem .1rem;
+	font-size: inherit;
+	font-family: inherit;
+	background: transparent;
+	width: 6em;
+	text-align: center;
+	height: 1.1em;
+	margin: .2rem;
+}
+/*************表单 end*************/

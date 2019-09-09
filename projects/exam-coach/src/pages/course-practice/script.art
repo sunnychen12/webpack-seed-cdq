@@ -1,0 +1,111 @@
+<script type="text/javascript">
+	/*
+	$.modal({
+		extraClass: 'reset-model model-button-6by4',
+      	text: [
+      		'<div class="text-orange">',
+      			'<span class="icon line-height-1" style="font-size:3rem;">&#xe620;</span>',
+			'</div>',
+			'上次练习还未提交，请继续练习！',
+			'<div class="font_65rem gray6 margin-t_5rem">',
+				'<div>',
+					'你上次答到',
+					'<span class="text-orange">第2题</span>，剩余',
+					'<span class="text-orange">18题</span> 未答！',
+				'</div>',
+				'<div>你可以选择"继续上一次答题"或"提交练习"</div>',
+			'</div>'
+      	].join(''),
+      	buttons: [
+	        {
+	          text: '提交练习',
+	          onClick: function() {
+	          
+	          }
+	        },
+	        {
+	          text: '继续上次答题',
+	          onClick: function() {
+	          
+	          }
+	        }
+      	]
+    });
+    
+    
+    $.modal({
+    	extraClass: 'model-md',
+      	text: [
+      		'<div class="text-orange">',
+      			'<span class="icon line-height-1" style="font-size:3rem;">&#xe620;</span>',
+			'</div>',
+			'确定提交练习？',
+			'<div class="font_65rem gray6 margin-t_5rem">',
+				'共 100 题目，已答 100 题，剩余 0 题',
+			'</div>'
+      	].join(''),
+      	buttons: [
+	        {
+	          text: '取消',
+	          onClick: function() {
+	          
+	          }
+	        },
+	        {
+	          text: '提交练习',
+	          onClick: function() {
+	          
+	          }
+	        }
+      	]
+    });
+    */
+    var appVm=new Vue({
+		el:"#app",
+		mixins:[mixin],
+		data:{
+			text:''
+		}
+	});
+
+    var $subjectList=$('.practice-subject-item')
+		, len=$subjectList.length
+		, curIndex=0;
+
+    $('.page')
+	//下一题
+	.on('click', '[data-subject="next"]', function(event) {
+		if(curIndex<len-1){
+			$subjectList.eq(++curIndex).fadeIn()
+			.siblings().hide();
+			if(curIndex==len-1){
+				$(this).prop('disabled', true);
+			}
+			if(curIndex>0){
+				$('[data-subject="prev"]').prop('disabled', false);
+			}
+		}
+	})
+	//上一题
+	.on('click', '[data-subject="prev"]', function(event) {
+		if(curIndex>0){
+			$subjectList.eq(--curIndex).fadeIn()
+			.siblings().hide();
+			if(curIndex==0){
+				$(this).prop('disabled', true);
+			}
+			if(len>1 && curIndex<len-1){
+				$('[data-subject="next"]').prop('disabled', false);
+			}
+		}
+	});
+
+
+	$('.popup-about')
+	.on('open', function(event) {
+		//答题卡的显示处理
+		commomLab.resetAnsCard();
+	});
+	
+
+</script>

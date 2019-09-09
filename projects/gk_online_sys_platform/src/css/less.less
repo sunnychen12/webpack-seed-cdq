@@ -1,0 +1,53 @@
+
+.navbar{height:50px;}
+.navbar-custom-menu>.navbar-nav>li>.dropdown-menu{right: 0;width: auto;padding: 10px 0;}
+
+.main-header{max-height:none;height:50px;}
+.main-header .logo{padding:0 5px;font-size: 18px;}
+@media (max-width: 767px){
+	.main-header{height:100px;}
+}
+.logo-lg .fa{font-size: 40px;vertical-align: middle;margin-right: 5px;width: 1em;}
+
+//侧边栏
+.main-sidebar .slimScrollBar{background: #000 !important;}
+.sidebar-menu li.header{font-size:14px;overflow: hidden;height: 0;padding: 0;margin-top: 15px;}
+.sidebar-menu>li>a>.fa{font-size: 18px;}
+
+//内页装载
+.page > iframe{height:100%;width:100%;border:0;}
+
+//侧边宽度调整
+@sideWidth:200px;
+@media (min-width:768px){
+	.content-wrapper,
+	.main-header>.navbar{
+		margin-left:@sideWidth;
+	}
+	.main-header .logo,
+	.main-sidebar{
+		width:@sideWidth;
+	}
+}
+
+//框架外部顶级菜单 及 更多
+.first-level-wrap .cur > a{
+	background-color: #e1e3e9;
+    color: #333;
+}
+@media (max-width:767px){
+	.operion-more-menu .dropdown-menu{position:absolute !important;background-color: #fff !important;border: 1px solid #ccc !important;border: 1px solid rgba(0,0,0,.15) !important;box-shadow: 0 6px 12px rgba(0,0,0,.175) !important;margin-top:2px !important;}
+	.operion-more-menu .dropdown-menu a{color: #333 !important;}
+	.operion-more-menu .dropdown-menu a:hover{color: #fff !important;}
+
+}
+@media (min-width:992px){
+	.first-level-wrap{margin-right: 70px;}
+}
+.first-level-menu{height:50px;margin:0;list-style:none;padding:0;overflow:hidden;text-align:right;}
+.first-level-menu > li{color:#fff !important;display:inline-block;line-height:50px;padding:0 1em;cursor:pointer;white-space:nowrap;}
+.first-level-menu > li:hover,.first-level-menu > li.cur{background: rgba(0,0,0,0.1);}
+.operion-more-menu.open .fa:before{content: "\f0d8";}
+.operion-more-menu a.dropdown-toggle{color:#fff;line-height:50px;background:none;display:inline-block;padding:0 .5em 0 1em;}
+.operion-more-menu a.dropdown-toggle:hover{background: rgba(0,0,0,0.1);}
+.operion-more-menu .dropdown-menu{margin-top: 0 !important;}

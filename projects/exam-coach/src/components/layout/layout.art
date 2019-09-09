@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%= header %>
+</head>
+<body class="<%= bodyCssSelectors%>">
+<%= content %>
+<%= footer %>
+<script src="<%= bathPath%>/dist/js/requirejs/require.js" data-require-path="<%= bathPath%>/"></script>
+<%= script %>
+
+</body>
+</html>

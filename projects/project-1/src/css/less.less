@@ -1570,3 +1570,338 @@
 
 	}
 }
+
+//思政课专题 -start
+.thougth-politic-slider-box{
+	background: url(images/bg6.jpg) no-repeat center -1rem #3e4bd0;
+	background-size: 100% auto;
+	height: 12rem;
+	position: relative;
+	.swiper-container{
+		position: absolute;
+		width: 100%;
+		bottom: .2rem;
+		left: 0;
+		z-index: 2;
+		.t-p-slide-item{
+			box-shadow:0 2px 8px 0 rgba(153,153,153,0.30);
+		}
+	}
+	.swiper-pagination{
+		bottom: 5px !important;
+	}
+	.swiper-pagination-bullet{
+		width: 6px;
+		height: 6px;
+	}
+	.t-p-arc-bg{
+		z-index: 1;
+		position: absolute;
+		width: 100%;
+		left: 0;
+		bottom: 0;
+		height: 3.2rem;
+		overflow: hidden;
+		
+		&:before{
+			content: '';
+			position: absolute;
+			width: 320%;
+			padding-bottom: 300%;
+			left: 50%;
+			border-radius: 50%;
+			top: 0;
+			transform:translateX(-50%);
+			background-color: #F6F6F6;
+		}
+	}
+	.t-p-slide-item{
+		background: url(images/bg7.jpg) no-repeat top left/100% 100%;
+		height: 9rem;
+		width: 87%;
+		border-radius: .3rem;
+	}
+	.socre-circle{
+		width: 2rem;
+		height: 2rem;
+		font-size: .55rem;
+	}
+	.sel-label{
+		@h:1.4rem;
+		color: #fff;
+		font-size: .55rem;
+		background-color: #4c8ee0;
+		line-height: @h;
+		height: @h;
+		border-radius: @h/2;
+		border-bottom-left-radius: 0;
+		padding: 0 .8em;
+		transform: scale(.87);
+	}
+}
+
+//热议
+.daily-wrap{
+	.daily-rec-img{
+		width: 3.2rem;
+	}
+	a{
+		color: #333;
+	}
+	.daily-list{
+		li{
+			margin: .3em 0;
+			&:last-child{
+				margin-bottom: 0;
+			}
+		}
+		a{
+			position: relative;
+			display: block;
+			.text-ellipsis;
+			padding:.3em 0 .3em 1.2em;
+			&:before{
+				content: '';
+				position: absolute;
+				left: 0;
+				top: .7em;
+				width: 5px;
+				height: 5px;
+				border-radius: 50%;
+				background-color: #ccc;
+			}
+		}
+	}
+}
+
+.master-list{
+	li{
+		margin: .3rem 0;
+	}
+	a{
+		padding: .5rem 0;
+		color: #ccc;
+	}
+	img{
+		border-radius: .3rem;
+		width: 5rem;
+		vertical-align: middle;
+	}
+	.item-title{
+		font-size: .75rem;
+		color: #333;
+	}
+	.txt{
+		margin-top: .3rem;
+		line-height: 1.2rem;
+		max-height: 2.4rem;
+		display: -webkit-box;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+}
+
+.sz-books-wrap,
+.t-p-video-wrap{
+	.swiper-slide{
+		width: 6.5rem;
+		img{
+			box-shadow: 0 0 10px #ccc !important;
+		}
+	}
+}
+.t-p-video-wrap{
+	.edu-swiper-img{
+		position: relative;
+		&:after{
+			content: '';
+			background: url(images/play-icon.png) no-repeat center center/100% 100%;
+			width: 1.5rem;
+			height: 1.5rem;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin: -.75rem 0 0 -.75rem;
+		}
+	}
+}
+
+//思政课列表页面
+.t-p-list-box{
+	min-height: 0;
+	border-radius: .3rem;
+}
+.t-p-list-header{
+	background:url(images/bg8.png) no-repeat center top/100% 100%;
+	height: 9rem;
+	.header-tit{
+		font-size: 1rem;
+		color: #fff;
+		padding:.3rem 0 .8rem;
+		position: relative;
+		font-weight: bold;
+		margin-bottom: .8rem;
+		&:after{
+			content: '';
+			width: 100%;
+			height: 2px;
+			bottom: 0;
+			left: 0;
+			position: absolute;
+			background-color: rgba(255,255,255,.5);
+
+		}
+	}
+}
+
+.t-p-list-status{
+	.tit{
+		color: rgba(255,255,255,.7);
+		font-size: .65rem;
+	}
+	.num{
+		font-size: 1.3rem;
+		font-weight: bold;
+		color: #fff;
+		line-height: 1;
+		margin-top: .5rem;
+	}
+}
+
+.t-p-list{
+	h5{
+		margin: 0;
+		font-size: .75rem;
+		.text-ellipsis;
+	}
+	.info{
+		font-size: .55rem;
+		color: #ccc;
+		margin-top: .4rem;
+		span{
+			margin-right: 1em;
+			&:last-child{
+				margin-right: 0;
+			}
+		}
+	}
+	>li{
+		padding: 1rem 0;
+	}
+	.label{
+		background: linear-gradient(to right,#a3adc1, #5390dd);
+		color: #fff;
+		font-size: .65rem;
+		height: 1.6rem;
+		line-height: 1.6rem;
+		padding: 0 1rem;
+		border-radius: .8rem;
+		margin-left: .5rem;
+	}
+}
+
+.t-p-list2{
+	h5{
+		margin: 0;
+		font-size: .75rem;
+	}
+	.info{
+		font-size: .55rem;
+		color: #bbb;
+		span{
+			margin-right: 1em;
+			&:last-child{
+				margin-right: 0;
+			}
+		}
+
+	}
+	.choose-status{
+		margin-left: .2rem;
+
+		.label{
+			font-size: .5rem;
+			padding-top: 0.3em;
+			transform: scale(.8);
+			border-radius: 3px;
+			white-space: nowrap;
+			border:1px solid #bbb;
+			color: #bbb;
+			&[required]{
+				border-color: @color-lighten-blue;
+				color: @color-lighten-blue;
+			}
+		}
+		
+	}
+	.study-status.label{
+		background: linear-gradient(to right,#027FFE, #A9B0C0);
+		color: #fff;
+		font-size: .55rem;
+		height: 1.2rem;
+		line-height: 1.2rem;
+		padding: 0 .5rem;
+		border-radius: .6rem;
+		margin-left: .5rem;
+		transform: scale(.9);
+		&.has-fin{
+			background: #A9B0C0;
+		}
+	}
+	>li{
+		padding: 1rem .1rem;
+		cursor: pointer;
+		transition:box-shadow .2s ease-out;
+		&:hover{
+			box-shadow: 0 0 10px #ccc;
+		}
+	}
+	
+}
+
+.t-p-list-swiper{
+	width: 100%;
+	.swiper-container{
+		padding-bottom: 0;
+		margin-bottom: .7rem;
+		box-shadow: 0 .5rem 1rem 0 rgba(11,97,185,0.30);
+	}
+	.swiper-pagination{
+		bottom: 0px;
+		left: 0;
+		position: relative;
+		.swiper-pagination-bullet{
+			margin: 0 4px;
+		}
+	}
+	.embed-responsive{
+		padding-bottom: 56.5%;
+		border-radius: .3rem;
+	}
+	.swiper-title-list{
+		
+	}
+	.v-icon{
+		width: 3.5rem;
+		height: 2rem;
+		line-height: 2rem;
+		background-color: rgba(36, 139, 245, 0.85);
+		position: absolute;
+		transform: translate(-50%, -50%);
+		top: 50%;
+		left: 50%;
+		border-radius: 1rem;
+		text-align: center;
+		&:before{
+			content: '';
+			display: inline-block;
+			border-style:solid solid solid dashed;
+			border-width: .5rem 0 .5rem .7rem;
+			border-color: transparent transparent transparent #fff;
+			vertical-align: middle;
+		}
+	}
+}
+//思政课专题 -end

@@ -1,0 +1,263 @@
+	<div class="page-group" id="app" v-cloak>
+		<template v-if="isloaded">
+			<template v-if="success">
+				<div class="page page-current">
+					<header class="bar bar-nav">
+					  <a class="icon icon-left pull-left" @click.prevent="historyBack"></a>
+					  <a class="button button-link pull-right open-popup" data-popup=".popup-view-card">
+					    {{practiceOrder}}/{{practiceData.WRONGLIST.length}}
+					  </a>
+					  <h1 class="title">我的错题</h1>
+					</header>
+					<div class="bar bar-footer-btn padding-none">
+					  <div class="flex-box flex-align-center">
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="viewPrev" :disabled="curPracticeIndex==0">上一题</button>
+
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="viewNext" :disabled="curPracticeIndex==practiceData.WRONGLIST.length-1">下一题</button>
+					  </div>
+					</div>
+					<div class="content">
+						<div class="padding_75rem">
+						    <div class="practice-subject-item" v-if="curPractice">
+								<label class="label label-blue-boder">{{getQueType(curPractice.QASTORE_TYPE)}}</label>
+								<div class="practice-subject-header margin-t_3rem">
+									<div class="txt" v-html="curPractice.QASTORE_TITLE"></div>
+								</div>
+
+								<div class="sub-practice-list">
+									<!--非综合题-->
+									<template v-if="!curPractice.SONLIST">
+										<div class="sub-practice-item margin-top-none">
+											<div class="practice-subject-sel-list border-none" v-if="curPractice.QASTORE_TYPE=='radio' || curPractice.QASTORE_TYPE=='checkbox' || curPractice.QASTORE_TYPE=='whether'">
+												<label class="checkbox-group flex-box" 
+														v-for="(optItem, qaItemIndex) in curPractice.OPTLIST">
+
+													<input class="checkbox-control" :name="optItem.QASTORE_ID" :value="optItem.OPTION_ID" disabled :checked="optItem.IS_ANSWER=='Y'" 
+														 :type="
+														 	(
+														 		curPractice.QASTORE_TYPE=='radio' ||
+														 		curPractice.QASTORE_TYPE=='whether'
+														 	)?'radio':'checkbox'
+														 "
+													>
+
+													<span class="checkbox-icon">
+														<i class="icomoon"></i>
+														<em class="checkbox-order"></em>
+													</span>
+													<div class="flex-item checkbox-txt">
+														{{optItem.OPTION_CONTENT}}
+													</div>
+												</label>
+											</div>
+
+											<!--显示答案-->
+											<div class="practice-subject-ans">
+												<table width="100%">
+													<tbody>
+														<tr>
+															<td class="td-label">正确答案：</td>
+															<td class="td-cnt">
+																<template 
+																	v-if="
+																		curPractice.QASTORE_TYPE=='radio' ||
+																		curPractice.QASTORE_TYPE=='checkbox' ||
+																		curPractice.QASTORE_TYPE=='whether'"
+																	>
+																	<template v-for="(optItem, qaItemIndex) in curPractice.OPTLIST">
+																		<template v-if="optItem.IS_ANSWER=='Y'">
+																			{{getSelItemChar(optItem.ORDER_NO)}}
+																		</template>
+																	</template>
+																</template>
+																<ul class="list-unstyled" v-else-if="curPractice.QASTORE_TYPE=='fill'">
+																	<li v-for="(optItem, optItemIndex) in curPractice.OPTLIST">
+																		空{{optItemIndex+1}}：正确答案：{{optItem.OPTION_CONTENT}}
+																	</li>
+																</ul>
+																<div class="text-orange" v-else-if="curPractice.QASTORE_TYPE=='question'">
+																	参考解析
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">题目解析：</td>
+															<td class="td-cnt">
+																<template v-if="curPractice.QASTORE_ANALYTIC">
+																	<div v-html="curPractice.QASTORE_ANALYTIC"></div>
+																</template>
+																<template v-else>
+																	暂无
+																</template>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">知识点：</td>
+															<td class="td-cnt">
+																<template v-if="curPractice.KNOW_NAME">
+																	{{curPractice.KNOW_NAME}}
+																</template>
+																<template v-else>
+																	暂无
+																</template>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">答对次数：</td>
+															<td class="td-cnt">{{curPractice.RIGHT_COUNT>=0?curPractice.RIGHT_COUNT:'--'}}</td>
+														</tr>
+														<tr>
+															<td class="td-label">答错次数：</td>
+															<td class="td-cnt">{{curPractice.WRONG_COUNT>=0?curPractice.WRONG_COUNT:'--'}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</template>
+									<template v-else>
+										<div class="sub-practice-item" v-if="curPractice.SONLIST.length>0" v-for="(subPractice, subPracticeIndex) in curPractice.SONLIST">
+											<label class="label label-blue-boder">{{getQueType(subPractice.QASTORE_TYPE)}} 第{{subPracticeIndex+1}}题</label>
+											<div class="practice-subject-header margin-t_3rem">
+												<div class="txt" v-html="subPractice.QASTORE_TITLE"></div>
+											</div>
+
+											
+
+											<div class="practice-subject-sel-list" 
+												v-if="
+													subPractice.QASTORE_TYPE=='radio' ||
+													subPractice.QASTORE_TYPE=='checkbox' ||
+													subPractice.QASTORE_TYPE=='whether'
+												">
+												<label class="checkbox-group flex-box" 
+														v-for="(optItem, qaItemIndex) in subPractice.OPTLIST">
+
+													<input class="checkbox-control" :name="optItem.QASTORE_ID" :value="optItem.OPTION_ID" disabled :checked="optItem.IS_ANSWER=='Y'" 
+														 :type="
+														 	(
+														 		subPractice.QASTORE_TYPE=='radio' ||
+														 		subPractice.QASTORE_TYPE=='whether'
+														 	)?'radio':'checkbox'
+														 "
+													>
+													
+													
+													<span class="checkbox-icon">
+														<i class="icomoon"></i>
+														<em class="checkbox-order"></em>
+													</span>
+													<div class="flex-item checkbox-txt">
+														{{optItem.OPTION_CONTENT}}
+													</div>
+												</label>
+											</div>
+
+											<!--显示答案-->
+											<div class="practice-subject-ans">
+												<table width="100%">
+													<tbody>
+														<tr>
+															<td class="td-label">正确答案：</td>
+															<td class="td-cnt">
+																<template 
+																	v-if="
+																		subPractice.QASTORE_TYPE=='radio' ||
+																		subPractice.QASTORE_TYPE=='checkbox' ||
+																		subPractice.QASTORE_TYPE=='whether'"
+																	>
+																	<template v-for="(optItem, qaItemIndex) in subPractice.OPTLIST">
+																		<template v-if="optItem.IS_ANSWER=='Y'">
+																			{{getSelItemChar(optItem.ORDER_NO)}}
+																		</template>
+																	</template>
+																</template>
+																<ul class="list-unstyled" v-else-if="subPractice.QASTORE_TYPE=='fill'">
+																	<li v-for="(optItem, optItemIndex) in subPractice.OPTLIST">
+																		空{{optItemIndex+1}}：正确答案：{{optItem.OPTION_CONTENT}}
+																	</li>
+																</ul>
+																<div class="text-orange" v-else-if="subPractice.QASTORE_TYPE=='question'">
+																	参考解析
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">题目解析：</td>
+															<td class="td-cnt">
+																<template v-if="subPractice.QASTORE_ANALYTIC">
+																	<div v-html="subPractice.QASTORE_ANALYTIC"></div>
+																</template>
+																<template v-else>
+																	暂无
+																</template>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">知识点：</td>
+															<td class="td-cnt">
+																<template v-if="subPractice.KNOW_NAME">
+																	{{subPractice.KNOW_NAME}}
+																</template>
+																<template v-else>
+																	暂无
+																</template>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">答对次数：</td>
+															<td class="td-cnt">{{subPractice.RIGHT_COUNT>=0?subPractice.RIGHT_COUNT:'--'}}</td>
+														</tr>
+														<tr>
+															<td class="td-label">答错次数：</td>
+															<td class="td-cnt">{{subPractice.WRONG_COUNT>=0?subPractice.WRONG_COUNT:'--'}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</template>
+
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="popup popup-view-card">
+					<header class="bar bar-nav">
+					  <a class="icon icon-left pull-left close-popup"></a>
+					  <h1 class="title">答题卡</h1>
+					</header>
+				    <div class="bar bar-footer-btn padding-none">
+					  <div class="flex-box flex-align-center">
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="backToPracticeIndex">返回练习列表</button>
+
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue close-popup">查看答题情况</button>
+					  </div>
+					</div>
+					
+					<div class="content">
+						<div class="padding_75rem">
+							<ul class="list-unstyled clearfix ans-card-list" v-if="newPracticeList.length>0">
+								<li v-for="(newPractice, i) in newPracticeList" @click="jumpToPracticeByOrder(i+1)" :class="[practiceOrder==i+1?'cur':'']">
+									{{i+1}}
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</template>
+			<template v-else>
+				<% 
+					let errorTpl=require('../../components/com/errorTips.msg') 
+				%>
+				<%=errorTpl.replace(/\$\{PATH\}/g, host+'/'+commonSkinPath+'/') %>
+			</template>
+		</template>
+	</div>
+
+
+
+	

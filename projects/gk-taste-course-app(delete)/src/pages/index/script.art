@@ -1,0 +1,9 @@
+<script type="text/javascript">
+	$('.page')
+	.on('click', '.course-dt', function(event) {
+		var that=this;
+		var $slidePanel=$(this).next('.course-list');
+
+		$slidePanel.slideToggle();
+	})
+</script>

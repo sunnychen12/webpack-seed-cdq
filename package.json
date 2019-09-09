@@ -20,11 +20,13 @@
   "devDependencies": {
     "autoprefixer": "^9.1.3",
     "chalk": "^2.4.1",
+    "chokidar": "^2.1.2",
     "clean-webpack-plugin": "^0.1.19",
     "concat-files": "^0.1.1",
     "concurrently": "^4.0.1",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
+    "cssmin": "^0.4.3",
     "deep-extend": "^0.6.0",
     "expose-loader": "^0.7.5",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
@@ -39,6 +41,7 @@
     "ora": "^3.0.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^0.5.1",
+    "script-loader": "^0.7.2",
     "style-loader": "^0.21.0",
     "uglify-js": "^3.4.9",
     "uglifyjs-webpack-plugin": "^1.2.7",
@@ -50,7 +53,5 @@
     "webpack-dev-server": "^3.1.9",
     "webpack-parallel-uglify-plugin": "^1.1.0"
   },
-  "dependencies": {
-    
-  }
+  "dependencies": {}
 }

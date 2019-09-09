@@ -1,0 +1,88 @@
+<style type="text/css">
+	html,body{
+		height: 100%;
+		overflow: hidden;
+	}
+	body{
+		background: #fff;
+	}
+	.xk-pop-tabs:before{
+		content: '';
+		background: #e4e4e4;
+		height: 1px;
+		width: 100%;
+		bottom: 0;
+		left: 0;
+		position: absolute;
+	}
+	.xk-pop-side,
+	.xk-pop-main{
+		position: absolute;
+		top: 51px;
+		bottom: 0;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+	.xk-pop-side{
+		width: 320px;
+		border-right: 1px solid #e4e4e4;
+		left: 0;
+	}
+	.xk-pop-main{
+		left: 321px;
+		right: 0;
+	}
+</style>
+<script type="text/javascript" src="http://css.gzedu.com/exam_chinaeenet_com/pc/js/jquery.slimscroll.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	//左侧滚动条
+	$('[data-role="side"]').slimScroll({
+		size: '5px',
+		alwaysVisible: true,
+        height: frameElement.api.config.height-$('.xk-pop-tabs').outerHeight()+'px'
+    });
+
+    //右侧滚动条
+    $('[data-role="tab-content"]').slimScroll({
+		size: '5px',
+		alwaysVisible: true,
+        height: frameElement.api.config.height-$('.xk-pop-tabs').outerHeight()-20+'px'
+    });
+
+    
+    $(document)
+    //视频播放
+    .on('click', '.v-btn', function(event) {
+    	var $video=$(this).prev('video');
+    	var $parent=$(this).parent();
+
+    	$video
+    	.off('play ended')
+    	.on('play', function(event) {
+    		$parent.addClass('playing');
+    	})
+    	.on('ended', function(event) {
+    		$parent.removeClass('playing');
+    	});
+
+    	if($parent.hasClass('playing')){
+    		$video[0].pause();
+    		$parent.removeClass('playing');
+    	}
+    	else{
+    		$video[0].play();
+    		$parent.addClass('playing');
+    	}
+    })
+    .on('click', '.tabs-1 > li', function(event) {
+    	var index=$(this).index();
+
+    	$('[data-role="tab-item"]').hide()
+    	.eq(index).show();
+
+    	$(this).addClass('cur').siblings().removeClass('cur');
+    });
+
+});
+</script>

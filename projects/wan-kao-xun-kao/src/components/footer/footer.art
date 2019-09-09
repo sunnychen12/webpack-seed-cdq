@@ -1,0 +1,6 @@
+<!--footer-->
+<div class="footer">
+  <p>广州远程教育中心 &copy;2019版权所有</p>
+</div>
+<!--footer-->
+<% if(appendContent) {%><%=appendContent%><%}%>

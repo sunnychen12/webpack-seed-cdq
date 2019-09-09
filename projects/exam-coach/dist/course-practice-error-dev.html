@@ -1,0 +1,549 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<!--<link rel="shortcut icon" href="/favicon.ico">-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" href="http://css.eenet.com/common/msui/css/sm.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="http://css.eenet.com/common/font-awesome/css/font-awesome.min.css">
+
+	
+	<link href="http://css.eenet.com/exam_chinaeenet_com/exam-coach/css/main.min.css" rel="stylesheet">
+	
+</head>
+
+<body>
+
+
+	<div class="page-group" id="app" v-cloak>
+		<template v-if="isloaded">
+			<template v-if="success">
+				<div class="page page-current">
+					<header class="bar bar-nav">
+					  <a class="icon icon-left pull-left" @click.prevent="historyBack"></a>
+					  <a class="button button-link pull-right open-popup" data-popup=".popup-view-card">
+					    {{practiceOrder}}/{{practiceData.WRONGLIST.length}}
+					  </a>
+					  <h1 class="title">我的错题</h1>
+					</header>
+					<div class="bar bar-footer-btn padding-none">
+					  <div class="flex-box flex-align-center">
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="viewPrev" :disabled="curPracticeIndex==0">上一题</button>
+
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="viewNext" :disabled="curPracticeIndex==practiceData.WRONGLIST.length-1">下一题</button>
+					  </div>
+					</div>
+					<div class="content">
+						<div class="padding_75rem">
+						    <div class="practice-subject-item" v-if="curPractice">
+								<label class="label label-blue-boder">{{getQueType(curPractice.QASTORE_TYPE)}}</label>
+								<div class="practice-subject-header margin-t_3rem">
+									<div class="txt" v-html="curPractice.QASTORE_TITLE"></div>
+								</div>
+
+								<div class="sub-practice-list">
+									<!--非综合题-->
+									<template v-if="!curPractice.SONLIST">
+										<div class="sub-practice-item margin-top-none">
+											<div class="practice-subject-sel-list border-none" v-if="curPractice.QASTORE_TYPE=='radio' || curPractice.QASTORE_TYPE=='checkbox' || curPractice.QASTORE_TYPE=='whether'">
+												<label class="checkbox-group flex-box" 
+														v-for="(optItem, qaItemIndex) in curPractice.OPTLIST">
+
+													<input class="checkbox-control" :name="optItem.QASTORE_ID" :value="optItem.OPTION_ID" disabled :checked="optItem.IS_ANSWER=='Y'" 
+														 :type="
+														 	(
+														 		curPractice.QASTORE_TYPE=='radio' ||
+														 		curPractice.QASTORE_TYPE=='whether'
+														 	)?'radio':'checkbox'
+														 "
+													>
+
+													<span class="checkbox-icon">
+														<i class="icomoon"></i>
+														<em class="checkbox-order"></em>
+													</span>
+													<div class="flex-item checkbox-txt">
+														{{optItem.OPTION_CONTENT}}
+													</div>
+												</label>
+											</div>
+
+											<!--显示答案-->
+											<div class="practice-subject-ans">
+												<table width="100%">
+													<tbody>
+														<tr>
+															<td class="td-label">正确答案：</td>
+															<td class="td-cnt">
+																<template 
+																	v-if="
+																		curPractice.QASTORE_TYPE=='radio' ||
+																		curPractice.QASTORE_TYPE=='checkbox' ||
+																		curPractice.QASTORE_TYPE=='whether'"
+																	>
+																	<template v-for="(optItem, qaItemIndex) in curPractice.OPTLIST">
+																		<template v-if="optItem.IS_ANSWER=='Y'">
+																			{{getSelItemChar(optItem.ORDER_NO)}}
+																		</template>
+																	</template>
+																</template>
+																<ul class="list-unstyled" v-else-if="curPractice.QASTORE_TYPE=='fill'">
+																	<li v-for="(optItem, optItemIndex) in curPractice.OPTLIST">
+																		空{{optItemIndex+1}}：正确答案：{{optItem.OPTION_CONTENT}}
+																	</li>
+																</ul>
+																<div class="text-orange" v-else-if="curPractice.QASTORE_TYPE=='question'">
+																	参考解析
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">题目解析：</td>
+															<td class="td-cnt">
+																<template v-if="curPractice.QASTORE_ANALYTIC">
+																	<div v-html="curPractice.QASTORE_ANALYTIC"></div>
+																</template>
+																<template v-else>
+																	暂无
+																</template>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">知识点：</td>
+															<td class="td-cnt">
+																<template v-if="curPractice.KNOW_NAME">
+																	{{curPractice.KNOW_NAME}}
+																</template>
+																<template v-else>
+																	暂无
+																</template>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">答对次数：</td>
+															<td class="td-cnt">{{curPractice.RIGHT_COUNT>=0?curPractice.RIGHT_COUNT:'--'}}</td>
+														</tr>
+														<tr>
+															<td class="td-label">答错次数：</td>
+															<td class="td-cnt">{{curPractice.WRONG_COUNT>=0?curPractice.WRONG_COUNT:'--'}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</template>
+									<template v-else>
+										<div class="sub-practice-item" v-if="curPractice.SONLIST.length>0" v-for="(subPractice, subPracticeIndex) in curPractice.SONLIST">
+											<label class="label label-blue-boder">{{getQueType(subPractice.QASTORE_TYPE)}} 第{{subPracticeIndex+1}}题</label>
+											<div class="practice-subject-header margin-t_3rem">
+												<div class="txt" v-html="subPractice.QASTORE_TITLE"></div>
+											</div>
+
+											
+
+											<div class="practice-subject-sel-list" 
+												v-if="
+													subPractice.QASTORE_TYPE=='radio' ||
+													subPractice.QASTORE_TYPE=='checkbox' ||
+													subPractice.QASTORE_TYPE=='whether'
+												">
+												<label class="checkbox-group flex-box" 
+														v-for="(optItem, qaItemIndex) in subPractice.OPTLIST">
+
+													<input class="checkbox-control" :name="optItem.QASTORE_ID" :value="optItem.OPTION_ID" disabled :checked="optItem.IS_ANSWER=='Y'" 
+														 :type="
+														 	(
+														 		subPractice.QASTORE_TYPE=='radio' ||
+														 		subPractice.QASTORE_TYPE=='whether'
+														 	)?'radio':'checkbox'
+														 "
+													>
+													
+													
+													<span class="checkbox-icon">
+														<i class="icomoon"></i>
+														<em class="checkbox-order"></em>
+													</span>
+													<div class="flex-item checkbox-txt">
+														{{optItem.OPTION_CONTENT}}
+													</div>
+												</label>
+											</div>
+
+											<!--显示答案-->
+											<div class="practice-subject-ans">
+												<table width="100%">
+													<tbody>
+														<tr>
+															<td class="td-label">正确答案：</td>
+															<td class="td-cnt">
+																<template 
+																	v-if="
+																		subPractice.QASTORE_TYPE=='radio' ||
+																		subPractice.QASTORE_TYPE=='checkbox' ||
+																		subPractice.QASTORE_TYPE=='whether'"
+																	>
+																	<template v-for="(optItem, qaItemIndex) in subPractice.OPTLIST">
+																		<template v-if="optItem.IS_ANSWER=='Y'">
+																			{{getSelItemChar(optItem.ORDER_NO)}}
+																		</template>
+																	</template>
+																</template>
+																<ul class="list-unstyled" v-else-if="subPractice.QASTORE_TYPE=='fill'">
+																	<li v-for="(optItem, optItemIndex) in subPractice.OPTLIST">
+																		空{{optItemIndex+1}}：正确答案：{{optItem.OPTION_CONTENT}}
+																	</li>
+																</ul>
+																<div class="text-orange" v-else-if="subPractice.QASTORE_TYPE=='question'">
+																	参考解析
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">题目解析：</td>
+															<td class="td-cnt">
+																<template v-if="subPractice.QASTORE_ANALYTIC">
+																	<div v-html="subPractice.QASTORE_ANALYTIC"></div>
+																</template>
+																<template v-else>
+																	暂无
+																</template>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">知识点：</td>
+															<td class="td-cnt">
+																<template v-if="subPractice.KNOW_NAME">
+																	{{subPractice.KNOW_NAME}}
+																</template>
+																<template v-else>
+																	暂无
+																</template>
+															</td>
+														</tr>
+														<tr>
+															<td class="td-label">答对次数：</td>
+															<td class="td-cnt">{{subPractice.RIGHT_COUNT>=0?subPractice.RIGHT_COUNT:'--'}}</td>
+														</tr>
+														<tr>
+															<td class="td-label">答错次数：</td>
+															<td class="td-cnt">{{subPractice.WRONG_COUNT>=0?subPractice.WRONG_COUNT:'--'}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</template>
+
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="popup popup-view-card">
+					<header class="bar bar-nav">
+					  <a class="icon icon-left pull-left close-popup"></a>
+					  <h1 class="title">答题卡</h1>
+					</header>
+				    <div class="bar bar-footer-btn padding-none">
+					  <div class="flex-box flex-align-center">
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="backToPracticeIndex">返回练习列表</button>
+
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue close-popup">查看答题情况</button>
+					  </div>
+					</div>
+					
+					<div class="content">
+						<div class="padding_75rem">
+							<ul class="list-unstyled clearfix ans-card-list" v-if="newPracticeList.length>0">
+								<li v-for="(newPractice, i) in newPracticeList" @click="jumpToPracticeByOrder(i+1)" :class="[practiceOrder==i+1?'cur':'']">
+									{{i+1}}
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</template>
+			<template v-else>
+				
+				<div class="flex-box flex-box-justify-center flex-align-center full-height flex-vertical">
+	<img src="http://css.eenet.com/exam_chinaeenet_com/exam-coach/images/no-data2.png" width="100">
+	<div class="gray9 margin-t_7rem font_85rem">
+		{{msg}}
+	</div>
+	
+	<div class="margin-t-1rem" data-id="call-box">
+		<button type="button" class="button button-md button-fill border-none btn-blue" style="border-radius:1rem" onclick="commomLab.callTeacher();">
+			<span class="padding-l_75rem padding-r_75rem">
+				找老师
+			</span>
+		</button>
+	</div>
+</div>
+			</template>
+		</template>
+	</div>
+
+
+
+	
+
+
+<!-- 加载公共插件 -->
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/zepto.min.js"></script>
+<script type="text/javascript">$.config = {router: false}</script>
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/sm.min.js"></script>
+<script type="text/javascript" src="http://css.eenet.com/common/js/vue.js"></script>
+
+<script type="text/javascript" src="http://css.eenet.com/exam_chinaeenet_com/exam-coach/js/commonLab.min.js"></script>
+
+<script type="text/javascript">
+;(function(){
+	var USER_ID = commomLab.getQueryParam('formMap.USER_ID');
+	var PROJECT_ID = commomLab.getQueryParam('formMap.PROJECT_ID');
+
+	//参数不能为空
+	if(!USER_ID || !PROJECT_ID){
+		commomLab.myToast({msg:'参数不能为空'})
+		return;
+	}
+
+    window.appVm=new Vue({
+		el:"#app",
+		mixins:[mixin],
+		data:{
+			curPracticeIndex: 0,
+			practiceOrder:1,//答题卡序号
+			practiceData:false
+		},
+		created:function(){
+			this.getPractice();
+		},
+		watch:{
+			curPracticeIndex:function(newVal, oldVal){
+				var vm=this;
+				vm.practiceOrder=vm.curPractice.rangeMin;
+			}
+		},
+		computed:{
+			curPractice:function(){
+				var vm=this;
+				if(
+					vm.practiceData &&
+					vm.practiceData.WRONGLIST &&
+					vm.practiceData.WRONGLIST.length>0 &&
+					vm.curPracticeIndex < vm.practiceData.WRONGLIST.length
+				){
+					var cur=vm.practiceData.WRONGLIST[vm.curPracticeIndex];
+
+
+
+					return cur;
+				}
+				else{
+					return false;
+				}
+			},
+			//平级化所有的题目
+			newPracticeList:function(){
+				var vm=this, result=[];
+				$.each(vm.practiceData.WRONGLIST, function(index, item) {
+					if(item.SONLIST){
+						$.each(item.SONLIST, function(order, item2) {
+							result.push(item2);
+						});
+					}
+					else{
+
+						result.push(item);
+					}
+				});
+
+				return result;
+			}
+		},
+		methods:{
+			getPractice:function(){
+				var vm=this;
+				var params=[
+					{
+						name: 'formMap.USER_ID',
+						value: USER_ID
+					},
+					{
+						name: 'formMap.PROJECT_ID',
+						value: PROJECT_ID
+					}
+				];
+
+				$.showIndicator();
+				//我的错题
+				commomLab.ajaxProcess({
+					url: '/api/coach/getWrongQaStoreList.do',
+					data: params
+				})
+				.done(function(res){
+					if(res.code==200){
+						if(res.result){
+							vm.practiceData=res.result;
+
+							vm.showHtml();
+
+							vm.$nextTick(function(){
+								vm.findPracticeIndex(vm.practiceOrder);
+
+								$('.popup-view-card')
+								.on('open', function(event) {
+									//答题卡的显示处理
+									commomLab.resetAnsCard();
+								});
+							});
+						}
+						else{
+							vm.showHtml('数据为空');
+						}
+					}
+					else{
+						vm.showHtml(res.message);
+	                }
+				})
+				.fail(function(){
+					vm.showHtml('数据查询异常');
+	            });
+			},
+			//获取题目类型
+			getQueType:function(type){
+				var result;
+				switch(type){
+					case 'radio':
+						result='单选';
+						break;
+					case 'integrated':
+						result='综合';
+						break;
+					case 'question':
+						result='问答';
+						break;
+					case 'checkbox':
+						result='多选';
+						break;
+					case 'whether':
+						result='是非';
+						break;
+					case 'fill':
+						result='填空';
+						break;
+					default:
+						result='单选';
+						break;
+				}
+
+				return result+'题';
+			},
+			//获取题目所在的父级元素的索引
+			findPracticeIndex:function(order){
+				var vm=this;
+
+				vm.practiceOrder=order;
+			
+				var vm=this;
+				//设置小题所属大题的范围
+				var rangeMin=0;
+				var rangeMax=0;
+				$.each(vm.practiceData.WRONGLIST, function(index, item) {
+
+					rangeMin=rangeMax+1;
+					if(item.SONLIST){
+						rangeMax=rangeMin+item.SONLIST.length-1;
+					}
+					else{
+						rangeMax=rangeMin;
+					}
+
+					item.rangeMin=rangeMin;
+					item.rangeMax=rangeMax;
+
+					if(order>=rangeMin && order<=rangeMax){
+						vm.curPracticeIndex=index;
+					}
+				});
+
+				//
+			},
+			jumpToPracticeByOrder:function(order){
+				this.findPracticeIndex(order);
+				$.closeModal('.popup-view-card');
+			},
+			//数字转英文序号
+			getSelItemChar:function(order){
+				var result;
+				switch(order){
+					case 1:
+						result='A';
+						break;
+					case 2:
+						result='B';
+						break;
+					case 3:
+						result='C';
+						break;
+					case 4:
+						result='D';
+						break;
+					default:
+						result='A';
+						break;
+				}
+
+				return result;
+			},
+			viewNext:function(){
+				if(this.curPracticeIndex < this.practiceData.WRONGLIST.length-1){
+					++this.curPracticeIndex;
+					this.$nextTick(function(){
+	                	$('.content').scrollTop(0);
+	                })
+				}
+			},
+			viewPrev:function(){
+				if(this.curPracticeIndex>0){
+					--this.curPracticeIndex;
+					this.$nextTick(function(){
+	                	$('.content').scrollTop(0);
+	                })
+				}
+			},
+			//返回练习列表
+			backToPracticeIndex:function(){
+				var vm=this;
+				var params=[
+					{
+						name: 'formMap.USER_ID',
+						value: USER_ID
+					},
+					{
+						name: 'formMap.PROJECT_ID',
+						value: PROJECT_ID
+					}
+				];
+
+				params=$.param(params);
+
+				location.href='course-index.html?'+params;
+			}
+		}
+	});
+})();
+
+</script>
+</body>
+</html>

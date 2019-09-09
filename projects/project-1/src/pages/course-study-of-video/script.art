@@ -30,15 +30,13 @@
         actName:pagetitle
     });
 
-    console.log(videourl);
-
     var app = new Vue({
         el: '#app',
         data: {
         	success:true,
         	msg:'',
         	isloaded:false,//是否所有数据都已经加载完毕
-        	videourl: videourl,//,'http://172.16.165.93:8080/sample.mp4',
+        	videourl: videourl,//'http://172.16.165.93:8080/sample.mp4',
         	state: false,
         	pastTime:0,
 			isSeeking:false, //"拖动"状态
@@ -120,6 +118,7 @@
 					vm.showHtml();
 	            }
         	},
+        	//继续学习（进行下一学习活动）
         	nextActivity:function(){
         		var vm=this;
         		$.showIndicator();
@@ -380,6 +379,8 @@
 						vm.pastTime=videoObj.currentTime;
 					}
 				}
+				console.clear();
+				console.log(videoObj.currentTime)
 				
 			},
 			ended:function(event) {
@@ -419,7 +420,20 @@
 								completed: 1,
 								token: commomLab.cacheUserCourseInfo.get().token
 							}
+						})
+						.done(function(res){
+							if(commomLab.checkAPIResult(res)){
+								//记录学员学习行为
+							    commomLab.addStudyAction({
+							        actType:'C003',
+							        actId:videoId,
+							        actName:pagetitle,
+							        actIsFin:true //标志活动为已完成
+							    });
+							}
 						});
+
+						
 					}
 				}
 				

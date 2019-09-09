@@ -1,0 +1,1131 @@
+	<!--main-->
+	<div class="main_wrapper">
+	  <div class="body_area">
+	    <div class="main_content block margin_t20">
+	    	<div class="clearfix">
+	    		<div class="fr padding_r20 padding_t10">
+	    			<a class="medbtn medbtn-gray" href="javascript:"><span>返回</span></a>
+	    		</div>
+		    	<ul class="bread_crumbs nomargin padding_t10 padding_b10 padding_l20 padding_r20">
+					<li class="location">当前位置：</li>
+					<li><a href="#">监考老师</a></li>
+					<li class="last"><a href="#">监考科目</a></li>
+		        </ul>
+	    	</div>
+	    	<div class="padding20">
+	    		<table class="tester-tbl f13" width="100%">
+	    			<colgroup>
+	    				<col width="14%">
+	    				<col>
+	    				<col width="20%">
+	    				<col width="15%">
+	    				<col width="15%">
+	    				<col width="10%">
+	    			</colgroup>
+	    			<tbody>
+	    				<tr>
+	    					<td>
+	    						<div class="font18">李老师（lilaoshi）</div>
+	    						<div class="font_gray">国家开放大学（广州）</div>
+	    					</td>
+	    					<td>
+	    						<div class="column marg-per2 font_gray6 text-left">
+							        <div class="col-2-1">
+							        	<ul>
+							        		<li>待监考总人次：400</li>
+							        		<li>已监考科目数：10</li>
+							        		<li>已监考总人次：200</li>
+							        		<li>已监考已通过：50</li>
+							        		<li>已监考未通过：50</li>
+							        		<li>监考通过率：50%</li>
+							        		<li>监考覆盖率：50%</li>
+							        	</ul>
+							        </div>
+							        <div class="col-2-1 last">
+							        	<ul>
+							        		<li>视频监考总次数：20</li>
+							        		<li>发起警告总次数：10</li>
+							        		<li>发起即时聊天次数：200</li>
+							        		<li>截图次数：50</li>
+							        		<li>待审核总人数：50</li>
+							        	</ul>
+							        </div>
+							    </div>
+	    					</td>
+	    					<td>
+	    						<ul class="font_gray6 text-left">
+					        		<li>最近登录时间：2018-12-28 09:00:00</li>
+					        		<li>登录总时长：00:50:00</li>
+					        		<li>登录总次数：2</li>
+					        	</ul>
+	    					</td>
+	    					<td class="text-center">
+	    						<div class="font_green">监考中</div>
+	    						<div class="gray">（科目：管理艺术与方法）</div>
+	    						<div class="gray margin_t10">监考状态</div>
+	    					</td>
+	    					<td class="text-center">
+	    						<div class="font_green">在线</div>
+	    						<div class="gray">（20分钟前登录）</div>
+	    						<div class="gray margin_t10">在线状态</div>
+	    					</td>
+	    					<td class="text-center last">
+	    						<div>
+	    							<button type="button" class="btn btn-gray btn-sm min-width-100">模拟登录</button>
+	    						</div>
+	    						<div class="margin_t10">
+	    							<button type="button" class="btn btn-sm min-width-100">导出详情</button>
+	    						</div>
+	    					</td>
+	    				</tr>
+	    			</tbody>
+                </table>
+                
+            </div>
+	    </div>
+
+	    <div class="tabs-top clearfix margin_t10 block box-border">
+	    	<div class="fr form padding_r15 padding_t10">
+	    		<label class="margin_r10">考试计划</label>
+	    		<select id="select01" class="custom_input textInput-reset" style="width:220px;">
+                	<option>2017春期末考试计划</option>
+              	</select>
+	    	</div>
+	        <ul class="font18">
+	            <li class="cur" data-target="tab-1" data-toggle="tab">ta监考的科目<i></i></li>
+	            <li data-target="tab-2" data-toggle="tab">ta监考的考生<i></i></li>
+	            <li class="last" data-target="tab-3" data-toggle="tab">ta的监考动态<i></i></li>
+	        </ul>
+	    </div>
+
+	    <div class="block padding15 margin_t10">
+	    	<div class="tabs-top-content">
+		    	<div class="tabs-top-panel " data-id="tab-1">
+		    		<div class="box-border padding15 form">
+		    			<label class="margin_r15">科目</label>
+		    			<select class="textInput textInput-reset" style="width:230px;">
+				            <option></option>
+				        </select>
+				        <button type="button" class="btn btn-dark-blue btn-sm min-width-100 margin_l5 vertical-middel">搜索</button>
+		    		</div>
+		    		<div class="margin_t15">
+				      	<div class="clearfix box-border padding15">
+			                <div class="fl">
+			                  <div class="clearfix">
+			                    <ul class="tabs-2">
+			                      <li class="cur" data-target="tab-111" data-toggle="tab">全部（2）</li>
+			                      <li data-target="tab-111" data-toggle="tab">监考中（1）</li>
+			                      <li class="last" data-target="tab-111" data-toggle="tab">监考过（1）</li>
+			                    </ul>
+			                  </div>
+			                </div>
+			            </div>
+			            <div class="tabs-2-content">
+			            	<div class="tabs-2-panel" data-id="tab-111">
+				                <table class="table-basic f12 text-center">
+				                	<colgroup>
+				                		<col>
+				                		<col width="12%">
+				                		<col width="13%">
+				                		<col width="8%">
+				                		<col width="8%">
+				                		<col width="10%">
+				                		<col width="7%">
+				                		<col width="8%">
+				                		<col width="7%">
+				                		<col width="7%">
+				                	</colgroup>
+				                    <thead>
+				                      <tr>
+				                        <th>考试科目信息</th>
+				                        <th>科目情况</th>
+				                        <th>监考统计</th>
+				                        <th>视频监考次数</th>
+				                        <th>发起警告次数</th>
+				                        <th>发起即时聊天次数</th>
+				                        <th>截图张数</th>
+				                        <th>待审核人数</th>
+				                        <th>监考状态</th>
+				                        <th>操作</th>
+				                      </tr>
+				                    </thead>
+				                    <tbody>
+				                      	<tr>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试科目：职业道德修养</li>
+					                        		<li>考试计划：2019春期末考试</li>
+					                        		<li>考试时间：2019-01-01至2019-01-21</li>
+					                        		<li>科目状态：<span class="font_orange">进行中</span></li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>报考人数：300</li>
+					                        		<li>已完成人数：100</li>
+					                        		<li>未考试人数：200</li>
+					                        		<li>当前在考人数：0</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>待监考总人数：200</li>
+					                        		<li>已监考已通过：50</li>
+					                        		<li>已监考未通过：50</li>
+					                        		<li>有警告人数：5</li>
+					                        		<li>警告中人数：0</li>
+					                        		<li>监考通过率：50%</li>
+					                        		<li>监考覆盖率：50%</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	20
+					                        </td>
+					                        <td>
+					                        	5
+					                        </td>
+					                        <td>
+					                        	10
+					                        </td>
+					                        <td>2</td>
+					                        <td>200</td>
+					                        <td>
+					                        	<span class="font_orange">监考中</span>
+					                        </td>
+					                        <td><a href="他监考的科目详情-查看详情.html">查看详情</a></td>
+				                      	</tr>
+				                      	<tr>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试科目：职业道德修养</li>
+					                        		<li>考试计划：2019春期末考试</li>
+					                        		<li>考试时间：2019-01-01至2019-01-21</li>
+					                        		<li>科目状态：<span class="font_orange">进行中</span></li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>报考人数：300</li>
+					                        		<li>已完成人数：100</li>
+					                        		<li>未考试人数：200</li>
+					                        		<li>当前在考人数：0</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>待监考总人数：200</li>
+					                        		<li>已监考已通过：50</li>
+					                        		<li>已监考未通过：50</li>
+					                        		<li>有警告人数：5</li>
+					                        		<li>警告中人数：0</li>
+					                        		<li>监考通过率：50%</li>
+					                        		<li>监考覆盖率：50%</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	20
+					                        </td>
+					                        <td>
+					                        	5
+					                        </td>
+					                        <td>
+					                        	10
+					                        </td>
+					                        <td>2</td>
+					                        <td>200</td>
+					                        <td>
+					                        	<span class="font_green">监考过</span>
+					                        </td>
+					                        <td><a href="他监考的科目详情-查看详情.html">查看详情</a></td>
+				                      	</tr>
+				                    </tbody>
+				                  </table>
+				                <div class="paging f12"><a href="javascript:;" class="disabled"> &lt;上一页 </a><a href="javascript:;" class="current">1</a><a href="javascript:;">2</a><a href="javascript:;">3</a><a href="javascript:;">4</a><a href="#">5</a><a href="javascript:;">6</a><a href="javascript:;">7</a>...<a href="javascript:;">199</a><a href="javascript:;">200</a><a href="javascript:;"> 下一页&gt; </a><span class="font_gray left10">共 100 页，到第
+				                  <input type="text">
+				                  页<a href="javascript:;" class="left5">确定</a></span></div>
+			                </div>
+			            </div>
+		            </div>
+	            </div>
+	            <div class="tabs-top-panel hide" data-id="tab-2">
+	            	<div class="box-border margin_b15">
+	            		<ul class="tabs-sub clearfix">
+	            			<li class="cur" data-target="tab-11" data-toggle="tab">考试中(100)</li>
+	            			<li data-target="tab-12" data-toggle="tab">暂时退出考试(100)</li>
+	            			<li data-target="tab-13" data-toggle="tab">已完成考试(100)</li>
+	            			<li data-target="tab-14" data-toggle="tab">未开始考试(100)</li>
+	            		</ul>
+	            	</div>
+
+	            	<div class="tabs-sub-content">
+	            		<div class="tabs-sub-panel" data-id="tab-11">
+			            	<div class="box-border form">
+				    			<div class="padding15">
+					    			<table width="100%" class="table-pad">
+					    				<colgroup>
+					    					<col width="100">
+					    					<col width="25%">
+
+					    					<col width="100">
+					    					<col width="25%">
+
+											<col width="100">
+					    					<col width="25%">
+
+					    					<col width="100">
+					    					<col width="25%">
+					    				</colgroup>
+					    				<tbody>
+					    					<tr>
+					    						<td class="text-nowrap text-right">院校</td>
+					    						<td>
+					    							<select class="textInput textInput-reset full-width">
+											            <option></option>
+											        </select>
+					    						</td>
+
+					    						<td class="text-nowrap text-right">科目</td>
+					    						<td>
+					    							<select class="textInput textInput-reset full-width">
+											            <option></option>
+											        </select>
+					    						</td>
+
+					    						<td class="text-nowrap text-right">学号</td>
+					    						<td>
+					    							<input class="textInput textInput-reset full-width">
+					    						</td>
+
+					    						<td class="text-nowrap text-right">姓名</td>
+					    						<td>
+					    							<input class="textInput textInput-reset full-width">
+					    						</td>
+
+					    						<td class="text-nowrap">
+					    							<button type="button" class="btn btn-dark-blue btn-sm min-width-100 vertical-middel">搜索</button>
+					    						</td>
+					    					</tr>
+					    				</tbody>
+					    			</table>
+				    			</div>
+				    		</div>
+					      	<div class="clearfix box-border padding15 margin_t15">
+				                <div class="fl">
+				                  <div class="clearfix">
+				                    <ul class="tabs-2">
+				                      <li class="cur" data-target="tab-112" data-toggle="tab">全部（2）</li>
+				                      <li data-target="tab-112" data-toggle="tab">监考中（1）</li>
+				                      <li data-target="tab-112" data-toggle="tab">监考已通过（1）</li>
+				                      <li data-target="tab-112" data-toggle="tab">监考未通过（1）</li>
+				                      <li data-target="tab-112" data-toggle="tab">待监考（1）</li>
+				                      <li data-target="tab-112" data-toggle="tab">警告中（1）</li>
+				                      <li data-target="tab-112" data-toggle="tab">有警告（1）</li>
+				                      <li class="last" data-target="tab-112" data-toggle="tab">暂停中（1）</li>
+				                    </ul>
+				                  </div>
+				                </div>
+				            </div>
+				            
+				            <div class="tabs-2-content">
+				            	<div class="tabs-2-panel" data-id="tab-112">
+					                <table class="table-basic f12 text-center">
+					                	<colgroup>
+					                		<col width="100">
+					                		<col width="18%">
+					                		<col>
+					                		<col width="8%">
+					                		<col width="11%">
+					                		<col width="10%">
+					                		<col width="8%">
+					                		<col width="8%">
+					                		<col width="8%">
+					                		<col width="8%">
+					                	</colgroup>
+					                    <thead>
+					                      <tr>
+					                        <th>头像</th>
+					                        <th>考生信息</th>
+					                        <th>考试统计</th>
+					                        <th>警告次数</th>
+					                        <th>人脸抓拍验证照片</th>
+					                        <th>视频监考记录</th>
+					                        <th>聊天记录</th>
+					                        <th>截图记录</th>
+					                        <th>监考状态</th>
+					                        <th>操作</th>
+					                      </tr>
+					                    </thead>
+					                    <tbody>
+					                      	<tr>
+						                        <td>
+						                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>姓名：刘丽文</li>
+						                        		<li>学号：101433588</li>
+						                        		<li>身份证：440105199901012356</li>
+						                        		<li>院校：海珠区电大</li>
+						                        		<li>科目：数字电子电路考试</li>
+						                        		<li>计划：2014秋招生</li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>考试进度：5%</li>
+						                        		<li>进入考试：09:00:00</li>
+						                        		<li>考试已用：00:10:00</li>
+						                        		<li>答题剩余：01:20:00</li>
+						                        		<li>考试状态：答题中</li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	2
+						                        	<div class="font_red">（警告中）</div>
+						                        </td>
+						                        <td>
+						                        	<div class="font_orange">
+						                        		<div>10张</div>
+						                        		<div>（识别率 30%）</div>
+						                        	</div>
+						                        </td>
+						                        <td>
+						                        	1个
+						                        </td>
+						                        <td>1个</td>
+						                        <td>1张</td>
+						                        <td>
+						                        	<span class="font_orange">监考中</span>
+						                        	<div class="font_gray">（监考老师1）</div>
+						                        </td>
+						                        <td><a href="查看监考行为记录.html" data-role="view-inv-record">查看监考行为</a></td>
+					                      	</tr>
+					                      	<tr>
+						                        <td>
+						                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>姓名：刘丽文</li>
+						                        		<li>学号：101433588</li>
+						                        		<li>身份证：440105199901012356</li>
+						                        		<li>院校：海珠区电大</li>
+						                        		<li>科目：数字电子电路考试</li>
+						                        		<li>计划：2014秋招生</li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>考试进度：5%</li>
+						                        		<li>进入考试：09:00:00</li>
+						                        		<li>考试已用：00:10:00</li>
+						                        		<li>答题剩余：01:20:00</li>
+						                        		<li>考试状态：暂停中</li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	1
+						                        </td>
+						                        <td>
+						                        	<div class="font_orange">
+						                        		<div>6张</div>
+						                        		<div>（识别率 40%）</div>
+						                        	</div>
+						                        </td>
+						                        <td>
+						                        	--
+						                        </td>
+						                        <td>--</td>
+						                        <td>--</td>
+						                        <td>
+						                        	<span class="font_green">已通过</span>
+						                        	<div class="font_gray">（监考老师1）</div>
+						                        </td>
+						                        <td><a href="查看监考行为记录.html" data-role="view-inv-record">查看监考行为</a></td>
+					                      	</tr>
+					                      	<tr>
+						                        <td>
+						                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>姓名：刘丽文</li>
+						                        		<li>学号：101433588</li>
+						                        		<li>身份证：440105199901012356</li>
+						                        		<li>院校：海珠区电大</li>
+						                        		<li>科目：数字电子电路考试</li>
+						                        		<li>计划：2014秋招生</li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>考试进度：5%</li>
+						                        		<li>进入考试：09:00:00</li>
+						                        		<li>考试已用：00:10:00</li>
+						                        		<li>答题剩余：01:20:00</li>
+						                        		<li>考试状态：暂停中</li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	0
+						                        </td>
+						                        <td>
+						                        	<div class="font_green">
+						                        		<div>10张</div>
+						                        		<div>（识别率 80%）</div>
+						                        	</div>
+						                        </td>
+						                        <td>
+						                        	--
+						                        </td>
+						                        <td>--</td>
+						                        <td>--</td>
+						                        <td>
+						                        	
+						                        	<div class="font_gray">未监考</div>
+						                        </td>
+						                        <td><a href="查看监考行为记录.html" data-role="view-inv-record">查看监考行为</a></td>
+					                      	</tr>
+					                    </tbody>
+					                  </table>
+					                <div class="paging f12"><a href="javascript:;" class="disabled"> &lt;上一页 </a><a href="javascript:;" class="current">1</a><a href="javascript:;">2</a><a href="javascript:;">3</a><a href="javascript:;">4</a><a href="#">5</a><a href="javascript:;">6</a><a href="javascript:;">7</a>...<a href="javascript:;">199</a><a href="javascript:;">200</a><a href="javascript:;"> 下一页&gt; </a><span class="font_gray left10">共 100 页，到第
+					                  <input type="text">
+					                  页<a href="javascript:;" class="left5">确定</a></span></div>
+				                </div>
+			                </div>
+	                	</div>
+	                	<div class="tabs-sub-panel hide" data-id="tab-12">
+	                		版面内容排版与前一tab的一样
+	                	</div>
+	                	<div class="tabs-sub-panel hide" data-id="tab-13">
+	                		<div class="box-border form">
+				    			<div class="padding15">
+					    			<table width="100%" class="table-pad">
+					    				<colgroup>
+					    					<col width="100">
+					    					<col width="25%">
+
+					    					<col width="100">
+					    					<col width="25%">
+
+											<col width="100">
+					    					<col width="25%">
+
+					    					<col width="100">
+					    					<col width="25%">
+					    				</colgroup>
+					    				<tbody>
+					    					<tr>
+					    						<td class="text-nowrap text-right">院校</td>
+					    						<td>
+					    							<select class="textInput textInput-reset full-width">
+											            <option></option>
+											        </select>
+					    						</td>
+
+					    						<td class="text-nowrap text-right">科目</td>
+					    						<td>
+					    							<select class="textInput textInput-reset full-width">
+											            <option></option>
+											        </select>
+					    						</td>
+
+					    						<td class="text-nowrap text-right">学号</td>
+					    						<td>
+					    							<input class="textInput textInput-reset full-width">
+					    						</td>
+
+					    						<td class="text-nowrap text-right">姓名</td>
+					    						<td>
+					    							<input class="textInput textInput-reset full-width">
+					    						</td>
+
+					    						<td class="text-nowrap">
+					    							<button type="button" class="btn btn-dark-blue btn-sm min-width-100 vertical-middel">搜索</button>
+					    						</td>
+					    					</tr>
+					    				</tbody>
+					    			</table>
+				    			</div>
+				    		</div>
+				    		<div class="clearfix box-border padding15 margin_t15">
+				                <div class="fl">
+				                  <div class="clearfix">
+				                    <ul class="tabs-2 tabs-2-sm">
+				                      <li class="cur" data-target="tab-113" data-toggle="tab">全部（2）</li>
+				                      <li data-target="tab-113" data-toggle="tab">待审核（1）</li>
+				                      <li data-target="tab-113" data-toggle="tab">监考已通过（1）</li>
+				                      <li data-target="tab-113" data-toggle="tab">监考未通过（1）</li>
+				                      <li data-target="tab-113" data-toggle="tab">未监考（1）</li>
+				                      <li data-target="tab-113" data-toggle="tab">及格（1）</li>
+				                      <li data-target="tab-113" data-toggle="tab">不及格（1）</li>
+				                      <li data-target="tab-113" data-toggle="tab">审核不通过，成绩无效（1）</li>
+				                      <li data-target="tab-113" data-toggle="tab">审核通过（1）</li>
+				                      <li class="last" data-target="tab-113" data-toggle="tab">暂停中（1）</li>
+				                    </ul>
+				                  </div>
+				                </div>
+				            </div>
+
+				            <div class="tabs-2-content">
+				            	<div class="tabs-2-panel" data-id="tab-113">
+					                <table class="table-basic f12 text-center">
+					                	<colgroup>
+					                		<col width="100">
+					                		<col width="16%">
+					                		<col>
+					                		<col width="7%">
+					                		<col width="10%">
+					                		<col width="8%">
+					                		<col width="7%">
+					                		<col width="7%">
+					                		<col width="9%">
+					                		<col width="8%">
+					                		<col width="8%">
+					                	</colgroup>
+					                    <thead>
+					                      <tr>
+					                        <th>头像</th>
+					                        <th>考生信息</th>
+					                        <th>考试统计</th>
+					                        <th>警告次数</th>
+					                        <th>人脸抓拍验证照片</th>
+					                        <th>视频监考记录</th>
+					                        <th>聊天记录</th>
+					                        <th>截图记录</th>
+					                        <th>监考状态</th>
+					                        <th>最终审核状态</th>
+					                        <th>操作</th>
+					                      </tr>
+					                    </thead>
+					                    <tbody>
+					                      	<tr>
+						                        <td>
+						                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>姓名：刘丽文</li>
+						                        		<li>学号：101433588</li>
+						                        		<li>身份证：440105199901012356</li>
+						                        		<li>科目：数字电子电路考试</li>
+						                        		<li>计划：2014秋招生</li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>考试次数：1/1</li>
+						                        		<li>最高得分：90</li>
+						                        		<li>本次得分：89</li>
+						                        		<li>进入考试：09:00:00</li>
+						                        		<li>提交试卷：09:30:00</li>
+						                        		<li>考试用时：00:30:00</li>
+						                        		<li>考试结果：<span class="font_green">考试及格</span></li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	2
+						                        </td>
+						                        <td>
+						                        	<div class="font_orange">
+						                        		<u role="link">10张</u>
+						                        		<div>未通过验证</div>
+						                        		<div>（识别率 30%）</div>
+						                        	</div>
+						                        </td>
+						                        <td>
+						                        	<u role="link">1个</u>
+						                        </td>
+						                        <td><u role="link">1个</u></td>
+						                        <td><u role="link">1张</u></td>
+						                        <td>
+						                        	<span class="font_green">已通过</span>
+						                        	<div class="font_gray">（监考老师1）</div>
+						                        </td>
+						                        <td>
+						                        	<span class="font_orange">待审核</span>
+						                        </td>
+						                        <td><a href="查看监考行为记录.html" data-role="view-inv-record">查看监考行为</a></td>
+					                      	</tr>
+					                      	<tr>
+						                        <td>
+						                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>姓名：刘丽文</li>
+						                        		<li>学号：101433588</li>
+						                        		<li>身份证：440105199901012356</li>
+						                        		<li>科目：数字电子电路考试</li>
+						                        		<li>计划：2014秋招生</li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>考试次数：1/1</li>
+						                        		<li>最高得分：90</li>
+						                        		<li>本次得分：89</li>
+						                        		<li>进入考试：09:00:00</li>
+						                        		<li>提交试卷：09:30:00</li>
+						                        		<li>考试用时：00:30:00</li>
+						                        		<li>考试结果：<span class="font_orange">考试不及格</span></li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	1
+						                        </td>
+						                        <td>
+						                        	<div class="font_orange">
+						                        		<u role="link">6张</u>
+						                        		<div>未通过验证</div>
+						                        		<div>（识别率 30%）</div>
+						                        	</div>
+						                        </td>
+						                        <td>
+						                        	--
+						                        </td>
+						                        <td>--</td>
+						                        <td>--</td>
+						                        <td>
+						                        	<span class="font_green">已通过</span>
+						                        	<div class="font_gray">（监考老师1）</div>
+						                        </td>
+						                        <td>
+						                        	<span class="font_red">不通过</span>
+						                        	<div class="font_gray">（监考老师1）</div>
+						                        </td>
+						                        <td><a href="查看监考行为记录2.html" data-role="view-inv-record">查看监考行为</a></td>
+					                      	</tr>
+					                      	<tr>
+						                        <td>
+						                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>姓名：刘丽文</li>
+						                        		<li>学号：101433588</li>
+						                        		<li>身份证：440105199901012356</li>
+						                        		<li>科目：数字电子电路考试</li>
+						                        		<li>计划：2014秋招生</li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>考试次数：1/1</li>
+						                        		<li>最高得分：90</li>
+						                        		<li>本次得分：89</li>
+						                        		<li>进入考试：09:00:00</li>
+						                        		<li>提交试卷：09:30:00</li>
+						                        		<li>考试用时：00:30:00</li>
+						                        		<li>考试结果：<span class="font_orange">考试成绩无效</span></li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	0
+						                        </td>
+						                        <td>
+						                        	<div class="font_green">
+						                        		<u role="link">10张</u>
+						                        		<div>已通过验证</div>
+						                        		<div>（识别率 83%）</div>
+						                        	</div>
+						                        </td>
+						                        <td>
+						                        	--
+						                        </td>
+						                        <td>--</td>
+						                        <td>--</td>
+						                        <td>
+						                        	<div class="font_gray">未监考</div>
+						                        </td>
+						                        <td>
+						                        	<span class="font_green">已通过</span>
+						                        	<div class="font_gray">（监考老师1）</div>
+						                        </td>
+						                        <td><a href="查看监考行为记录2.html" data-role="view-inv-record">查看监考行为</a></td>
+					                      	</tr>
+					                      	<tr>
+						                        <td>
+						                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>姓名：刘丽文</li>
+						                        		<li>学号：101433588</li>
+						                        		<li>身份证：440105199901012356</li>
+						                        		<li>科目：数字电子电路考试</li>
+						                        		<li>计划：2014秋招生</li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	<ul class="inline-block text-left">
+						                        		<li>考试次数：1/1</li>
+						                        		<li>最高得分：--</li>
+						                        		<li>本次得分：--</li>
+						                        		<li>进入考试：09:00:00</li>
+						                        		<li>提交试卷：09:30:00</li>
+						                        		<li>考试用时：00:30:00</li>
+						                        		<li>考试结果：<span class="font_gray">考试待阅卷</span></li>
+						                        	</ul>
+						                        </td>
+						                        <td>
+						                        	0
+						                        </td>
+						                        <td>
+						                        	<div class="font_green">
+						                        		<u role="link">10张</u>
+						                        		<div>已通过验证</div>
+						                        		<div>（识别率 83%）</div>
+						                        	</div>
+						                        </td>
+						                        <td>
+						                        	--
+						                        </td>
+						                        <td>--</td>
+						                        <td>--</td>
+						                        <td>
+						                        	<div class="font_gray">未监考</div>
+						                        </td>
+						                        <td>
+						                        	<span class="font_green">已通过</span>
+						                        	<div class="font_gray">（系统审核）</div>
+						                        </td>
+						                        <td><a href="查看监考行为记录2.html" data-role="view-inv-record">查看监考行为</a></td>
+					                      	</tr>
+					                    </tbody>
+					                  </table>
+					                <div class="paging f12"><a href="javascript:;" class="disabled"> &lt;上一页 </a><a href="javascript:;" class="current">1</a><a href="javascript:;">2</a><a href="javascript:;">3</a><a href="javascript:;">4</a><a href="#">5</a><a href="javascript:;">6</a><a href="javascript:;">7</a>...<a href="javascript:;">199</a><a href="javascript:;">200</a><a href="javascript:;"> 下一页&gt; </a><span class="font_gray left10">共 100 页，到第
+					                  <input type="text">
+					                  页<a href="javascript:;" class="left5">确定</a></span></div>
+
+				                </div>
+			                </div>
+	                	</div>
+	                	<div class="tabs-sub-panel hide" data-id="tab-14">
+	                		<div class="box-border form">
+				    			<div class="padding15">
+					    			<table width="100%" class="table-pad">
+					    				<colgroup>
+					    					<col width="100">
+					    					<col width="25%">
+
+					    					<col width="100">
+					    					<col width="25%">
+
+											<col width="100">
+					    					<col width="25%">
+
+					    					<col width="100">
+					    					<col width="25%">
+					    				</colgroup>
+					    				<tbody>
+					    					<tr>
+					    						<td class="text-nowrap text-right">院校</td>
+					    						<td>
+					    							<select class="textInput textInput-reset full-width">
+											            <option></option>
+											        </select>
+					    						</td>
+
+					    						<td class="text-nowrap text-right">科目</td>
+					    						<td>
+					    							<select class="textInput textInput-reset full-width">
+											            <option></option>
+											        </select>
+					    						</td>
+
+					    						<td class="text-nowrap text-right">学号</td>
+					    						<td>
+					    							<input class="textInput textInput-reset full-width">
+					    						</td>
+
+					    						<td class="text-nowrap text-right">姓名</td>
+					    						<td>
+					    							<input class="textInput textInput-reset full-width">
+					    						</td>
+
+					    						<td class="text-nowrap">
+					    							<button type="button" class="btn btn-dark-blue btn-sm min-width-100 vertical-middel">搜索</button>
+					    						</td>
+					    					</tr>
+					    				</tbody>
+					    			</table>
+				    			</div>
+				    		</div>
+				    		<table class="table-basic f12 text-center margin_t15">
+			                	<colgroup>
+			                		<col width="16%">
+			                		<col width="16%">
+			                		<col width="16%">
+			                		<col width="16%">
+			                		<col>
+			                	</colgroup>
+			                    <thead>
+			                      <tr>
+			                        <th>头像</th>
+			                        <th>姓名</th>
+			                        <th>学号</th>
+			                        <th>身份证</th>
+			                        <th>科目</th>
+			                        <th>计划</th>
+			                      </tr>
+			                    </thead>
+			                    <tbody>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	刘丽文
+				                        </td>
+				                        <td>
+				                        	101433588
+				                        </td>
+				                        <td>
+				                        	440105199901012356
+				                        </td>
+				                        <td>
+				                        	《数字电子电路》考试
+				                        </td>
+				                        <td>
+				                        	2014秋招生
+				                        </td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	刘丽文
+				                        </td>
+				                        <td>
+				                        	101433588
+				                        </td>
+				                        <td>
+				                        	440105199901012356
+				                        </td>
+				                        <td>
+				                        	《数字电子电路》考试
+				                        </td>
+				                        <td>
+				                        	2014秋招生
+				                        </td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	刘丽文
+				                        </td>
+				                        <td>
+				                        	101433588
+				                        </td>
+				                        <td>
+				                        	440105199901012356
+				                        </td>
+				                        <td>
+				                        	《数字电子电路》考试
+				                        </td>
+				                        <td>
+				                        	2014秋招生
+				                        </td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+				                        </td>
+				                        <td>
+				                        	刘丽文
+				                        </td>
+				                        <td>
+				                        	101433588
+				                        </td>
+				                        <td>
+				                        	440105199901012356
+				                        </td>
+				                        <td>
+				                        	《数字电子电路》考试
+				                        </td>
+				                        <td>
+				                        	2014秋招生
+				                        </td>
+			                      	</tr>
+			                    </tbody>
+			                  </table>
+	                	</div>
+	            	</div>
+	            </div>
+	            <div class="tabs-top-panel hide" data-id="tab-3">
+	            	<div class="box-border margin_b15 clearfix">
+	            		<div class="fl">
+		            		<ul class="tabs-sub clearfix">
+		            			<li class="cur" data-target="tab-21" data-toggle="tab">全部(300)</li>
+		            			<li data-target="tab-21" data-toggle="tab">今日(100)</li>
+		            			<li data-target="tab-21" data-toggle="tab">本周(100)</li>
+		            			<li data-target="tab-21" data-toggle="tab">本月(100)</li>
+		            		</ul>
+	            		</div>
+	            		<div class="fl form padding_l25 padding_t15 clearfix">
+            				<div class="fl padding_t5">按日期：</div>
+	            			<div class="column fl" style="width:200px;">
+						        <div class="col-2-1">
+						        	<input class="textInput textInput-reset full-width" onClick="WdatePicker()" id="d4321" placeholder="开始时间">
+						        </div>
+						        <div class="col-2-1 last">
+						        	<input class="textInput textInput-reset full-width" onClick="WdatePicker({minDate:'#F{$dp.$D(\'d4321\',{d:1});}'})" id="d4322" placeholder="结束时间">
+						        </div>
+						    </div>
+						    <button type="button" class="btn btn-dark-blue btn-sm margin_l10 min-width-0 flat">确定</button>
+	            		</div>
+	            		<div class="fr padding_t15 padding_r20">
+	            			<button type="button" class="btn btn-gray btn-sm min-width-100">导出动态</button>
+	            		</div>
+	            	</div>
+	            	<div class="tabs-sub-content">
+	            		<div class="tabs-sub-panel" data-id="tab-21">
+	            			<ul class="history-list top-level padding10" data-role="level">
+								<li class="item expand">
+									<i class="toggle"></i>
+									<div class="level-title">2019-01-04（50条动态）</div>
+
+									<ul class="history-list first-width-line">
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）登录监考平台
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）进入 《管理方法与艺术》 科目进行监考
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）对 
+												<span class="name">XXX</span>
+												（学号：XXXXXXXXX）进行视频监考
+												<a class="view-record" data-role="view-inv-record" href="查看监考行为记录.html"><u>查看视频记录</u></a>
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）对 
+												<span class="name">XXX</span>
+												（学号：XXXXXXXXX）发送了一条聊天信息
+												<a class="view-record" data-role="view-inv-record" href="查看监考行为记录.html"><u>查看聊天记录</u></a>
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（学号：XXXXXXXXX）发起第 1 次警告
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）对 
+												<span class="name">XXX</span>
+												（学号：XXXXXXXXX）发送了一条聊天信息
+												<a class="view-record" data-role="view-inv-record" href="查看监考行为记录.html"><u>查看聊天记录</u></a>
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）对 
+												<span class="name">XXX</span>
+												（学号：XXXXXXXXX）截取 1 张考试画面
+												<a class="view-record" data-role="view-inv-record" href="查看监考行为记录.html"><u>查看截图记录</u></a>
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）对 
+												<span class="name">XXX</span>
+												（学号：XXXXXXXXX）结束第 1 次警告，让考生继续考试
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）对 
+												<span class="name">XXX</span>
+												（学号：XXXXXXXXX）结束监考，判断监考已通过
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）对 
+												<span class="name">XXX</span>
+												（学号：XXXXXXXXX）发起第 2 次警告
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）对 
+												<span class="name">XXX</span>
+												（学号：XXXXXXXXX）截取 1 张考试画面
+												<a class="view-record" data-role="view-inv-record" href="查看监考行为记录.html"><u>查看截图记录</u></a>
+											</div>
+										</li>
+										<li class="item">
+											<i class="toggle"></i>
+											<div class="time">2019-01-04 09:00:03</div>
+											<div class="txt">
+												<span class="name">XXX</span>
+												（监考老师）对 
+												<span class="name">XXX</span>
+												（学号：XXXXXXXXX）结束第 2 次警告，结束考生考试，并判定考试成绩无效
+												<a class="view-record" data-role="view-inv-record" href="查看监考行为记录.html"><u>查看原因</u></a>
+											</div>
+										</li>
+									</ul>
+								</li>
+								<li class="item">
+									<i class="toggle"></i>
+									<div class="level-title">2019-01-03（50条动态）</div>
+								</li>
+								<li class="item">
+									<i class="toggle"></i>
+									<div class="level-title">2019-01-02（50条动态）</div>
+								</li>
+							</ul>
+	            		</div>
+	            	</div>
+	            </div>
+            </div>
+	    </div>
+	  </div>
+	</div>
+	<!--main--> 

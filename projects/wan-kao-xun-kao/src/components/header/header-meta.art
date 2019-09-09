@@ -1,0 +1,12 @@
+	<meta charset="utf-8">
+	<title><%=title%></title>
+	<link type="text/css" rel="stylesheet" href="http://css.gzedu.com/common/v2/common.css" />
+	<link type="text/css" rel="stylesheet" href="http://css.gzedu.com/exam_chinaeenet_com/pc/style/base.css" />
+	<link type="text/css" rel="stylesheet" href="http://172.16.170.119:801/exam_chinaeenet_com/pc/style/patrol-exam.css" />
+	<!--[if lte IE 6]>
+	<script type="text/javascript" src="http://css.gzedu.com/common/js/DD_belatedPNG_0.0.8a.js"></script>
+	<script type="text/javascript">
+	  DD_belatedPNG.fix('.bg_png');
+	</script>
+	<![endif]-->
+	<% if (appendContent) { %> <%= appendContent %> <% } %>

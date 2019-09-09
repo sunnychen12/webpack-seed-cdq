@@ -1,0 +1,7 @@
+<script type="text/javascript">
+require(['jquery','vuejs', 'codePrettify' ,'common'],function($,Vue){
+	$('.prettyprint').html($('textarea').html())
+
+     prettyPrint();
+});
+</script>

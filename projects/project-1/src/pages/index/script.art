@@ -19,14 +19,17 @@
         	msg:'',
         	//isShowMore:false,
             isloaded:false,//是否所有数据都已经加载完毕
-        	hasFinItem:false,
+        	hasFinItem:0,
         	userCourseInfo:false,
         	actCompleteStatus:{},
 			sectionList:[],
-			newSectionList:[]
+			newSectionList:[],
+            //演示版本增加字段
+            isDemoForShow: (sessionStorage.getItem('isDemoForShow') || false),
+            curViewActivity: false
         },
         created: function () {
-            if(!username && !courseCode && !realname){
+            if(!username || !courseCode || !realname){
                 this.success=false;
                 this.msg='参数出错';
                 this.showHtml();
@@ -117,7 +120,33 @@
             },
         	getData:function(){
         		var vm=this;
-        		
+                
+                //如果存在缓存数据，用缓存数据先渲染
+                var cacheUserCourseInfo=commomLab.cacheUserCourseInfo.get();
+                var cacheCourseInfoActivities=commomLab.cacheCourseInfoActivities.get();
+                if(
+                    cacheUserCourseInfo &&
+                    cacheCourseInfoActivities &&
+                    cacheCourseInfoActivities.moodleGetCourseContents
+                ){
+                    vm.isloaded=true;
+                    //获取缓存的用户数据
+                    vm.userCourseInfo=cacheUserCourseInfo;
+                    //获取缓存的活动列表数据（原始）
+                    vm.sectionList=cacheCourseInfoActivities.moodleGetCourseContents.sectionList;
+                    //获取缓存的活动列表数据（经过处理的）
+                    vm.newSectionList=cacheCourseInfoActivities.moodleGetCourseContents.newSectionList;
+
+                    //获取缓存的活动状态数据
+                    if(commomLab.cacheActStatus.get()){
+                        vm.actCompleteStatus=commomLab.cacheActStatus.get();
+                        vm.initActStatus(vm.actCompleteStatus);
+                    }
+
+                    vm.initDomRender();
+                }
+                
+        		//加载真实数据
         		this.getUserCourseInfo(
         			username,
         			courseCode,
@@ -162,15 +191,14 @@
                                             }
                                         });
 
-                                        commomLab.cacheCourseInfoActivities.set({
-                                            allModules:allModules
-                                        });
+                                        //转换数据格式
+                                        var rootItem=vm.convertData(res2.data.sectionList);
+
+                                        
+                                        def.resolve(allModules, res2.data, rootItem);
+                                        
                                     }
 
-                                    //转换数据格式
-                                    vm.convertData(res2.data.sectionList);
-
-                                    def.resolve();
                                     
                                 }
                                 else{
@@ -193,8 +221,9 @@
                     });
 
                     //获取学员完成活动的状态
-                    def.done(function(){
+                    def.done(function(allModules, courseData, rootItem){
                         $.showIndicator();
+                        
                         vm.getActivitiesCompletionStatus(
                             vm.userCourseInfo.user.id,
                             vm.userCourseInfo.course.courseId,
@@ -208,68 +237,101 @@
 
                                 vm.actCompleteStatus=res3.data;
 
-                                function searchState(cmid){
-                                    var r=false;
-                                    $.each(res3.data.statuses, function(index, item) {
-                                        if(cmid==item.cmid){
-                                            r=item.state;
-                                            return false;
-                                        }
-                                    });
+                                vm.newSectionList=rootItem;
 
-                                    return r;
-                                }
+                                courseData.newSectionList=rootItem;
 
-                                $.each(vm.newSectionList, function(r, newSection) {
-                                    $.each(newSection.group, function(n, section) {
-                                        $.each(section.modulesList, function(m, module) {
-                                            var state=searchState(module.id);
+                                vm.initActStatus(vm.actCompleteStatus);
 
-                                            if(state){
-                                                vm.$set(section.modulesList[m],'state',state)
-                                                if(!vm.hasFinItem && state==1){
-                                                    vm.hasFinItem=true;
-                                                }
-                                            }
-                                        });
-                                    });
+                                commomLab.cacheCourseInfoActivities.set({
+                                    allModules:allModules,
+                                    moodleGetCourseContents:courseData
                                 });
+
+                                commomLab.cacheActStatus.set(res3.data);
                             }
                         })
                         .always(function(){
                             vm.showHtml();
 
-                            vm.$nextTick(function(){
-                                var $content=$('.content');
-                                commomLab.moveTop($content);
-
-                                //滚动定位到之前点击的活动
-                                var pos=commomLab.cacheIndexScrollPos.get();
-                                if(pos){
-                                    $content.scrollTop(pos);
-
-                                    commomLab.cacheIndexScrollPos.clear();
-                                }
-
-                                //banner背景预加载
-                                var $courseBanner=$('.course-banner')
-                                    , bgUrl=$courseBanner.attr('data-bg');
-
-                                if(bgUrl){
-                                    var img=new Image();
-                                    img.src=bgUrl;
-                                    img.onload=function(){
-                                        $courseBanner.empty();
-                                    }
-                                }
-                                else{
-                                    $courseBanner.empty();
-                                }
-                            });
+                            vm.initDomRender();
                         });
                     });
                 })
         	},
+            //调用该方法，执行一些需要访问Dom结点的业务
+            initDomRender:function(){
+                var vm=this;
+                vm.$nextTick(function(){
+                    var $content=$('.content');
+                    commomLab.moveTop($content);
+
+                    //滚动定位到之前点击的活动
+                    var pos=commomLab.cacheIndexScrollPos.get();
+                    if(pos){
+                        $content.scrollTop(pos);
+
+                        commomLab.cacheIndexScrollPos.clear();
+                    }
+
+                    //banner背景预加载
+                    var $courseBanner=$('.course-banner')
+                        , bgUrl=$courseBanner.attr('data-bg');
+
+                    if(bgUrl){
+                        var img=new Image();
+                        img.src=bgUrl;
+                        img.onload=function(){
+                            $courseBanner.empty();
+                        }
+                    }
+                    else{
+                        $courseBanner.empty();
+                    }
+                });
+            },
+            //针对重构后的活动列表对象，植入对应活动的完成状态
+            initActStatus:function(actStatusData){
+                var vm=this;
+                function searchState(cmid){
+                    var r=false;
+                    $.each(actStatusData.statuses, function(index, item) {
+                        if(cmid==item.cmid){
+                            r=item.state;
+                            return false;
+                        }
+                    });
+
+                    return r;
+                }
+
+                $.each(vm.newSectionList, function(r, newSection) {
+                    $.each(newSection.group, function(n, section) {
+                        $.each(section.modulesList, function(m, module) {
+                            var state=searchState(module.id);
+
+                            if(state){
+                                vm.$set(section.modulesList[m],'state',state)
+                                /*
+                                if(!vm.hasFinItem && state==1){
+                                    vm.hasFinItem=true;
+                                }
+                                */
+                                if(state==1){
+                                    ++vm.hasFinItem;
+                                }
+                            }
+                        });
+                    });
+                });
+
+                if(
+                    commomLab.cacheCourseInfoActivities.get() &&
+                    commomLab.cacheCourseInfoActivities.get().moodleGetCourseContents){
+
+                }
+            },
+            //生成转换后的活动列表对象
         	convertData:function(sectionList){
         		var vm=this;
         		var rootItem=[];
@@ -299,7 +361,8 @@
 
         			//console.log(rootItem);
         		}
-        		vm.newSectionList=rootItem;
+
+                return rootItem;
         	},
         	//获取学员课程选课信息
 			getUserCourseInfo : function(username,courseCode,realname){
@@ -336,7 +399,7 @@
                             });
 
                             $.hideIndicator();
-                            /////////
+                            
                             def.resolve(resData);
                         }
                         else{
@@ -406,7 +469,7 @@
         				result='#655de2';
         				break;
         			default:
-        				'#4c8ee0'
+        				result='#ccc';
         				break;
         		}
         		return result;
@@ -525,6 +588,7 @@
         				result.jumpUrl='course-discussion-index.html?id='+module.id;
         				break;
         			default:
+                        result.name=module.modplural;
         				break;
         		}
         		return result;
@@ -570,6 +634,18 @@
                             });
                             return;
                         }
+                        //如果是视频活动，并且是APP演示版本
+                        else if(module.modname=='url' && vm.isDemoForShow){
+
+                            try{
+                                //调用APP原生播放器
+                                Phone.goToPlay(module.contents[0].fileurl, module.modname, '');
+
+                                vm.curViewActivity=module;
+                            }catch(e){}
+
+                            return;
+                        }
                     }
                     else if(module.availabilityinfo){
                         //视频
@@ -588,46 +664,45 @@
                 commomLab.cacheIndexScrollPos.set($('.content').scrollTop());
 
         		var jumpUrl=this.getModuleInfoAbout(module).jumpUrl;
-        		//测验 类型活动
-        		if(module.modname=='quiz'){
-        			$.showIndicator();
-        			this.checkQuizAccess(module.instance)
-        			.done(function(res){
-        				if(
-							commomLab.checkAPIResult(res) &&
-							res.data.canattempt
-						){
-                            //允许测试次数
-                            /*
-                            var count=res.data.accessrules;
+                if(jumpUrl){
+            		//测验 类型活动
+            		if(module.modname=='quiz'){
+            			$.showIndicator();
+            			this.checkQuizAccess(module.instance)
+            			.done(function(res){
+            				if(
+    							commomLab.checkAPIResult(res) &&
+    							res.data.canattempt
+    						){
+                                //允许测试次数
+                                /*
+                                var count=res.data.accessrules;
 
-                            if(count && count.length>0){
-                                location.href=jumpUrl+'&permitTestTimes='+count[0].split('：')[1];
-                            }
-							else{
+                                if(count && count.length>0){
+                                    location.href=jumpUrl+'&permitTestTimes='+count[0].split('：')[1];
+                                }
+    							else{
+                                    location.href=jumpUrl;
+                                }
+                                */
                                 location.href=jumpUrl;
-                            }
-                            */
-                            location.href=jumpUrl;
-						}
-						else{
-							commomLab.myToast({
-								msg:res.data.message
-							})
-						}
-        			})
-        			.fail(function(){
-        				commomLab.myToast({
-							msg:'数据查询出错'
-						})
-        			})
-        			.always(function(){
-        				$.hideIndicator();
-        			});
-        		}
-
-        		else{
-                    if(module.modname=='resource'){
+    						}
+    						else{
+    							commomLab.myToast({
+    								msg:(res.message || res.data.message)
+    							})
+    						}
+            			})
+            			.fail(function(){
+            				commomLab.myToast({
+    							msg:'数据查询出错'
+    						})
+            			})
+            			.always(function(){
+            				$.hideIndicator();
+            			});
+            		}
+                    else if(module.modname=='resource'){
                         //ios直接访问文件资源链接就可以实现下载
                         if($.device.ios && $.device.webView){
                             location.href=jumpUrl;
@@ -640,7 +715,12 @@
                     else{
         			     location.href=jumpUrl;
                     }
-        		}
+                }
+                else{
+                    commomLab.myToast({
+                        msg:'暂不支持移动学习'
+                    });
+                }
         	},
             //banner图片格式化
             imgUrlFormat:function(url){
@@ -693,5 +773,25 @@
         	}
         }
     });
+
+
+    //APP回调设置Web视频学习活动已完成
+    window.appCompleteVideo=function (){
+        var videoActivity=app.curViewActivity;
+        
+        commomLab.ajaxProcess({
+            url: '/api/stud/study/moodleViewUrl',
+            data: {
+                cmid: videoActivity.id,
+                urlid: videoActivity.instance,
+                completed: 1,
+                token: commomLab.cacheUserCourseInfo.get().token
+            }
+        })
+        .done(function(){
+            videoActivity.state='1';
+            ++app.hasFinItem;
+        });
+    }
 })();
 </script>

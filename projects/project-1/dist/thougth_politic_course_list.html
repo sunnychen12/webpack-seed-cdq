@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>思政课列表</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" type="text/css" href="css/common.css?v=1552893839296">
+	<link rel="stylesheet" type="text/css" href="css/main.css?v=1552893839296">
+	
+</head>
+<body>
+<div class="wrap">
+		<div class="page-group">
+		<div class="page page-current">
+			<div class="content bg-white">
+				<div class="padding-l_75rem padding-r_75rem padding-t_75rem">
+					<div class="position-relative t-p-list-swiper padding-b_75rem border-bottom">
+						<div class="swiper-container">
+						    <div class="swiper-wrapper">
+						      <div class="swiper-slide">
+						      	<a href="#" class="embed-responsive">
+						      		<img src="https://www.swiper.com.cn/demo/img/nature1.jpg" class="embed-responsive-item">
+						      		<i class="v-icon"></i>
+						      	</a>
+						      </div>
+						      <div class="swiper-slide">
+						      	<a href="#" class="embed-responsive">
+						      		<img src="https://www.swiper.com.cn/demo/img/nature1.jpg" class="embed-responsive-item">
+						      		<i class="v-icon"></i>
+						      	</a>
+						      </div>
+						    </div>
+						</div>
+						<ul class="swiper-title-list list-unstyled text-center">
+							<li>新时代 新成就1</li>
+							<li style="display:none">新时代 新成就2</li>
+						</ul>
+						<div class="swiper-pagination full-width"></div>
+					</div>
+				</div>
+				
+
+				<div class="padding-l_75rem padding-r_75rem padding-b_75rem">
+					<ul class="list-unstyled t-p-list2">
+						<li class="item-with-border">
+							<div class="flex-box flex-align-center">
+								<div class="overflow-hidden">
+									<h5 class="text-ellipsis">习近平新时代中国特色社会主义思想</h5>
+								</div>
+								<div class="flex-item choose-status">
+									<span class="label" required>必选</span>
+								</div>
+							</div>
+							<div class="flex-box margin-t_3rem">
+								<div class="flex-item info flex-align-center">
+									<span>
+										学习次数：0次
+									</span>
+									<span>
+										形考成绩：0分
+									</span>
+								</div>
+								<span class="label study-status">学习中</span>
+							</div>
+						</li>
+						<li class="item-with-border">
+							<div class="flex-box flex-align-center">
+								<div class="overflow-hidden">
+									<h5 class="text-ellipsis">马克思主义基本原理概论</h5>
+								</div>
+								<div class="flex-item choose-status">
+									<span class="label">选修</span>
+								</div>
+							</div>
+							<div class="flex-box margin-t_3rem flex-align-center">
+								<div class="flex-item info">
+									<span>
+										学习次数：0次
+									</span>
+									<span>
+										形考成绩：0分
+									</span>
+								</div>
+								<span class="label study-status has-fin">已完成</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<script type="text/javascript" src="js/common.min.js?v=1552893839296"></script>
+	<script type="text/javascript" src="js/commonLab.min.js?v=1552893839296"></script>
+
+
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+
+<script type="text/javascript">
+	var swiper = new $.Swiper('.swiper-container', {
+		onSlideChangeEnd: function(swiper){
+	      $('.swiper-title-list > li').hide().eq(swiper.activeIndex).show();
+	    }
+    });
+</script>
+
+
+</body>
+</html>

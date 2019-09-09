@@ -1,0 +1,9 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+
+<script type="text/javascript">
+	var swiper = new $.Swiper('.swiper-container', {
+		onSlideChangeEnd: function(swiper){
+	      $('.swiper-title-list > li').hide().eq(swiper.activeIndex).show();
+	    }
+    });
+</script>

@@ -1,0 +1,15 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<div class="content"style="background:#000;">				
+				<div class="flex-box flex-vertical full-height flex-box-justify-center">
+						<video class="full-width" :src="videourl"
+								x5-playsinline 
+								playsinline 
+								webkit-playsinline 
+								controls
+								autoplay="autoplay"
+							></video>
+				</div>
+			</div>
+		</div>
+	</div>

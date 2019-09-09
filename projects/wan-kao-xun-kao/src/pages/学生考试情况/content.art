@@ -1,0 +1,875 @@
+	<!--main-->
+	<div class="main_wrapper">
+	  <div class="body_area">
+	    <div class="main_content block min_height margin_t20 margin_b20">
+	    	<div class="padding20">
+	    		<div class="box-border form">
+	    			<div class="padding15">
+		    			<table width="100%" class="table-pad">
+		    				<colgroup>
+		    					<col width="100">
+		    					<col width="33.33%">
+
+		    					<col width="100">
+		    					<col width="33.33%">
+
+								<col width="100">
+		    					<col width="33.33%">
+		    				</colgroup>
+		    				<tbody>
+		    					<tr>
+		    						<td class="text-nowrap text-right">考试计划</td>
+		    						<td>
+		    							<select class="textInput textInput-reset full-width">
+								            <option>2017春期末考试计划</option>
+								        </select>
+		    						</td>
+
+		    						<td class="text-nowrap text-right">学号</td>
+		    						<td>
+		    							<input class="textInput textInput-reset full-width">
+		    						</td>
+
+		    						<td class="text-nowrap text-right">考生姓名</td>
+		    						<td>
+		    							<input class="textInput textInput-reset full-width">
+		    						</td>
+		    					</tr>
+
+		    					<tr>
+		    						<td class="text-nowrap text-right">考试科目</td>
+		    						<td>
+		    							<select class="textInput textInput-reset full-width">
+								            <option>全部科目</option>
+								        </select>
+		    						</td>
+
+		    						<td class="text-nowrap text-right">所属院校</td>
+		    						<td>
+		    							<select class="textInput textInput-reset full-width">
+								            <option>全部</option>
+								        </select>
+		    						</td>
+
+		    						<td class="text-nowrap text-right">身份证</td>
+		    						<td>
+		    							<input class="textInput textInput-reset full-width">
+		    						</td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+	    			</div>
+	    			<div class="box-border-top padding15 text-right">
+	    				<div class="padding_r5">
+		    				<button type="button" class="btn btn-gray btn-sm min-width-100 margin_l5 vertical-middel">重置</button>
+		    				<button type="button" class="btn btn-dark-blue btn-sm min-width-100 margin_l5 vertical-middel">搜索</button>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="box-border padding_t20 padding_b20 padding_l10 padding_r10 margin_t15">
+	    			<table width="100%" class="text-center">
+	    				<colgroup>
+	    					<col width="11.11%">
+	    					<col width="11.11%">
+	    					<col width="11.11%">
+	    					<col width="11.11%">
+	    					<col width="11.11%">
+	    					<col width="11.11%">
+	    					<col width="11.11%">
+	    					<col width="11.11%">
+	    					<col width="11.11%">
+	    				</colgroup>
+	    				<tbody>
+	    					<tr>
+	    						<td>
+	    							<div class="f36 line-height-1">15,000</div>
+	    							<div class="font_gray margin_t5">考试考生总人次</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">100</div>
+	    							<div class="font_gray margin_t5">考试中</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">1</div>
+	    							<div class="font_gray margin_t5">考试待审核</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">500</div>
+	    							<div class="font_gray margin_t5">考试成绩无效</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">500</div>
+	    							<div class="font_gray margin_t5">考试已通过</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">500</div>
+	    							<div class="font_gray margin_t5">考试未通过</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">500</div>
+	    							<div class="font_gray margin_t5">考试待阅卷</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">500</div>
+	    							<div class="font_gray margin_t5">未参与考试</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">50%</div>
+	    							<div class="font_gray margin_t5">考试通过率</div>
+	    						</td>
+	    					</tr>
+	    				</tbody>
+	    			</table>
+	    		</div>
+	    		<div class="box-border margin_b15 margin_t15">
+            		<ul class="tabs-sub clearfix">
+            			<li class="cur" data-target="tab-11" data-toggle="tab">考试中(100)</li>
+            			<li data-target="tab-12" data-toggle="tab">暂时退出考试(100)</li>
+            			<li data-target="tab-13" data-toggle="tab">已完成考试(100)</li>
+            			<li data-target="tab-14" data-toggle="tab">未开始考试(100)</li>
+            		</ul>
+            	</div>
+
+            	<div class="tabs-sub-content">
+            		<div class="tabs-sub-panel" data-id="tab-11">
+				      	<div class="clearfix box-border padding15">
+				      		<div class="fr">
+				      			<button type="button" class="btn btn-sm min-width-100 margin_l5 vertical-middel">批量查看监控照片</button>
+				      			<button type="button" class="btn btn-sm min-width-100 margin_l5 vertical-middel">批量监考</button>
+				      		</div>
+			                <div class="fl">
+			                  <div class="clearfix">
+			                    <ul class="tabs-2 tabs-2-sm">
+			                      <li class="cur" data-target="tab-112" data-toggle="tab">全部（2）</li>
+			                      <li data-target="tab-112" data-toggle="tab">监考中（1）</li>
+			                      <li data-target="tab-112" data-toggle="tab">监考已通过（1）</li>
+			                      <li data-target="tab-112" data-toggle="tab">监考未通过（1）</li>
+			                      <li data-target="tab-112" data-toggle="tab">待监考（1）</li>
+			                      <li data-target="tab-112" data-toggle="tab">警告中（1）</li>
+			                      <li data-target="tab-112" data-toggle="tab">有警告（1）</li>
+			                      <li class="last" data-target="tab-112" data-toggle="tab">暂停中（1）</li>
+			                    </ul>
+			                  </div>
+			                </div>
+			            </div>
+			            
+			            <div class="tabs-2-content">
+			            	<div class="tabs-2-panel" data-id="tab-112">
+				                <table class="table-basic f12 text-center">
+				                	<colgroup>
+				                		<col width="20">
+				                		<col width="100">
+				                		<col width="18%">
+				                		<col>
+				                		<col width="14%">
+				                		<col width="11%">
+				                		<col width="10%">
+				                		<col width="8%">
+				                		<col width="8%">
+				                	</colgroup>
+				                    <thead>
+				                      <tr>
+				                      	<th>
+				                      		<input type="checkbox" data-role="sel-all">
+				                      	</th>
+				                        <th>头像</th>
+				                        <th>考生信息</th>
+				                        <th>考试科目信息</th>
+				                        <th>考试实况</th>
+				                        <th>人脸抓拍验证照片</th>
+				                        <th>警告次数</th>
+				                        <th>监考状态</th>
+				                        <th>操作</th>
+				                      </tr>
+				                    </thead>
+				                    <tbody>
+				                      	<tr>
+				                      		<td>
+				                      			<input type="checkbox" data-role="sel-item">
+				                      		</td>
+					                        <td>
+					                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>姓名：刘丽文</li>
+					                        		<li>学号：101433588</li>
+					                        		<li>身份证：440105199901012356</li>
+					                        		<li>院校：海珠区电大</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>科目：《数字电子电路》考试</li>
+					                        		<li>计划：2014秋招生</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试进度：5%</li>
+					                        		<li>进入考试：09:00:00</li>
+					                        		<li>考试已用：00:10:00</li>
+					                        		<li>答题剩余：01:20:00</li>
+					                        		<li>考试状态：答题中</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<div class="font_orange">
+					                        		<div>10张</div>
+					                        		<div>（识别率 30%）</div>
+					                        	</div>
+					                        </td>
+					                        <td>
+					                        	2
+					                        	<div class="font_red">（警告中）</div>
+					                        </td>
+					                        <td>
+					                        	<span class="font_orange">监考中</span>
+					                        	<div class="font_gray">（监考老师1）</div>
+					                        </td>
+					                        <td>
+					                        	<ul>
+					                        		<li><a href="#">监考</a></li>
+					                        		<li><a href="#">查看监控照片</a></li>
+					                        		<li><a href="#">查看卷面</a></li>
+					                        	</ul>
+					                        </td>
+				                      	</tr>
+				                      	<tr>
+				                      		<td>
+				                      			<input type="checkbox" data-role="sel-item">
+				                      		</td>
+					                        <td>
+					                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>姓名：刘丽文</li>
+					                        		<li>学号：101433588</li>
+					                        		<li>身份证：440105199901012356</li>
+					                        		<li>院校：海珠区电大</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>科目：《数字电子电路》考试</li>
+					                        		<li>计划：2014秋招生</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试进度：5%</li>
+					                        		<li>进入考试：09:00:00</li>
+					                        		<li>考试已用：00:10:00</li>
+					                        		<li>答题剩余：01:20:00</li>
+					                        		<li>考试状态：暂停中</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<div class="font_orange">
+													<div>6张</div>
+													<div>（识别率 40%）</div>
+												</div>
+					                        </td>
+					                        <td>
+					                        	1
+					                        </td>
+					                        <td>
+					                        	<span class="font_green">已通过</span>
+					                        </td>
+					                        <td>
+					                        	<ul>
+					                        		<li><a href="#">监考</a></li>
+					                        		<li><a href="#">查看监控照片</a></li>
+					                        		<li><a href="#">查看卷面</a></li>
+					                        	</ul>
+					                        </td>
+				                      	</tr>
+				                      	<tr>
+				                      		<td>
+				                      			<input type="checkbox" data-role="sel-item">
+				                      		</td>
+					                        <td>
+					                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>姓名：刘丽文</li>
+					                        		<li>学号：101433588</li>
+					                        		<li>身份证：440105199901012356</li>
+					                        		<li>院校：海珠区电大</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>科目：《数字电子电路》考试</li>
+					                        		<li>计划：2014秋招生</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试进度：5%</li>
+					                        		<li>进入考试：09:00:00</li>
+					                        		<li>考试已用：00:10:00</li>
+					                        		<li>答题剩余：01:20:00</li>
+					                        		<li>考试状态：答题中</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<div class="font_green">
+													<div>10张</div>
+													<div>（识别率 80%）</div>
+												</div>
+					                        </td>
+					                        <td>
+					                        	0
+					                        </td>
+					                        <td>
+					                        	<span class="font_red">不通过</span>
+					                        </td>
+					                        <td>
+					                        	<ul>
+					                        		<li><a href="#">监考</a></li>
+					                        		<li><a href="#">查看监控照片</a></li>
+					                        		<li><a href="#">查看卷面</a></li>
+					                        	</ul>
+					                        </td>
+				                      	</tr>
+				                      	<tr>
+				                      		<td>
+				                      			<input type="checkbox" data-role="sel-item">
+				                      		</td>
+					                        <td>
+					                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>姓名：刘丽文</li>
+					                        		<li>学号：101433588</li>
+					                        		<li>身份证：440105199901012356</li>
+					                        		<li>院校：海珠区电大</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>科目：《数字电子电路》考试</li>
+					                        		<li>计划：2014秋招生</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试进度：5%</li>
+					                        		<li>进入考试：09:00:00</li>
+					                        		<li>考试已用：00:10:00</li>
+					                        		<li>答题剩余：01:20:00</li>
+					                        		<li>考试状态：答题中</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<div class="font_green">
+													<div>10张</div>
+													<div>（识别率 73%）</div>
+												</div>
+					                        </td>
+					                        <td>
+					                        	0
+					                        </td>
+					                        <td>
+					                        	<span class="font_gray">待监考</span>
+					                        </td>
+					                        <td>
+					                        	<ul>
+					                        		<li><a href="#">监考</a></li>
+					                        		<li><a href="#">查看监控照片</a></li>
+					                        		<li><a href="#">查看卷面</a></li>
+					                        	</ul>
+					                        </td>
+				                      	</tr>
+				                      	<tr>
+				                      		<td>
+				                      			<input type="checkbox" data-role="sel-item">
+				                      		</td>
+					                        <td>
+					                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>姓名：刘丽文</li>
+					                        		<li>学号：101433588</li>
+					                        		<li>身份证：440105199901012356</li>
+					                        		<li>院校：海珠区电大</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>科目：《数字电子电路》考试</li>
+					                        		<li>计划：2014秋招生</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试进度：5%</li>
+					                        		<li>进入考试：09:00:00</li>
+					                        		<li>考试已用：00:10:00</li>
+					                        		<li>答题剩余：01:20:00</li>
+					                        		<li>考试状态：答题中</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<div class="font_green">
+													<div>10张</div>
+													<div>（识别率 91%）</div>
+												</div>
+					                        </td>
+					                        <td>
+					                        	0
+					                        </td>
+					                        <td>
+					                        	<span class="font_gray">待监考</span>
+					                        </td>
+					                        <td>
+					                        	<ul>
+					                        		<li><a href="#">监考</a></li>
+					                        		<li><a href="#">查看监控照片</a></li>
+					                        		<li><a href="#">查看卷面</a></li>
+					                        	</ul>
+					                        </td>
+				                      	</tr>
+				                    </tbody>
+				                </table>
+				                <div class="paging f12"><a href="javascript:;" class="disabled"> &lt;上一页 </a><a href="javascript:;" class="current">1</a><a href="javascript:;">2</a><a href="javascript:;">3</a><a href="javascript:;">4</a><a href="#">5</a><a href="javascript:;">6</a><a href="javascript:;">7</a>...<a href="javascript:;">199</a><a href="javascript:;">200</a><a href="javascript:;"> 下一页&gt; </a><span class="font_gray left10">共 100 页，到第
+				                  <input type="text">
+				                  页<a href="javascript:;" class="left5">确定</a></span></div>
+			                </div>
+		                </div>
+                	</div>
+                	<div class="tabs-sub-panel hide" data-id="tab-12">
+                		版面内容排版与前一tab的一样
+                	</div>
+                	<div class="tabs-sub-panel hide" data-id="tab-13">
+			    		<div class="clearfix box-border padding15">
+			    			<div class="fr">
+				      			<button type="button" class="btn btn-sm min-width-100 margin_l5">导出详情</button>
+				      		</div>
+			                <div class="fl">
+			                  <div class="clearfix">
+			                    <ul class="tabs-2 tabs-2-sm">
+			                      <li class="cur" data-target="tab-113" data-toggle="tab">全部（2）</li>
+			                      <li data-target="tab-113" data-toggle="tab">待审核（1）</li>
+			                      <li data-target="tab-113" data-toggle="tab">监考已通过（1）</li>
+			                      <li data-target="tab-113" data-toggle="tab">监考未通过（1）</li>
+			                      <li data-target="tab-113" data-toggle="tab">未监考（1）</li>
+			                      <li data-target="tab-113" data-toggle="tab">及格（1）</li>
+			                      <li data-target="tab-113" data-toggle="tab">不及格（1）</li>
+			                      <li data-target="tab-113" data-toggle="tab">审核不通过，成绩无效（1）</li>
+			                      <li data-target="tab-113" data-toggle="tab">审核通过（1）</li>
+			                      <li class="last" data-target="tab-113" data-toggle="tab">待阅卷（1）</li>
+			                    </ul>
+			                  </div>
+			                </div>
+			            </div>
+
+			            <div class="tabs-2-content">
+			            	<div class="tabs-2-panel" data-id="tab-113">
+				                <table class="table-basic f12 text-center">
+				                	<colgroup>
+				                		<col width="20">
+				                		<col width="100">
+				                		<col >
+				                		<col width="16%">
+				                		<col width="14%">
+				                		<col width="10%">
+				                		<col width="10%">
+				                		<col width="8%">
+				                		<col width="8%">
+				                		<col width="7%">
+				                	</colgroup>
+				                    <thead>
+				                      <tr>
+				                      	<th>
+				                      		<input type="checkbox" data-role="sel-all">
+				                      	</th>
+				                        <th>头像</th>
+				                        <th>考生信息</th>
+				                        <th>考试科目信息</th>
+				                        <th>考试状态</th>
+				                        <th>本次考试结果</th>
+				                        <th>本次人脸抓拍验证</th>
+				                        <th>监考状态</th>
+				                        <th>最终审核状态</th>
+				                        <th>操作</th>
+				                      </tr>
+				                    </thead>
+				                    <tbody>
+				                      	<tr>
+				                      		<td>
+				                      			<input type="checkbox" data-role="sel-item">
+				                      		</td>
+					                        <td>
+					                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>姓名：刘丽文</li>
+					                        		<li>学号：101433588</li>
+					                        		<li>身份证：440105199901012356</li>
+					                        		<li>院校：海珠区电大</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>科目：《数字电子电路》考试</li>
+					                        		<li>计划：2014秋招生</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试次数：2/3</li>
+					                        		<li>最高得分：90</li>
+					                        		<li>本次得分：89</li>
+					                        		<li>进入考试：09:00:00</li>
+					                        		<li>提交试卷：09:30:00</li>
+					                        		<li>考试用时：00:30:00</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<span class="font_orange">考试待审核</span>
+					                        </td>
+					                        <td>
+					                        	<div class="font_orange">
+					                        		<div>未通过验证</div>
+					                        		<div>（识别率 30%）</div>
+					                        	</div>
+					                        </td>
+					                        <td>
+					                        	<span class="font_orange">不通过</span>
+					                        </td>
+					                        <td>
+					                        	<span class="font_orange">待审核</span>
+					                        </td>
+					                        <td>
+					                        	<a href="#">审核</a>
+					                        </td>
+				                      	</tr>
+				                      	<tr>
+				                      		<td>
+				                      			<input type="checkbox" data-role="sel-item">
+				                      		</td>
+					                        <td>
+					                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>姓名：刘丽文</li>
+					                        		<li>学号：101433588</li>
+					                        		<li>身份证：440105199901012356</li>
+					                        		<li>院校：海珠区电大</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>科目：《数字电子电路》考试</li>
+					                        		<li>计划：2014秋招生</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试次数：2/3</li>
+					                        		<li>最高得分：90</li>
+					                        		<li>本次得分：89</li>
+					                        		<li>进入考试：09:00:00</li>
+					                        		<li>提交试卷：09:30:00</li>
+					                        		<li>考试用时：00:30:00</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<span class="font_orange">考试成绩无效</span>
+					                        </td>
+					                        <td>
+					                        	<div class="font_orange">
+					                        		<div>未通过验证</div>
+					                        		<div>（识别率 30%）</div>
+					                        	</div>
+					                        </td>
+					                        <td>
+					                        	<span class="font_green">已通过</span>
+					                        </td>
+					                        <td>
+					                        	<span class="font_red">不通过</span>
+					                        	<div class="font_gray">（监考老师）</div>
+					                        </td>
+					                        <td>
+					                        	<a href="#">考试详情</a>
+					                        </td>
+				                      	</tr>
+				                      	<tr>
+				                      		<td>
+				                      			<input type="checkbox" data-role="sel-item">
+				                      		</td>
+					                        <td>
+					                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>姓名：刘丽文</li>
+					                        		<li>学号：101433588</li>
+					                        		<li>身份证：440105199901012356</li>
+					                        		<li>院校：海珠区电大</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>科目：《数字电子电路》考试</li>
+					                        		<li>计划：2014秋招生</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试次数：2/3</li>
+					                        		<li>最高得分：90</li>
+					                        		<li>本次得分：89</li>
+					                        		<li>进入考试：09:00:00</li>
+					                        		<li>提交试卷：09:30:00</li>
+					                        		<li>考试用时：00:30:00</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<span class="font_gray">考试待阅卷</span>
+					                        </td>
+					                        <td>
+					                        	<div class="font_green">
+					                        		<div>已通过验证</div>
+					                        		<div>（识别率 83%）</div>
+					                        	</div>
+					                        </td>
+					                        <td>
+					                        	<span class="font_gray">未监考</span>
+					                        </td>
+					                        <td>
+					                        	<span class="font_green">已通过</span>
+					                        	<div class="font_gray">（监考老师）</div>
+					                        </td>
+					                        <td>
+					                        	<a href="#">考试详情</a>
+					                        </td>
+				                      	</tr>
+				                      	<tr>
+				                      		<td>
+				                      			<input type="checkbox" data-role="sel-item">
+				                      		</td>
+					                        <td>
+					                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>姓名：刘丽文</li>
+					                        		<li>学号：101433588</li>
+					                        		<li>身份证：440105199901012356</li>
+					                        		<li>院校：海珠区电大</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>科目：《数字电子电路》考试</li>
+					                        		<li>计划：2014秋招生</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试次数：2/3</li>
+					                        		<li>最高得分：90</li>
+					                        		<li>本次得分：89</li>
+					                        		<li>进入考试：09:00:00</li>
+					                        		<li>提交试卷：09:30:00</li>
+					                        		<li>考试用时：00:30:00</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<span class="font_orange">考试不及格</span>
+					                        </td>
+					                        <td>
+					                        	<div class="font_green">
+					                        		<div>已通过验证</div>
+					                        		<div>（识别率 72%）</div>
+					                        	</div>
+					                        </td>
+					                        <td>
+					                        	<span class="font_gray">未监考</span>
+					                        </td>
+					                        <td>
+					                        	<span class="font_green">已通过</span>
+					                        	<div class="font_gray">（系统审核）</div>
+					                        </td>
+					                        <td>
+					                        	<a href="#">考试详情</a>
+					                        </td>
+				                      	</tr>
+				                      	<tr>
+				                      		<td>
+				                      			<input type="checkbox" data-role="sel-item">
+				                      		</td>
+					                        <td>
+					                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>姓名：刘丽文</li>
+					                        		<li>学号：101433588</li>
+					                        		<li>身份证：440105199901012356</li>
+					                        		<li>院校：海珠区电大</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>科目：《数字电子电路》考试</li>
+					                        		<li>计划：2014秋招生</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<ul class="inline-block text-left">
+					                        		<li>考试次数：2/3</li>
+					                        		<li>最高得分：90</li>
+					                        		<li>本次得分：89</li>
+					                        		<li>进入考试：09:00:00</li>
+					                        		<li>提交试卷：09:30:00</li>
+					                        		<li>考试用时：00:30:00</li>
+					                        	</ul>
+					                        </td>
+					                        <td>
+					                        	<span class="font_green">考试及格</span>
+					                        </td>
+					                        <td>
+					                        	<div class="font_green">
+					                        		<div>已通过验证</div>
+					                        		<div>（识别率 72%）</div>
+					                        	</div>
+					                        </td>
+					                        <td>
+					                        	<span class="font_gray">未监考</span>
+					                        </td>
+					                        <td>
+					                        	<span class="font_green">已通过</span>
+					                        	<div class="font_gray">（系统审核）</div>
+					                        </td>
+					                        <td>
+					                        	<a href="#">考试详情</a>
+					                        </td>
+				                      	</tr>
+				                    </tbody>
+				                </table>
+				                <div class="paging f12"><a href="javascript:;" class="disabled"> &lt;上一页 </a><a href="javascript:;" class="current">1</a><a href="javascript:;">2</a><a href="javascript:;">3</a><a href="javascript:;">4</a><a href="#">5</a><a href="javascript:;">6</a><a href="javascript:;">7</a>...<a href="javascript:;">199</a><a href="javascript:;">200</a><a href="javascript:;"> 下一页&gt; </a><span class="font_gray left10">共 100 页，到第
+				                  <input type="text">
+				                  页<a href="javascript:;" class="left5">确定</a></span></div>
+
+			                </div>
+		                </div>
+                	</div>
+                	<div class="tabs-sub-panel hide" data-id="tab-14">
+			    		<table class="table-basic f12 text-center">
+		                	<colgroup>
+		                		<col width="16%">
+		                		<col width="16%">
+		                		<col width="16%">
+		                		<col width="16%">
+		                		<col>
+		                	</colgroup>
+		                    <thead>
+		                      <tr>
+		                        <th>头像</th>
+		                        <th>姓名</th>
+		                        <th>学号</th>
+		                        <th>身份证</th>
+		                        <th>科目</th>
+		                        <th>计划</th>
+		                      </tr>
+		                    </thead>
+		                    <tbody>
+		                      	<tr>
+			                        <td>
+			                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+			                        </td>
+			                        <td>
+			                        	刘丽文
+			                        </td>
+			                        <td>
+			                        	101433588
+			                        </td>
+			                        <td>
+			                        	440105199901012356
+			                        </td>
+			                        <td>
+			                        	《数字电子电路》考试
+			                        </td>
+			                        <td>
+			                        	2014秋招生
+			                        </td>
+		                      	</tr>
+		                      	<tr>
+			                        <td>
+			                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+			                        </td>
+			                        <td>
+			                        	刘丽文
+			                        </td>
+			                        <td>
+			                        	101433588
+			                        </td>
+			                        <td>
+			                        	440105199901012356
+			                        </td>
+			                        <td>
+			                        	《数字电子电路》考试
+			                        </td>
+			                        <td>
+			                        	2014秋招生
+			                        </td>
+		                      	</tr>
+		                      	<tr>
+			                        <td>
+			                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+			                        </td>
+			                        <td>
+			                        	刘丽文
+			                        </td>
+			                        <td>
+			                        	101433588
+			                        </td>
+			                        <td>
+			                        	440105199901012356
+			                        </td>
+			                        <td>
+			                        	《数字电子电路》考试
+			                        </td>
+			                        <td>
+			                        	2014秋招生
+			                        </td>
+		                      	</tr>
+		                      	<tr>
+			                        <td>
+			                        	<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="circle" width="60" height="60">
+			                        </td>
+			                        <td>
+			                        	刘丽文
+			                        </td>
+			                        <td>
+			                        	101433588
+			                        </td>
+			                        <td>
+			                        	440105199901012356
+			                        </td>
+			                        <td>
+			                        	《数字电子电路》考试
+			                        </td>
+			                        <td>
+			                        	2014秋招生
+			                        </td>
+		                      	</tr>
+		                    </tbody>
+		                  </table>
+                	</div>
+            	</div>
+            </div>
+	    </div>
+	  </div>
+	</div>
+	<!--main--> 

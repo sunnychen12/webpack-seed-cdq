@@ -1,125 +1,213 @@
 <script type="text/javascript">
 
 require(['jquery','echarts','bsDaterangePicker','common'],function($,echarts){
-
 	//图表方法
-	function createChart(options){
-		this.id=options.id;
+	function createChart(dom, chartOptions){
+		this.chart=echarts.init(dom);
 
-		this.chart=echarts.init(document.getElementById(this.id));
-
-		this.chart.setOption({
-		    tooltip : {
-		        trigger: 'axis',
-		        axisPointer: {
-		            type: 'item'
-		        },
-		        formatter: function (params, ticket, callback) {
-		        	var name=params[0].name;
-		        	var markIndex=name.indexOf('/点');
-	    			if(markIndex!=-1){
-	    				name=name.substring(0,markIndex);
-	    			}
-				    return params[0].seriesName+'<br/>'+name+'点：'+params[0].value;
-				}
-		    },
-		    grid: {
-		        left: 20,
-		        right: 20,
-		        top:20,
-		        bottom: 10,
-		        containLabel: true
-		    },
-		    xAxis : [
-		        {
-		            type : 'category',
-		            boundaryGap : false,
-		            axisLine:{
-		            	lineStyle:{
-		            		color:"#ccc"
-		            	}
-		            },
-		            splitLine:{
-		            	show:true
-		            },
-		            data : (function(){
-		            	var arr=[];
-		            	for (var i = 0; i < 24; i++) {
-		            		if(i<23){
-		            			arr.push(i+'');
-		            		}
-		            		else{
-		            			arr.push(i+'/点');
-		            		}
-		            	};
-
-		            	return arr;
-		            })()
-		        }
-		    ],
-		    yAxis : [
-		        {
-		        	axisLine:{
-		            	lineStyle:{
-		            		color:"#ccc"
-		            	}
-		            },
-		            type : 'value'
-		        }
-		    ],
-		    series : [
-		        {
-		            name:'统计',
-		            type:'line',
-		            areaStyle: {normal: {
-		            	color:'#4fc1f4',
-		            	opacity:0.5
-		            }},
-	            	itemStyle:{
-	            		normal:{
-	            			borderColor:'#4fc1f4'
-	            		}
-	            	},
-		            lineStyle:{
-		            	normal:{
-		            		color:'#4fc1f4'
-		            	}
-		            },
-		            symbolSize:6,
-		            data:[]
-		        }
-		    ]
-		});
+		this.chart.setOption(chartOptions);
 
 		this.loadData=function(data){
 			this.chart.setOption({
-				series : [
-				  {        
-				    data : (data?data:[])
-				  }
-				]
+				xAxis:{
+					data: data.x
+				},
+				series :{        
+				    data : data.data
+				}
 			});
 		}
 
-		this.loadData();
+		this.loadData({date:[0],data:[0]});
 	}
 
+	/*图表1 start*/
+	var date = [],//时间序列
+		data = [];//对应数据
+
+	var now = new Date();
+		now.setHours(0,0,0,0);
 	//初始化图表
-	var chart1=new createChart({id:'chart1'});
+	var chart1=new createChart(document.getElementById('chart1'),{
+	    grid: {
+	        left: 20,
+	        right: 20,
+	        top:20,
+	        bottom: 40,
+	        containLabel: true
+	    },
+	    tooltip: {
+	        trigger: 'axis',
+	        position: function (pt) {
+	            return [pt[0], '10%'];
+	        },
+	        formatter: function (params) {
+	            var t=params[0].axisValue.split(':');
+	            return t[0] + '时' + t[1] + '分：' + params[0].value +'人'
+	        }
+	    },
+	    xAxis: {
+	        type: 'category',
+	        boundaryGap: false,
+	        data: date
+	    },
+	    yAxis: {
+	        type: 'value',
+	        boundaryGap: [0, '100%']
+	    },
+	    dataZoom: [
+	        {
+	            type: 'slider',
+	            show: true,
+	            xAxisIndex: [0],
+	            start: 0,
+	            end: 100
+	        },
+	        {
+	            type: 'inside',
+	            xAxisIndex: [0],
+	            start: 0,
+	            end: 10
+	        }    
+	    ],
+	    series:{
+            name:'实时在线人数',
+            type:'line',
+            smooth:true,
+            //symbol: 'none',
+            symbolSize:6,
+            sampling: 'average',
+            itemStyle: {
+                color: 'rgb(255, 70, 131)'
+            },
+            areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgb(255, 158, 68)'
+                }, {
+                    offset: 1,
+                    color: 'rgb(255, 70, 131)'
+                }])
+            },
+            data: data
+        }
+	    
+	});
 
 	//加载数据
-	chart1.loadData([120, 132, 101, 134, 90, 230, 210, 101, 134, 90, 230, 210, 101, 134, 90, 230, 210, 101, 134, 90, 230, 210, 150 , 235]);
+	chart1.chart.showLoading();//显示loading
+
+	var counter=0;
+	var t=setInterval(function(){
+		if(counter>=24*60/2){
+			clearInterval(t);
+		}
+		else{
+			var dt=new Date(now);
+		    date.push([dt.getHours(), dt.getMinutes()].join(':'));
+		    data.push(parseInt(Math.random()*10));
+		    
+		    now=now-0+2*60*1000;
+
+			chart1.loadData({
+				x:date,
+				data:data
+			});
+
+			++counter;
+		}
+	},1000);
+
+	chart1.chart.hideLoading();//关闭loading
+
+	/*图表1 end*/
 
 
-	$(window).bind("resize",function(){
-		if(chart1.chart){
-	  		chart1.chart.resize();
-	  	}
+
+
+	/*图表2 start*/
+
+	//初始化图表
+	var chart2=new createChart(document.getElementById('chart2'),{
+        tooltip:{
+            show:true
+        },
+        grid: {
+	        left: 20,
+	        right: 20,
+	        top:20,
+	        bottom: 10,
+	        containLabel: true
+	    },
+        xAxis: {
+        	/*
+        	axisLine:{
+            	lineStyle:{
+            		color:"#ccc"
+            	}
+            },
+            */
+            data: []
+        },
+        yAxis: {
+        	/*
+        	axisLine:{
+            	lineStyle:{
+            		color:"#ccc"
+            	}
+            },
+            */
+        },
+        series: {
+            name: '登录人数',
+            type: 'bar',
+            data: []
+        }
+    });
+
+    //生成模拟数据
+    function createPieData(){
+    	chart2.chart.showLoading();//显示loading
+
+		setTimeout(function(){
+		    chart2.loadData({
+				        x: ['12-07','12-08','12-09','12-10','12-11','12-12','12-13','12-14'],
+				        data: [253,2324,234,344,234,324,434,221]
+				    });
+		    chart2.chart.hideLoading();//关闭loading
+
+		},1000);
+    }
+
+    createPieData();
+
+	//历史数据tab
+	$('[data-id="filter-tabs"]').on('click', 'td[role="button"]', function(event) {
+		$(this)
+		.addClass('text-orange text-bold')
+		.siblings('td[role="button"]')
+		.removeClass('text-orange text-bold');
+
+		createPieData();
+	});
+
+	//提交查询
+	$('[data-role="search-history"]').on('click', function(event) {
+
+		var picker=$('[data-role="daterangetime"]').data('daterangepicker');
+
+		picker.startDate.format('YYYY-MM-DD');//开始时间 
+		picker.endDate.format('YYYY-MM-DD');//结束时间
+
+		createPieData();
 	});
 
 	//选择日期范围
 	$('[data-role="daterangetime"]').daterangepicker(
 		{
+			"maxDate": new Date(),
+			"autoApply":true,
+			"autoUpdateInput":true,
 			"singleDatePicker": false,
 			"timePickerIncrement": 1,
 			"locale": {
@@ -166,16 +254,24 @@ require(['jquery','echarts','bsDaterangePicker','common'],function($,echarts){
 			picker.startDate.format('YYYY-MM-DD HH:mm'),
 			picker.endDate.format('YYYY-MM-DD HH:mm')
 		)
-		//结束时间 
 
-		chart1=new createChart({id:'chart1'});
+		createPieData();
+	})
+	.on('show.daterangepicker', function(event,picker) {
+		picker.container.find('.daterangepicker_input').hide();
+		console.log(picker)
+	});
 
-		setTimeout(function(){
+	/*图表2 end*/
 
-			//加载数据
-			chart1.loadData([120, 132, 101, 134, 90, 230, 210, 101, 134, 90, 230, 210, 101, 134, 90, 230, 210, 101, 134, 90, 230, 210, 150 , 235]);
-
-		},1000);
+	//图表响应浏览器窗口尺寸变化
+	$(window).bind("resize",function(){
+		if(chart1.chart){
+	  		chart1.chart.resize();
+	  	}
+	  	if(chart2.chart){
+	  		chart2.chart.resize();
+	  	}
 	});
 });
 </script>

@@ -1,0 +1,65 @@
+<link rel="stylesheet" type="text/css" href="<%=host%>/common/msui/css/sm-extend.min.css">
+<script type="text/javascript" src="<%=host%>/common/msui/js/sm-extend.min.js"></script>
+
+<script type="text/javascript">
+	var appVm=new Vue({
+		el:'#app',
+		mixins:[mixin],
+		data:{
+			list:[
+				{
+					id:0
+				},
+				{
+					id:1
+				},
+				{
+					id:2
+				},
+				{
+					id:3
+				},
+				{
+					id:4
+				},
+				{
+					id:5
+				},
+				{
+					id:6
+				},
+			]
+		},
+		created:function(){
+			var vm=this;
+			vm.$nextTick(function(){
+
+				commomLab.resetAnsCard();
+
+				//内容滑动
+				var tabsSwiper = new $.Swiper('.record-tabs', {
+			        slidesPerView: 'auto',
+			        slideToClickedSlide:true,
+			        onTap: function(swiper){
+				      	contentSwiper.slideTo(swiper.clickedIndex);
+				    }
+
+			    });
+
+			    //内容滑动
+				var contentSwiper = new $.Swiper('.record-tabs-content > .swiper-container',{
+					onSlideChangeEnd: function(swiper){
+				      tabsSwiper.slideTo(swiper.activeIndex);
+				      $(tabsSwiper.slides).removeClass('active');
+				      $(tabsSwiper.slides[swiper.activeIndex]).addClass('active')
+				    }
+				});
+			});
+		},
+		methods:{
+
+		}
+	});
+
+	
+</script>

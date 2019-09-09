@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<!--<link rel="shortcut icon" href="/favicon.ico">-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" href="http://css.eenet.com/common/msui/css/sm.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="http://css.eenet.com/common/font-awesome/css/font-awesome.min.css">
+
+	
+	<link href="http://css.eenet.com/exam_chinaeenet_com/exam-coach/css/main.min.css" rel="stylesheet">
+	
+</head>
+
+<body>
+
+
+	<div class="page-group" id="app" v-cloak>
+		<div class="page page-current">
+			<header class="bar bar-nav">
+			  <a class="icon icon-left pull-left" @click.prevent="historyBack"></a>
+			  <h1 class="title">练习记录</h1>
+			</header>
+			<div class="bar bar-footer-btn padding-none">
+			  <div class="flex-box flex-align-center">
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue">查看答题情况</button>
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue">重新练习</button>
+			  </div>
+			</div>
+			<div class="content bg-white">
+				<div class="swiper-container record-tabs">
+					<div class="swiper-wrapper">
+						<div v-for="(item, index) in list" class="swiper-slide" :class="{'active':index==0}">
+							<span>
+								第{{index+1}}次
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="record-tabs-content">
+					<div class="swiper-container padding-bottom-none">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" v-for="(item, index) in list">
+								<div class="padding_75rem">
+									<div class="font-1rem">2019-01-20 17:12</div>
+									<div class="font_75rem margin-b_7rem">已答：7 题，剩余：0 题，正确率：60.0%</div>
+
+									<ul class="list-unstyled clearfix ans-card-list">
+										<li class="right">1</li>
+										<li class="right">2</li>
+										<li class="right">3</li>
+										<li class="wrong">4</li>
+										<li class="right">5</li>
+										<li class="wrong">6</li>
+										<li class="wrong">7</li>
+										<li>8</li>
+										<li>9</li>
+										<li>10</li>
+										<li class="wrong">11</li>
+										<li class="wrong">12</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+<!-- 加载公共插件 -->
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/zepto.min.js"></script>
+<script type="text/javascript">$.config = {router: false}</script>
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/sm.min.js"></script>
+<script type="text/javascript" src="http://css.eenet.com/common/js/vue.js"></script>
+
+<script type="text/javascript" src="http://css.eenet.com/exam_chinaeenet_com/exam-coach/js/commonLab.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://css.eenet.com/common/msui/css/sm-extend.min.css">
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/sm-extend.min.js"></script>
+
+<script type="text/javascript">
+	var appVm=new Vue({
+		el:'#app',
+		mixins:[mixin],
+		data:{
+			list:[
+				{
+					id:0
+				},
+				{
+					id:1
+				},
+				{
+					id:2
+				},
+				{
+					id:3
+				},
+				{
+					id:4
+				},
+				{
+					id:5
+				},
+				{
+					id:6
+				},
+			]
+		},
+		created:function(){
+			var vm=this;
+			vm.$nextTick(function(){
+
+				commomLab.resetAnsCard();
+
+				//内容滑动
+				var tabsSwiper = new $.Swiper('.record-tabs', {
+			        slidesPerView: 'auto',
+			        slideToClickedSlide:true,
+			        onTap: function(swiper){
+				      	contentSwiper.slideTo(swiper.clickedIndex);
+				    }
+
+			    });
+
+			    //内容滑动
+				var contentSwiper = new $.Swiper('.record-tabs-content > .swiper-container',{
+					onSlideChangeEnd: function(swiper){
+				      tabsSwiper.slideTo(swiper.activeIndex);
+				      $(tabsSwiper.slides).removeClass('active');
+				      $(tabsSwiper.slides[swiper.activeIndex]).addClass('active')
+				    }
+				});
+			});
+		},
+		methods:{
+
+		}
+	});
+
+	
+</script>
+</body>
+</html>

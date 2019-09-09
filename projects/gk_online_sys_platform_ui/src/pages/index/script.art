@@ -1,0 +1,118 @@
+<script type="text/javascript">
+require(['jquery','vue','ELEMENT','common'],function($, Vue, ELEMENT){
+	//element-ui 启动
+	ELEMENT.install(Vue);
+
+	//网站菜单
+	var treeMenuJson = [
+		{
+			id : 1,
+			name : '首页',
+			path : '#',
+			icon : 'fa fa-home',
+			children : [
+				{
+					id : 11,
+					name : '首页',
+					path : 'homepage.html',
+					icon : 'fa fa-home',
+				},
+				{
+					id : 12,
+					name : '活动组织',
+					path : 'http://baidu.com',
+					icon : 'fa fa-cubes',
+				}
+			]
+		},
+		{
+			id : 2,
+			name : '菜单二',
+			path : '#',
+			icon : 'fa fa-home',
+			children : [
+				{
+					id : 21,
+					name : '菜单21',
+					path : 'homepage.html',
+					icon : 'fa fa-home',
+				},
+				{
+					id : 22,
+					name : '菜单22',
+					path : '通知公告.html',
+					icon : 'fa fa-cubes',
+				}
+			]
+		}
+	];
+
+	var indexVm=new Vue({
+		el:'#app',
+		data: {
+			overlayShow : true,
+			topMenuItemId: false,//当前侧边菜单所属的父级结点
+			sidebarMenu : [],//侧边菜单
+			sidebarMenuCurItemId : false,//当前侧边菜单结点ID
+			iframeUrl : '',
+			treeMenuJson : treeMenuJson
+		},
+		created:function(){
+			var vm=this;
+			vm.loadSidebarMenu(vm.treeMenuJson[0]);
+
+			vm.frameLoadEvent(vm.iframeUrl);
+			
+		},
+		methods:{
+			//点击侧边菜单加载页面
+			loadFrame:function(menu){
+				var vm=this;
+				vm.sidebarMenuCurItemId=menu.id;
+				vm.iframeUrl=menu.path;
+
+				vm.frameLoadEvent(vm.iframeUrl);
+			},
+			//加载侧边菜单
+			loadSidebarMenu:function(menu){
+				var vm=this;
+				vm.sidebarMenu=menu.children;
+				vm.sidebarMenuCurItemId=vm.sidebarMenu[0].id;
+				vm.iframeUrl=vm.sidebarMenu[0].path;
+				vm.topMenuItemId=menu.id;
+
+				vm.frameLoadEvent(vm.iframeUrl);
+			},
+			//页面加载loading效果
+			frameLoadEvent:function(iframeUrl){
+				var vm=this;
+				vm.overlayShow=true;
+
+				vm.$nextTick(function(){
+					var $iframe=$('#page-ifrm');
+					$iframe.prop({src:iframeUrl});
+					$iframe.on('load',function(){
+						vm.overlayShow=false;
+					});
+				});
+			}
+		}
+	});
+
+	/**页面重设**/
+	$(window).on('resize',function(){
+		resetPageHeight();
+	}).trigger('resize');
+
+	
+	/* 每一页的高度重设 */ 
+	function resetPageHeight(){
+		$(".page").height(
+			$(window).height()-parseInt(
+				$(".content-wrapper").css("padding-top")
+			)
+		);
+	}
+
+});
+</script>

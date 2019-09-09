@@ -1,0 +1,26 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+<script type="text/javascript">
+;(function(){
+
+	var videourl=commomLab.getQueryParam('videourl');//videoId
+		videourl || (videourl='');
+
+	if(!videourl){
+		commomLab.myToast({
+			msg:'课程地址为空'
+		});
+		return;
+	}
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+        	videourl:videourl
+        },
+        created: function () {
+        	
+        }
+    });
+	
+})();
+</script>

@@ -51,9 +51,9 @@ module.exports= env => {
                     },
                     {
                         // 源文件目录
-                        from: path.resolve(globalJSON.srcPath, 'assets/js/**/*.js'),
+                        from: path.resolve(globalJSON.srcPath, 'assets/js'),
                         // 目标目录 dist目录下
-                        to: path.resolve(devPath, 'assets/js/[name].[ext]'),
+                        to: path.resolve(devPath, 'assets/js'),
                         ignore: [
                             'sm.js',
                             'sm.min.js',

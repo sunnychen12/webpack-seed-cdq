@@ -1,6 +1,6 @@
 	<section class="content-header clearfix">
 		<ol class="breadcrumb oh">
-			<li><a href="homepage.html"><i class="fa fa-home"></i> 考试组织</a></li>
+			<li><a href="homepage.html"><i class="fa fa-home"></i> 统计分析</a></li>
 			<li class="active">在线监控</li>
 		</ol>
 	</section>
@@ -41,19 +41,21 @@
 					</table>
 				</div>
 
+		      	<div class="margin_t15 box-border pad15">
+					<div id="chart1" style="height:300px;"></div>
+				</div>
+		    </div>
+		</div>
+
+		<div class="box box-border">
+		    <div class="box-body pad15">
 				<div class="media">
-					<div class="media-left text-nowrap" style="vertical-align:middle;">实时在线动态：</div>
+					<div class="media-left text-nowrap" style="vertical-align:middle;">历史登录人数统计：</div>
 					<div class="media-body box-border pad bg-grayf9">
 				      	<table class="vertical-middle" data-id="filter-tabs">
 							<tbody>
 								<tr>
 									<td role="button" class="td-s1 text-orange text-bold" style="padding-left:10px;">
-										今日
-									</td>
-									<td role="button" class="td-s1">
-										昨日
-									</td>
-									<td role="button" class="td-s1">
 										最近7天
 									</td>
 									<td role="button" class="td-s1">
@@ -62,6 +64,9 @@
 									<td class="pad-l20" width="200">
 										<input class="form-control text-no-bold input-xs" data-role="daterangetime">
 									</td>
+									<td>
+										<button class="btn btn-default btn-sm bg-white margin_l10" data-role="search-history">查询</button>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -69,7 +74,7 @@
 		      	</div>
 
 		      	<div class="margin_t15 box-border pad15">
-					<div id="chart1" style="height:300px;"></div>
+					<div id="chart2" style="height:300px;"></div>
 				</div>
 		    </div>
 		</div>

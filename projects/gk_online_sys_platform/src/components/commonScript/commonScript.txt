@@ -1,0 +1,1 @@
+<script src="<%= bathPath%>/requirejs/require.js" data-require-path="<%= bathPath%>/"></script>

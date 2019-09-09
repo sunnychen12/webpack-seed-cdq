@@ -1,0 +1,90 @@
+<div class="wrapper" id="app" v-cloak> 
+  
+  <!-- Left side column. contains the logo and sidebar -->
+  <header class="main-header"> 
+  	<a href="#" class="logo">
+	    <span class="logo-mini"><i class="fa fa-fw fa-tv"></i></span>
+	    <span class="logo-lg"><i class="fa fa-fw fa-tv"></i>教学教务组织平台</span>
+	</a>
+    <nav class="navbar navbar-static-top" role="navigation"> 
+    	<div class="sidebar-toggle" data-toggle="offcanvas" role="button">
+    		<span class="sr-only">收缩菜单</span> 
+    	</div>
+		<div class="navbar-custom-menu">
+			<ul class="nav navbar-nav">
+			  <!-- Notifications: style can be found in dropdown.less --> 
+			  <!-- Messages: style can be found in dropdown.less-->
+			  <li class="first-level-wrap">
+				<div class="dropdown operion-more-menu"> 
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
+						更多 
+						<i class="fa fa-fw fa-caret-down"></i> 
+					</a>
+				  	<ul class="dropdown-menu">
+				  		<li v-for="topMenu in treeMenuJson">
+							<a role="menuitem" href="#" @click="loadSidebarMenu(topMenu)">{{topMenu.name}}</a>
+							<ul class="menu-temp hide">
+								<li class="header">{{topMenu.name}}</li>
+								<li :class="['treeview', childMenuIndex==0?'active':'']" v-for="(childMenu,childMenuIndex) in topMenu.children">
+									<a :href="childMenu.path">
+										<i :class="childMenu.icon"></i>
+										<span>{{childMenu.name}}</span>
+									</a>
+								</li>
+						  	</ul>
+						</li>
+				  	</ul>
+				</div>
+			  </li>
+			  
+			  <li class="dropdown user user-menu">
+			  	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			  		<img src="${commonSkinPath}/AdminLTE/img/user-placehoder.png" class="user-image" alt="User Image">
+			  		<span class="hidden-xs"> boss </span>
+			  	</a>
+				<ul class="dropdown-menu">
+	              <li>
+	              	<a href="#" data-page-role="single-page" title="个人资料管理" role="menuitem" @click.prevent="frameLoadEvent('个人资料管理.html')">编辑个人资料</a>
+	              </li>
+	              <li><a href="#">退出平台</a></li>
+	            </ul>
+			  </li>
+			</ul>
+		</div>
+		<ul class="first-level-menu">
+			<li v-for="(item,index) in treeMenuJson" :data-id="item.id" :class="(!topMenuItemId || item.id==topMenuItemId)?'cur':''" @click="loadSidebarMenu(item)">
+				{{item.name}}
+			</li>
+		</ul>
+	</nav>
+  </header>
+  <aside class="main-sidebar">
+    <section class="sidebar">
+
+      <ul class="sidebar-menu">
+      	<li class="header"></li>
+      	
+      	<li :class="['treeview',(sidebarMenuCurItemId==menu.id?'active':'')]" v-for="menu in sidebarMenu"> 
+	      	<a :href="menu.path" @click.prevent="loadFrame(menu)">
+	      		<i :class="menu.icon"></i>
+	      		<span>{{menu.name}}</span>
+	      	</a>
+		</li>
+      </ul>
+    </section>
+    <!-- /.sidebar --> 
+  </aside>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper pos-rel">
+    <div class="page">
+        <iframe id="page-ifrm" frameborder="0" scrolling="auto" allowtransparency="true" :src="iframeUrl"></iframe>
+    </div>
+
+    <div class="overlay-wrapper loading" :style="{'display':(overlayShow?'block':'none')}">
+    	<div class="overlay">
+    		<i class="fa fa-refresh fa-spin" style="top:200px !important"></i>
+    	</div>
+    </div>
+  </div>
+</div>
+<!-- ./wrapper --> 

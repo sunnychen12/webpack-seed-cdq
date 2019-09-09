@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%= headerMeta %>
+</head>
+<body>
+<%= header %>
+<%= content %>
+<%= footer %>
+${require('../commonScript/commonScript.txt')}
+<%= script %>
+</body>
+</html>

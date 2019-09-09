@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>思政课首页</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" type="text/css" href="css/common.css?v=1552893839271">
+	<link rel="stylesheet" type="text/css" href="css/main.css?v=1552893839272">
+	
+</head>
+<body>
+<div class="wrap">
+		<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<div class="content bg-white">
+				<!--精选课程-->
+				<div class="thougth-politic-slider-box">
+					<div class="swiper-container" data-id="swiper-3d">
+				        <div class="swiper-wrapper">
+				            <div class="swiper-slide t-p-slide-item">
+				            	<div class="padding-l_75rem padding-r_75rem full-height">
+				            		<div class="flex-box flex-vertical full-height">
+				            			<div class="flex-item border-bottom flex-box flex-vertical padding-b_5rem">
+						            		<h3 class="font_85rem margin-none flex-item flex-box flex-box-justify-center flex-vertical">
+						            			<span>
+						            				思想道德修养与法律基础
+						            			</span>
+						            		</h3>
+
+						            		<div class="flex-box flex-align-center flex-box-justify">
+						            			<div class="sel-label">
+						            				<span>
+						            					精选课程
+						            				</span>
+						            			</div>
+
+						            			<div class="gray font_55rem">
+						            				<i class="icomoon vertical-middle font-1rem">&#xe909;</i>
+						            				<span class="inline-block">452</span>
+						            			</div>
+						            		</div>
+						            		
+					            		</div>
+					            		<div class="flex-box flex-align-center padding-t_5rem padding-b_75rem">
+					            			<div class="flex-item font_65rem gray6">
+					            				上次看到：第2章 - 第2节
+					            			</div>
+					            			<div>
+					            				<div class="socre-circle" data-score="65">
+												</div>
+					            			</div>
+					            		</div>
+				            		</div>
+				            	</div>
+				            </div>
+				            <div class="swiper-slide t-p-slide-item">
+				            	<div class="padding-l_75rem padding-r_75rem full-height">
+				            		<div class="flex-box flex-vertical full-height">
+				            			<div class="flex-item border-bottom flex-box flex-vertical padding-b_5rem">
+						            		<h3 class="font_85rem margin-none flex-item flex-box flex-box-justify-center flex-vertical">
+						            			<span>
+						            				思想道德修养与法律基础
+						            			</span>
+						            		</h3>
+
+						            		<div class="flex-box flex-align-center flex-box-justify">
+						            			<div class="sel-label">
+						            				<span>
+						            					精选课程
+						            				</span>
+						            			</div>
+
+						            			<div class="gray font_55rem">
+						            				<i class="icomoon vertical-middle font-1rem">&#xe909;</i>
+						            				<span class="inline-block">452</span>
+						            			</div>
+						            		</div>
+						            		
+					            		</div>
+					            		<div class="flex-box flex-align-center padding-t_5rem padding-b_75rem">
+					            			<div class="flex-item font_65rem gray6">
+					            				上次看到：第2章 - 第2节
+					            			</div>
+					            			<div>
+					            				<div class="socre-circle" data-score="65">
+												</div>
+					            			</div>
+					            		</div>
+				            		</div>
+				            	</div>
+				            </div>
+				            <div class="swiper-slide t-p-slide-item">
+				            	<div class="padding-l_75rem padding-r_75rem full-height">
+				            		<div class="flex-box flex-vertical full-height">
+				            			<div class="flex-item border-bottom flex-box flex-vertical padding-b_5rem">
+						            		<h3 class="font_85rem margin-none flex-item flex-box flex-box-justify-center flex-vertical">
+						            			<span>
+						            				思想道德修养与法律基础
+						            			</span>
+						            		</h3>
+
+						            		<div class="flex-box flex-align-center flex-box-justify">
+						            			<div class="sel-label">
+						            				<span>
+						            					精选课程
+						            				</span>
+						            			</div>
+
+						            			<div class="gray font_55rem">
+						            				<i class="icomoon vertical-middle font-1rem">&#xe909;</i>
+						            				<span class="inline-block">452</span>
+						            			</div>
+						            		</div>
+						            		
+					            		</div>
+					            		<div class="flex-box flex-align-center padding-t_5rem padding-b_75rem">
+					            			<div class="flex-item font_65rem gray6">
+					            				上次看到：第2章 - 第2节
+					            			</div>
+					            			<div>
+					            				<div class="socre-circle" data-score="65">
+												</div>
+					            			</div>
+					            		</div>
+				            		</div>
+				            	</div>
+				            </div>
+				        </div>
+				        <!-- Add Pagination -->
+				        <div class="swiper-pagination"></div>
+				    </div>
+				    <div class="t-p-arc-bg"></div>
+				</div>
+
+				<div class="padding_75rem">
+					<!--热议-->
+					<div class="daily-wrap font_65rem border-bottom padding-b_75rem padding-t_5rem">
+						<div class="flex-box flex-align-center">
+							<div class="margin-r_5rem">
+								<img SRC="images/daily-hot.png" class="daily-rec-img vertical-middle">
+							</div>
+							<a href="#" class="flex-item" @click.prevent="viewMore(hotNews[0], 1)">
+								{{hotNews[0].name}}
+							</a>
+						</div>
+						<ul class="daily-list list-unstyled">
+							<li v-for="(news, index) in hotNews" v-if="index>0">
+								<a href="#" @click.prevent="viewMore(news, 1)">{{news.name}}</a>
+							</li>
+						</ul>
+					</div>
+
+					<!--名家观点-->
+					<div class="master-point padding-t_75rem padding-b_5rem margin-b_75rem border-bottom">
+						<div class="flex-box flex-align-center flex-box-justify">
+							<h2 class="margin-none font_85rem">名家观点</h2>
+							
+						</div>
+
+						<ul class="master-list list-unstyled font_65rem">
+							<li v-for="item in famoursViewpoint">
+								<a href="#" class="flex-box" @click.prevent="viewMore(item, 2)">
+									<div class="margin-r_75rem">
+										<img :SRC="item.coverPic">
+									</div>
+									<div class="flex-item overflow-hidden flex-box flex-vertical">
+										<h3 class="margin-none item-title text-ellipsis">
+											{{item.name}}
+										</h3>
+										<div class="flex-item">
+											<div class="txt">
+												{{item.summary}}
+											</div>
+										</div>
+										<div class="flex-box flex-align-center flex-box-justify">
+					            			<div class="sel-label">
+					            				{{item.author}}
+					            			</div>
+
+					            			<div class="font_55rem">
+					            				<i class="icomoon vertical-middle font-1rem">&#xe909;</i>
+					            				<span class="inline-block">{{item.visitCount}}</span>
+					            			</div>
+					            		</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<!--思政著作-->
+					<div class="padding-t_75rem padding-b_75rem border-bottom margin-b_75rem sz-books-wrap">
+						<div class="flex-box flex-align-center flex-box-justify">
+							<h2 class="margin-none font_85rem">思政著作</h2>
+							
+						</div>
+
+						<div class="edu-swiper-box" style="margin-top:.75rem;">
+							<div class="swiper-container padding-bottom-none" data-id="swiper">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide" v-for="item in books">
+										<a class="flex-box flex-vertical" href="#" @click.prevent="downloadBook(item)">
+											<div class="edu-swiper-img">
+												<img :SRC="item.img">
+											</div>
+
+											<div class="name">《{{item.name}}》</div>
+											<div class="gray font_65rem margin-t_3rem text-ellipsis">{{item.author}}</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--思政视频-->
+					<div class="padding-t_75rem t-p-video-wrap">
+						<div class="flex-box flex-align-center flex-box-justify">
+							<h2 class="margin-none font_85rem">思政视频</h2>
+							
+						</div>
+
+						<div class="edu-swiper-box" style="margin-top:.75rem;">
+							<div class="swiper-container padding-bottom-none" data-id="swiper">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide" v-for="item in hotVideos">
+										<a class="flex-box flex-vertical" href="#" @click.prevent="viewMore(item, 3)">
+											<div class="edu-swiper-img">
+												<img :SRC="item.coverPic">
+											</div>
+
+											<div class="name">{{item.name}}</div>
+											<div class="gray font_55rem margin-t_3rem">
+					            				<i class="icomoon vertical-middle font-1rem">&#xe909;</i>
+					            				<span class="inline-block">{{item.visitCount}}</span>
+					            			</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="popup" id="more">
+		<header class="bar bar-nav">
+		  <a class="icon icon-left pull-left close-popup"></a>
+		  <h1 class="title">
+		  	<template v-if="type==1">
+		  		新闻热议
+		  	</template>
+		  	<template v-else-if="type==2">
+		  		名家观点
+		  	</template>
+		  	<template v-else-if="type==3">
+		  		思政视频
+		  	</template>
+		  </h1>
+		</header>
+		<div class="bar bar-footer-btn padding-none">
+			<div class="flex-box border-top">
+				<button type="button" class="flex-item button button-big button-fill border-none flat close-popup" style="background-color: #f7f7f8;">
+					<span class="text-blue">关闭</span>
+				</button>
+			</div>
+		</div>
+		<div class="content bg-white">
+			<div v-if="type==2 && banner">
+				<img :SRC="banner" class="block" width="100%">
+			</div>
+			<div class="padding_75rem">
+				<h1 class="font_85rem text-center">{{name}}</h1>
+				<div class="gray font_55rem text-center" v-if="type==2">
+					<span v-if="publishTime">
+						{{publishTime}}
+					</span>
+					<span class="margin-l_75rem" v-if="sourse">
+						来源：{{sourse}}
+					</span>
+					<span class="margin-l_75rem" v-if="otherInfo">
+						{{otherInfo}}
+					</span>
+				</div>
+				<div class="artical-content margin-t-1rem">
+					<video v-if="type!=2 && video" class="video-player" :src="video"
+						x5-playsinline 
+						playsinline 
+						webkit-playsinline 
+						controls
+						style="height:10rem;"
+						autoplay="autoplay"
+					></video>
+					<div class="gray6 proj-des" v-html="content" v-if="content">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<script type="text/javascript" src="js/common.min.js?v=1552893839272"></script>
+	<script type="text/javascript" src="js/commonLab.min.js?v=1552893839272"></script>
+
+
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+<script type="text/javascript" src="assets/js/progressbar.min.js"></script>
+
+<script type="text/javascript">
+;(function(){
+	var data={
+		//热议新闻
+		hotNews:[
+			{
+				id:1,
+				name:'习近平继续出席二十国集团领导人第十三次峰会',
+				publishTime:'',
+				content:'<p> 央视网消息（新闻联播）：当地时间11月30日下午和12月1日上午，二十国集团领导人第十三次峰会在阿根廷布宜诺斯艾利斯继续举行。国家主席习近平出席。<br /><br />在讨论贸易问题时，习近平指出，首先，二十国集团各成员应该坚持开放导向，秉持自由贸易理念，保持和扩大市场开放，在互通有无、优势互补中实现合作共赢。第二，应该坚持包容导向，共同做大国际贸易的蛋糕，让经济全球化更好惠及各国、各阶层人民。第三，应该坚持规则导向，为国际贸易健康发展提供稳定、可预期的规则和制度环境。二十国集团作为国际经济合作主要论坛，可以在营造一个有利的国际贸易环境方面发挥政治引领作用。<br /><br />关于气候变化，习近平指出，气候变化是事关人类前途命运的一个重大挑战，需要我们携起手来共同应对。11月30日，中国、法国、联合国共同举行了有关活动，重申落实《巴黎协定》的坚定承诺，发出了推动应对气候变化国际合作的强烈信号。我们应该继续本着构建人类命运共同体的责任感，为应对气候变化国际合作提供政治推动力。各方应不折不扣履行在《联合国气候变化框架公约》和《巴黎协定》中的承诺，强化2020年前行动力度，推动全球绿色低碳转型。发达国家应兑现到2020年每年筹集1000亿美元资金的承诺，向发展中国家转让先进技术，帮助他们提高应对气候变化的能力。中方期待《联合国气候变化框架公约》卡托维兹大会如期完成实施细则谈判这一核心任务，将《巴黎协定》中明确写入的“共同但有区别的责任”和各自能力原则落到实处，推动在减缓、适应、资金、技术等各方面取得进展。中方愿与各方共同努力，作出自己应有的贡献。<br /><br />峰会通过了《二十国集团领导人布宜诺斯艾利斯峰会宣言》。<br /><br />当地时间14时15分许，峰会闭幕。&emsp;&emsp;<br /><br />杨洁篪、王毅等参加上述活动。<br /><br />当地时间11月30日晚，国家主席习近平和夫人彭丽媛同出席峰会的各代表团团长夫妇集体合影。</p>',
+				video:'http://eefile.download.eenet.com//interface/APP038/xj/image/21da88fbd409cac6b36c00278e0ea567.mp4',
+				author:'',
+				summary:'',
+				visitCount:0,
+				coverPic:'',
+				sourse:'',
+				otherInfo:''
+			},
+			{
+				id:2,
+				name:'习近平在巴拿马媒体发表署名文章',
+				publishTime:'',
+				content:'<p> 央视网消息（新闻联播）：11月30日，在对巴拿马共和国进行国事访问前夕，国家主席习近平在巴拿马《星报》发表题为《携手前进，共创未来》的署名文章。<br /><br />习近平指出，这是我首次访问巴拿马，也是中国国家主席首次到访巴拿马。中巴两国人民的友好交往已延续160多年。上世纪60年代，中国人民坚定声援巴拿马人民收回运河主权的正义斗争。去年6月，我和巴雷拉总统共同作出重大政治决断，中巴正式建交。对两国，这是一件功在当今、利在千秋的盛事。对世界，这是一面昭示大势所趋、人心所向的旗帜。一年半来，中巴关系强劲起步，各领域合作如雨后春笋般破土而出、茁壮成长，给两国人民带来了实实在在的利益。<br /><br />习近平强调，巴拿马以互联互通立国。中巴可以说是共建“一带一路”的天然合作伙伴。去年巴雷拉总统访华期间，巴拿马成为首个同中方签署“一带一路”合作谅解备忘录的拉美和加勒比国家。我们愿同巴方一道，加强两国发展战略对接，更好造福两国人民。第一，要做平等互信的真诚伙伴。双方要始终相互理解和支持彼此核心利益和重大关切，为两国关系长期健康稳定发展筑牢政治基础。第二，要做休戚与共的发展伙伴。双方要同心协力，推动构建新型国际关系，推动构建人类命运共同体，加强在多边场合的协调和配合，推动建设开放型世界经济。第三，要做互利共赢的合作伙伴。双方要以共建“一带一路”统领两国合作，不断深化重点领域合作，争取尽快取得一批务实合作的早期收获。第四，要做心贴着心的亲密伙伴。双方要广泛开展各领域交流，要发挥好28万巴拿马华人血缘纽带的作用，让中巴友好更加深入人心。<br /><br />习近平指出，中巴两国都拥有极具奋斗精神、创造精神、追梦精神的人民。让我们一起抓住机遇，只争朝夕，使中巴关系实现弯道超车、后来居上，使两国合作行稳致远，为建设更加美好的未来和更加繁荣的世界不断作出新贡献。<br /></p>',
+				video:'http://eefile.download.eenet.com//interface/APP038/xj/image/b1377797d69ee8e4a185de12b081f6f8.mp4',
+				author:'',
+				summary:'',
+				visitCount:0,
+				coverPic:'',
+				sourse:'',
+				otherInfo:''
+			},
+			{
+				id:3,
+				name:'国家主席习近平同俄罗斯总统普京分别向中俄能源商务论坛致贺信',
+				publishTime:'',
+				content:'<p> 央视网消息（新闻联播）：11月29日，国家主席习近平同俄罗斯总统普京分别向中俄能源商务论坛致贺信。<br /><br />习近平在贺信中指出，当前，中俄全面战略协作伙伴关系保持高水平运行，各领域合作不断发展。近年来，两国能源合作取得了丰硕成果，为促进两国经济社会发展发挥了积极作用。中方愿同俄方一道，共同推动中俄能源合作再上新台阶。<br /><br />习近平强调，举办中俄能源商务论坛是我和普京总统达成的重要共识，旨在为双方企业搭建直接对话交流的平台，广泛寻找合作机遇，精准对接合作需求。希望与会嘉宾围绕“进一步深化中俄能源贸易、投资及金融的全方位合作”的主题，深入沟通、凝聚共识，巩固现有合作，挖掘新的合作机会，推动中俄能源合作取得更多成果，更好惠及两国人民。<br /><br />普京在贺信中表示，俄中全面战略协作伙伴关系正在稳步持续提升，能源合作作为俄中关系的重要组成部分，近年来取得长足发展。本次论坛议程丰富，内容充实，议题涵盖双方在油气、煤炭、电力、投资、科研和环保等领域合作，充分表明两国能源企业具有十分广泛的共同利益。相信来自两国政府部门、能源企业、金融机构和智库的参会嘉宾将开展内容丰富和具有建设性的对话，探索双方互利合作的新模式。<br /></p>',
+				video:'http://eefile.download.eenet.com//interface/APP038/xj/image/ef6afbd25a78abceb2763b10cbd14c54.mp4',
+				author:'',
+				summary:'',
+				visitCount:0,
+				coverPic:'',
+				sourse:'',
+				otherInfo:''
+			},
+			{
+				id:4,
+				name:'习近平会见联合国秘书长',
+				publishTime:'',
+				content:'<p> 央视网消息（新闻联播）：当地时间11月30日，国家主席习近平在布宜诺斯艾利斯会见联合国秘书长古特雷斯。<br /><br />习近平强调，中方始终相信，多边主义是最符合各国人民利益的必由之路。面对层出不穷的全球性挑战，各国除了加强多边合作，没有更好的选择。我提出构建人类命运共同体，倡议共建“一带一路”，就是在反复思考世界各国应如何在千差万别的利益和诉求中实现共商共享、和而不同、合作共赢。无论形势如何变化，中国都将坚持多边主义、支持联合国发挥更大作用。相信世界绝大多数国家也站在多边主义一边。<br /><br />习近平指出，加强同联合国合作是中国外交一以贯之的优先方向。中国会积极参与下个月在波兰举行的《联合国气候变化框架公约》缔约方大会，推动大会达成全面平衡的成果。<br /><br />古特雷斯表示，当前形势下，国际社会要坚定致力于推进多边主义，让多边主义发挥效力。联合国高度评价中国始终坚持多边主义、支持应对气候变化等国际合作，在落实《巴黎协定》方面发挥了表率作用。事实证明，中国是多边主义最为重要的支撑。联合国期待中国在推动全球贸易、应对气候变化、实现2030年可持续发展目标等方面发挥更大作用。<br /><br />丁薛祥、杨洁篪、王毅、何立峰等分别参加上述活动。<br /><br />当地时间30日上午，应阿根廷总统夫人阿瓦达邀请，国家主席习近平夫人彭丽媛和出席二十国集团领导人布宜诺斯艾利斯峰会的部分国家领导人配偶共同参观奥坎波故居。<br /><br />彭丽媛等首先前往故居庭院草坪出席欢迎酒会，欣赏女子弦乐四重奏演奏阿根廷特色乐曲并亲切交流。随后，大家在故居前合影，参观故居室内陈设并听取有关故居历史文化、建筑风格介绍。彭丽媛表示，参观奥坎波故居让人近距离感受到阿根廷文化特色。希望中阿两国加强文化交流，促进民心相通。<br /><br />奥坎波生活在19世纪末至20世纪70年代，生前是阿根廷著名女作家和社会活动家，其故居现为阿根廷国家历史文物和重要历史文化展示地。<br /><br />来源：央视网<br />更新时间：2018年12月01日 19:32<br />视频简介：习近平会见联合国秘书长。</p>',
+				video:'http://eefile.download.eenet.com//interface/APP038/xj/image/dd4b99952549df4576ab24fdc69f4624.mp4',
+				author:'',
+				summary:'',
+				visitCount:0,
+				coverPic:'',
+				sourse:'',
+				otherInfo:''
+			}
+		],
+		//名家观点
+		famoursViewpoint:[
+			{
+				id:1,
+				name:'先把经济搞上去，一切都好办',
+				publishTime:'2018年09月13日08:37',
+				content:'<p> &emsp;&emsp;先把经济搞上去，一切都好办。<br />党的十一届三中全会把工作中心转移到经济建设上后，邓小平针对过去工作中心转移而又动摇的深刻教训，一直强调要把经济建设当作中心，扭着不放，毫不动摇。<br />对此，邓小平多次指出，搞好经济建设，发展生产力，这是我们解决国际国内问题的最主要的条件。中国解决所有问题的关键是靠自己的发展，发展才是硬道理。他强调：“现代化建设的任务是多方面的，各个方面需要综合平衡，不能单打一。但是说到最后，还是要把经济建设当作中心……其他一切任务都要服从这个中心，围绕这个中心，决不能干扰它，冲击它。”<br />为了统一全党全军的思想认识，1984年11月，邓小平在中央军委座谈会上指出：“现在需要的是全国党政军民一心一意地服从国家建设这个大局，照顾这个大局。这个问题，我们军队有自己的责任，不能妨碍这个大局，要紧密地配合这个大局，而且要在这个大局下面行动。”1985年6月，邓小平在中央军委扩大会议上强调，我们是“从国际大局和国内大局着眼来看问题的”，“先把经济搞上去，一切都好办。现在就是要硬着头皮把经济搞上去，就这么一个大局，一切都要服从这个大局。”<br />正是由于邓小平的坚决态度和有力推动，党和国家的工作中心才始终放在经济建设上，经济建设也才沿着正确的轨道顺利前行。（记者 武娟 整理）<br /><br />(责编：赵亮、李璐颖)<br />来源网址：http://cpc.people.com.cn/n1/2018/0913/c69113-30290478.html<br /></p>',
+				video:'',
+				author:'邓小平',
+				summary:'党的十一届三中全会把工作中心转移到经济建设上后，邓小平针对过去工作中心转移而又动摇的深刻教训',
+				visitCount:452,
+				coverPic:'http://eefile.download.eenet.com//interface/APP038/xj/image/e3b9f1e9832825c260b1ad6a90bd72b2.jpg',
+				banner:'http://eefile.download.eenet.com//interface/APP038/xj/image/2d3405cc6057da06144927e8ed6f61be.png',
+				sourse:'广安日报',
+				otherInfo:'手机看新闻'
+			},
+			{
+				id:2,
+				name:'没有工人群众 我们的工作是做不好的',
+				publishTime:'2018年11月20日08:01',
+				content:'<p> &emsp;&emsp;没有工人群众，我们的工作是做不好的。如果我们不去依靠工人阶级，那就是一个根本的思想问题。对于工人，我们要团结他们，教育他们。<br />&emsp;&emsp;1950年1月4日，邓小平出席重庆市军管会第一次接管干部代表会议并讲话。在谈到依靠工人阶级，特别是要依靠工人群众揭发贪污分子、特务时，邓小平指出：“没有工人群众，我们的工作是做不好的。如果我们不去依靠工人阶级，那就是一个根本的思想问题。对于工人，我们要团结他们，教育他们。”<br />&emsp;&emsp;中国共产党是马克思列宁主义同中国工人运动相结合的产物。作为工人阶级的先锋队，我们党自成立以来，始终把工人阶级作为自己的阶级基础和依靠力量。党的事业就是工人阶级的事业，党的事业的兴衰成败，关系着工人阶级的前途命运。<br />&emsp;&emsp;1921年7月中国共产党的成立，是中国历史上开天辟地的大事，对于中国革命和中国工人运动的发展，都具有划时代的伟大意义。在社会主义革命和建设时期，我们党明确把全心全意依靠工人阶级作为重要指导思想和根本方针。<br />&emsp;&emsp;1978年，邓小平在全国科学大会开幕式上的讲话中强调，我国知识分子“绝大多数已经是工人阶级和劳动人民自己的知识分子，因此可以说，已经是工人阶级的一部分”，从理论上把知识分子纳入到工人阶级的范畴，进一步扩大了工人阶级的内涵。此后，在许多重要历史关头，邓小平都充分肯定和多次强调要依靠工人阶级，发挥工人阶级的主力军作用。<br />&emsp;&emsp;进入改革开放历史新时期，我们党关于全心全意依靠工人阶级的思想更加鲜明，立场更加坚定，内涵更加丰富。邓小平强调，我国工人阶级不愧是久经考验的立场坚定的革命领导阶级，能在现时代的经济进步和社会政治进步中起领导作用，工人阶级靠得住。<br /><br />(责编：赵亮、李璐颖)<br /><br />来源网址：http://cpc.people.com.cn/n1/2018/1120/c69113-30409968.html<br /></p>',
+				video:'',
+				author:'邓小平',
+				summary:'没有工人群众，我们的工作是做不好的。如果我们不去依靠工人阶级，那就是一个根本的思想问题',
+				visitCount:452,
+				coverPic:'http://eefile.download.eenet.com//interface/APP038/xj/image/e3b9f1e9832825c260b1ad6a90bd72b2.jpg',
+				banner:'http://eefile.download.eenet.com//interface/APP038/xj/image/76d93508a43f9bbb7bec740f734ce2ef.png',
+				sourse:'广安日报',
+				otherInfo:'手机看新闻'
+			},
+			{
+				id:3,
+				name:'深入学习贯彻习近平新时代中国特色社会主义思想',
+				publishTime:'2017年11月06日09:02',
+				content:'<p> 习近平总书记所作的党的十九大报告把十八大以来党的理论创新成果概括为新时代中国特色社会主义思想，党的十九大通过的党章修正案把习近平新时代中国特色社会主义思想确立为我们党的行动指南，实现了党的指导思想的又一次与时俱进。这是党的十九大的一个重大历史贡献。深入学习贯彻习近平新时代中国特色社会主义思想，对于凝聚全党全国各族人民的思想共识和智慧力量，决胜全面建成小康社会，夺取新时代中国特色社会主义伟大胜利，实现中华民族伟大复兴的中国梦，具有重大现实意义和深远历史意义。<br /><br />习近平新时代中国特色社会主义思想的核心要义和丰富内涵<br />党的十八大以来，以习近平同志为核心的党中央坚持以马克思列宁主义、毛泽东思想、邓小平理论、“三个代表”重要思想、科学发展观为指导，坚持解放思想、实事求是、与时俱进、求真务实，坚持辩证唯物主义和历史唯物主义，紧密结合新的时代条件和实践要求，以全新的视野深化对共产党执政规律、社会主义建设规律、人类社会发展规律的认识，进行艰辛理论探索，取得重大理论创新成果，创立了习近平新时代中国特色社会主义思想。<br />坚持和发展中国特色社会主义，是改革开放以来我们党全部理论和实践的鲜明主题，也是习近平新时代中国特色社会主义思想的核心要义。党的十八大以来，我们党的全部理论和实践探索都是围绕这个主题来展开、深化和拓展的。正如习近平总书记指出的，“坚持和发展中国特色社会主义是一篇大文章，邓小平同志为它确定了基本思路和基本原则，以江泽民同志为核心的党的第三代中央领导集体、以胡锦涛同志为总书记的党中央在这篇大文章上都写下了精彩的篇章。现在，我们这一代共产党人的任务，就是继续把这篇大文章写下去。”对坚持和发展什么样的中国特色社会主义，习近平总书记从理论渊源、历史根据、本质特征、独特优势、强大生命力等多方位多角度作出了深刻回答，强调中国特色社会主义是既坚持科学社会主义基本原则，又具有鲜明实践特色、理论特色、民族特色、时代特色的社会主义，是中国特色社会主义道路、理论、制度、文化四位一体的社会主义，是统揽伟大斗争、伟大工程、伟大事业、伟大梦想的社会主义，是根植于中国大地、反映中国人民意愿、适应中国和时代发展进步要求的社会主义。对怎样坚持和发展中国特色社会主义，习近平总书记以一系列战略性、前瞻性、创造性的观点，深刻回答了新时代坚持和发展中国特色社会主义的总目标、总任务、总体布局、战略布局和发展方向、发展方式、发展动力、战略步骤、外部条件、政治保证等基本问题。这些思想观点，在理论上有重大突破、重大创新、重大发展，深刻揭示了新时代中国特色社会主义的本质特征、发展规律和建设路径，为在新的时代条件下坚持和发展中国特色社会主义提供了科学的理论指引。<br />习近平新时代中国特色社会主义思想内涵十分丰富，涵盖了经济、政治、法治、科技、文化、教育、民生、民族、宗教、社会、生态文明、国家安全、国防和军队、“一国两制”和祖国统一、统一战线、外交、党的建设等各方面。其中最重要、最核心的内容就是党的十九大报告概括的“八个明确”，即明确坚持和发展中国特色社会主义，总任务是实现社会主义现代化和中华民族伟大复兴，在全面建成小康社会的基础上，分两步走在本世纪中叶建成富强民主文明和谐美丽的社会主义现代化强国；明确新时代我国社会主要矛盾是人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾，必须坚持以人民为中心的发展思想，不断促进人的全面发展、全体人民共同富裕；明确中国特色社会主义事业总体布局是“五位一体”、战略布局是“四个全面”，强调坚定道路自信、理论自信、制度自信、文化自信；明确全面深化改革总目标是完善和发展中国特色社会主义制度、推进国家治理体系和治理能力现代化；明确全面推进依法治国总目标是建设中国特色社会主义法治体系、建设社会主义法治国家；明确党在新时代的强军目标是建设一支听党指挥、能打胜仗、作风优良的人民军队，把人民军队建设成为世界一流军队；明确中国特色大国外交要推动构建新型国际关系，推动构建人类命运共同体；明确中国特色社会主义最本质的特征是中国共产党领导，中国特色社会主义制度的最大优势是中国共产党领导，党是最高政治领导力量，提出新时代党的建设总要求，突出政治建设在党的建设中的重要地位。这“八个明确”，高度凝练、提纲挈领地点明了习近平新时代中国特色社会主义思想的主要内容，构成了系统完备、逻辑严密、内在统一的科学体系。<br /><br />习近平新时代中国特色社会主义思想的时代背景和历史贡献<br />经过长期努力，中国特色社会主义进入了新时代。这是世情国情党情变化的必然结果，是社会主要矛盾运动的必然结果，也是党的十八大以来党和国家事业发生历史性变革的结果，是中国共产党人带领全国各族人民长期不懈奋斗的结果。<br />中国特色社会主义进入了新时代，是我国发展新的历史方位，也是习近平新时代中国特色社会主义思想产生的时代背景。这个新时代，既与改革开放近40年来的发展一脉相承，又有很大的不同，面临许多新情况新变化：一是党的十八大以来，在新中国成立特别是改革开放以来我国发展取得重大成就基础上，党和国家事业发生历史性变革，我国发展站在新的历史起点上，新起点需要新气象新作为；二是世界进入大变革大调整时期，面临千年未有之大变局，如何在乱局中保持定力、在变局中抓住机遇，对我们统筹国际国内两个大局提出了更高要求；三是我们党执政面临的社会环境和现实条件发生深刻变化，发展理念和方式有重大转变，发展水平和要求更高；四是我国社会的主要矛盾已经转化为人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾，经济建设仍然是中心任务，但需要更加注重全面协调可持续发展，需要着力解决好发展不平衡不充分问题；五是从党的十九大到二十大，是“两个一百年”奋斗目标的历史交汇期，我们要在全面建成小康社会、实现第一个百年目标之后，开启全面建设社会主义现代化国家新征程、向第二个百年目标进军。<br />这些新情况新变化，给我们党提出了一个重大课题，就是必须从理论和实践结合上系统回答在新的时代条件下坚持和发展什么样的中国特色社会主义、怎样坚持和发展中国特色社会主义。正是围绕回答这一重大理论和实践问题，形成了习近平新时代中国特色社会主义思想。可以说，党的十八大以来国内外形势深刻变化和我国各项事业快速发展催生了习近平新时代中国特色社会主义思想，习近平新时代中国特色社会主义思想回答了实践和时代提出的新课题。实践和理论的逻辑就是：新时代提出新课题，新课题催生新理论，新理论引领新实践。党的十八大以来这5年，党和国家各项事业之所以能开新局、谱新篇，根本的就在于有习近平新时代中国特色社会主义思想的科学指引。<br />习近平新时代中国特色社会主义思想，是对马克思列宁主义、毛泽东思想、邓小平理论、“三个代表”重要思想、科学发展观的继承和发展，是马克思主义中国化最新成果，是党和人民实践经验和集体智慧的结晶，是中国特色社会主义理论体系的重要组成部分，是全党全国人民为实现中华民族伟大复兴而奋斗的行动指南。这一思想的主要创立者是习近平同志。党的十八大以来，习近平总书记以非凡的政治智慧、顽强的意志品质、强烈的历史担当，团结带领全党全国各族人民进行具有许多新的历史特点的伟大斗争，统筹推进“五位一体”总体布局，协调推进“四个全面”战略布局，推动改革开放和社会主义现代化建设取得新的重大成就，推动党和国家事业全面开创新局面、发生历史性变革，赢得全党全军全国各族人民高度评价和衷心爱戴，成为党中央的核心、全党的核心。在领导全党全国推进党和国家事业的实践中，习近平总书记以马克思主义政治家、理论家的深刻洞察力、敏锐判断力和战略定力，提出了一系列具有开创性意义的新理念新思想新战略，为新时代中国特色社会主义思想的创立发挥了决定性作用、作出了决定性贡献。<br />习近平新时代中国特色社会主义思想源于实践又指导实践，为新时代坚持和发展中国特色社会主义、推进党和国家事业提供了基本遵循，为发展21世纪马克思主义、当代中国马克思主义作出了历史性贡献。<br />一是开辟了马克思主义新境界。习近平新时代中国特色社会主义思想贯穿改革发展稳定、内政外交国防、治党治国治军各个领域，既坚持了老祖宗，又谱写了新篇章，实现了马克思主义基本原理与中国具体实际相结合的又一次飞跃，是21世纪中国的马克思主义，是马克思主义中国化最新成果，为发展马克思主义作出了中国的原创性贡献，在马克思主义中国化进程中具有里程碑意义。<br />二是开辟了中国特色社会主义新境界。习近平新时代中国特色社会主义思想把中国特色社会主义和实现社会主义现代化、实现中华民族伟大复兴有机贯通起来，深刻回答了新时代坚持和发展中国特色社会主义的一系列重大问题，为中国特色社会主义注入了新的科学内涵，进一步彰显了新时代中国特色社会主义的蓬勃生机和活力。<br />三是开辟了治国理政新境界。在习近平新时代中国特色社会主义思想指引下，我们党团结带领人民推动党和国家事业发生了全方位、开创性、深层次、根本性的历史性变革，解决了许多长期想解决而没有解决的难题，办成了许多过去想办而没有办成的大事，我国经济实力、科技实力、国防实力、综合国力、国际影响力和人民获得感显著提升，党的面貌、国家的面貌、人民的面貌、军队的面貌、中华民族的面貌发生了前所未有的变化。<br />四是开辟了管党治党新境界。遵循习近平新时代中国特色社会主义思想，我们党以坚强的决心、空前的力度，推进全面从严治党，坚持思想从严、管党从严、执纪从严、治吏从严、作风从严、反腐从严，管党治党实现从宽松软到严紧硬的深刻转变，消除了党和国家内部存在的严重隐患，党内政治生活气象更新，积极健康的党内政治文化得到弘扬，党内政治生态明显好转，党的创造力、凝聚力、战斗力和领导力、号召力显著增强，党的团结统一更加巩固，党群关系明显改善，党在革命性锻造中更加坚强，焕发出新的强大生机活力。<br />实践没有止境，理论创新也没有止境。提出习近平新时代中国特色社会主义思想，并不是说党的理论创新和实践创新达到了一个终点，而是说我们推进马克思主义中国化达到了一个新的起点。当今世界正在发生广泛而深刻的变化，当代中国正在发生广泛而深刻的变革，其中蕴含着理论创新的巨大动力、潜力和活力。我们要始终保持与时俱进的马克思主义理论品格，不断推进理论创新、实践创新、制度创新、文化创新以及其他各方面创新，不断开创马克思主义中国化新境界，使21世纪中国的马克思主义展现出更强大、更有说服力的真理力量。<br /><br />习近平新时代中国特色社会主义思想的理论特色和实践要求<br />习近平新时代中国特色社会主义思想在形成和发展过程中，得到了全党全国各族人民的高度认同，并在实践中发挥了巨大指导作用，根本原因就在于，它继承和发扬马克思主义理论品质，贯穿坚定信仰信念、鲜明人民立场、强烈历史担当、求真务实作风、勇于创新精神和科学方法论，呈现出当代中国马克思主义的鲜明理论特色。<br />一是坚守真理、传承文明的继承性。习近平新时代中国特色社会主义思想没有丢掉老祖宗，始终坚持马克思主义立场观点方法，处处闪耀着马克思主义真理光辉。特别是在许多重大原则问题上旗帜鲜明坚持和捍卫马克思主义，理直气壮驳斥各种奇谈怪论。这一思想继承和吸收中华民族优秀传统文化，蕴含着丰富的中华民族价值共识、精神追求、政治智慧、历史经验。这一思想，充分吸收人类文明有益成果，积极借鉴别国治国理政经验，展现出宽广视野和博大胸怀。<br />二是与时俱进、引领未来的创新性。习近平新时代中国特色社会主义思想以我们正在做的事情为中心，直面前进道路上的各种困难和矛盾、风险和挑战，着力探索破解难题、推进事业发展的新理念新思想新战略，讲了许多老祖宗没有讲过的新话，具有强烈的时代气息和现实针对性。这一思想洞察时代风云，把握时代大势，站在人类发展前沿引领时代潮流，积极探索关系人类前途命运的重大问题，为应对当今世界面临的全球性挑战、解决人类面临的共性问题贡献了中国智慧和中国方案。<br />三是不忘初心、践行宗旨的人民性。习近平新时代中国特色社会主义思想坚持人民主体地位，尊重人民首创精神，注重从人民群众中汲取智慧和力量，时刻关注人民群众的喜怒哀乐，体现了亲民、爱民、忧民、为民的真挚情怀。这一思想坚持把人民对美好生活的向往作为奋斗目标，把让老百姓过上好日子作为全部工作的出发点和落脚点，始终为人民代言、为人民立言，充分体现了立党为公、执政为民的执政理念，体现了为中国人民谋幸福、为中华民族谋复兴的使命担当，体现了人民至上的价值追求。<br />四是实事求是、把握规律的科学性。习近平新时代中国特色社会主义思想立足社会主义初级阶段这个最大实际，准确把握我国发展的阶段性特征和我国社会主要矛盾的新变化，坚持一切从实际出发，勇于破除一切不合时宜的思想观念和体制机制弊端。这一思想积极探索规律、自觉遵循规律，按照客观规律要求谋划事业发展，正确处理尊重客观规律与发挥主观能动性的关系，使我们党对共产党执政规律、社会主义建设规律、人类社会发展规律的认识达到了新的高度。<br />围绕贯彻落实习近平新时代中国特色社会主义思想，报告提出了新时代中国特色社会主义基本方略，并概括为“十四个坚持”。这“十四个坚持”包括：坚持党对一切工作的领导、坚持以人民为中心、坚持全面深化改革、坚持新发展理念、坚持人民当家作主、坚持全面依法治国、坚持社会主义核心价值体系、坚持在发展中保障和改善民生、坚持人与自然和谐共生、坚持总体国家安全观、坚持党对人民军队的绝对领导、坚持“一国两制”和推进祖国统一、坚持推动构建人类命运共同体、坚持全面从严治党。这“十四个坚持”，涵盖坚持党的领导和“五位一体”总体布局、“四个全面”战略布局，涵盖国防和军队建设、维护国家安全、对外战略，是对党的治国理政重大方针、原则的最新概括，体现了理论与实践相统一、战略与战术相结合，是实现“两个一百年”奋斗目标、实现中华民族伟大复兴中国梦的“路线图”和“方法论”。这“十四个坚持”，既是习近平新时代中国特色社会主义思想的重要组成部分，也是落实习近平新时代中国特色社会主义思想的实践要求。“十四个坚持”每一条都有很强的现实针对性和指导性，我们要结合工作实际，毫不动摇地坚持，不折不扣地落实。<br />理论创新每前进一步，理论武装就要跟进一步。新时代新任务新实践需要新的思想来指引。实现新时代党的历史使命，统揽伟大斗争、伟大工程、伟大事业、伟大梦想，决胜全面建成小康社会、夺取新时代中国特色社会主义伟大胜利，必须用党的最新理论成果武装全党、指导实践、推动工作。学习贯彻习近平新时代中国特色社会主义思想是当前和今后一个时期全党的重大政治任务，也是增强政治意识、大局意识、核心意识、看齐意识，维护习近平总书记这个核心、维护党中央集中统一领导，在思想上政治上行动上同以习近平同志为核心的党中央保持高度一致的实际举措。我们要以高度的使命感和责任感，系统学习、深入学习，切实把思想和行动统一到习近平新时代中国特色社会主义思想上来。要坚持领导干部带头，推动全党深入领会习近平新时代中国特色社会主义思想的时代背景、科学体系、精神实质、实践要求，深入领会这一思想的重大政治意义、理论意义、实践意义，不断提高全党马克思主义水平。要在全党全社会迅速兴起学习贯彻高潮，采取切实有效措施，创新方式方法，综合运用各种传媒手段，形成强大合力，使习近平新时代中国特色社会主义思想深入人心。要大力弘扬理论联系实际的优良学风，强化问题意识、树立问题导向，着力提高学习本领、政治领导本领、改革创新本领、科学发展本领、依法执政本领、群众工作本领、狠抓落实本领、驾驭风险本领，保持政治定力，坚持实干兴邦，以昂扬的精神状态，努力创造经得起实践、人民、历史检验的新业绩。<br />《人民日报》（ 2017年11月06日 02 版）<br /><br />(责编：杨丽娜、常雪梅)<br /><br />刘云山 （第十八届中央政治局常委、中央书记处原书记） 锁定<br />刘云山，男，汉族，1947年7月生，山西忻州人，1966年9月参加工作，1971年4月加入中国共产党，中央党校大学学历。第十八届中央政治局常委、中央书记处书记。<br />曾任中央党校校长、中央精神文明建设指导委员会主任。<br />&nbsp;<br /><br />来源网址：http://cpc.people.com.cn/n1/2017/1106/c64094-29628985.html<br /><br /><br /></p>',
+				video:'',
+				author:'刘云山',
+				summary:'习近平总书记所作的党的十九大报告把十八大以来党的理论创新成果概括为新时代中国特色社会主义思想',
+				visitCount:452,
+				coverPic:'http://eefile.download.eenet.com//interface/APP038/xj/image/42cc44cf6a169a203e65060e604939de.jpg',
+				banner:'http://eefile.download.eenet.com//interface/APP038/xj/image/a10de2dfeb40dab6a5b0bccef9b5cf06.png',
+				sourse:'人民网－人民日报',
+				otherInfo:''
+			}
+		],
+		//思政著作
+		books:[
+			{
+				id:1,
+				name:'邓小平青年思想研究',
+				img:'http://eefile.download.eenet.com//interface/APP038/xj/image/565e7b62165294da2f5b2309ec970ce9.jpg',
+				author:'邓小平',
+				pdfUrl:'http://eefile.download.eenet.com//interface/APP038/xj/image/b92e583199e1983e76464e34fc6357c3.pdf'
+			},
+			{
+				id:2,
+				name:'论持久战',
+				img:'http://eefile.download.eenet.com//interface/APP038/xj/image/4e53a03dafcfa1c3f670616f8e004d60.jpg',
+				author:'毛泽东',
+				pdfUrl:'http://eefile.download.eenet.com//interface/APP038/xj/image/526f11cb8d94c48b5a0573c3db43e34a.pdf'
+			},
+			{
+				id:3,
+				name:'毛泽东同志论党的作风和党的组织',
+				img:'http://eefile.download.eenet.com//interface/APP038/xj/image/d02ede9d5dfc2365d16125cdad0c150a.jpg',
+				author:'毛泽东',
+				pdfUrl:'http://eefile.download.eenet.com//interface/APP038/xj/image/693e971b190c1fac8b63ae955497959b.pdf'
+			},
+			{
+				id:4,
+				name:'社会主义意识形态研究',
+				img:'http://eefile.download.eenet.com//interface/APP038/xj/image/3c5c5043632d39df9c0ab16ec924f3d6.jpg',
+				author:'郑永廷 叶启绩 郭文亮',
+				pdfUrl:'http://eefile.download.eenet.com//interface/APP038/xj/image/36884af04e3c795c8f0b2d48e6380399.pdf'
+			},
+			{
+				id:5,
+				name:'伟人的足迹——邓小平外交活动大事记',
+				img:'http://eefile.download.eenet.com//interface/APP038/xj/image/66c6d49cc7d915af9c703a848af5408a.jpg',
+				author:'外交部档案馆',
+				pdfUrl:'http://eefile.download.eenet.com//interface/APP038/xj/image/a0edf4b7d3549a0444e827fadf3272a7.pdf'
+			},
+			{
+				id:6,
+				name:'哲学价值论',
+				img:'http://eefile.download.eenet.com//interface/APP038/xj/image/d3139d015b0e05c80bdbd1057a894496.jpg',
+				author:'李连科',
+				pdfUrl:'http://eefile.download.eenet.com//interface/APP038/xj/image/9ac8c585158da0c35a96ffd38668518a.pdf'
+			},
+			{
+				id:7,
+				name:'论十大关系',
+				img:'http://eefile.download.eenet.com//interface/APP038/xj/image/af8cb9c9475ac983e5b742baa0ff69ed.jpg',
+				author:'毛泽东',
+				pdfUrl:'http://eefile.download.eenet.com//interface/APP038/xj/image/c7906236e19639b92e1c160ca3d7bd57.pdf'
+			}
+		],
+		//视频
+		hotVideos:[
+			{
+				id:1,
+				name:'《大国外交》厉害了，我的国',
+				video:'http://eefile.download.eenet.com//interface/APP038/xj/image/705e0201068029f91e3d54c56e11bcec.mp4',
+				visitCount:2132,
+				coverPic:'http://eefile.download.eenet.com//interface/APP038/xj/image/d6d9b609c618ff55a8a25e438623918f.png'
+			},
+			{
+				id:2,
+				name:'郝照平：航天一院的发展史就是创新史',
+				video:'http://eefile.download.eenet.com//interface/APP038/xj/image/fee430b3db40fd0d63787ae424af1293.mp4',
+				visitCount:2132,
+				coverPic:'http://eefile.download.eenet.com//interface/APP038/xj/image/214b0f0612a9575cdd2fe971385ef428.png'
+			},
+			{
+				id:3,
+				name:'求是访谈：“总体国家安全观”的战略意义',
+				video:'http://eefile.download.eenet.com//interface/APP038/xj/image/d2a1e48aabf2fb54d23cf7b8be177245.mp4',
+				visitCount:2132,
+				coverPic:'http://eefile.download.eenet.com//interface/APP038/xj/image/511d59d9bb5169cf1cb8f242afb09f26.png'
+			},
+			{
+				id:4,
+				name:'求是访谈：如何正确认识普世价值的政治实质',
+				video:'http://eefile.download.eenet.com//interface/APP038/xj/image/0046e85ea74164eb67387f29e831d46d.mp4',
+				visitCount:2132,
+				coverPic:'http://eefile.download.eenet.com//interface/APP038/xj/image/5b97ecfa28b135924bd0321f87803667.png'
+			},
+			{
+				id:5,
+				name:'世界舞台上的习近平',
+				video:'http://eefile.download.eenet.com//interface/APP038/xj/image/dc176b41c702a1e5427b949aa9a1e31d.mp4',
+				visitCount:2132,
+				coverPic:'http://eefile.download.eenet.com//interface/APP038/xj/image/ae24aefdfb4d5514bf7ab450dd65c2c7.png'
+			}
+		]
+	}
+	window.app = new Vue({
+        el: '#app',
+        data: data,
+        created:function(){
+        	var vm=this;
+
+        	vm.$nextTick(function(){
+	        	var swiper = new $.Swiper('[data-id="swiper-3d"]', {
+				        pagination: '[data-id="swiper-3d"] .swiper-pagination',
+				        effect: 'coverflow',
+				        grabCursor: true,
+				        centeredSlides: true,
+				        slidesPerView: 'auto',
+				        loop : true,//只有一项目的时候，需设置为false
+				        loopedSlides:3,//项目个数
+				        coverflow: {
+				            rotate: 50,
+				            stretch: 10,
+				            depth: 100,
+				            modifier: 1,
+				            slideShadows : false
+				        }
+				    });
+
+				//内容滑动
+				$('[data-id="swiper"]').each(function(index, el) {
+					var swiper = new $.Swiper(el, {
+				        slidesPerView: 'auto',
+				        pagination:''
+				    });
+				});
+
+
+				//圆环进度
+				function circleProgress(canvasEle, percent){
+					var bar = new ProgressBar.Circle(canvasEle, {
+						strokeWidth: 8,
+						color: '#4c8fe1',
+						trailColor: '#f3f2f2',
+						trailWidth: 8,
+						text: {
+							value: percent+'%',
+							className:'text-nowrap',
+							style: {
+								position: 'absolute',
+								left: '50%',
+								top: '50%',
+								transform: {
+									prefix: true,
+									value: 'translate(-50%, -50%)'
+								}
+							}
+						}
+					});
+
+					bar.animate(percent/100);
+					//bar.set(percent/100)
+				}
+
+				var circle=document.querySelectorAll('.socre-circle');
+				if(circle.length>0){
+					for(var i=0;i<circle.length;i++){
+						circleProgress(circle[i],circle[i].getAttribute('data-score'));
+					}
+				}
+			});
+        },
+        methods:{
+        	//热议新闻 名家观点 思政视频  查看详情
+        	viewMore:function(item,type){
+        		var defaultData=JSON.parse(strPopData);
+
+        		//打开弹窗
+        		var $pop=$('#more');
+  				$.popup($pop);
+
+  				$pop
+  				.on('opened', function(event) {
+  					$.extend(true, pop.$data, defaultData, item, {type:type});
+  				})
+  				.on('close', function(event) {
+  					//恢复原始状态
+  					$.extend(true, pop.$data, defaultData);
+  				});
+        	},
+        	downloadBook:function(item){
+        		if($.device.ios && $.device.webView){
+                    location.href=item.pdfUrl;
+                }
+                else{
+                    window.open(item.pdfUrl);
+                }
+        	}
+        }
+    });
+
+    //弹窗
+    var popData={
+	    	id:0,
+			name:'',
+			publishTime:'',//发布时间
+			content:'',
+			type:0,
+			video:'',
+			author:'',
+			summary:'',
+			visitCount:0,
+			coverPic:'',
+			banner:'',
+			sourse:'',
+			otherInfo:''
+	    },
+	    strPopData=JSON.stringify(popData);//保存初始状态数据
+
+    var pop = new Vue({
+    	el: '#more',
+        data: popData
+    });
+
+})();
+</script>
+
+
+</body>
+</html>

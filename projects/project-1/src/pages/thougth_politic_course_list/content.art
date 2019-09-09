@@ -1,0 +1,61 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<template v-if="isloaded">
+				<template v-if="success">
+					<div class="content bg-white">
+						<div class="padding-l_75rem padding-r_75rem padding-t_75rem" v-if="videoData && videoData.videoList && videoData.videoList.length>0">
+							<div class="position-relative t-p-list-swiper padding-b_75rem border-bottom">
+								<div class="swiper-container">
+								    <div class="swiper-wrapper">
+								      <div class="swiper-slide" v-for="(video, index) in videoData.videoList">
+								      	<a @click.prevent="videoJump(video)" href="javascript:;" class="embed-responsive">
+								      		<img :SRC="video.videoImg" class="embed-responsive-item">
+								      		<i class="v-icon"></i>
+								      	</a>
+								      </div>
+								    </div>
+								    <div class="swiper-button-prev"></div>
+    								<div class="swiper-button-next"></div>
+								</div>
+								<ul class="swiper-title-list list-unstyled text-center">
+									<li v-for="(video, index) in videoData.videoList" v-show="index==0">{{video.videoName}}</li>
+								</ul>
+								<div class="swiper-pagination full-width"></div>
+							</div>
+						</div>
+
+						<div class="padding-l_75rem padding-r_75rem padding-b_75rem">
+							<ul class="list-unstyled t-p-list2">
+								<li class="item-with-border" v-for="course in resData.courseList" @click="jumpLink(course)">
+									<div class="flex-box flex-align-center">
+										<div class="overflow-hidden">
+											<h5 class="text-ellipsis">{{course.courseName}}</h5>
+										</div>
+										<div class="flex-item choose-status" v-if="course.courseAttribute!=='0'">
+											<span class="label" v-if="course.courseAttribute=='2'">选修</span>
+
+											<span class="label" required v-else>必修</span>
+										</div>
+									</div>
+									<div class="flex-box margin-t_3rem">
+										<div class="flex-item info flex-align-center">
+											<span>
+												学习次数：{{course.studyCount}}次
+											</span>
+											<span>
+												形考成绩：{{course.studyPoint}}分
+											</span>
+										</div>
+										<span class="label" :class="[getStudyStateClassName(course.studyState)]">{{getStudyStateLabel(course.studyState)}}</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</template>
+				<div class="content" v-else>
+					${require('../../components/com/errorTips.txt')}
+    			</div>
+			</template>
+		</div>
+	</div>

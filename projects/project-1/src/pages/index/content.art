@@ -25,7 +25,7 @@
 							<div class="position-relative padding_75rem" v-if="success">
 								<div :class="[
 										'course-wrap',
-										hasFinItem?'index-course-wrap':''
+										hasFinItem>0?'index-course-wrap':''
 									]">
 
 									<div class="course-box-group expand-box" 

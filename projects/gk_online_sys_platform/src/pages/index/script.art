@@ -1,0 +1,10 @@
+<script type="text/javascript">
+require(['jquery','vuejs','common'],function($, Vue){
+	require(['${indexjsPath}/js/index.js'],function(){
+		resetPageHeight();
+
+		//加载首页
+		$(".sidebar-menu a").eq(0).click();
+	})
+});
+</script>

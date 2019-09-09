@@ -1,0 +1,321 @@
+	<div class="page-group" id="app" v-cloak>
+		<template v-if="isloaded">
+			<template v-if="success">
+				<div class="page page-current">
+					<header class="bar bar-nav">
+					  <a class="icon icon-left pull-left" @click.prevent="historyBack"></a>
+					  <a class="button button-link pull-right open-popup" data-popup=".popup-view-card">
+					    {{practiceOrder}}/{{practiceData.ALL_QACOUNT}}
+					  </a>
+					  <h1 class="title">练题</h1>
+					</header>
+					<div class="bar bar-footer-btn padding-none">
+					  	<div class="flex-box flex-align-center">
+					  		<!--查看答题详情-->
+					  		<template v-if="isView">
+					  			<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="viewControll(--curPracticeIndex)" :disabled="curPracticeIndex==0">上一题</button>
+
+					  			<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="viewControll(++curPracticeIndex)" :disabled="curPracticeIndex==practiceData.QALIST.length-1">下一题</button>
+					  		</template>
+					  		<template v-else>
+							  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="checkAnswer" v-if="!prohibit">核对答案</button>
+
+							  	<template v-else>
+								  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="viewControll(++curPracticeIndex)" v-if="curPracticeIndex<practiceData.QALIST.length-1">下一题</button>
+								
+							  		<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="submitPractice" v-else>提交练习</button>
+						  		</template>
+					  		</template>
+					  	</div>
+					</div>
+					<div class="content">
+						<div class="padding_75rem">
+						    <div class="practice-subject-item" v-if="curPractice">
+								<label class="label label-blue-boder">{{getQueType(curPractice.QASTORE_TYPE)}}</label>
+								<div class="practice-subject-header margin-t_3rem">
+									<div class="txt"  v-html="curPractice.QASTORE_TITLE"></div>
+
+									<textarea class="border full-width padding_5rem margin-t_7rem" rows="6" :name="curPractice.QASTORE_ID" :disabled="prohibit" v-if="curPractice.QASTORE_TYPE=='question'">{{curPractice.RESULT_CONTENT}}</textarea>
+								</div>
+
+								<div class="sub-practice-list">
+									<!--非综合题-->
+									<template v-if="!curPractice.SONLIST">
+										<div class="sub-practice-item margin-top-none">
+											<div class="practice-subject-sel-list border-none" v-if="curPractice.QASTORE_TYPE=='radio' || curPractice.QASTORE_TYPE=='checkbox' || curPractice.QASTORE_TYPE=='whether'">
+												<label class="checkbox-group flex-box" 
+														v-for="(optItem, qaItemIndex) in curPractice.OPTLIST">
+
+													<template v-if="curPractice.GET_POINT>0 || curPractice.GET_POINT===0">
+														<input class="checkbox-control" :name="optItem.QASTORE_ID" :value="optItem.OPTION_ID" :disabled="prohibit" :checked="curPractice.RESULT_CONTENT && curPractice.RESULT_CONTENT.indexOf(optItem.OPTION_ID)>-1" 
+															 :type="
+															 	(
+															 		curPractice.QASTORE_TYPE=='radio' ||
+															 		curPractice.QASTORE_TYPE=='whether'
+															 	)?'radio':'checkbox'
+															 "
+														>
+													</template>
+													<template v-else>
+														<input class="checkbox-control" :name="optItem.QASTORE_ID" :value="optItem.OPTION_ID" :disabled="prohibit"
+															 :type="
+															 	(
+															 		curPractice.QASTORE_TYPE=='radio' ||
+															 		curPractice.QASTORE_TYPE=='whether'
+															 	)?'radio':'checkbox'
+															 "
+														>
+													</template>
+
+													<span class="checkbox-icon">
+														<i class="icomoon"></i>
+														<em class="checkbox-order"></em>
+													</span>
+													<div class="flex-item checkbox-txt">
+														{{optItem.OPTION_CONTENT}}
+													</div>
+												</label>
+											</div>
+
+											<!--显示答案-->
+											<template v-if="curPractice.GET_POINT>0 || curPractice.GET_POINT===0">
+												<div class="practice-subject-ans">
+													<table width="100%">
+														<tbody>
+															<tr>
+																<td class="td-label">答题情况：</td>
+																<td class="td-cnt">
+																	<template 
+																		v-if="
+																			curPractice.QASTORE_TYPE=='radio' ||
+																			curPractice.QASTORE_TYPE=='checkbox' ||
+																			curPractice.QASTORE_TYPE=='whether'"
+																		>
+																		<div :class="[curPractice.GET_POINT==0?'text-orange':'text-green']">
+																			正确答案：
+																			{{curPractice.userPostAnswer.RIGHT_ANSWER}}
+																			，
+																			<template v-if="curPractice.GET_POINT==0">
+																				你错选为：
+																				{{curPractice.userPostAnswer.CHOOSE_ANSWER}}
+																			</template>
+																			<template v-else>
+																				你选对了
+																			</template>
+																		</div>
+																	</template>
+																	<ul class="list-unstyled" v-else-if="curPractice.QASTORE_TYPE=='fill'">
+																		<li v-for="(optItem, optItemIndex) in curPractice.OPTLIST" :class="[optItem.IS_RIGHT=='N'?'text-orange':'text-green']">
+																			空{{optItemIndex+1}}：正确答案：{{optItem.OPTION_CONTENT}}，你答{{optItem.IS_RIGHT=='N'?'错':'对'}}了
+																		</li>
+																	</ul>
+																	<div class="text-orange" v-else-if="curPractice.QASTORE_TYPE=='question'">
+																		参考解析
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td class="td-label">题目解析：</td>
+																<td class="td-cnt">
+																	<template v-if="curPractice.QASTORE_ANALYTIC">
+																		<div v-html="curPractice.QASTORE_ANALYTIC"></div>
+																	</template>
+																	<template v-else>
+																		暂无
+																	</template>
+																</td>
+															</tr>
+															<tr>
+																<td class="td-label">知识点：</td>
+																<td class="td-cnt">
+																	
+																	<template v-if="curPractice.KNOW_NAME">
+																		{{curPractice.KNOW_NAME}}
+																	</template>
+																	<template v-else>
+																		暂无
+																	</template>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</template>
+										</div>
+									</template>
+									<template v-else>
+										<div class="sub-practice-item" v-if="curPractice.SONLIST.length>0" v-for="(subPractice, subPracticeIndex) in curPractice.SONLIST">
+											<label class="label label-blue-boder">{{getQueType(subPractice.QASTORE_TYPE)}} 第{{subPractice.ORDER_NO+1}}题</label>
+											<div class="practice-subject-header margin-t_3rem">
+												<div class="txt" v-html="subPractice.QASTORE_TITLE"></div>
+
+												<textarea class="border full-width padding_5rem margin-t_7rem" rows="6" :name="subPractice.QASTORE_ID" :disabled="prohibit" v-if="subPractice.QASTORE_TYPE=='question'">{{subPractice.RESULT_CONTENT}}</textarea>
+											</div>
+
+											
+
+											<div class="practice-subject-sel-list" 
+												v-if="
+													subPractice.QASTORE_TYPE=='radio' ||
+													subPractice.QASTORE_TYPE=='checkbox' ||
+													subPractice.QASTORE_TYPE=='whether'
+												">
+												<label class="checkbox-group flex-box" 
+														v-for="(optItem, qaItemIndex) in subPractice.OPTLIST">
+
+													<template v-if="subPractice.GET_POINT>0 || subPractice.GET_POINT===0">
+														<input class="checkbox-control" :name="optItem.QASTORE_ID" :value="optItem.OPTION_ID" :disabled="prohibit" :checked="subPractice.RESULT_CONTENT && subPractice.RESULT_CONTENT.indexOf(optItem.OPTION_ID)>-1" 
+															 :type="
+															 	(
+															 		subPractice.QASTORE_TYPE=='radio' ||
+															 		subPractice.QASTORE_TYPE=='whether'
+															 	)?'radio':'checkbox'
+															 "
+														>
+													</template>
+													<template v-else>
+														<input class="checkbox-control" :name="optItem.QASTORE_ID" :value="optItem.OPTION_ID" :disabled="prohibit"
+															 :type="
+															 	(
+															 		subPractice.QASTORE_TYPE=='radio' ||
+															 		subPractice.QASTORE_TYPE=='whether'
+															 	)?'radio':'checkbox'
+															 "
+														>
+													</template>
+													
+													
+													<span class="checkbox-icon">
+														<i class="icomoon"></i>
+														<em class="checkbox-order"></em>
+													</span>
+													<div class="flex-item checkbox-txt">
+														{{optItem.OPTION_CONTENT}}
+													</div>
+												</label>
+											</div>
+
+											<!--显示答案-->
+											<template v-if="subPractice.GET_POINT>0 || subPractice.GET_POINT===0">
+												<div class="practice-subject-ans">
+													<table width="100%">
+														<tbody>
+															<tr>
+																<td class="td-label">答题情况：</td>
+																<td class="td-cnt">
+																	<template 
+																		v-if="
+																			subPractice.QASTORE_TYPE=='radio' ||
+																			subPractice.QASTORE_TYPE=='checkbox' ||
+																			subPractice.QASTORE_TYPE=='whether'"
+																		>
+																		<div :class="[subPractice.GET_POINT==0?'text-orange':'text-green']">
+																			正确答案：
+																			{{subPractice.userPostAnswer.RIGHT_ANSWER}}
+																			，
+																			<template v-if="subPractice.GET_POINT==0">
+																				你错选为：
+																				{{subPractice.userPostAnswer.CHOOSE_ANSWER}}
+																			</template>
+																			<template v-else>
+																				你选对了
+																			</template>
+																		</div>
+																	</template>
+																	<ul class="list-unstyled" v-else-if="subPractice.QASTORE_TYPE=='fill'">
+																		<li v-for="(optItem, optItemIndex) in subPractice.OPTLIST" :class="[(!optItem.IS_RIGHT || optItem.IS_RIGHT=='N')?'text-orange':'text-green']">
+																			空{{optItemIndex+1}}：正确答案：{{optItem.OPTION_CONTENT}}，你答{{(!optItem.IS_RIGHT || optItem.IS_RIGHT=='N')?'错':'对'}}了
+																		</li>
+																	</ul>
+																	<div class="text-orange" v-else-if="subPractice.QASTORE_TYPE=='question'">
+																		参考解析
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td class="td-label">题目解析：</td>
+																<td class="td-cnt">
+																	<template v-if="subPractice.QASTORE_ANALYTIC">
+																		<div v-html="subPractice.QASTORE_ANALYTIC"></div>
+																	</template>
+																	<template v-else>
+																		暂无
+																	</template>
+																</td>
+															</tr>
+															<tr>
+																<td class="td-label">知识点：</td>
+																<td class="td-cnt">
+																	<template v-if="subPractice.KNOW_NAME">
+																		{{subPractice.KNOW_NAME}}
+																	</template>
+																	<template v-else>
+																		暂无
+																	</template>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</template>
+										</div>
+									</template>
+
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="popup popup-view-card">
+					<header class="bar bar-nav">
+					  <a class="icon icon-left pull-left close-popup"></a>
+					  <h1 class="title">答题卡</h1>
+					</header>
+				    <div class="bar bar-footer-btn padding-none">
+					  <div class="flex-box flex-align-center">
+					  	<template v-if="isView">
+					  		<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="backToPracticeIndex">返回练习列表</button>
+					  		<button type="button" class="flex-item button button-big button-fill border-none flat button-blue close-popup">查看答题情况</button>
+					  	</template>
+					  	<template v-else>
+					  		<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="submitPractice">提交练习</button>
+					  	</template>
+					  </div>
+					</div>
+					
+					<div class="content">
+						<div class="padding_75rem">
+							<ul class="list-unstyled clearfix ans-card-list" v-if="newPracticeList.length>0">
+								<template v-if="isView">
+									<li v-for="(newPractice, i) in newPracticeList" :class="[newPractice.GET_POINT===0?'wrong':(newPractice.GET_POINT>0?'right':'')]" @click="findPracticeIndex(i+1)">
+										{{i+1}}
+									</li>
+								</template>
+					  			<template v-else>
+					  				<li v-for="(newPractice, i) in newPracticeList" :class="[newPractice.GET_POINT===0?'wrong':(newPractice.GET_POINT>0?'right':'')]">
+										{{i+1}}
+									</li>
+					  			</template>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</template>
+			<template v-else>
+				<% 
+					let errorTpl=require('../../components/com/errorTips.msg') 
+				%>
+				<%=errorTpl.replace(/\$\{PATH\}/g, host+'/'+commonSkinPath+'/') %>
+			</template>
+		</template>
+	</div>
+
+	<script type="text/template" id="practice-tpl">
+
+	</script>
+
+
+
+	

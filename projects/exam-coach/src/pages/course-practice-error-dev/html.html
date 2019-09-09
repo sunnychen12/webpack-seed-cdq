@@ -1,0 +1,25 @@
+<%
+  let title='我的错题';
+%><% 
+  let param={
+    title: title,
+    host: host,
+    isProduction: isProduction,
+    commonSkinPath: commonSkinPath
+  };
+  let header = require("../../components/header/header.art"); 
+%><%= header(param)%>
+
+<% 
+  let content = require("./content.art"); 
+%><%= content(param)%>
+
+<% 
+  let commonFooter = require("../../components/footer/footer.art"); 
+  let selfScript = require("./script.art"); 
+%><%= commonFooter({
+  commonSkinPath:commonSkinPath,
+  host:host,
+  isProduction: isProduction,
+  selfScript: selfScript(param)
+})%>

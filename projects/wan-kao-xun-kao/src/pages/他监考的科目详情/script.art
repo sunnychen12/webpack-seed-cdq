@@ -1,0 +1,57 @@
+<script language="javascript" type="text/javascript" src="http://css.gzedu.com/common/My97DatePicker/WdatePicker.js"></script>
+
+<script type="text/javascript">
+$(document)
+//tab选项卡
+.off('click', '[data-toggle="tab"]')
+.on('click', '[data-toggle="tab"]', function(event) {
+	var containerID=$(this).data('target');
+	var $relDiv=$('[data-id="'+containerID+'"]');
+
+	//选项卡方法
+	tabsLoad($(this), $relDiv.parent(), function(){
+		setTimeout(function(){
+			$relDiv.removeClass('hide')
+			.siblings().addClass('hide');
+
+			$(".over-mark").hide();
+		},1000);
+	});
+})
+//查看监考行为
+.off('click', '[data-role="view-inv-record"]')
+.on('click', '[data-role="view-inv-record"]', function(event) {
+	event.preventDefault();
+	var url=$(this).attr('href');
+
+	$.dialog({
+	    id:'view-inv-record',
+	    title:'查看监考行为记录',
+	    width:1030,
+	    height:500,
+	    max: false,
+	    min: false,
+	    lock: true, 
+	    fixed:true,
+	    ok:function(){
+	      //window.location.href="巡考.html";
+	      //return false;
+	    },
+	    okVal:'确定',
+	    cancelVal:'取消',
+	    cancel:true,
+	    content:'url:'+url
+  	});
+})
+//动态记录（树形结构）
+.off('click', '[data-role="level"] > .item > .toggle')
+.on('click', '[data-role="level"] > .item > .toggle', function(event) {
+	var $parent=$(this).parent();
+	if($parent.hasClass('expand')){
+		$parent.removeClass('expand').children('.history-list').slideUp();
+	}
+	else{
+		$parent.addClass('expand').children('.history-list').slideDown();
+	}
+});
+</script>

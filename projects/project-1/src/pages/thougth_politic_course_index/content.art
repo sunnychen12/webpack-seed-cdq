@@ -1,0 +1,290 @@
+	<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<div class="content bg-white">
+				<!--精选课程-->
+				<div class="thougth-politic-slider-box">
+					<div class="swiper-container" data-id="swiper-3d">
+				        <div class="swiper-wrapper">
+				            <div class="swiper-slide t-p-slide-item">
+				            	<div class="padding-l_75rem padding-r_75rem full-height">
+				            		<div class="flex-box flex-vertical full-height">
+				            			<div class="flex-item border-bottom flex-box flex-vertical padding-b_5rem">
+						            		<h3 class="font_85rem margin-none flex-item flex-box flex-box-justify-center flex-vertical">
+						            			<span>
+						            				思想道德修养与法律基础
+						            			</span>
+						            		</h3>
+
+						            		<div class="flex-box flex-align-center flex-box-justify">
+						            			<div class="sel-label">
+						            				<span>
+						            					精选课程
+						            				</span>
+						            			</div>
+
+						            			<div class="gray font_55rem">
+						            				<i class="icomoon vertical-middle font-1rem">&#xe909;</i>
+						            				<span class="inline-block">452</span>
+						            			</div>
+						            		</div>
+						            		
+					            		</div>
+					            		<div class="flex-box flex-align-center padding-t_5rem padding-b_75rem">
+					            			<div class="flex-item font_65rem gray6">
+					            				上次看到：第2章 - 第2节
+					            			</div>
+					            			<div>
+					            				<div class="socre-circle" data-score="65">
+												</div>
+					            			</div>
+					            		</div>
+				            		</div>
+				            	</div>
+				            </div>
+				            <div class="swiper-slide t-p-slide-item">
+				            	<div class="padding-l_75rem padding-r_75rem full-height">
+				            		<div class="flex-box flex-vertical full-height">
+				            			<div class="flex-item border-bottom flex-box flex-vertical padding-b_5rem">
+						            		<h3 class="font_85rem margin-none flex-item flex-box flex-box-justify-center flex-vertical">
+						            			<span>
+						            				思想道德修养与法律基础
+						            			</span>
+						            		</h3>
+
+						            		<div class="flex-box flex-align-center flex-box-justify">
+						            			<div class="sel-label">
+						            				<span>
+						            					精选课程
+						            				</span>
+						            			</div>
+
+						            			<div class="gray font_55rem">
+						            				<i class="icomoon vertical-middle font-1rem">&#xe909;</i>
+						            				<span class="inline-block">452</span>
+						            			</div>
+						            		</div>
+						            		
+					            		</div>
+					            		<div class="flex-box flex-align-center padding-t_5rem padding-b_75rem">
+					            			<div class="flex-item font_65rem gray6">
+					            				上次看到：第2章 - 第2节
+					            			</div>
+					            			<div>
+					            				<div class="socre-circle" data-score="65">
+												</div>
+					            			</div>
+					            		</div>
+				            		</div>
+				            	</div>
+				            </div>
+				            <div class="swiper-slide t-p-slide-item">
+				            	<div class="padding-l_75rem padding-r_75rem full-height">
+				            		<div class="flex-box flex-vertical full-height">
+				            			<div class="flex-item border-bottom flex-box flex-vertical padding-b_5rem">
+						            		<h3 class="font_85rem margin-none flex-item flex-box flex-box-justify-center flex-vertical">
+						            			<span>
+						            				思想道德修养与法律基础
+						            			</span>
+						            		</h3>
+
+						            		<div class="flex-box flex-align-center flex-box-justify">
+						            			<div class="sel-label">
+						            				<span>
+						            					精选课程
+						            				</span>
+						            			</div>
+
+						            			<div class="gray font_55rem">
+						            				<i class="icomoon vertical-middle font-1rem">&#xe909;</i>
+						            				<span class="inline-block">452</span>
+						            			</div>
+						            		</div>
+						            		
+					            		</div>
+					            		<div class="flex-box flex-align-center padding-t_5rem padding-b_75rem">
+					            			<div class="flex-item font_65rem gray6">
+					            				上次看到：第2章 - 第2节
+					            			</div>
+					            			<div>
+					            				<div class="socre-circle" data-score="65">
+												</div>
+					            			</div>
+					            		</div>
+				            		</div>
+				            	</div>
+				            </div>
+				        </div>
+				        <!-- Add Pagination -->
+				        <div class="swiper-pagination"></div>
+				    </div>
+				    <div class="t-p-arc-bg"></div>
+				</div>
+
+				<div class="padding_75rem">
+					<!--热议-->
+					<div class="daily-wrap font_65rem border-bottom padding-b_75rem padding-t_5rem">
+						<div class="flex-box flex-align-center">
+							<div class="margin-r_5rem">
+								<img SRC="images/daily-hot.png" class="daily-rec-img vertical-middle">
+							</div>
+							<a href="#" class="flex-item" @click.prevent="viewMore(hotNews[0], 1)">
+								{{hotNews[0].name}}
+							</a>
+						</div>
+						<ul class="daily-list list-unstyled">
+							<li v-for="(news, index) in hotNews" v-if="index>0">
+								<a href="#" @click.prevent="viewMore(news, 1)">{{news.name}}</a>
+							</li>
+						</ul>
+					</div>
+
+					<!--名家观点-->
+					<div class="master-point padding-t_75rem padding-b_5rem margin-b_75rem border-bottom">
+						<div class="flex-box flex-align-center flex-box-justify">
+							<h2 class="margin-none font_85rem">名家观点</h2>
+							
+						</div>
+
+						<ul class="master-list list-unstyled font_65rem">
+							<li v-for="item in famoursViewpoint">
+								<a href="#" class="flex-box" @click.prevent="viewMore(item, 2)">
+									<div class="margin-r_75rem">
+										<img :SRC="item.coverPic">
+									</div>
+									<div class="flex-item overflow-hidden flex-box flex-vertical">
+										<h3 class="margin-none item-title text-ellipsis">
+											{{item.name}}
+										</h3>
+										<div class="flex-item">
+											<div class="txt">
+												{{item.summary}}
+											</div>
+										</div>
+										<div class="flex-box flex-align-center flex-box-justify">
+					            			<div class="sel-label">
+					            				{{item.author}}
+					            			</div>
+
+					            			<div class="font_55rem">
+					            				<i class="icomoon vertical-middle font-1rem">&#xe909;</i>
+					            				<span class="inline-block">{{item.visitCount}}</span>
+					            			</div>
+					            		</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<!--思政著作-->
+					<div class="padding-t_75rem padding-b_75rem border-bottom margin-b_75rem sz-books-wrap">
+						<div class="flex-box flex-align-center flex-box-justify">
+							<h2 class="margin-none font_85rem">思政著作</h2>
+							
+						</div>
+
+						<div class="edu-swiper-box" style="margin-top:.75rem;">
+							<div class="swiper-container padding-bottom-none" data-id="swiper">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide" v-for="item in books">
+										<a class="flex-box flex-vertical" href="#" @click.prevent="downloadBook(item)">
+											<div class="edu-swiper-img">
+												<img :SRC="item.img">
+											</div>
+
+											<div class="name">《{{item.name}}》</div>
+											<div class="gray font_65rem margin-t_3rem text-ellipsis">{{item.author}}</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--思政视频-->
+					<div class="padding-t_75rem t-p-video-wrap">
+						<div class="flex-box flex-align-center flex-box-justify">
+							<h2 class="margin-none font_85rem">思政视频</h2>
+							
+						</div>
+
+						<div class="edu-swiper-box" style="margin-top:.75rem;">
+							<div class="swiper-container padding-bottom-none" data-id="swiper">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide" v-for="item in hotVideos">
+										<a class="flex-box flex-vertical" href="#" @click.prevent="viewMore(item, 3)">
+											<div class="edu-swiper-img">
+												<img :SRC="item.coverPic">
+											</div>
+
+											<div class="name">{{item.name}}</div>
+											<div class="gray font_55rem margin-t_3rem">
+					            				<i class="icomoon vertical-middle font-1rem">&#xe909;</i>
+					            				<span class="inline-block">{{item.visitCount}}</span>
+					            			</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="popup" id="more">
+		<header class="bar bar-nav">
+		  <a class="icon icon-left pull-left close-popup"></a>
+		  <h1 class="title">
+		  	<template v-if="type==1">
+		  		新闻热议
+		  	</template>
+		  	<template v-else-if="type==2">
+		  		名家观点
+		  	</template>
+		  	<template v-else-if="type==3">
+		  		思政视频
+		  	</template>
+		  </h1>
+		</header>
+		<div class="bar bar-footer-btn padding-none">
+			<div class="flex-box border-top">
+				<button type="button" class="flex-item button button-big button-fill border-none flat close-popup" style="background-color: #f7f7f8;">
+					<span class="text-blue">关闭</span>
+				</button>
+			</div>
+		</div>
+		<div class="content bg-white">
+			<div v-if="type==2 && banner">
+				<img :SRC="banner" class="block" width="100%">
+			</div>
+			<div class="padding_75rem">
+				<h1 class="font_85rem text-center">{{name}}</h1>
+				<div class="gray font_55rem text-center" v-if="type==2">
+					<span v-if="publishTime">
+						{{publishTime}}
+					</span>
+					<span class="margin-l_75rem" v-if="sourse">
+						来源：{{sourse}}
+					</span>
+					<span class="margin-l_75rem" v-if="otherInfo">
+						{{otherInfo}}
+					</span>
+				</div>
+				<div class="artical-content margin-t-1rem">
+					<video v-if="type!=2 && video" class="video-player" :src="video"
+						x5-playsinline 
+						playsinline 
+						webkit-playsinline 
+						controls
+						style="height:10rem;"
+						autoplay="autoplay"
+					></video>
+					<div class="gray6 proj-des" v-html="content" v-if="content">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

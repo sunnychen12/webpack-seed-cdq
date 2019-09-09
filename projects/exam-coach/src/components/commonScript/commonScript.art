@@ -1,0 +1,7 @@
+<!-- 加载公共插件 -->
+<script type="text/javascript" src="<%=host%>/common/msui/js/zepto.min.js"></script>
+<script type="text/javascript">$.config = {router: false}</script>
+<script type="text/javascript" src="<%=host%>/common/msui/js/sm.min.js"></script>
+<script type="text/javascript" src="<%=host%>/common/js/vue.js"></script>
+
+<script type="text/javascript" src="<%=host%>/<%=commonSkinPath%>/js/commonLab<%=isProduction?'.min':''%>.js"></script>

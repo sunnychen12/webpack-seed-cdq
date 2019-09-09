@@ -1,0 +1,561 @@
+	<!--main-->
+	<div class="padding_t15 padding_l20 xk-pop-tabs position-relative">
+		<ul class="tabs-1 position-relative clearfix">
+			<li class="cur">监考行为记录（10）</li>
+			<li>人脸抓拍验证照片（20）</li>
+			<li>视频监考记录（3）</li>
+			<li>聊天记录（2）</li>
+			<li>截图记录（5）</li>
+			<li class="last">审核记录（5）</li>
+		</ul>
+	</div>
+	<div class="xk-pop-side">
+		<div data-role="side">
+			<div class="padding_t15 padding_b15 padding_l10 padding_r10">
+				<table width="100%">
+					<tr>
+						<td>
+							<img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="vertical-middel" width="100" height="120">
+						</td>
+						<td>
+							<ul class="f12 padding_l10">
+								<li>姓名：黄小华</li>
+								<li>学号：101433533</li>
+								<li>身份证：440105199901012358</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+				<table class="table-basic f12 margin_t10">
+					<colgroup>
+						<col width="50%">
+						<col width="50%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<td colspan="2">科目：数字电子电路考试</td>
+						</tr>
+						<tr>
+							<td>计划：2014秋招生</td>
+							<td>考试次数：1/1</td>
+						</tr>
+						<tr>
+							<td>最高得分：90</td>
+							<td>本次得分：89</td>
+						</tr>
+						<tr>
+							<td>进入考试：09:00:00</td>
+							<td>提交试卷：09:30:00</td>
+						</tr>
+						<tr>
+							<td>考试用时：00:30:00</td>
+							<td>考试结果：<span class="font_green">考试及格</span></td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								抓拍照片：10张 <span class="font_orange">未通过验证（识别率30%）</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								监考状态：<span class="font_orange">已监考未通过</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								最终审核状态：<span class="font_orange">不通过</span>
+							</td>
+							<td>警告次数：2</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="margin_t10">
+					<button type="button" class="btn btn-dark-blue btn-sm box-sizing-border full-width">查看卷面</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="xk-pop-main">
+		<div class="padding_t10 padding_b10">
+			<div class="padding_1l5 padding_r15" data-role="tab-content">
+				<div data-role="tab-item">
+					<ul class="history-list padding10">
+						<li class="item">
+							<i class="toggle"></i>
+							<div class="time">2019-01-04 09:00:03</div>
+							<div class="txt">
+								<span class="name">XXX</span>
+								（监考老师）进行视频监考
+								<a class="view-record"><u>查看视频记录</u></a>
+							</div>
+						</li>
+						<li class="item">
+							<i class="toggle"></i>
+							<div class="time">2019-01-04 09:00:03</div>
+							<div class="txt">
+								<span class="name">XXX</span>
+								（监考老师）发送了一条聊天信息
+								<a class="view-record"><u>查看聊天记录</u></a>
+							</div>
+						</li>
+						<li class="item">
+							<i class="toggle"></i>
+							<div class="time">2019-01-04 09:00:03</div>
+							<div class="txt">
+								<span class="name">XXX</span>
+								（监考老师）发起第 1 次警告
+							</div>
+						</li>
+						<li class="item">
+							<i class="toggle"></i>
+							<div class="time">2019-01-04 09:00:03</div>
+							<div class="txt">
+								<span class="name">XXX</span>
+								（监考老师）发送了一条聊天信息
+								<a class="view-record"><u>查看聊天记录</u></a>
+							</div>
+						</li>
+						<li class="item">
+							<i class="toggle"></i>
+							<div class="time">2019-01-04 09:00:03</div>
+							<div class="txt">
+								<span class="name">XXX</span>
+								（监考老师）截取 1 张考生画面
+								<a class="view-record"><u>查看截图记录</u></a>
+							</div>
+						</li>
+						<li class="item">
+							<i class="toggle"></i>
+							<div class="time">2019-01-04 09:00:03</div>
+							<div class="txt">
+								<span class="name">XXX</span>
+								（监考老师）结束第 1 次警告，让考生继续考试
+							</div>
+						</li>
+						<li class="item">
+							<i class="toggle"></i>
+							<div class="time">2019-01-04 09:00:03</div>
+							<div class="txt">
+								<span class="name">XXX</span>
+								（监考老师）结束监考，判断监考已通过
+							</div>
+						</li>
+						<li class="item">
+							<i class="toggle"></i>
+							<div class="time">2019-01-04 09:00:03</div>
+							<div class="txt">
+								<span class="name">XXX</span>
+								（监考老师）发起第 2 次警告
+							</div>
+						</li>
+						<li class="item">
+							<i class="toggle"></i>
+							<div class="time">2019-01-04 09:00:03</div>
+							<div class="txt">
+								<span class="name">XXX</span>
+								（监考老师）截取 1 张考生画面
+								<a class="view-record"><u>查看截图记录</u></a>
+							</div>
+						</li>
+						<li class="item">
+							<i class="toggle"></i>
+							<div class="time">2019-01-04 09:00:03</div>
+							<div class="txt">
+								<span class="name">XXX</span>
+								（监考老师）结束第 2 次警告，结束考生考试，并判定考试成绩无效
+								<a class="view-record"><u>查看原因</u></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div data-role="tab-item" class="hide">
+					<div class="margin_b10 f13">
+						<div class="clearfix">
+	                  		当前已抓拍 10 张考生考试过程的人脸照片，识别通过 <b class="font_green">8</b> 张，不通过 <b class="font_red">2</b> 张
+
+		                  	<div class="fr">
+							    要求识别率：60% / 当前识别率:
+							    <span class="font_orange">53%</span>
+							    <b class="font_red">↓</b>
+							    <b class="font_green">↑</b>
+						  	</div>
+					  </div>
+	                </div>
+	                <div class="screenshot_list patrol-screenshot clearfix position-relative">
+		                <ul>
+		                    <li>
+		                       <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png notpass">
+		                       <div class="float_left">可疑图像</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                       <div class="mark-lbl">
+		                        <i></i>
+		                        <span>识别率：30%</span>
+		                      </div>
+		                    </li>
+		                    <li>
+		                       <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png notpass">
+		                       <div class="float_left">可疑图像</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                       <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png notpass">
+		                       <div class="float_left">可疑图像</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                       <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png notpass">
+		                       <div class="float_left">可疑图像</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                       <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png notpass">
+		                       <div class="float_left">可疑图像</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                       <div class="mark-lbl">
+		                        <i></i>
+		                        <span>识别率：30%</span>
+		                      </div>
+		                    </li>
+		                </ul>
+	                </div>
+				</div>
+				<div data-role="tab-item" class="hide">
+					<div class="patrol-video clearfix">
+						<ul>
+							<li>
+								<div class="video">
+									<video src="http://www.runoob.com/try/demo_source/movie.mp4" data-role="video">您的浏览器不支持 HTML5 video 标签。</video>
+									<i class="v-btn"></i>
+								</div>
+								<div class="txt">
+									<div>2017-09-01 09:00</div>
+									<div>22''10</div>
+								</div>
+							</li>
+							<li>
+								<div class="video">
+									<video src="http://www.runoob.com/try/demo_source/movie.mp4" data-role="video">您的浏览器不支持 HTML5 video 标签。</video>
+									<i class="v-btn"></i>
+								</div>
+								<div class="txt">
+									<div>2017-09-01 09:00</div>
+									<div>22''10</div>
+								</div>
+							</li>
+							<li>
+								<div class="video">
+									<video src="http://www.runoob.com/try/demo_source/movie.mp4" data-role="video">您的浏览器不支持 HTML5 video 标签。</video>
+									<i class="v-btn"></i>
+								</div>
+								<div class="txt">
+									<div>2017-09-01 09:00</div>
+									<div>22''10</div>
+								</div>
+							</li>
+							<li>
+								<div class="video">
+									<video src="http://www.runoob.com/try/demo_source/movie.mp4" data-role="video">您的浏览器不支持 HTML5 video 标签。</video>
+									<i class="v-btn"></i>
+								</div>
+								<div class="txt">
+									<div>2017-09-01 09:00</div>
+									<div>22''10</div>
+								</div>
+							</li>
+							<li>
+								<div class="video">
+									<video src="http://www.runoob.com/try/demo_source/movie.mp4" data-role="video">您的浏览器不支持 HTML5 video 标签。</video>
+									<i class="v-btn"></i>
+								</div>
+								<div class="txt">
+									<div>2017-09-01 09:00</div>
+									<div>22''10</div>
+								</div>
+							</li>
+							<li>
+								<div class="video">
+									<video src="http://www.runoob.com/try/demo_source/movie.mp4" data-role="video">您的浏览器不支持 HTML5 video 标签。</video>
+									<i class="v-btn"></i>
+								</div>
+								<div class="txt">
+									<div>2017-09-01 09:00</div>
+									<div>22''10</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div data-role="tab-item" class="hide">
+					<ul class="dialogue_list">
+						<li class="me">
+							<div class="user">我</div>
+							<div class="dialogue">
+								<div class="inner">
+									<p>此用户没有填写评论</p>
+									<p class="font_gray">00:00</p>
+								</div>
+								<div class="arrow"></div>
+							</div>
+						</li>
+						<li class="other">
+							<div class="user">张二</div>
+							<div class="dialogue">
+								<div class="inner">
+									<p>此用户没有填写评论</p>
+									<p class="font_gray">00:00</p>
+								</div>
+								<div class="arrow"></div>
+							</div>
+						</li>
+					 </ul>
+				</div>
+				<div data-role="tab-item" class="hide">
+	                <div class="screenshot_list patrol-screenshot clearfix position-relative">
+		                <ul>
+		                    <li>
+		                       <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png notpass">
+		                       <div class="float_left">可疑图像</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                       <div class="mark-lbl">
+		                        <i></i>
+		                        <span>识别率：30%</span>
+		                      </div>
+		                    </li>
+		                    <li>
+		                       <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png notpass">
+		                       <div class="float_left">可疑图像</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                       <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png notpass">
+		                       <div class="float_left">可疑图像</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                       <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png notpass">
+		                       <div class="float_left">可疑图像</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                      <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png pass">
+		                       <div class="float_left">正常</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                    </li>
+		                    <li>
+		                       <img src="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" data-original="http://gd1.alicdn.com/bao/uploaded/i1/T1jazgXXdvXXcvNQwY_030250.jpg_400x400.jpg" class="lazy">
+		                       <div class="status_bar bg_png notpass">
+		                       <div class="float_left">可疑图像</div>
+		                       <div class="float_right">00:00</div>
+		                       </div>
+		                       <div class="mark-lbl">
+		                        <i></i>
+		                        <span>识别率：30%</span>
+		                      </div>
+		                    </li>
+		                </ul>
+	                </div>
+				</div>
+				<div data-role="tab-item" class="hide">
+					<h4 class="margin_t10">视频监考验证记录</h4>
+					<table class="table-basic f12 text-center margin_t10">
+						<colgroup>
+							<col width="22%">
+							<col width="15%">
+							<col width="15%">
+							<col>
+							<col width="15%">
+						</colgroup>
+			            <thead>
+			              <tr>
+			                <th>记录时间</th>
+			                <th>审核人</th>
+			                <th>验证状态</th>
+			                <th>不通过原因</th>
+			                <th>考试过程截图</th>
+			              </tr>
+			            </thead>
+			            <tbody>
+			              <tr>
+			                <td>2016-08-15 14:00:05</td>
+			                <td>XXX监考老师</td>
+			                <td>
+			                	<span class="font_orange">
+			                        未通过
+			                    </span>
+			                </td>
+			                <td>
+			                  该考生和证件照片不是同一个人
+			                </td>
+			                <td>
+			                	<a href="#" data-role="screenDia"><u>5张截图</u></a>
+			                </td>
+			              </tr>
+			            </tbody>
+			        </table>
+
+			        <h4 class="margin_t25">最终审核记录</h4>
+					<table class="table-basic f12 text-center margin_t10">
+						<colgroup>
+							<col width="22%">
+							<col width="15%">
+							<col width="15%">
+							<col>
+							<col width="15%">
+						</colgroup>
+			            <thead>
+			              <tr>
+			                <th>审核时间</th>
+			                <th>审核人</th>
+			                <th>审核状态</th>
+			                <th>不通过原因</th>
+			                <th>考试过程截图</th>
+			              </tr>
+			            </thead>
+			            <tbody>
+			              <tr>
+			                <td>2016-08-15 14:00:05</td>
+			                <td>李志斌</td>
+			                <td>
+			                	<span class="font_orange">
+			                        审核不通过，成绩无效
+			                    </span>
+			                </td>
+			                <td>
+			                  老师审核不通过是填写的原因
+			                </td>
+			                <td>
+			                	<a href="#" data-role="screenDia"><u>5张截图</u></a>
+			                </td>
+			              </tr>
+			            </tbody>
+			        </table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--main--> 

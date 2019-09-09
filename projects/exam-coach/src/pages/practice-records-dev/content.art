@@ -1,0 +1,66 @@
+	<div class="page-group" id="app" v-cloak>
+		<template v-if="isloaded">
+			<template v-if="success">
+				<div class="page page-current">
+					<header class="bar bar-nav">
+					  <a class="icon icon-left pull-left" @click.prevent="rePractice"></a>
+					  <h1 class="title">练习记录</h1>
+					</header>
+					<div class="bar bar-footer-btn padding-none">
+					  <div class="flex-box flex-align-center">
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="viewPracticeStatus">查看答题情况</button>
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="rePractice">重新练习</button>
+					  </div>
+					</div>
+					<div class="content bg-white">
+						<div class="swiper-container record-tabs">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide" 
+										:class="{'active':index==0}"
+										v-for="(item, index) in recordData.RECORDLIST"
+										v-if="recordData.RECORDLIST.length>0"
+									>
+									<span>
+										第{{index+1}}次
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="record-tabs-content">
+							<div class="swiper-container padding-bottom-none">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide" 
+												v-for="(item, index) in recordData.RECORDLIST"
+												v-if="recordData.RECORDLIST.length>0"
+											>
+										<div class="padding_75rem">
+											<div class="font-1rem">{{item.CREATED_DT}}</div>
+											<div class="font_75rem margin-b_7rem">已答：{{item.QASTORE_COUNT}} 题，剩余：{{item.NO_QASTORE_COUNT}} 题，正确率：{{item.RIGHT_RATE}}%</div>
+
+											<div class="margin-t-1rem text-center" v-if="!item.qaList">
+												<div class="preloader"></div>
+											</div>
+
+											<ul class="list-unstyled clearfix ans-card-list" v-else-if="item.qaList.length>0">
+												<li v-for="(qa, i) in item.qaList" :class="[qa.GET_POINT===0?'wrong':(qa.GET_POINT>0?'right':'')]">
+													{{i+1}}
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</template>
+			<template v-else>
+				<% 
+					let errorTpl=require('../../components/com/errorTips.msg') 
+				%>
+				<%=errorTpl.replace(/\$\{PATH\}/g, host+'/'+commonSkinPath+'/') %>
+			</template>
+		</template>
+	</div>

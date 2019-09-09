@@ -1,0 +1,49 @@
+<script type="text/javascript">
+	var app=new Vue({
+		el:"#app",
+		data:{
+			success:true,
+	        msg:'',
+	        isloaded:false,//是否所有数据都已经加载完毕
+	        listData:[
+	        	{
+	        		courseName: '实用法律基础',
+	        		courseNo: 'WK0001',
+	        		courseStudyNum: 0
+	        	},
+	        	{
+	        		courseName: '管理学基础',
+	        		courseNo: 'WK0002',
+	        		courseStudyNum: 0
+	        	},
+	        	{
+	        		courseName: '管理方法与艺术',
+	        		courseNo: 'WK0003',
+	        		courseStudyNum: 0
+	        	}
+	        ]
+		},
+		methods:{
+			showHtml:function(){
+	            var vm=this;
+	            vm.isloaded=true;
+	            $.hideIndicator();
+	        },
+		}
+	});
+
+	//提示，考试期间不允许练题
+	/*
+	$.modal({
+      text: '<div class="text-orange"><span class="icon line-height-1" style="font-size:3rem;">&#xe620;</span></div>考试期间不允许练题，请在今天20:00后进行练题！',
+      buttons: [
+        {
+          text: '我知道了',
+          onClick: function() {
+            
+          }
+        }
+      ]
+    });
+    */
+</script>

@@ -1,0 +1,429 @@
+<script type="text/javascript" src="assets/js/sm-extend.min.js"></script>
+
+<script type="text/javascript">
+;(function(){
+	var userName=commomLab.getQueryParam('userName');//	学号
+	userName || (userName='');
+
+    var token=commomLab.getQueryParam('token');// token
+    token || (token='');
+
+	var app = new Vue({
+        el: '#app',
+        data: {
+        	success:true,
+        	msg:'',
+            isloaded:false,//是否所有数据都已经加载完毕
+        	resData:false,
+            videoData:false,
+            signData:false//签名数据
+        },
+        created: function () {
+            var vm=this;
+            //保持在线
+            
+
+        	if(!userName){
+                this.success=false;
+                this.msg='参数出错';
+                this.showHtml();
+
+                this.$nextTick(function(){
+                    //删除“找老师”的按钮，因为传的参数不合法
+                    $('[data-id="call-box"]').remove();
+                });
+            }
+            else{
+                
+                vm.getSignature()
+                .done(function(){
+                    if(vm.signData){
+                        //获取空间的精彩视频列表
+                        var def1=vm.getWonderfuleVideoList();
+
+                        //获取 学习课程列表 数据
+                    	var def=vm.getData();
+
+                        //渲染切换图效果
+                        $.when(def, def1)
+                        .done(function(){
+                            if(
+                                vm.videoData && 
+                                vm.videoData.videoList &&
+                                vm.videoData.videoList.length>0
+                            ){
+                                vm.$nextTick(function(){
+                                    var swiper = new $.Swiper('.swiper-container', {
+                                        prevButton:'.swiper-button-prev',
+                                        nextButton:'.swiper-button-next',
+                                        onSlideChangeEnd: function(swiper){
+                                          $('.swiper-title-list > li').hide().eq(swiper.activeIndex).show();
+                                        }
+                                    });
+                                });
+                            }
+                        });
+
+                        if(token){
+                            var b = new commomLab.Base64();
+                            token = b.decode(token);
+
+                            try{
+                                token = JSON.parse(token);
+                                vm.updOnlineRecord(token);
+                            }
+                            catch(e){
+                                console.log('token 不是合法的json数据')
+                            }
+                        }
+                        
+                    }
+
+                }).fail(function(){
+                    vm.success=false;
+                    vm.msg='获取签名出错';
+                    vm.showHtml();
+                });
+            }
+        },
+        methods:{
+        	//结束异步，关键加载特殊，显示页面内容
+            showHtml:function(){
+                var vm=this;
+                vm.isloaded=true;
+                $.hideIndicator();
+            },
+            //获取 学习课程列表 数据
+        	getData:function(){
+        		var vm=this;
+
+        		$.showIndicator();
+        		return commomLab.ajaxProcess({
+                    //url: '/api/oa/getStudCourseList.json',
+                    cache:true,
+                    url:'/api/stud/space/getStudCourseList.json',
+                    data: {
+                        userName: userName,
+                        timeStamp: vm.signData.timestamp,
+                        nonce: vm.signData.nonce,
+                        signature: vm.signData.signature
+                    },
+                    success: function(res){
+                        if(
+                            commomLab.checkAPIResult(res)
+                        ){
+                        	if(
+                        		res.data &&
+                        		res.data.courseList &&
+                        		res.data.courseList.length>0
+                        	){
+                        		vm.resData=res.data;
+
+                            	vm.showHtml();
+                        	}
+                        	else{
+                        		vm.success=false;
+                                vm.msg='暂无数据';
+                                vm.showHtml();
+                        	}
+                            
+                        }
+                        else{
+                            vm.success=false;
+                            vm.msg='数据查询出错';
+                            vm.showHtml();
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        vm.success=false;
+                        vm.msg='数据查询出错';
+                        vm.showHtml();
+                    }
+                });
+                
+        	},
+            //获取空间的精彩视频列表
+            getWonderfuleVideoList:function(){
+                var vm=this;
+                return commomLab.ajaxProcess({
+                    cache:true,
+                    url: '/api/stud/space/getWonderfuleVideoList.json',
+                    data: {
+                        timeStamp: vm.signData.timestamp,
+                        nonce: vm.signData.nonce,
+                        signature: vm.signData.signature,
+                        userName: vm.signData.userName
+                    },
+                    success: function(res){
+                        if(
+                            commomLab.checkAPIResult(res)
+                        ){
+                            
+                            if(
+                                res.data &&
+                                res.data.videoList &&
+                                res.data.videoList.length>0
+                            ){
+                                vm.videoData=res.data;
+                            }
+                        }
+                    }
+                });
+            },
+        	//学习状态 中文 转化
+        	getStudyStateLabel:function(state){
+        		var result='';
+        		state || (state=0);
+        		state=state-0;
+        		switch(state){
+        			case 1:
+        				result='未学习';
+        				break;
+        			case 2:
+        				result='学习中';
+        				break;
+        			case 3:
+        				result='已通过';
+        				break;
+        			case 4:
+        				result='未通过';
+        				break;
+        			default:
+        				break;
+        		}
+        		return result;
+        	},
+            updOnlineRecordFun:function(json){
+                var vm=this;
+
+                vm.getSignature().done(function(){
+                    commomLab.ajaxProcess({
+                        cache:true,
+                        url: '/api/stud/online/updOnlineRecord.json',
+                        data: {
+                            entityId: json.studentId,
+                            entityType: 1,
+                            userId: json.studentId,
+                            timeStamp: vm.signData.timestamp,
+                            nonce: vm.signData.nonce,
+                            signature: vm.signData.signature
+                        }
+                    });
+                });
+            },
+            //获取签名
+            getSignature:function(){
+                var vm = this;
+                var dtd = $.Deferred();
+
+                var now = new Date().getTime();
+
+                if(
+                    vm.signData &&
+                    vm.signData.createTime &&
+                    now - vm.signData.createTime < 10 * 60 * 1000
+                ){
+                    dtd.resolve();
+                }
+                else{
+
+                    var b= new commomLab.Base64();
+
+                    //生成账号的base64加密字符串
+                    var userNameBase64 = b.encode(userName);
+
+                    //随机字符串的base64加密字符串
+                    var nonceBase64 = b.encode(Math.random().toString(36).substr(2));
+
+                    $.showIndicator();
+
+                    commomLab.ajaxProcess({
+                        url: '/api/url/verify/getSignature.json',
+                        data: {
+                            userName: userNameBase64,
+                            nonce: nonceBase64
+                        },
+                        success: function(res){
+                            if(
+                                commomLab.checkAPIResult(res)
+                            ){
+
+                                res.data.timestamp = b.decode(res.data.timestamp);
+                                res.data.nonce = b.decode(res.data.nonce);
+                                res.data.signature = b.decode(res.data.signature);
+                                res.data.userName = b.decode(res.data.userName);
+
+                                vm.signData = res.data;
+
+                                //设置签名的创建时间，签名的时效是10分钟 （转换为毫秒： 10 * 60 * 1000）
+                                vm.signData.createTime=new Date().getTime();
+
+                                dtd.resolve();
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            dtd.reject();
+                        }
+                    });
+                }
+
+                return dtd.promise();
+            },
+            //保持在线接口
+            updOnlineRecord:function(data){
+                var vm=this;
+                
+                //每隔2分钟调用一次
+                setInterval(function(){
+                    vm.updOnlineRecordFun(data);
+                }, 1000*60*2);
+            },
+            //获取 学习状态 样式类
+            getStudyStateClassName:function(state){
+                var result='';
+                state || (state=0);
+                state=state-0;
+                switch(state){
+                    case 1:
+                        result='has-fin';
+                        break;
+                    case 2:
+                        result='study-status';
+                        break;
+                    case 3:
+                        result='study-status';
+                        break;
+                    case 4:
+                        result='study-status';
+                        break;
+                    default:
+                        break;
+                }
+                return result;
+            },
+        	//课程跳转
+        	jumpLink:function(course){
+                var vm=this;
+
+        		if(course){
+        			if(course.isApp=='N'){
+	        			commomLab.myToast({
+							msg:'暂不开放学习'
+						})
+					}
+					else{
+                        //如果是移动端
+                        if($.device.os || $.device.webView){
+    						if(course.courseUrl){
+    							location.href=course.courseUrl;
+    						}
+    						else{
+    							commomLab.myToast({
+    								msg:'课程地址为空'
+    							})
+    						}
+                        }
+                        //如果是PC
+                        else{
+                            var winOpen=window.open('about:blank');
+                                winOpen.document.write('加载中...');
+
+                            vm.getSignature().done(function(){
+                                $.showIndicator();
+
+                                var dtd = $.Deferred();
+
+                                
+
+                                //重新请求课程列表
+                                commomLab.ajaxProcess({
+                                    cache:true,
+                                    url:'/api/stud/space/getStudCourseList.json',
+                                    data: {
+                                        userName: userName,
+                                        timeStamp: vm.signData.timestamp,
+                                        nonce: vm.signData.nonce,
+                                        signature: vm.signData.signature,
+                                        courseCode: course.courseCode
+                                    },
+                                    success: function(res){
+                                        if(
+                                            commomLab.checkAPIResult(res)
+                                        ){
+                                            if(
+                                                res.data &&
+                                                res.data.courseList &&
+                                                res.data.courseList.length>0
+                                            ){
+                                                dtd.resolve(res.data.courseList);
+                                            }
+                                            else{
+                                                dtd.reject();
+                                            }
+                                            
+                                        }
+                                        else{
+                                            dtd.reject();
+                                        }
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        dtd.reject();
+                                    }
+                                });
+
+                                dtd.done(function(list){
+                                    $.each(list, function(index, item) {
+                                        if(item.courseCode==course.courseCode){
+                                            if(item.gkCourseUrl){
+                                                //location.href=item.gkCourseUrl;
+                                                winOpen.location.href=item.gkCourseUrl
+                                            }
+                                            else{
+                                                commomLab.myToast({
+                                                    msg:'课程地址为空'
+                                                });
+
+                                                winOpen.document.write('课程地址为空');
+                                            }
+                                            return false;
+                                        }
+                                    });
+
+                                }).fail(function(){
+                                    commomLab.myToast({
+                                        msg:'课程跳转失败'
+                                    });
+
+                                    winOpen.document.write('课程跳转失败');
+                                }).always(function(){
+                                    $.hideIndicator();
+                                })
+                            }).fail(function(){
+                                commomLab.myToast({
+                                    msg:'获取签名出错'
+                                });
+
+                                winOpen.document.write('获取签名出错');
+                            })
+                        }
+					}
+        		}
+        		
+        	},
+            //视频播放
+            videoJump:function(video){
+                var url='video-player-page.html?videourl='+video.videoUrl;
+                if($.device.os || $.device.webView){
+                    location.href=url;
+                }
+                else{
+                    window.open(url)
+                }
+            }
+        }
+    });
+
+    
+})();
+	
+</script>

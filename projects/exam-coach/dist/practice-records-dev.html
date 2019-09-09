@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<!--<link rel="shortcut icon" href="/favicon.ico">-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" href="http://css.eenet.com/common/msui/css/sm.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="http://css.eenet.com/common/font-awesome/css/font-awesome.min.css">
+
+	
+	<link href="http://css.eenet.com/exam_chinaeenet_com/exam-coach/css/main.min.css" rel="stylesheet">
+	
+</head>
+
+<body>
+
+
+	<div class="page-group" id="app" v-cloak>
+		<template v-if="isloaded">
+			<template v-if="success">
+				<div class="page page-current">
+					<header class="bar bar-nav">
+					  <a class="icon icon-left pull-left" @click.prevent="rePractice"></a>
+					  <h1 class="title">练习记录</h1>
+					</header>
+					<div class="bar bar-footer-btn padding-none">
+					  <div class="flex-box flex-align-center">
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="viewPracticeStatus">查看答题情况</button>
+					  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="rePractice">重新练习</button>
+					  </div>
+					</div>
+					<div class="content bg-white">
+						<div class="swiper-container record-tabs">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide" 
+										:class="{'active':index==0}"
+										v-for="(item, index) in recordData.RECORDLIST"
+										v-if="recordData.RECORDLIST.length>0"
+									>
+									<span>
+										第{{index+1}}次
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="record-tabs-content">
+							<div class="swiper-container padding-bottom-none">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide" 
+												v-for="(item, index) in recordData.RECORDLIST"
+												v-if="recordData.RECORDLIST.length>0"
+											>
+										<div class="padding_75rem">
+											<div class="font-1rem">{{item.CREATED_DT}}</div>
+											<div class="font_75rem margin-b_7rem">已答：{{item.QASTORE_COUNT}} 题，剩余：{{item.NO_QASTORE_COUNT}} 题，正确率：{{item.RIGHT_RATE}}%</div>
+
+											<div class="margin-t-1rem text-center" v-if="!item.qaList">
+												<div class="preloader"></div>
+											</div>
+
+											<ul class="list-unstyled clearfix ans-card-list" v-else-if="item.qaList.length>0">
+												<li v-for="(qa, i) in item.qaList" :class="[qa.GET_POINT===0?'wrong':(qa.GET_POINT>0?'right':'')]">
+													{{i+1}}
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</template>
+			<template v-else>
+				
+				<div class="flex-box flex-box-justify-center flex-align-center full-height flex-vertical">
+	<img src="http://css.eenet.com/exam_chinaeenet_com/exam-coach/images/no-data2.png" width="100">
+	<div class="gray9 margin-t_7rem font_85rem">
+		{{msg}}
+	</div>
+	
+	<div class="margin-t-1rem" data-id="call-box">
+		<button type="button" class="button button-md button-fill border-none btn-blue" style="border-radius:1rem" onclick="commomLab.callTeacher();">
+			<span class="padding-l_75rem padding-r_75rem">
+				找老师
+			</span>
+		</button>
+	</div>
+</div>
+			</template>
+		</template>
+	</div>
+
+
+<!-- 加载公共插件 -->
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/zepto.min.js"></script>
+<script type="text/javascript">$.config = {router: false}</script>
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/sm.min.js"></script>
+<script type="text/javascript" src="http://css.eenet.com/common/js/vue.js"></script>
+
+<script type="text/javascript" src="http://css.eenet.com/exam_chinaeenet_com/exam-coach/js/commonLab.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://css.eenet.com/common/msui/css/sm-extend.min.css">
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/sm-extend.min.js"></script>
+
+<script type="text/javascript">
+;(function(){
+	var USER_ID = commomLab.getQueryParam('formMap.USER_ID');
+	var PROJECT_ID = commomLab.getQueryParam('formMap.PROJECT_ID');
+	var EXERCISES_TYPE = commomLab.getQueryParam('formMap.EXERCISES_TYPE');
+
+	document.title='练习记录';
+
+	//参数不能为空
+	if(!USER_ID || !PROJECT_ID || !EXERCISES_TYPE){
+		commomLab.myToast({msg:'参数不能为空'})
+		return;
+	}
+
+	
+	window.appVm=new Vue({
+		el:'#app',
+		mixins:[mixin],
+		data:{
+			curIndex:0,
+			recordData:false
+		},
+		created:function(){
+			var vm=this;
+
+			vm.getExercisesRecord();
+		},
+		methods:{
+			//查看练题记录列表
+			getExercisesRecord:function(){
+				var vm=this;
+
+				$.showIndicator();
+				//查看练题记录列表
+				commomLab.ajaxProcess({
+					url: '/api/coach/getExercisesRecord.do',
+					data: {
+						'formMap.USER_ID': USER_ID,
+						'formMap.PROJECT_ID': PROJECT_ID,
+						'formMap.EXERCISES_TYPE':EXERCISES_TYPE
+					}
+				})
+				.done(function(res){
+					if(res.code==200){
+						if(
+							res.result &&
+							res.result.RECORDLIST &&
+							res.result.RECORDLIST.length>0
+						){
+							vm.recordData=res.result;
+
+							//初始化参数，存储做题记录
+							$.each(res.result.RECORDLIST, function(index, record) {
+								record.qaList=false;
+							});
+
+							vm.getPractice()
+							.done(function(){
+								
+								commomLab.resetAnsCard();
+
+								//内容滑动
+								var tabsSwiper = new $.Swiper('.record-tabs', {
+							        slidesPerView: 'auto',
+							        slideToClickedSlide:true,
+							        onClick: function(swiper){
+								      	contentSwiper.slideTo(swiper.clickedIndex);
+								    }
+
+							    });
+
+							    //内容滑动
+								var contentSwiper = new $.Swiper('.record-tabs-content > .swiper-container',{
+									onSlideChangeEnd: function(swiper){
+										vm.curIndex=swiper.activeIndex;
+										//没加载过才加载
+										if(!vm.recordData.RECORDLIST[swiper.activeIndex].qaList){
+
+											vm.getPractice();
+										}
+
+								      	tabsSwiper.slideTo(swiper.activeIndex);
+
+								      	$(tabsSwiper.slides).removeClass('active');
+
+								      	$(tabsSwiper.slides[swiper.activeIndex]).addClass('active')
+								    }
+								});
+							});
+
+							vm.showHtml();
+						}
+						else{
+							vm.showHtml('数据为空');
+						}
+					}
+					else{
+						vm.showHtml(res.message);
+	                }
+				})
+				.fail(function(){
+					vm.showHtml('数据查询异常');
+	            });
+			},
+			//加载练题数据
+			getPractice:function(){
+				var vm=this;
+
+				var recordItem=vm.recordData.RECORDLIST[vm.curIndex];
+
+				//3、获取练题信息
+				return commomLab.ajaxProcess({
+					url: '/api/coach/getExercisesQa.do',
+					data: {
+						'formMap.USER_ID': USER_ID,
+						'formMap.PROJECT_ID': PROJECT_ID,
+						'formMap.EXERCISES_TYPE':EXERCISES_TYPE,
+						'formMap.EXERCISES_ID':recordItem.EXERCISES_ID
+					}
+				})
+				.done(function(res){
+					if(res.code==200){
+						if(
+							res.result &&
+							res.result.QALIST &&
+							res.result.QALIST.length>0
+						){
+							recordItem.qaList=[];
+							$.each(res.result.QALIST, function(index, qaItem) {
+								if(qaItem.SONLIST){
+									$.each(qaItem.SONLIST, function(order, item2) {
+										recordItem.qaList.push(item2);
+									});
+								}
+								else{
+									recordItem.qaList.push(qaItem);
+								}
+							});
+
+							vm.$forceUpdate();
+						}
+					}
+				});
+			},
+			//查看答题情况
+			viewPracticeStatus:function(){
+				var vm=this;
+
+				var EXERCISES_ID = vm.recordData.RECORDLIST[vm.curIndex].EXERCISES_ID
+
+				var params=[
+					{
+						name: 'formMap.USER_ID',
+						value: USER_ID
+					},
+					{
+						name: 'formMap.PROJECT_ID',
+						value: PROJECT_ID
+					},
+					{
+						name: 'formMap.EXERCISES_TYPE',
+						value: EXERCISES_TYPE
+					},
+					{
+						name: 'formMap.EXERCISES_ID',
+						value: EXERCISES_ID
+					}
+				];
+
+				params=$.param(params);
+
+				location.href='course-practice.html?'+params;
+			},
+			//重新练习
+			rePractice:function(){
+				var vm=this;
+				var params=[
+					{
+						name: 'formMap.USER_ID',
+						value: USER_ID
+					},
+					{
+						name: 'formMap.PROJECT_ID',
+						value: PROJECT_ID
+					}
+				];
+
+				params=$.param(params);
+
+				location.href='course-index.html?'+params;
+			}
+		}
+	});
+})();
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>视频</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" type="text/css" href="css/common.css?v=1552893839245">
+	<link rel="stylesheet" type="text/css" href="css/main.css?v=1552893839245">
+	
+</head>
+<body>
+<div class="wrap">
+		<div class="page-group">
+		<div class="page page-current" id="app" v-cloak>
+			<div class="content" style="
+					background:#000;
+					color:#fff;
+				">
+				<video data-id="video" class="full-width full-height block" :src="videourl"
+					x5-playsinline 
+					playsinline 
+					webkit-playsinline
+					@ended="ended"
+					v-show="!isVideoStop"
+				></video>
+
+				<!--播放-->
+				<div class="position-absolute" style="
+							top:50%;
+							left:50%;
+							margin:-1.5rem 0 0 -1.5rem;
+							font-size: 0;
+						"
+						@click="playVideo"
+						v-show="isVideoStop"
+					>
+					<i class="icomoon" style="font-size: 3rem;">&#xe90a;</i>
+				</div>
+
+				<div class="position-absolute padding_5rem" style="
+					color:#fff;
+					right:.5rem;
+					top:.5rem;
+					" @click="closeScreen">
+					<i class="icomoon font-1rem">&#xe906;</i>
+				</div>
+
+				<div class="position-absolute font_75rem text-center" style="
+					bottom:.5rem;
+					right:.5rem;
+					left:.5rem;
+					border-radius:.2rem;
+					height:2.2rem;
+					line-height:2.2rem;
+					background:#4c8ee0;
+				" v-if="isVideoEnding" @click="leavePage">去看看</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<script type="text/javascript" src="js/common.min.js?v=1552893839246"></script>
+	<script type="text/javascript" src="js/commonLab.min.js?v=1552893839246"></script>
+
+
+<script type="text/javascript">
+	window.app = new Vue({
+        el: '#app',
+        data: {
+        	isVidieoVisible:false,
+        	videourl:'http://172.16.165.93:8080/sample.mp4',
+			isVideoStop:true,
+			isVideoEnding:false
+        },
+        created:function(){
+        	
+        },
+        methods:{
+        	closeScreen:function(){
+        		var vm=this;
+        		var video=document.querySelector('[data-id="video"]');
+
+        		if(vm.isVideoEnding){
+        			vm.leavePage();
+        		}
+        		else{
+        			video.pause();
+
+				    $.modal({
+						title:  false,
+						text: '视频中将会教您如何快速有效<br>的学习思政课哦，<br>确定退出？',
+						buttons: [
+							{
+							  	text: '确定',
+							  	onClick: function() {
+							    	vm.leavePage();
+							  	}
+							},
+							{
+							  	text: '<span class="gray6">继续看</span>',
+							  	onClick: function() {
+							    	vm.playVideo();
+							  	}
+							}
+						]
+					})
+				}
+        	},
+			playVideo:function(){
+				var vm=this;
+				this.isVideoStop=false;
+				this.isVidieoVisible=true;
+				document.querySelector('[data-id="video"]').play();
+			},
+			ended:function(event) {
+				var vm=this;
+				var videoObj=event.target;
+
+				vm.isVideoEnding=true;
+				vm.isVidieoVisible=false;
+				vm.isVideoStop=true;
+
+				//vm.leavePage();
+				
+			},
+			leavePage:function(){
+				var url=location.origin+"/thougth_politic_course_index.html";
+				try{
+					//如果是APP端环境，就用该方法打开页面
+					Phone.goToSeePoliticCourse(url)
+				}catch(e){
+					location.href=url
+				}
+				
+			}
+        }
+    });
+</script>
+
+
+</body>
+</html>

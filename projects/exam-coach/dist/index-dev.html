@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<!--<link rel="shortcut icon" href="/favicon.ico">-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" href="http://css.eenet.com/common/msui/css/sm.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="http://css.eenet.com/common/font-awesome/css/font-awesome.min.css">
+
+	
+	<link href="http://css.eenet.com/exam_chinaeenet_com/exam-coach/css/main.min.css" rel="stylesheet">
+	
+</head>
+
+<body>
+
+
+	<div class="page-group" id="app" v-cloak>
+		<template v-if="isloaded">
+			<div class="page page-current" v-if="success">
+				<header class="bar bar-nav">
+				  <a class="icon icon-left pull-left"></a>
+				  <h1 class="title">考试辅导</h1>
+				</header>
+
+				<div class="content">
+				    <ul class="item-of-list">
+				        <li v-for="item in resData.COACHLIST">
+				            <a href="javascript:;" class="flex-box flex-align-stretch item-box" @click.prevent="jumpLink(item)">
+			                    <div class="flex-item">
+			                        <div class="tit">{{item.PROJECT_NAME}}</div>
+
+			                        <div class="info">
+				                        <div>科目编号：{{item.PROJECT_CODE}}</div>
+				                    	<div>课程：{{item.PROJECT_NAME}}</div>
+			                    	</div>
+			                    </div>
+			                    <div class="flex-box flex-box-justify-center flex-vertical width-border-left">
+			                    	<div class="text-center padding-l_75rem padding-r_75rem">
+				                    	<div>{{item.PASS_QASTORE_COUNT}}</div>
+				                    	<div class="gray9 font_55rem">练习次数</div>
+				                    </div>
+			                    </div>
+			                    <div class="flex-box flex-box-justify-center flex-vertical">
+			                    	<span class="icon icon-right"></span>
+			                    </div>
+			                    
+				            </a>
+				        </li>
+				    </ul>
+				</div>
+			</div>
+
+			<template v-else>
+				
+				<div class="flex-box flex-box-justify-center flex-align-center full-height flex-vertical">
+	<img src="http://css.eenet.com/exam_chinaeenet_com/exam-coach/images/no-data2.png" width="100">
+	<div class="gray9 margin-t_7rem font_85rem">
+		{{msg}}
+	</div>
+	
+	<div class="margin-t-1rem" data-id="call-box">
+		<button type="button" class="button button-md button-fill border-none btn-blue" style="border-radius:1rem" onclick="commomLab.callTeacher();">
+			<span class="padding-l_75rem padding-r_75rem">
+				找老师
+			</span>
+		</button>
+	</div>
+</div>
+			</template>
+		</template>
+	</div>
+
+
+<!-- 加载公共插件 -->
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/zepto.min.js"></script>
+<script type="text/javascript">$.config = {router: false}</script>
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/sm.min.js"></script>
+<script type="text/javascript" src="http://css.eenet.com/common/js/vue.js"></script>
+
+<script type="text/javascript" src="http://css.eenet.com/exam_chinaeenet_com/exam-coach/js/commonLab.min.js"></script>
+
+<script type="text/javascript">
+;(function(){
+	document.title='考试辅导';
+
+	var USER_NO = commomLab.getQueryParam('formMap.USER_NO');
+	var PAPERS_NUMBER = commomLab.getQueryParam('formMap.PAPERS_NUMBER');
+
+	//参数不能为空
+	if(!USER_NO || !PAPERS_NUMBER){
+		commomLab.myToast({msg:'参数不能为空'})
+		return;
+	}
+
+	var app=new Vue({
+		el:"#app",
+		mixins:[mixin],
+		data:{
+			resData:false
+		},
+		created:function(){
+			var vm=this;
+
+			$.showIndicator();
+			//考试辅导列表
+			commomLab.ajaxProcess({
+				url: '/api/coach/getCoachList.do',
+				data: {
+					'formMap.USER_NO': USER_NO,
+					'formMap.PAPERS_NUMBER': PAPERS_NUMBER
+				}
+			})
+			.done(function(res){
+				if(res.code==200){
+					if(
+						res.result &&
+						res.result.COACHLIST &&
+						res.result.COACHLIST.length>0
+					){
+						vm.resData=res.result;
+
+						vm.showHtml();
+
+						//考试期间不允许练题，不开放入口
+						if(res.result.IS_ONLIE_COUNT>0){
+							vm.showModal();
+						}
+					}
+					else{
+						vm.showHtml('数据为空');
+					}
+				}
+				else{
+					vm.showHtml(res.message);
+                }
+			})
+			.fail(function(){
+				vm.showHtml('数据查询异常');
+            });
+		},
+		methods:{
+			showModal:function(){
+				var vm=this;
+				var endTime=vm.resData.SECTION_END_DT.split(' ');
+				if(endTime.length>1){
+					endTime=endTime[1];
+				}
+
+				$.modal({
+			      	text: '<div class="text-orange"><span class="icon line-height-1" style="font-size:3rem;">&#xe620;</span></div>考试期间不允许练题，请在今天'+endTime+'后进行练题！',
+			      	buttons: [
+				        {
+				          text: '我知道了',
+				          onClick: function() {
+				            
+				          }
+				        }
+			      	]
+			    });
+			},
+			jumpLink:function(course){
+				var vm=this;
+
+				if(vm.resData.IS_ONLIE_COUNT>0){
+					vm.showModal();
+				}
+				else{
+					var params=[
+						{
+							name: 'formMap.USER_ID',
+							value: course.USER_ID
+						},
+						{
+							name: 'formMap.PROJECT_ID',
+							value: course.PROJECT_ID
+						}
+					];
+
+					params=$.param(params);
+
+					location.href='course-index.html?'+params;
+				}
+			}
+		}
+	});
+})();
+</script>
+</body>
+</html>

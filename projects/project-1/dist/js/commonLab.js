@@ -113,7 +113,7 @@ var commomLab={
 
   //解析参数
   getQueryParam : function(name){
-    var url=window.location.href;
+    var url=window.location.search;
     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
     var dotIndex=url.indexOf("?");
     if(dotIndex!=-1){
@@ -139,7 +139,7 @@ var commomLab={
     //如果是首页接口“1、获取学员课程选课信息”，就不用增加参数“domainName”
     if(options.url!='/api/stud/study/moodleGetUserCourseInfo'){
       var cacheUserCourseInfo=this.cacheUserCourseInfo.get();
-      if(cacheUserCourseInfo && options.data){
+      if(cacheUserCourseInfo && options.data && typeof(options.data.signature)=='undefined' ){
         options.data['domainName']=cacheUserCourseInfo.user.domainName;
       }
     }
@@ -321,6 +321,7 @@ var commomLab={
       actType: '', //操作类型
       actName: '', //活动名称
       actDec: '', //操作描述
+      chooseId: userinfor.choose.chooseId,//选课ID
       timeStamp: '', //时间戳（秒为单位,30分钟内有效）
       nonce: '', //随机字符串
       signature: '' //签名
@@ -342,7 +343,55 @@ var commomLab={
       data: opts
     });
   },
+  //获取用户浏览页面的时长
+  getVisitDuration:function(){
+    var prevHistroy=this.cachePrevHistroy.get();
+    var timeStamp=new Date().getTime();
+    var differTime=0;//时长(s);
+    if(prevHistroy){
+      if(prevHistroy.path!=location.pathname){
+        differTime=((timeStamp-prevHistroy.visitTime) / 1000 % 60).toFixed(2);
+      }
+    }
+    this.cachePrevHistroy.set({
+      path: location.pathname,
+      visitTime: timeStamp
+    });
+    return differTime;
+  },
+  /*缓存用户浏览上一页面的行为记录
+   *json对象
+   *  @path:页面地址
+   *  @visitTime:访问时间的时间戳（毫秒）
+  */
+  cachePrevHistroy : {
+    key : 'prevHistroy',
+    clear: function(){
+      sessionStorage.removeItem(this.key);
+    },
+    set : function(jsonData){
+      if(jsonData){
+        try{
+          sessionStorage.setItem( this.key, JSON.stringify(jsonData) )
+        }
+        catch(e){
+          console.log('cachePrevHistroy 的 session 值需为json对象');
+        }
+      }
+      else{
+        console.log('cachePrevHistroy 的 session 值为空');
+      }
+    },
+    get : function(){
+      var result=false;
+      try{
+        result = JSON.parse(sessionStorage.getItem(this.key))
+      }
+      catch(e){}
 
+      return result;
+    }
+  },
   //四舍五入
   /*
     int n 数值
@@ -372,6 +421,119 @@ var commomLab={
           return (pm+s).replace(/\.$/,"");
       }return n+"";
 
+  },
+
+  //base64编码解码js
+  /*使用
+      var b = new Base64();  
+      var str = b.encode("admin:admin");  
+      alert("base64 encode:" + str);  
+　　　　　//解密
+      str = b.decode(str);  
+      alert("base64 decode:" + str);  
+  */
+  Base64: function () {
+
+      // private property
+      _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+   
+      // public method for encoding
+      this.encode = function (input) {
+          var output = "";
+          var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+          var i = 0;
+          input = _utf8_encode(input);
+          while (i < input.length) {
+              chr1 = input.charCodeAt(i++);
+              chr2 = input.charCodeAt(i++);
+              chr3 = input.charCodeAt(i++);
+              enc1 = chr1 >> 2;
+              enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+              enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+              enc4 = chr3 & 63;
+              if (isNaN(chr2)) {
+                  enc3 = enc4 = 64;
+              } else if (isNaN(chr3)) {
+                  enc4 = 64;
+              }
+              output = output +
+              _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
+              _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
+          }
+          return output;
+      }
+   
+      // public method for decoding
+      this.decode = function (input) {
+          var output = "";
+          var chr1, chr2, chr3;
+          var enc1, enc2, enc3, enc4;
+          var i = 0;
+          input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+          while (i < input.length) {
+              enc1 = _keyStr.indexOf(input.charAt(i++));
+              enc2 = _keyStr.indexOf(input.charAt(i++));
+              enc3 = _keyStr.indexOf(input.charAt(i++));
+              enc4 = _keyStr.indexOf(input.charAt(i++));
+              chr1 = (enc1 << 2) | (enc2 >> 4);
+              chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+              chr3 = ((enc3 & 3) << 6) | enc4;
+              output = output + String.fromCharCode(chr1);
+              if (enc3 != 64) {
+                  output = output + String.fromCharCode(chr2);
+              }
+              if (enc4 != 64) {
+                  output = output + String.fromCharCode(chr3);
+              }
+          }
+          output = _utf8_decode(output);
+          return output;
+      }
+   
+      // private method for UTF-8 encoding
+      _utf8_encode = function (string) {
+          string = string.replace(/\r\n/g,"\n");
+          var utftext = "";
+          for (var n = 0; n < string.length; n++) {
+              var c = string.charCodeAt(n);
+              if (c < 128) {
+                  utftext += String.fromCharCode(c);
+              } else if((c > 127) && (c < 2048)) {
+                  utftext += String.fromCharCode((c >> 6) | 192);
+                  utftext += String.fromCharCode((c & 63) | 128);
+              } else {
+                  utftext += String.fromCharCode((c >> 12) | 224);
+                  utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                  utftext += String.fromCharCode((c & 63) | 128);
+              }
+   
+          }
+          return utftext;
+      }
+   
+      // private method for UTF-8 decoding
+      _utf8_decode = function (utftext) {
+          var string = "";
+          var i = 0;
+          var c = c1 = c2 = 0;
+          while ( i < utftext.length ) {
+              c = utftext.charCodeAt(i);
+              if (c < 128) {
+                  string += String.fromCharCode(c);
+                  i++;
+              } else if((c > 191) && (c < 224)) {
+                  c2 = utftext.charCodeAt(i+1);
+                  string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                  i += 2;
+              } else {
+                  c2 = utftext.charCodeAt(i+1);
+                  c3 = utftext.charCodeAt(i+2);
+                  string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                  i += 3;
+              }
+          }
+          return string;
+      }
   },
 
   //问题反馈 板块 默认参数
@@ -456,3 +618,20 @@ String.prototype.format= function(){
     return args[i];
   });
 }
+
+/*
+var startTime = Math.ceil(new Date().getTime()), //单位秒
+  getDuration = function(){
+    var endTime = Math.ceil(new Date().getTime()),
+      duration = endTime - startTime;
+
+    seconds = (duration/1000 % 60).toFixed(2); //停留秒数
+    
+    return seconds;
+  };        
+
+
+window.onbeforeunload = function(e){
+  var duration = getDuration();
+};
+*/

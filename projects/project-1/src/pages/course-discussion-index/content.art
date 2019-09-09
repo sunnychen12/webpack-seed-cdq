@@ -11,7 +11,9 @@
 						<div class="disc-tips" v-if="courseName">
 							来自课件：{{courseName}}
 						</div>
-						<ul class="list-unstyled list-cutstom padding-top-none padding-bottom-none index-disc-list" v-if="forumData.discussions && forumData.discussions.length>0">
+
+						<!--正常用户-->
+						<ul class="list-unstyled list-cutstom padding-top-none padding-bottom-none index-disc-list" v-if="!isVisitor && forumData.discussions && forumData.discussions.length>0">
 							<li class="list-cutstom-item item" v-for="(discussion,index) in forumData.discussions" v-show="index<(forumData.pageInfo.curPage+1)*forumData.pageInfo.pageSize">
 								<a href="javascript:;" class="as-link item-in" @click.prevent="viewMore(discussion)">
 									<div class="flex-box flex-box-justify flex-align-center">
@@ -38,6 +40,41 @@
 								</a>
 							</li>
 						</ul>
+
+						<!--游客-->
+						<ul class="list-unstyled list-cutstom padding-top-none padding-bottom-none index-disc-list" v-else-if="isVisitor && forumData.data && forumData.data.length>0">
+							<li class="list-cutstom-item item" v-for="(discussion,index) in forumData.data" v-show="index<(forumData.pageInfo.curPage+1)*forumData.pageInfo.pageSize">
+								<a href="javascript:;" class="as-link item-in" @click.prevent="viewMore(discussion)">
+									<div class="flex-box flex-box-justify flex-align-center">
+										
+										<div class="flex-item flex-box overflow-hidden">
+											<div class="disc-tit text-ellipsis">{{discussion.subject}}</div>
+										</div>
+										
+										<div class="time text-nowrap">{{formatDate(discussion.createDate)}}</div>
+									</div>
+									<div class="disc-summary margin-t_5rem clearfix" v-html="discussion.message">
+									</div>
+									<div class="addon-img-list margin-t_5rem clearfix" v-if="discussion.images">
+										<div class="addon-img" v-for="(imgPath, index) in discussion.images.split(',')">
+											<img class="vertical-middle" :SRC="imgPath+'?x-oss-process=image/resize,h_60,w_60/auto-orient,1/quality,q_80'" @click.stop="fancyImg(index, discussion.images)">
+										</div>
+									</div>
+									<div class="flex-box flex-align-center flex-box-justify font_5rem margin-t_5rem">
+										<div class="gray overflow-hidden text-ellipsis">
+											来自课件：{{courseName}}
+										</div>
+										<div class="padding-l_75rem flex-box flex-align-center text-nowrap">
+											<div>
+												<i class="icomoon gray6 font_75rem">&#xe908;</i>
+												<span class="gray9">{{discussion.replyTotal}}</span>
+											</div>
+										</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+
 						<div class="text-center" style="margin-top:2rem;" v-else>
 		    				<img src="../../images/no-data.png" width="45%" class="center-block">
 		    				<div class="gray9 margin-t_7rem font_75rem">

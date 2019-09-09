@@ -1,0 +1,524 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<!--<link rel="shortcut icon" href="/favicon.ico">-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<link rel="stylesheet" href="http://css.eenet.com/common/msui/css/sm.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="http://css.eenet.com/common/font-awesome/css/font-awesome.min.css">
+
+	
+	<link href="http://css.eenet.com/exam_chinaeenet_com/exam-coach/css/main.min.css" rel="stylesheet">
+	
+</head>
+
+<body>
+
+
+	<div class="page-group" id="app" v-cloak>
+		<div class="page page-current">
+			<header class="bar bar-nav">
+			  <a class="icon icon-left pull-left" @click.prevent="historyBack"></a>
+			  <h1 class="title">实用法律基础</h1>
+			</header>
+			<div class="content">
+			    <ul class="item-of-list">
+			    	<li>
+			            <div class="flex-box flex-align-center item-box">
+			            	<div class="text-center flex-item">
+		                    	<div class="font-1rem">10次</div>
+		                    	<div class="gray9 font_55rem margin-t_3rem">答题次数</div>
+		                    </div>
+		                    <div class="text-center flex-item width-border-left">
+		                    	<div class="font-1rem">10%</div>
+		                    	<div class="gray9 font_55rem margin-t_3rem">正确率</div>
+		                    </div>
+			            </div>
+			        </li>
+			        <li>
+			            <a href="course-practice.html" class="flex-box flex-align-center item-box">
+			            	<div class="margin-r_75rem">
+			            		<i class="fa fa-pencil course-icon-circle"></i>
+			            	</div>
+		                    <div class="flex-item">
+		                        <div class="tit">快速练题</div>
+
+		                        <div class="info">
+			                        <div>每次从题库中随机抽提20道题目</div>
+			                    	<div>已练习 1 次，答题 3 道，正确率 10%</div>
+		                    	</div>
+		                    </div>
+		                    <div class="padding-l_75rem">
+		                    	<span class="icon icon-right"></span>
+		                    </div>
+			            </a>
+			        </li>
+			        <li>
+			            <a href="course-practice.html" class="flex-box flex-align-center item-box">
+			            	<div class="margin-r_75rem">
+			            		<i class="fa fa-file-text course-icon-circle"></i>
+			            	</div>
+		                    <div class="flex-item">
+		                        <div class="tit">错题巩固</div>
+
+		                        <div class="info">
+			                        <div>每次从错题中随机抽提题目</div>
+			                    	<div>已练习 1 次，答题 3 道，正确率 10%</div>
+		                    	</div>
+		                    </div>
+		                    <div class="padding-l_75rem">
+		                    	<span class="icon icon-right"></span>
+		                    </div>
+			            </a>
+			        </li>
+			        <li>
+			            <div class="flex-box flex-align-center item-box" @click="openPopup">
+			            	<div class="margin-r_75rem">
+			            		<i class="fa fa-list course-icon-circle"></i>
+			            	</div>
+		                    <div class="flex-item">
+		                        <div class="tit">知识点练题</div>
+
+		                        <div class="info">
+			                        <div>根据知识点随机抽取题目</div>
+			                    	<div>已练习 1 次，答题 3 道，正确率 10%</div>
+		                    	</div>
+		                    </div>
+		                    <div class="padding-l_75rem">
+		                    	<span class="icon icon-right"></span>
+		                    </div>
+			            </div>
+			        </li>
+			        <li>
+			            <a href="course-practice.html" class="flex-box flex-align-center item-box">
+			            	<div class="margin-r_75rem">
+			            		<i class="fa fa-calendar-times-o course-icon-circle"></i>
+			            	</div>
+		                    <div class="flex-item">
+		                        <div class="tit">我的错题</div>
+
+		                        <div class="info">
+			                        <div>查看做错了的题目</div>
+			                    	<div>错题共 0 道</div>
+		                    	</div>
+		                    </div>
+		                    <div class="padding-l_75rem">
+		                    	<span class="icon icon-right"></span>
+		                    </div>
+			            </a>
+			        </li>
+			    </ul>
+			</div>
+		</div>
+
+		<div class="popup popup-select-knowlege" id="popoup">
+			<header class="bar bar-nav">
+			  <a class="icon icon-left pull-left close-popup"></a>
+			  <h1 class="title">请选择知识点练题</h1>
+			</header>
+		    <div class="bar bar-footer-btn padding-none">
+			  <div class="flex-box flex-align-center">
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat close-popup button-gray"><span class="gray9">取消</span></button>
+			  	<button type="button" class="flex-item button button-big button-fill border-none flat button-blue" @click="startPractice">开始练题</button>
+			  </div>
+			</div>
+			
+			<popup-model ref="mypopup"></popup-model>
+		</div>
+	</div>
+
+
+
+	<script type="text/template" id="tpl">
+		<div class="content">
+			<div class="flex-box full-height flex-vertical flex-box-justify-center flex-align-center" v-if="!isloaded">
+				<div class="preloader"></div>
+			</div>
+
+			<div class="padding_75rem" else>
+				<div class="flex-box flex-align-center font_65rem">
+					<div class="flex-item">
+						<label class="course-type-label not-done"><span>未做题</span></label>
+						<label class="course-type-label not-mastered"><span>未掌握</span></label>
+						<label class="course-type-label good"><span>良好</span></label>
+						<label class="course-type-label excellent"><span>优秀</span></label>
+					</div>
+					<div>
+						<label class="sel-all">
+							<input type="checkbox" @click="selAll" :checked="isAll">
+							全部
+						</label>
+					</div>
+				</div>
+
+				<ul class="knowlege-cate-list">
+					<li class="item" v-for="(cate, index) in cateList">
+						<div class="flex-box flex-align-center holder" :class="[index!=0?'close':'']">
+							<i :class="['toggle', getStatus(cate.finishStatus)]" data-role="toggle"></i>
+							<div class="flex-item">
+								<div class="tit">{{cate.name}}</div>
+								<div class="info">知识掌握度：{{cate.masterDegree}}</div>
+							</div>
+							<div>
+								<input type="checkbox" :value="cate.id" v-model="selItem" @click="selCate(cate.id, $event)">
+							</div>
+						</div>
+						<div :class="['slide-box', index==0?'expand':'']" :style="{'height':index!=0?'0px':'auto'}">
+							<div class="slide-cnt">
+								<ul class="list-unstyled">
+									<li class="item" v-for="knowlege in cate.children">
+										<div class="flex-box flex-align-center holder">
+											<i :class="['toggle', getStatus(knowlege.finishStatus)]" data-role="toggle"></i>
+											<div class="flex-item">
+												<div class="tit">{{knowlege.name}}</div>
+												<div class="info">知识掌握度：{{knowlege.masterDegree}}</div>
+											</div>
+											<div>
+												<input type="checkbox" :value="knowlege.id" v-model="selItem" @click="selNode(cate.id, knowlege.id, $event)" :rel-cate-id="cate.id">
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</script>
+
+
+	
+
+
+<!-- 加载公共插件 -->
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/zepto.min.js"></script>
+<script type="text/javascript">$.config = {router: false}</script>
+<script type="text/javascript" src="http://css.eenet.com/common/msui/js/sm.min.js"></script>
+<script type="text/javascript" src="http://css.eenet.com/common/js/vue.js"></script>
+
+<script type="text/javascript" src="http://css.eenet.com/exam_chinaeenet_com/exam-coach/js/commonLab.min.js"></script>
+
+<script type="text/javascript">
+	var appVm=new Vue({
+		el:"#app",
+		mixins:[mixin],
+		data:{
+			text:''
+		},
+		methods:{
+			showHtml:function(){
+	            var vm=this;
+	            vm.isloaded=true;
+	            $.hideIndicator();
+	        },
+	        openPopup:function(){
+	        	$.popup('#popoup');
+	        },
+	        startPractice:function(){
+	        	var vm=this;
+	        	if(appVm.$refs.mypopup.selItem.length==0){
+		        	$.modal({
+				      	text: '<div class="text-orange"><span class="icon line-height-1" style="font-size:3rem;">&#xe620;</span></div>请先选择需要练习的知识点',
+				      	buttons: [
+					        {
+					          text: '确定',
+					          onClick: function() {
+					          
+					          }
+					        }
+				      	]
+				    });
+			    }
+	        }
+		},
+		components:{
+			'popup-model':{
+				template:'#tpl',
+				mixins:[mixin],
+				data:function(){
+					return {
+						isAll:false,
+						selItem:[],
+						cateList:[
+							{
+								id:1,
+								name:'知识点分类1',
+								masterDegree:'0%',
+								finishStatus: 1,
+								children:[
+									{
+										id:11,
+										name:'知识点1',
+										masterDegree:'0%',
+										finishStatus: 0,
+									},
+									{
+										id:12,
+										name:'知识点2',
+										masterDegree:'0%',
+										finishStatus: 1,
+									},
+									{
+										id:13,
+										name:'知识点3',
+										masterDegree:'0%',
+										finishStatus: 2,
+									},
+									{
+										id:14,
+										name:'知识点4',
+										masterDegree:'0%',
+										finishStatus: 3,
+									}
+								]
+							},
+							{
+								id:2,
+								name:'知识点分类2',
+								masterDegree:'0%',
+								finishStatus: 1,
+								children:[
+									{
+										id:21,
+										name:'知识点21',
+										masterDegree:'0%',
+										finishStatus: 0,
+									},
+									{
+										id:22,
+										name:'知识点22',
+										masterDegree:'0%',
+										finishStatus: 1,
+									},
+									{
+										id:23,
+										name:'知识点23',
+										masterDegree:'0%',
+										finishStatus: 2,
+									},
+									{
+										id:24,
+										name:'知识点24',
+										masterDegree:'0%',
+										finishStatus: 3,
+									}
+								]
+							},
+							{
+								id:3,
+								name:'知识点分类3',
+								masterDegree:'0%',
+								finishStatus: 0,
+								children:[
+									{
+										id:31,
+										name:'知识点31',
+										masterDegree:'0%',
+										finishStatus: 0,
+									},
+									{
+										id:32,
+										name:'知识点32',
+										masterDegree:'0%',
+										finishStatus: 1,
+									},
+									{
+										id:33,
+										name:'知识点33',
+										masterDegree:'0%',
+										finishStatus: 2,
+									},
+									{
+										id:34,
+										name:'知识点34',
+										masterDegree:'0%',
+										finishStatus: 3,
+									}
+								]
+							}
+						]
+					}
+				},
+				created:function(){
+					var vm=this;
+
+					vm.$nextTick(function(){
+						$('#popoup')
+						.on('closed', function(event) {
+							vm.isloaded=false;
+						})
+						.on('opened', function(event) {
+							vm.isloaded=true;
+						});
+
+						$('body')
+						.on('click', '[data-role="toggle"]', function(event) {
+							var that=this;
+							var $p=$(this).parent();
+							var $slidePanel=$p.siblings('.slide-box');
+
+							$slidePanel.slideToggle(function(){
+								if(!$(this).hasClass('expand')){
+									$p.addClass('close');
+								}
+								else{
+									$p.removeClass('close');
+								}
+								
+							});
+						});
+					});
+				},
+				computed:{
+					cateAllNode:function(){
+						var vm=this;
+						var result=[];
+						$.each(vm.cateList, function(index, cate) {
+							result.push(cate);
+							if(cate.children && cate.children.length>0){
+								$.each(cate.children, function(index, knowlege) {
+									result.push(knowlege);
+								});
+							}
+						});
+						return result
+					}
+				},
+				methods:{
+					getStatus:function(status){
+						var result='';
+						switch(status){
+							case 0:
+								result = 'not-done';
+								break;
+							case 1:
+								result = 'not-mastered';
+								break;
+							case 2:
+								result = 'good';
+								break;
+							case 3:
+								result = 'excellent';
+								break;
+							default:
+								break;
+						}
+						return result;
+					},
+					selAll:function(e){
+						var vm=this;
+						vm.selItem=[];
+						if(e.target.checked){
+							$.each(vm.cateAllNode, function(index, node) {
+								vm.selItem.push(node.id);
+							});
+
+							vm.isAll=true;
+						}
+						else{
+							vm.isAll=false;
+						}
+					},
+					selCate:function(cateID,e){
+						var vm=this;
+						var children=[];
+						$.each(vm.cateList, function(index, cate) {
+							if(cate.id==cateID){
+								children=cate.children;
+								return false;
+							}
+						});
+
+						//如果没有子结点，不做以下操作
+						if(children.length==0) return false;
+
+
+						if(e.target.checked){
+							$.each(children, function(n, knowlege) {
+								var isFound=false;
+								$.each(vm.selItem, function(m, selID) {
+									if(knowlege.id==selID){
+										isFound=true;
+										return false;
+									}
+								});
+
+								if(!isFound){
+									vm.selItem.push(knowlege.id);
+								}
+							});
+
+							vm.$nextTick(function(){
+								if(vm.selItem.length>0 && vm.selItem.length==vm.cateAllNode.length){
+									vm.isAll=true;
+								}
+							})
+						}
+						else{
+							if(vm.selItem.length>0){
+								$.each(children, function(n, knowlege) {
+									$.each(vm.selItem, function(m, selID) {
+										if(knowlege.id==selID){
+											vm.selItem.splice(m, 1);
+											return false;
+										}
+									});
+								});
+							}
+
+							vm.isAll=false;
+						}
+					},
+					selNode:function(cateID, knowlegeID, e){
+						var vm=this;
+						if(e.target.checked){
+							var isFound=false;
+							$.each(vm.selItem, function(index, itemID) {
+								if(cateID==itemID){
+									isFound=true;
+									return false;
+								}
+							});
+
+							if(!isFound){
+								vm.selItem.push(cateID);
+							}
+
+							vm.$nextTick(function(){
+								if(vm.selItem.length>0 && vm.selItem.length==vm.cateAllNode.length){
+									vm.isAll=true;
+								}
+							});
+						}
+						else{
+							vm.isAll=false;
+							vm.$nextTick(function(){
+								if(document.querySelectorAll('[rel-cate-id="'+cateID+'"]:checked').length==0){
+									$.each(vm.selItem, function(index, itemID) {
+										if(cateID==itemID){
+											vm.selItem.splice(index, 1);
+											return false;
+										}
+									});
+								}
+							})
+							
+						}
+					}
+				}
+			}
+		}
+	});
+
+	
+</script>
+</body>
+</html>

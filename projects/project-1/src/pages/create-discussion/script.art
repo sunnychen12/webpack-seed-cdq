@@ -16,7 +16,7 @@
 
     var pagetitle=activityInfo.name;
     
-    window.app = new Vue({
+    var app = new Vue({
         el: '#app',
         data: {
             success:true,
@@ -34,43 +34,35 @@
                 if( commomLab.checkform( $('[data-id="theform"]') ) ){
 
                     $.showIndicator();
+
                     var params = {};
-                    params["forumid"] = vm.forumid;
-                    params["subject"] = encodeURIComponent(vm.subject);
-                    params["token"] = cacheUserCourseInfo.token;
 
-                    var imgBox=[];
-                    var $addonImgDom=$('[name="imgUrls"]');
+                    //游客
+                    if(cacheUserCourseInfo.user.studentType==2){
+                        //图片附件
+                        var imgBox='';
+                        var $addonImgDom=$('[name="imgUrls"]');
+                        if($addonImgDom.length>0){
+                            imgBox=$addonImgDom.map(function(){
+                              return this.value;
+                            }).get().join(",")
+                        }
 
-                    if($addonImgDom && $addonImgDom.length>0){
-                        imgBox.push(
-                          '<div class="addon-img-list margin-t_5rem clearfix">',
-                          $.map($addonImgDom,function(n){
-                            return '<div class="addon-img"><img title="{0}" src="{0}?x-oss-process=image/resize,h_60,w_60/auto-orient,1"></div>'.format(n.value);
-                          }).join(''),
-                          '</div>'
-                        );
-                    }
+                        params["images"] = imgBox;
+                        params["actId"] = activityInfo.actId;
+                        params["subject"] = vm.subject;
+                        params["message"] = vm.message;
+                        params["studentId"] = cacheUserCourseInfo.user.studentId;
+                        
 
-                    params["message"] = encodeURIComponent(vm.message+imgBox.join(''));
-
-                    //发帖
-                    commomLab.ajaxProcess({
-                        type:'POST',
-                        url: '/api/stud/study/moodleAddDiscussion',
-                        data: params
-                    })
-                    .done(function(res){
-                        if(
-                            commomLab.checkAPIResult(res)
-                        ){
-                            var resData=res.data;
-                            if(resData.errorcode){
-                                commomLab.myToast({
-                                    msg:resData.message
-                                });
-                            }
-                            else{
+                        //24、游客发贴
+                        commomLab.ajaxProcess({
+                            type:'POST',
+                            url: '/api/stud/study/visitorAddDiscussion',
+                            data: params
+                        })
+                        .done(function(res){
+                            if(res.state){
                                 //记录学员学习行为
                                 commomLab.addStudyAction({
                                     actType:'C009',
@@ -84,21 +76,89 @@
                                     location.replace('course-discussion-index.html?id='+cmid);
                                 })
                             }
-                        }
-                        else{
+                            else{
+                                commomLab.myToast({
+                                    msg:'发布失败:'+res.msg
+                                })
+                            }
+                        })
+                        .fail(function(){
                             commomLab.myToast({
                                 msg:'发布失败'
                             })
-                        }
-                    })
-                    .fail(function(){
-                        commomLab.myToast({
-                            msg:'发布失败'
                         })
-                    })
-                    .always(function(){
-                        $.hideIndicator();
-                    })
+                        .always(function(){
+                            $.hideIndicator();
+                        });
+
+                    }
+                    else{
+                        
+                        params["forumid"] = vm.forumid;
+                        params["subject"] = encodeURIComponent(vm.subject);
+                        params["token"] = cacheUserCourseInfo.token;
+
+                        var imgBox=[];
+                        var $addonImgDom=$('[name="imgUrls"]');
+
+                        if($addonImgDom && $addonImgDom.length>0){
+                            imgBox.push(
+                              '<div class="addon-img-list margin-t_5rem clearfix">',
+                              $.map($addonImgDom,function(n){
+                                return '<div class="addon-img"><img title="{0}" src="{0}?x-oss-process=image/resize,h_60,w_60/auto-orient,1"></div>'.format(n.value);
+                              }).join(''),
+                              '</div>'
+                            );
+                        }
+
+                        params["message"] = encodeURIComponent(vm.message+imgBox.join(''));
+
+                        //发帖
+                        commomLab.ajaxProcess({
+                            type:'POST',
+                            url: '/api/stud/study/moodleAddDiscussion',
+                            data: params
+                        })
+                        .done(function(res){
+                            if(
+                                commomLab.checkAPIResult(res)
+                            ){
+                                var resData=res.data;
+                                if(resData.errorcode){
+                                    commomLab.myToast({
+                                        msg:resData.message
+                                    });
+                                }
+                                else{
+                                    //记录学员学习行为
+                                    commomLab.addStudyAction({
+                                        actType:'C009',
+                                        actId:cmid,
+                                        actName:pagetitle
+                                    });
+
+                                    commomLab.myToast({
+                                        msg:'发布成功'
+                                    },function(){
+                                        location.replace('course-discussion-index.html?id='+cmid);
+                                    })
+                                }
+                            }
+                            else{
+                                commomLab.myToast({
+                                    msg:'发布失败'
+                                })
+                            }
+                        })
+                        .fail(function(){
+                            commomLab.myToast({
+                                msg:'发布失败'
+                            })
+                        })
+                        .always(function(){
+                            $.hideIndicator();
+                        });
+                    }
                 }
             }
         }
@@ -210,7 +270,7 @@
         });
     }
 
-    //监控浏览器后退
+    //监控浏览器后退，强制回跳到“讨论区”首页
     window.addEventListener("popstate", function(e) {
         location.replace('course-discussion-index.html?id='+cmid);
     }, false);

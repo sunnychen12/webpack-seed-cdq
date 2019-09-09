@@ -1,0 +1,9 @@
+<% 
+	let path = require("path");
+  	var commonScript = require("../commonScript/commonScript.art");
+%>
+<%= commonScript({commonSkinPath:commonSkinPath})%>
+
+<%= selfScript%>
+</body>
+</html>

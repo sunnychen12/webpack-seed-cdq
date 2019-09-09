@@ -1,0 +1,430 @@
+	<!--main-->
+	<div class="main_wrapper">
+	  <div class="body_area">
+	    <div class="main_content block min_height margin_t20 margin_b20">
+	    	<div class="padding20">
+	    		<div class="box-border form">
+	    			<div class="padding15">
+		    			<table width="100%" class="table-pad">
+		    				<colgroup>
+		    					<col width="100">
+		    					<col width="33.33%">
+
+		    					<col width="100">
+		    					<col width="33.33%">
+
+								<col width="100">
+		    					<col width="33.33%">
+		    				</colgroup>
+		    				<tbody>
+		    					<tr>
+		    						<td class="text-nowrap text-right">考试计划</td>
+		    						<td>
+		    							<select class="textInput textInput-reset full-width">
+								            <option>2017春期末考试计划</option>
+								        </select>
+		    						</td>
+
+		    						<td class="text-nowrap text-right">帐号</td>
+		    						<td>
+		    							<input class="textInput textInput-reset full-width">
+		    						</td>
+
+		    						<td class="text-nowrap text-right">监考老师</td>
+		    						<td>
+		    							<input class="textInput textInput-reset full-width">
+		    						</td>
+		    					</tr>
+
+		    					<tr>
+		    						<td class="text-nowrap text-right">考试科目</td>
+		    						<td>
+		    							<select class="textInput textInput-reset full-width">
+								            <option>全部科目</option>
+								        </select>
+		    						</td>
+
+		    						<td class="text-nowrap text-right">所属机构</td>
+		    						<td>
+		    							<select class="textInput textInput-reset full-width">
+								            <option>全部</option>
+								        </select>
+		    						</td>
+
+		    						<td class="text-nowrap text-right">日期</td>
+		    						<td>
+		    							<div class="column">
+									        <div class="col-2-1">
+									        	<input class="textInput textInput-reset full-width" onClick="WdatePicker()" id="d4321" placeholder="开始时间">
+									        </div>
+									        <div class="col-2-1 last">
+									        	<input class="textInput textInput-reset full-width" onClick="WdatePicker({minDate:'#F{$dp.$D(\'d4321\',{d:1});}'})" id="d4322" placeholder="结束时间">
+									        </div>
+									    </div>
+		    							
+		    						</td>
+		    					</tr>
+
+		    					<tr>
+		    						<td class="text-nowrap text-right">监考通过率</td>
+		    						<td>
+		    							<select class="textInput textInput-reset full-width">
+								            <option>默认</option>
+								            <option>从高到低</option>
+								            <option>从低到高</option>
+								        </select>
+		    						</td>
+
+		    						<td class="text-nowrap text-right">监考覆盖率</td>
+		    						<td>
+		    							<select class="textInput textInput-reset full-width">
+								            <option>默认</option>
+								            <option>从高到低</option>
+								            <option>从低到高</option>
+								        </select>
+		    						</td>
+
+		    						<td class="text-nowrap text-right">考勤</td>
+		    						<td>
+		    							<select class="textInput textInput-reset full-width">
+								            <option>全部</option>
+								            <option>3天以内登录</option>
+								            <option>7天以内登录</option>
+								            <option>7天以上未登录</option>
+								            <option>从未登录</option>
+								        </select>
+		    						</td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+	    			</div>
+	    			<div class="box-border-top padding15 text-right">
+	    				<div class="padding_r5">
+		    				<button type="button" class="btn btn-gray btn-sm min-width-100 margin_l5 vertical-middel">重置</button>
+		    				<button type="button" class="btn btn-dark-blue btn-sm min-width-100 margin_l5 vertical-middel">搜索</button>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="box-border padding_t20 padding_b20 padding_l10 padding_r10 margin_t15">
+	    			<table width="100%" class="text-center">
+	    				<colgroup>
+	    					<col width="12.5%">
+	    					<col width="12.5%">
+	    					<col width="12.5%">
+	    					<col width="12.5%">
+	    					<col width="12.5%">
+	    					<col width="12.5%">
+	    					<col width="12.5%">
+	    					<col width="12.5%">
+	    				</colgroup>
+	    				<tbody>
+	    					<tr>
+	    						<td>
+	    							<div class="f36 line-height-1">20</div>
+	    							<div class="font_gray margin_t5">监考老师总人数</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">1</div>
+	    							<div class="font_gray margin_t5">监考中老师人数</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">600</div>
+	    							<div class="font_gray margin_t5">正在考试考生人数</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">1,000</div>
+	    							<div class="font_gray margin_t5">待监考总人次</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">500</div>
+	    							<div class="font_gray margin_t5">已监考已通过总人次</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">500</div>
+	    							<div class="font_gray margin_t5">已监考未通过总人次</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">50%</div>
+	    							<div class="font_gray margin_t5">监考通过率</div>
+	    						</td>
+	    						<td>
+	    							<div class="f36 line-height-1">50%</div>
+	    							<div class="font_gray margin_t5">监考覆盖率</div>
+	    						</td>
+	    					</tr>
+	    				</tbody>
+	    			</table>
+	    		</div>
+	    		<div class="tabs-top-panel margin_t15">
+			      	<div class="clearfix box-border padding15">
+		                <div class="fl">
+		                  <div class="clearfix">
+		                    <ul class="tabs-2">
+		                      <li class="cur" data-target="tab-111" data-toggle="tab">全部（2）</li>
+		                      <li data-target="tab-111" data-toggle="tab">监考中（1）</li>
+		                      <li data-target="tab-111" data-toggle="tab">在线（1）</li>
+		                      <li class="last" data-target="tab-111" data-toggle="tab">离线（1）</li>
+		                    </ul>
+		                  </div>
+		                </div>
+		                <div class="fr">
+		                	<button type="button" class="btn btn-normal min-width-100">导出</button>
+		                </div>
+		            </div>
+		            <div class="tabs-2-content">
+		            	<div class="tabs-2-panel" data-id="tab-111">
+			                <table class="table-basic f12 text-center">
+			                	<colgroup>
+			                		<col width="18%">
+			                		<col width="15%">
+			                		<col width="15%">
+			                		<col width="14%">
+			                		<col>
+			                		<col width="11%">
+			                		<col width="8%">
+			                	</colgroup>
+			                    <thead>
+			                      <tr>
+			                        <th>监考老师</th>
+			                        <th>监考统计</th>
+			                        <th>监考行为情况</th>
+			                        <th>监考动态</th>
+			                        <th>登录情况</th>
+			                        <th>在线状态</th>
+			                        <th>操作</th>
+			                      </tr>
+			                    </thead>
+			                    <tbody>
+			                      	<tr>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：李老师</li>
+				                        		<li>帐号：lilaoshi</li>
+				                        		<li>所属机构：国家开放大学（广州）</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>待监考总人次：400</li>
+				                        		<li>已监考科目数：10</li>
+				                        		<li>已监考总人次：200</li>
+				                        		<li>已监考已通过：50</li>
+				                        		<li>已监考未通过：50</li>
+				                        		<li>监考通过率：50%</li>
+				                        		<li>监考覆盖率：50%</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>视频监考总次数：20</li>
+				                        		<li>发起警告总次数：10</li>
+				                        		<li>发起即时聊天次数：200</li>
+				                        		<li>截图次数：50</li>
+				                        		<li>待审核总人数：50</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<div class="font_green">监考中</div>
+				                        	<div class="font_gray">（科目：管理艺术与方法）</div>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>最近登录时间：2018-12-28 09:00:00</li>
+				                        		<li>登录总时长：00:50:00</li>
+				                        		<li>登录总次数：2</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<div class="font_green">在线</div>
+				                        	<div class="font_gray">（20分钟前登录）</div>
+				                        </td>
+				                        <td><a href="他监考的科目详情.html">详情</a></td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：李老师</li>
+				                        		<li>帐号：lilaoshi</li>
+				                        		<li>所属机构：国家开放大学（广州）</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>待监考总人次：400</li>
+				                        		<li>已监考科目数：10</li>
+				                        		<li>已监考总人次：200</li>
+				                        		<li>已监考已通过：50</li>
+				                        		<li>已监考未通过：50</li>
+				                        		<li>监考通过率：50%</li>
+				                        		<li>监考覆盖率：50%</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>视频监考总次数：20</li>
+				                        		<li>发起警告总次数：10</li>
+				                        		<li>发起即时聊天次数：200</li>
+				                        		<li>截图次数：50</li>
+				                        		<li>待审核总人数：50</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>最近登录时间：2018-12-28 09:00:00</li>
+				                        		<li>登录总时长：00:50:00</li>
+				                        		<li>登录总次数：2</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<div class="font_green">在线</div>
+				                        	<div class="font_gray">（1小时前登录）</div>
+				                        </td>
+				                        <td><a href="他监考的科目详情.html">详情</a></td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：李老师</li>
+				                        		<li>帐号：lilaoshi</li>
+				                        		<li>所属机构：国家开放大学（广州）</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>待监考总人次：400</li>
+				                        		<li>已监考科目数：10</li>
+				                        		<li>已监考总人次：200</li>
+				                        		<li>已监考已通过：50</li>
+				                        		<li>已监考未通过：50</li>
+				                        		<li>监考通过率：50%</li>
+				                        		<li>监考覆盖率：50%</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>视频监考总次数：20</li>
+				                        		<li>发起警告总次数：10</li>
+				                        		<li>发起即时聊天次数：200</li>
+				                        		<li>截图次数：50</li>
+				                        		<li>待审核总人数：50</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>最近登录时间：2018-12-28 09:00:00</li>
+				                        		<li>登录总时长：00:50:00</li>
+				                        		<li>登录总次数：2</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<div class="font_green">在线</div>
+				                        	<div class="font_gray">（2小时前登录）</div>
+				                        </td>
+				                        <td><a href="他监考的科目详情.html">详情</a></td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：李老师</li>
+				                        		<li>帐号：lilaoshi</li>
+				                        		<li>所属机构：国家开放大学（广州）</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>待监考总人次：400</li>
+				                        		<li>已监考科目数：10</li>
+				                        		<li>已监考总人次：200</li>
+				                        		<li>已监考已通过：50</li>
+				                        		<li>已监考未通过：50</li>
+				                        		<li>监考通过率：50%</li>
+				                        		<li>监考覆盖率：50%</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>视频监考总次数：20</li>
+				                        		<li>发起警告总次数：10</li>
+				                        		<li>发起即时聊天次数：200</li>
+				                        		<li>截图次数：50</li>
+				                        		<li>待审核总人数：50</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>最近登录时间：2018-12-28 09:00:00</li>
+				                        		<li>登录总时长：00:50:00</li>
+				                        		<li>登录总次数：2</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<div class="">离线</div>
+				                        	<div class="font_gray">（已3天未登录）</div>
+				                        </td>
+				                        <td><a href="他监考的科目详情.html">详情</a></td>
+			                      	</tr>
+			                      	<tr>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>姓名：李老师</li>
+				                        		<li>帐号：lilaoshi</li>
+				                        		<li>所属机构：国家开放大学（广州）</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>待监考总人次：400</li>
+				                        		<li>已监考科目数：--</li>
+				                        		<li>已监考总人次：--</li>
+				                        		<li>已监考已通过：--</li>
+				                        		<li>已监考未通过：--</li>
+				                        		<li>监考通过率：--</li>
+				                        		<li>监考覆盖率：--</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>视频监考总次数：--</li>
+				                        		<li>发起警告总次数：--</li>
+				                        		<li>发起即时聊天次数：--</li>
+				                        		<li>截图次数：--</li>
+				                        		<li>待审核总人数：--</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	--
+				                        </td>
+				                        <td>
+				                        	<ul class="inline-block text-left">
+				                        		<li>最近登录时间：--</li>
+				                        		<li>登录总时长：--</li>
+				                        		<li>登录总次数：--</li>
+				                        	</ul>
+				                        </td>
+				                        <td>
+				                        	<div class="font_gray">从未登录</div>
+				                        </td>
+				                        <td><a href="他监考的科目详情.html">详情</a></td>
+			                      	</tr>
+			                    </tbody>
+			                  </table>
+			                <div class="paging f12"><a href="javascript:;" class="disabled"> &lt;上一页 </a><a href="javascript:;" class="current">1</a><a href="javascript:;">2</a><a href="javascript:;">3</a><a href="javascript:;">4</a><a href="#">5</a><a href="javascript:;">6</a><a href="javascript:;">7</a>...<a href="javascript:;">199</a><a href="javascript:;">200</a><a href="javascript:;"> 下一页&gt; </a><span class="font_gray left10">共 100 页，到第
+			                  <input type="text">
+			                  页<a href="javascript:;" class="left5">确定</a></span></div>
+		                </div>
+		            </div>
+	            </div>
+            </div>
+	    </div>
+	  </div>
+	</div>
+	<!--main--> 

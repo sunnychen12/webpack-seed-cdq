@@ -1,0 +1,14 @@
+<% 
+	let path = require("path");
+  	var commonScript = require("../commonScript/commonScript.art");
+%>
+<%= commonScript({commonSkinPath:commonSkinPath})%>
+
+<%if(pageType=="inner-page"){
+		var footer = require("./footer.art");
+%><%=footer({commonSkinPath:commonSkinPath})%>
+<%}%>
+
+<%= selfScript%>
+</body>
+</html>
