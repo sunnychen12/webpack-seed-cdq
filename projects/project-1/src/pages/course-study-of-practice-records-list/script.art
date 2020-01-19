@@ -159,7 +159,15 @@
                             var resData=resInfo.data;
                             //数据提交异常
                             if(resData.errorcode){
-                                commomLab.myToast({msg:resData.message});
+                                if(resData.message && resData.message.length>0){
+                                    if(resData.message.length>10){
+                                        $.alert(resData.message);
+                                    }
+                                    else{
+                                        commomLab.myToast({msg:resData.message});
+                                    }
+                                }
+                                
                                 if(resData.errorcode=='attemptstillinprogress'){
                                     $('.content').scrollTop(10000);
                                 }

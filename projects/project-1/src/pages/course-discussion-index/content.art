@@ -11,7 +11,8 @@
 						<div class="disc-tips" v-if="courseName">
 							来自课件：{{courseName}}
 						</div>
-
+						<div class="padding_75rem font_65rem forum-intro gray9 border-bottom" v-html="intro" v-if="intro">
+                        </div>
 						<!--正常用户-->
 						<ul class="list-unstyled list-cutstom padding-top-none padding-bottom-none index-disc-list" v-if="!isVisitor && forumData.discussions && forumData.discussions.length>0">
 							<li class="list-cutstom-item item" v-for="(discussion,index) in forumData.discussions" v-show="index<(forumData.pageInfo.curPage+1)*forumData.pageInfo.pageSize">

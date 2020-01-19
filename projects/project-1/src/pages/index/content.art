@@ -1,7 +1,7 @@
 	<div class="page-group">
 		<div class="page page-current" id="app" v-cloak>
 			<template v-if="isloaded">
-				<template v-if="success && userCourseInfo">
+				<template v-if="success && userCourseInfo && actCompleteStatus['statuses'] && actCompleteStatus['statuses'].length>0">
 					<div class="bar bar-footer-btn padding-none border-top">
 						<a :href="getModuleInfoAbout(latestStudy).jumpUrl" class="flex-box flex-align-center full-height flex-box-justify-center padding-l_75rem padding-r_75rem gray6">
 							<span v-if="courseProgress>0" class="text-ellipsis font_75rem">上次学到：{{latestStudy.name}}</span>
@@ -35,42 +35,69 @@
 											<span class="icon icon-down pull-right"></span>
 											<h4 class="margin-none text-no-bold">{{newSection.name}}</h4>
 										</div>
-										<div class="course-box-slide-cnt expand" 
-												v-if="newSection.group.length>0"
-											>
+										<div class="course-box-slide-cnt expand">
 											<div class="slide-cnt">
-												<div class="padding_5rem">
-													<dl class="course-box" v-for="(section,k1,i1) in newSection.group">
-														<dt class="course-dt" 
-																@click.prevent="slidePanel"
-															>
-															{{section.name}}
-														</dt>
-														<dd class="course-list expand">
-															<div class="slide-cnt">
-
-																<a 
-																	@click.prevent='getModuleHref(module,$event)'
-																	href="javascript:;"
-																		:data-module="module.id"
-																		:class="[
-																			'course-item',
-																			'flex-box', 
-																			'flex-align-center',
-																			module.modname!='label'?'as-link':'',
-																			module.state=='1'?'course-item-fin':''
-																		]"
-																		v-for="(module,k2,i2) in section.modulesList"
-																	>
-																	<label class="course-label label label-blue" :style="{'background':getLableColor(module.modname)}" v-if="module.modname!='label'">{{getModuleInfoAbout(module).name}}</label>
-																	<div class="flex-item course-item-cnt">
-																		{{module.name}}
-																	</div>
-																</a>
-															</div>
-														</dd>
-													</dl>
-												</div>
+                                                <div class="padding_5rem" v-if="newSection.group && newSection.group.length>0">
+                                                    <dl class="course-box" 
+                                                        v-for="(section,k1,i1) in newSection.group"
+                                                        >
+                                                        <dt class="course-dt" 
+                                                                @click.prevent="slidePanel"
+                                                            >
+                                                            {{section.name}}
+                                                        </dt>
+                                                        <dd class="course-list expand">
+                                                            <div class="slide-cnt">
+                                                                <a 
+                                                                    @click.prevent='getModuleHref(module,$event)'
+                                                                    href="javascript:;"
+                                                                        :data-module="module.id"
+                                                                        :data-modname="module.modname"
+                                                                        :class="[
+                                                                            'course-item',
+                                                                            'flex-box', 
+                                                                            'flex-align-center',
+                                                                            module.modname!='label'?'as-link':'',
+                                                                            module.state=='1'?'course-item-fin':''
+                                                                        ]"
+                                                                        v-for="(module,k2,i2) in section.modulesList"
+                                                                    >
+                                                                    <label class="course-label label label-blue" :style="{'background':getLableColor(module)}" v-if="module.modname!='label'">{{getLableName(module)}}</label>
+                                                                    <div class="flex-item course-item-cnt">
+                                                                        {{module.name}}
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="padding_5rem" v-else-if="newSection.modulesList && newSection.modulesList.length>0">
+                                                    <dl class="course-box">
+                                                        <dd class="course-list expand">
+                                                            <div class="slide-cnt">
+                                                                <a 
+                                                                    @click.prevent='getModuleHref(module,$event)'
+                                                                    href="javascript:;"
+                                                                        :data-module="module.id"
+                                                                        :data-modname="module.modname"
+                                                                        :class="[
+                                                                            'course-item',
+                                                                            'flex-box', 
+                                                                            'flex-align-center',
+                                                                            module.modname!='label'?'as-link':'',
+                                                                            module.state=='1'?'course-item-fin':''
+                                                                        ]"
+                                                                        v-for="(module,k2,i2) in newSection.modulesList"
+                                                                    >
+                                                                    <label class="course-label label label-blue" :style="{'background':getLableColor(module)}" v-if="module.modname!='label'">{{getLableName(module)}}</label>
+                                                                    <div class="flex-item course-item-cnt">
+                                                                        {{module.name}}
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -89,7 +116,21 @@
 					</div>
 				</template>
 				<div class="content" v-else>
-					${require('../../components/com/errorTips.txt')}
+					<div class="flex-box flex-box-justify-center flex-align-center full-height flex-vertical">
+						<img src="../../images/no-data2.png" width="100">
+						<div class="gray9 margin-t_7rem font_85rem">
+							{{msg}}
+						</div>
+						
+						<div class="margin-t-1rem" data-id="call-box">
+							<button type="button" class="button button-md button-fill border-none btn-blue" style="border-radius:1rem" onclick="commomLab.callTeacher();">
+								<span class="padding-l_75rem padding-r_75rem">
+									找老师
+								</span>
+							</button>
+						</div>
+						
+					</div>
     			</div>
 			</template>
 		</div>

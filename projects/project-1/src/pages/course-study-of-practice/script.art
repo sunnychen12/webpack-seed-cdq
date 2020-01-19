@@ -43,6 +43,7 @@
         	hasNextPage: false,
         	attemptstate: '',
         	attemptData:false,//测验记录列表
+			practiceHasAttachment:false //如果存在有附件的题型，就不允许做题
         },
         computed:{
         	//考试是否结束-针对期末考试
@@ -77,6 +78,23 @@
                 vm.isloaded=false;
                 $.showIndicator();
             },
+			//判断是否存在有附件的题目
+			hasAttachmentPractice:function(practices){
+				var result=false;
+				$.each(practices, function(index, item){
+					var $temp=$('<div/>');
+
+					$temp.html(item.html);
+
+					//找出有附件的题目，如果有，就不允许做题
+					if($temp.find('[class*="filemanager"]').length>0){
+						result=true;
+						return false;
+					}
+				})
+				
+				return result;
+			},
         	//获取用户测验做题列表
         	//cb 回调方法
         	getAttemptState:function(cb){
@@ -205,10 +223,22 @@
 
 								var resData=res.data;
 
+								//如果存在有附件的题型，就不允许做题
+								if(vm.hasAttachmentPractice(resData.questions)){
+									vm.success=false;
+									vm.practiceHasAttachment=true;
+									vm.showHtml();
+
+									$.alert('本套题含附件上传题目，APP暂不支持，请移步到PC上完成，谢谢', function () {
+										history.back();
+									});
+									return false;
+								}
+
 								//删除描述，保留题目
-								resData.questions=$.grep(resData.questions,function(item){
+								/* resData.questions=$.grep(resData.questions,function(item){
 								    return item.type!='description'
-								});
+								}); */
 
 								resData.questions=vm.convertHTML(resData);
 
@@ -227,9 +257,6 @@
 
 								//加载完所有题目后，根据题目索引跳转到对应题目
 								vm.isloaded=!(resData.nextpage>0);
-								if(!vm.isloaded && qIndex>=0){
-									vm.goQuestion(qIndex);
-								}
 
 								if(resData.nextpage>0){
 									vm.pageIndex=resData.nextpage;
@@ -237,7 +264,21 @@
 								}
 
 								if(vm.isloaded){
+									if(qIndex>=0){
+										vm.goQuestion(qIndex);
+									}
+
 									vm.showHtml();
+									//图片放大功能
+									$('body').append($('<script />',{src:'assets/js/sm-extend.min.js'}));
+									$('.page').on('click', 'img', function(e){
+											$.photoBrowser({
+												photos : [this.src],
+												//theme: 'dark',
+												type: 'standalone'
+											}).open();
+										});
+									
 								}
 
 							}
@@ -268,9 +309,9 @@
 								var resData=res.data;
 
 								//删除描述，保留题目
-								resData.questions=$.grep(resData.questions,function(item){
+								/* resData.questions=$.grep(resData.questions,function(item){
 								    return item.type!='description'
-								});
+								}); */
 
 								resData.questions=vm.convertHTML(resData);
 
@@ -419,24 +460,44 @@
         		var arr=resData.questions, attemptInfo=resData.attempt;
         		for(var i in arr){
         			if(arr[i].html){
-	        			arr[i].html=arr[i].html.replace(/<script[^>]*>[\s\S]*<\/script>/ig,"");
+						arr[i].html=arr[i].html
+									//删除script标签
+									.replace(/<script[^>]*>[\s\S]*<\/script>/ig,"")
+									//删除所有标签的内联样式，除了"text-decoration: underline;"下划线
+									.replace(/style=("[^"]*"|'[^']*')/ig,function(ma){
+										var arg=arguments;
+										if(
+											arg.length>0 &&
+											/text\-decoration:\s*underline;?/i.test(arg[1])
+										){
+											return 'style="text-decoration: underline;"';
+										}
+										else{
+											return '';
+										}
+									});
+									//.replace(/<p>(&nbsp;|\s)*<\/p>/ig,'');
 
 	        			var qTypeName='';
 	        			switch(arr[i].type){
 	        				case 'truefalse':
 	        					qTypeName='判断题';
 	        					break;
-	        				case 'multichoice':
-	        					qTypeName='单选题';
-	        					break;
+	        				/* case 'multichoice':
+	        					qTypeName='选择题';
+	        					break; */
 	        				case 'multichoiceset':
 	        					qTypeName='多选题';
 	        					break;
 	        				case 'essay':
 	        					qTypeName='简答题';
+								break;
+							case 'shortanswer':
+							case 'multianswer':
+	        					qTypeName='填空题';
 	        					break;
 	        				default :
-	        					qTypeName='选择题';
+								qTypeName='选择题';
 	        					break;
 	        			}
 
@@ -444,89 +505,98 @@
 
 	        			$temp.html(arr[i].html);
 
-	        			var $qcontent=$temp.find('.content').removeClass('content');
+	        			//删除一边做题一边查看答案的按钮
+						$temp.find('.im-controls,.info').remove();
 
-	        			//简答题
-	        			if(arr[i].type=='essay'){
-	        				$qcontent.addClass('ans-qcontent')
+						var $qcontent=$temp.find('.content').removeClass('content');
+						
+						//添加题目类型标签
+						$qcontent
+		        		.prepend('<div class="margin-b_7rem es-top clearfix"><label class="label label-blue-boder margin-r_5rem">'+qTypeName+'</label><span>题目'+arr[i].number+'</span></div>');
 
-	        				$temp.find('.info,.accesshide').remove();
+						switch(arr[i].type){
+							//描述 题干
+							case 'description':
+								$qcontent.children('.es-top').remove();
+								break;
+							//简答题
+							case 'essay':
+								$qcontent.addClass('ans-qcontent')
 
-	        				var $qtext=$temp.find('.qtext');
+								$temp.find('.accesshide').remove();
 
-	        				$qtext
-		        			.prepend('<div class="margin-b_7rem es-top clearfix"><label class="label label-blue-boder margin-r_5rem">'+qTypeName+'</label></div>');
+								var $qtext=$temp.find('.qtext');
+								var html=$qtext.html();
 
-		        			//完成
-		        			if(attemptInfo.state=='finished'){
-		        				var $answer=$qcontent.find('.answer').addClass('view-ans');
-			        			//等待评分
-			        			if(!arr[i].mark && arr[i].mark!==0){
-			        				$answer.prepend([
-				        				'<div class="ans-tit clearfix">',
-					        				'<span class="pull-right">待评分</span>',
-					        				'回答',
-				        				'</div>'
-			        				].join(''));
-			        			}
-			        			//查看题目结果状态
-			        			else{
-			        				$answer.prepend('<div class="ans-tit">回答</div>');
+								//完成
+								if(attemptInfo.state=='finished'){
+									var $answer=$qcontent.find('.answer').addClass('view-ans');
+									//等待评分
+									if(!arr[i].mark && arr[i].mark!==0){
+										$answer.prepend([
+											'<div class="ans-tit clearfix">',
+												'<span class="pull-right">待评分</span>',
+												'回答',
+											'</div>'
+										].join(''));
+									}
+									//查看题目结果状态
+									else{
+										$answer.prepend('<div class="ans-tit">回答</div>');
 
-			        				var $comment=$qcontent.find('.comment');
-			        				if($comment.length>0){
-					        			var $commentHtml=$comment.html().replace(/评语：/gm, [
-					        				'<div class="comment-tit clearfix">',
-						        				'<span class="pull-right">',
-						        					'成绩：'+arr[i].mark+'分',
-						        				'</span>',
-						        				'评语',
-					        				'</div>'
-					        			].join(''));
+										var $comment=$qcontent.find('.comment');
+										if($comment.length>0){
+											var $commentHtml=$comment.html().replace(/评语：/gm, [
+												'<div class="comment-tit clearfix">',
+													'<span class="pull-right">',
+														'成绩：'+arr[i].mark+'分',
+													'</span>',
+													'评语',
+												'</div>'
+											].join(''));
 
-					        			$comment.html($commentHtml);
-				        			}
-			        			}
-		        			}
-		        			else if(attemptInfo.state=='inprogress'){
-			        			var $textarea=$qcontent.find('textarea');
-			        			//做题状态
-			        			if($textarea.length>0){
-			        				$textarea.attr('placeholder', '请在此答题');
+											$comment.html($commentHtml);
+										}
+									}
+								}
+								else if(attemptInfo.state=='inprogress'){
+									var $textarea=$qcontent.find('textarea');
+									//做题状态
+									if($textarea.length>0){
+										$textarea.attr('placeholder', '请在此答题');
 
-			        				var tVal=$textarea.val();
-			        				//转换 换行码 \n 为 <br>
-						        	tVal=tVal.replace(/<br\s{0,1}\/{0,1}>/gm,'\n')
+										var tVal=$textarea.val();
+										//转换 换行码 \n 为 <br>
+										tVal=tVal.replace(/<br\s{0,1}\/{0,1}>/gm,'\n')
 
-						        	$textarea.val(tVal);
-			        				//$qtext.find('.es-top').prepend('<div class="pull-right">倒计时：<span data-id="timer">00:00:00</span></div>');
-			        			}
-		        			}
-		        			
-	        			}
-	        			else{
-	        				$qcontent.addClass('qcontent');
+										$textarea.val(tVal);
+										//$qtext.find('.es-top').prepend('<div class="pull-right">倒计时：<span data-id="timer">00:00:00</span></div>');
+									}
+								}
+								break;
+							//填空题
+							case 'multianswer':
+								$qcontent.addClass('qcontent');
 
-		        			$temp.find('.info,.accesshide,.icon,.answer [type="hidden"]').remove();
+								//删除干扰、无用标签及其内容
+								$temp.find('.answer [type="hidden"]').remove();
 
-		        			$temp.find('.answer [type="radio"] + label,.answer [type="checkbox"] + label').prepend('<i class="icomoon"></i>');
+								$temp.find('p').addClass('margin-top-none');
 
-		        			var $qtext=$temp.find('.qtext');
-		        			var html=$qtext.html();
+								//替换“错误”图标
+								$temp.find('.fa-remove').replaceWith('<i class="icomoon text-red">&#xe906;</i>');
 
-		        			if(/(\d+\.)/g.test(html)){
-			        			$qtext.html(
-			        				$qtext.html().replace(/(\d+\.)/g, arr[i].number+'. ')
-			        			);
-		        			}
-		        			else{
-		        				$qtext.prepend(arr[i].number+'. ');
-		        			}
+								//替换“正确”图标
+								$temp.find('.fa-check').replaceWith('<i class="icomoon text-green">&#xe901;</i>');
+								break;
+							default:
+								$qcontent.addClass('qcontent');
 
-		        			$qtext
-		        			.prepend('<label class="label label-blue-boder margin-r_5rem">'+qTypeName+'</label>')
+								$temp.find('.accesshide,.icon,.answer [type="hidden"]').remove();
 
-	        			}
+								$temp.find('.answer [type="radio"] + label,.answer [type="checkbox"] + label').addClass('flex-box').wrapInner('<div class="flex-item"></div>').prepend('<i class="icomoon"></i>');
+								break;
+						}
 
 	        			arr[i].html=$temp.html();
 	        		}

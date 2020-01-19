@@ -1,27 +1,38 @@
 	<div class="page-group">
 		<div class="page page-current" id="app" v-cloak>
 			<template v-if="isloaded">
-				<div class="bar bar-footer-btn padding-none" v-if="success">
+				<template v-if="success">
 					<!--是否期末考试-->
-					<div class="flex-box flex-align-center" v-if="isFinalExam && attemptstate=='inprogress'">
-						<template v-if="isExamEnd">
-							<button type="button" class="flex-item button button-big button-fill border-none flat" disabled>测验已结束</button>
-						</template>
-						<template v-else>
-							<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" @click="savingFinalExam">保存答题</button>
-						  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-next" @click="endingFinalExam">结束答题</button>
-					  	</template>
+					<div class="bar bar-footer-btn padding-none" v-if="isFinalExam && attemptstate=='inprogress'">
+						<div class="flex-box flex-align-center">
+							<template v-if="isExamEnd">
+								<button type="button" class="flex-item button button-big button-fill border-none flat" disabled>测验已结束</button>
+							</template>
+							<template v-else>
+								<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" @click="savingFinalExam">保存答题</button>
+								<button type="button" class="flex-item button button-big button-fill border-none flat btn-next" @click="endingFinalExam">结束答题</button>
+							</template>
+						</div>
 					</div>
-				  	<div class="flex-box flex-align-center" v-else-if="questionLen>1">
-					  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" @click="prevQuestion" :disabled="curQueIndex==0">上一题</button>
-					  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-next" @click="nextQuestion" v-if="(questionLen>1 && curQueIndex<questionLen-1)">下一题</button>
-					  	<button type="button" class="flex-item button button-big button-fill border-none flat btn-entry-broadcast" @click="submitExam" v-if="
-					  		attemptstate=='inprogress' &&
-					  		questionLen>0 &&
-					  		curQueIndex==questionLen-1
-					  	">提交答卷</button>
-				  	</div>
-				</div>
+
+				  	<template v-else-if="questionLen>0">
+						<div class="bar bar-footer-btn padding-none" 
+							v-if="questionLen>1 || (attemptstate=='inprogress' && curQueIndex==questionLen-1)"
+							>
+							<div class="flex-box flex-align-center">
+								<template v-if="questionLen>1">
+									<button type="button" class="flex-item button button-big button-fill border-none flat btn-prev" @click="prevQuestion" :disabled="curQueIndex==0">上一题</button>
+									<button type="button" class="flex-item button button-big button-fill border-none flat btn-next" @click="nextQuestion" v-if="(questionLen>1 && curQueIndex<questionLen-1)">下一题</button>
+								</template>
+
+								<button type="button" class="flex-item button button-big button-fill border-none flat" :class="[questionLen>1?'btn-entry-broadcast':'btn-next']" @click="submitExam" v-if="
+									attemptstate=='inprogress' &&
+									curQueIndex==questionLen-1
+								">提交答卷</button>
+							</div>
+						</div>
+				  	</template>
+				</template>
 				<div class="content">
 					<form name="submit-form" id="submit-form" v-if="success">
 						<!--
@@ -38,7 +49,7 @@
 							</transition>
 						</template>
 					</form>
-					<div class="text-center" style="margin:2.6rem 1rem;" v-else>
+					<div class="text-center" style="margin:2.6rem 1rem;" v-else-if="!practiceHasAttachment">
 						<i class="icomoon vertical-middle gray9" style="font-size:3.6rem;">&#xe904;</i>
 						<div class="font_75rem text-center margin-t-1rem">{{msg}}</div>
 					</div>

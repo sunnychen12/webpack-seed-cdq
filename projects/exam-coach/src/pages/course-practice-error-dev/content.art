@@ -5,7 +5,7 @@
 					<header class="bar bar-nav">
 					  <a class="icon icon-left pull-left" @click.prevent="historyBack"></a>
 					  <a class="button button-link pull-right open-popup" data-popup=".popup-view-card">
-					    {{practiceOrder}}/{{practiceData.WRONGLIST.length}}
+					    {{curPracticeIndex+1}}/{{practiceData.WRONGLIST.length}}
 					  </a>
 					  <h1 class="title">我的错题</h1>
 					</header>
@@ -21,7 +21,7 @@
 						    <div class="practice-subject-item" v-if="curPractice">
 								<label class="label label-blue-boder">{{getQueType(curPractice.QASTORE_TYPE)}}</label>
 								<div class="practice-subject-header margin-t_3rem">
-									<div class="txt" v-html="curPractice.QASTORE_TITLE"></div>
+									<div class="txt" v-html="filterHtmlTagStyleAttr(curPractice.QASTORE_TITLE)"></div>
 								</div>
 
 								<div class="sub-practice-list">
@@ -30,7 +30,8 @@
 										<div class="sub-practice-item margin-top-none">
 											<div class="practice-subject-sel-list border-none" v-if="curPractice.QASTORE_TYPE=='radio' || curPractice.QASTORE_TYPE=='checkbox' || curPractice.QASTORE_TYPE=='whether'">
 												<label class="checkbox-group flex-box" 
-														v-for="(optItem, qaItemIndex) in curPractice.OPTLIST">
+														v-for="(optItem, qaItemIndex) in curPractice.OPTLIST"
+														:key="'a'+optItem.OPTION_ID">
 
 													<input class="checkbox-control" :name="optItem.QASTORE_ID" :value="optItem.OPTION_ID" disabled :checked="optItem.IS_ANSWER=='Y'" 
 														 :type="
@@ -45,8 +46,7 @@
 														<i class="icomoon"></i>
 														<em class="checkbox-order"></em>
 													</span>
-													<div class="flex-item checkbox-txt">
-														{{optItem.OPTION_CONTENT}}
+													<div class="flex-item checkbox-txt" v-html="filterHtmlTag(optItem.OPTION_CONTENT, ['img'])">
 													</div>
 												</label>
 											</div>
@@ -64,15 +64,15 @@
 																		curPractice.QASTORE_TYPE=='checkbox' ||
 																		curPractice.QASTORE_TYPE=='whether'"
 																	>
-																	<template v-for="(optItem, qaItemIndex) in curPractice.OPTLIST">
+																	<template v-for="(optItem, qaItemIndex) in curPractice.OPTLIST" :key="'b'+optItem.OPTION_ID">
 																		<template v-if="optItem.IS_ANSWER=='Y'">
 																			{{getSelItemChar(optItem.ORDER_NO)}}
 																		</template>
 																	</template>
 																</template>
 																<ul class="list-unstyled" v-else-if="curPractice.QASTORE_TYPE=='fill'">
-																	<li v-for="(optItem, optItemIndex) in curPractice.OPTLIST">
-																		空{{optItemIndex+1}}：正确答案：{{optItem.OPTION_CONTENT}}
+																	<li v-for="(optItem, optItemIndex) in curPractice.OPTLIST" :key="'c'+optItem.OPTION_ID">
+																		空{{optItemIndex+1}}：正确答案：<div style="display:inline" v-html="filterHtmlTag(optItem.OPTION_CONTENT, ['img'])"></div>
 																	</li>
 																</ul>
 																<div class="text-orange" v-else-if="curPractice.QASTORE_TYPE=='question'">
@@ -116,10 +116,10 @@
 										</div>
 									</template>
 									<template v-else>
-										<div class="sub-practice-item" v-if="curPractice.SONLIST.length>0" v-for="(subPractice, subPracticeIndex) in curPractice.SONLIST">
+										<div class="sub-practice-item" v-if="curPractice.SONLIST.length>0" v-for="(subPractice, subPracticeIndex) in curPractice.SONLIST" :key="'d'+subPractice.QASTORE_ID">
 											<label class="label label-blue-boder">{{getQueType(subPractice.QASTORE_TYPE)}} 第{{subPracticeIndex+1}}题</label>
 											<div class="practice-subject-header margin-t_3rem">
-												<div class="txt" v-html="subPractice.QASTORE_TITLE"></div>
+												<div class="txt" v-html="filterHtmlTagStyleAttr(subPractice.QASTORE_TITLE)"></div>
 											</div>
 
 											
@@ -131,7 +131,7 @@
 													subPractice.QASTORE_TYPE=='whether'
 												">
 												<label class="checkbox-group flex-box" 
-														v-for="(optItem, qaItemIndex) in subPractice.OPTLIST">
+														v-for="(optItem, qaItemIndex) in subPractice.OPTLIST" :key="'e'+optItem.OPTION_ID">
 
 													<input class="checkbox-control" :name="optItem.QASTORE_ID" :value="optItem.OPTION_ID" disabled :checked="optItem.IS_ANSWER=='Y'" 
 														 :type="
@@ -147,8 +147,7 @@
 														<i class="icomoon"></i>
 														<em class="checkbox-order"></em>
 													</span>
-													<div class="flex-item checkbox-txt">
-														{{optItem.OPTION_CONTENT}}
+													<div class="flex-item checkbox-txt" v-html="filterHtmlTag(optItem.OPTION_CONTENT, ['img'])">
 													</div>
 												</label>
 											</div>
@@ -166,15 +165,15 @@
 																		subPractice.QASTORE_TYPE=='checkbox' ||
 																		subPractice.QASTORE_TYPE=='whether'"
 																	>
-																	<template v-for="(optItem, qaItemIndex) in subPractice.OPTLIST">
+																	<template v-for="(optItem, qaItemIndex) in subPractice.OPTLIST" :key="'f'+optItem.OPTION_ID">
 																		<template v-if="optItem.IS_ANSWER=='Y'">
 																			{{getSelItemChar(optItem.ORDER_NO)}}
 																		</template>
 																	</template>
 																</template>
 																<ul class="list-unstyled" v-else-if="subPractice.QASTORE_TYPE=='fill'">
-																	<li v-for="(optItem, optItemIndex) in subPractice.OPTLIST">
-																		空{{optItemIndex+1}}：正确答案：{{optItem.OPTION_CONTENT}}
+																	<li v-for="(optItem, optItemIndex) in subPractice.OPTLIST" :key="'g'+optItem.OPTION_ID">
+																		空{{optItemIndex+1}}：正确答案：<div style="display:inline" v-html="filterHtmlTag(optItem.OPTION_CONTENT, ['img'])"></div>
 																	</li>
 																</ul>
 																<div class="text-orange" v-else-if="subPractice.QASTORE_TYPE=='question'">
@@ -241,7 +240,7 @@
 					<div class="content">
 						<div class="padding_75rem">
 							<ul class="list-unstyled clearfix ans-card-list" v-if="newPracticeList.length>0">
-								<li v-for="(newPractice, i) in newPracticeList" @click="jumpToPracticeByOrder(i+1)" :class="[practiceOrder==i+1?'cur':'']">
+								<li v-for="(newPractice, i) in newPracticeList" :key="'h'+i" @click="jumpToPracticeByOrder(i+1)" :class="[practiceOrder==i+1?'cur':'']">
 									{{i+1}}
 								</li>
 							</ul>

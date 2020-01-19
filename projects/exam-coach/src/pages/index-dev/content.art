@@ -8,7 +8,7 @@
 
 				<div class="content">
 				    <ul class="item-of-list">
-				        <li v-for="item in resData.COACHLIST">
+				        <li v-for="item in resData.COACHLIST" :key="item.PROJECT_ID">
 				            <a href="javascript:;" class="flex-box flex-align-stretch item-box" @click.prevent="jumpLink(item)">
 			                    <div class="flex-item">
 			                        <div class="tit">{{item.PROJECT_NAME}}</div>

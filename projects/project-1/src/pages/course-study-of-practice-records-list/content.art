@@ -103,7 +103,19 @@
 											<span class="icon icon-right"></span>
 											<div class="flex-item text-center">
 												<div class="txt1">
-													{{(attemptRecord.sumgrades>0 || attemptRecord.sumgrades===0)?attemptRecord.sumgrades:'--'}}
+													<template v-if="attemptRecord.sumgrades===0">
+														0
+													</template>
+													<template v-else-if="attemptRecord.sumgrades>0">
+														<!-- 小数的时候，保留一位数 -->
+														<template v-if="(attemptRecord.sumgrades+'').indexOf('.')>-1">
+															{{attemptRecord.sumgrades.toFixed(1)}}
+														</template>
+														<template v-else>
+															{{attemptRecord.sumgrades}}
+														</template>
+													</template>
+													<template v-else>--</template>
 												</div>
 												<div class="txt2">测验得分/100</div>
 											</div>

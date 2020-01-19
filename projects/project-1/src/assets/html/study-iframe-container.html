@@ -1,6 +1,216 @@
 <!DOCTYPE html>
 <html>
-<head></head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/iframe-all.css">
+    <link rel="stylesheet" type="text/css" href="../css/sm-extend.min.css">
+
+    <script type="text/javascript" src="../../js/common.min.js"></script>
+    <script type="text/javascript" src="../js/sm-extend.min.js"></script>
+    <script>var _$=$;</script>
+
+    <script src="../js/jquery.js"></script>
+    <style type="text/css">
+        html,body{height: 100%;overflow: hidden;}
+        body{background: #fff !important;}
+        *{box-sizing: border-box;-webkit-tap-highlight-color: transparent;-webkit-touch-callout: none;}
+        #app{height: 100%;overflow: auto;padding: 1em;-webkit-overflow-scrolling: touch;}
+        .no-overflow{overflow: visible !important;}
+        video{display: block;}
+        img, video{max-width: 100%;height: auto;}
+        .container{max-width: 100%;}
+        .flash-invalid{background:#ccc;height:200px;line-height:200px;font-size:1rem;text-align:center;}
+        .flash-invalid span{
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
+        }
+        .pic_content{
+            width: 100% !important;
+        }
+
+        .photo-content {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .bar-nav ~ .photo-content {
+            top: 44px;
+        }
+        .bar-tab ~ .photo-content {
+            bottom: 50px;
+        }
+        .bar .title {
+            display: block;
+            font-size: 16px;
+            line-height: 44px;
+            color: #3d4145;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            margin: 0;
+        }
+        .bar {
+            position: absolute;
+            right: 0;
+            left: 0;
+            z-index: 10;
+            height: 44px;
+            padding-right: 10px;
+            padding-left: 10px;
+            background-color: #f7f7f8;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            overflow: hidden;
+        }
+        .bar .photo-browser-close-link {
+            position: absolute;
+            z-index: 20;
+            padding: 0px 5px;
+            font-size: 1rem;
+            line-height: 44px;
+            left:15px;
+            top: 0px;
+            color: #00acdf !important;
+        }
+        .bar-nav {
+            top: 0;
+        }
+        .bar-tab {
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            padding: 0;
+            table-layout: fixed;
+        }
+        .bar-tab .tab-item{
+            width: 50%;
+            text-align: center;
+            line-height: 50px;
+
+        }
+        .bar-tab .tab-item:last-child{
+            border-left: 1px solid #e4e4e4;
+        }
+    </style>
+</head>
 <body>
+    <div id="app">
+        <div align="center" style="margin-top: 2rem;">数据加载中...</div>
+    </div>
+    <script type="text/javascript">
+        ;(function($){
+            //获取网页内容
+            var timer=setInterval(function(){
+                var frmData=frameElement.data;
+                if(typeof(frmData)!='undefined'){
+                    clearInterval(timer);
+
+                    if(typeof(frmData)=='string' && frmData.length>0){
+                        frmData=frmData.replace(/<object[^>]*>([\s\S]*?)<\/object>|<embed[^>]*src=["|']?[^"'>]+\.swf["|']?[^>]*\/?>/gi,function(){
+                            var arg=arguments;
+                            if(typeof(arg[1])=='string' && arg[1].indexOf('+=')>-1)
+                            {
+                                return arg[0]
+                            }
+                            else{
+                                return '<div class="flash-invalid"><span>不支持Flash播放<br>请到PC端查看</span></div>'
+                            }
+                        });
+                        jQuery('#app').html(frmData);
+
+                        //图片放大
+                        $('img').on('click',function(e){
+                            var self=this, def=$.Deferred();
+                            var $linkDom=$(this).closest('a');
+                            if($linkDom.length>0){
+                                var linkUrl=$linkDom.attr('href');
+                                //如果是附件，就打开预览
+                                if(
+                                    linkUrl &&
+                                    /https?:\/\/oss.ouchn.cn/i.test(linkUrl) &&
+                                    /\.(pptx?|docx?|xlsx?|pdf)(\?.*)?$/i.test(linkUrl)
+                                ){
+                                    e.preventDefault();
+                                    
+                                    try{
+                                        Phone.openFile(linkUrl);
+                                    }catch(e){
+                                        window.open(linkUrl);
+                                    }
+                                }
+                                else if(
+                                    (!/https?:\/\//i.test(linkUrl)) &&
+                                    (!$linkDom.attr('onclick'))
+                                ){
+                                    def.resolve();
+                                }
+                            }
+
+                            else{
+                                var $p=$(this).closest('[onclick]')
+                                if($p.length==0){
+                                    def.resolve();
+                                }
+                            }
+
+                            //预览大图
+                            def.done(function(){
+                                var $imgs=$('img');
+                                var index=$imgs.index(self);
+                                var imgArray=[];
+                                
+                                if($imgs.length>0){
+                                    $.each($imgs, function(i,item){
+                                        imgArray.push(this.src);
+                                    })
+                                    $.photoBrowser({
+                                        template:'<div class="photo-browser photo-browser-dark">' +
+                                                '{{navbar}}' +
+                                                '{{toolbar}}' +
+                                                '<div data-page="photo-browser-slides" class="photo-content">' +
+                                                    '{{captions}}' +
+                                                    '<div class="photo-browser-swiper-container swiper-container">' +
+                                                        '<div class="photo-browser-swiper-wrapper swiper-wrapper">' +
+                                                            '{{photos}}' +
+                                                        '</div>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>',
+                                        navbarTemplate:'<header class="bar bar-nav">' +
+                                                        '<a class="pull-left photo-browser-close-link">关闭</a>' +
+                                                        '<h1 class="title"><div class="center sliding"><span class="photo-browser-current"></span><span class="photo-browser-of">/</span><span class="photo-browser-total"></span></div></h1>' +
+                                                        '</header>',
+                                        toolbarTemplate:'<nav class="bar bar-tab">' +
+                                                            '<a class="tab-item photo-browser-prev pull-left" href="#">' +
+                                                                '上一张' +
+                                                            '</a>' +
+                                                            '<a class="tab-item photo-browser-next pull-right" href="#">' +
+                                                                '下一张' +
+                                                            '</a>' +
+                                                        '</nav>',
+                                        photos : imgArray,
+                                        initialSlide: index,
+                                        theme: 'dark',
+                                        type: 'standalone'
+                                    }).open()
+                                }
+                            })
+                        });
+                    }
+                    else{
+                        $('#app > div').html('数据查询异常');
+                    }
+                }
+            },100)
+        })(_$);
+    </script>
 </body>
 </html>

@@ -41,10 +41,14 @@
             isVisitor: cacheUserCourseInfo.user.studentType==2,//是否游客
             isloaded:false,//是否所有数据都已经加载完毕
         	forumData:false,//讨论记录列表
+            intro:''//讨论简介
         },
         created: function () {
         	var vm=this;
         	$.showIndicator();
+
+            //获取讨论简介
+            this.getForumsIntro();
 
             //游客
             if(vm.isVisitor){
@@ -149,6 +153,31 @@
             }
         },
         methods:{
+            //获取讨论简介
+            getForumsIntro:function(){
+                var vm=this;
+                commomLab.ajaxProcess({
+                    url: '/api/stud/study/moodleGetForumsByCourses.json',
+                    data: {
+                        courseid: cacheUserCourseInfo.course.courseId,
+                        token: cacheUserCourseInfo.token
+                    }
+                })
+                .done(function(res){
+                    if(
+                        commomLab.checkAPIResult(res) &&
+                        res.data.forumList &&
+                        res.data.forumList.length>0
+                    ){
+                        $.each(res.data.forumList, function(i, forum) {
+                            if(forum.cmid==cmid){
+                                vm.intro=forum.intro?forum.intro.replace(/style=("[^"]*"|'[^']*')/ig,''):'';
+                                return false;
+                            }
+                        });
+                    }
+                })
+            },
             //结束异步，关键加载特殊，显示页面内容
             showHtml:function(){
                 var vm=this;

@@ -56,7 +56,8 @@
 				                    </div>
 					            </a>
 					        </li>
-					        <li>
+					        <!-- 暂时关闭 -->
+					        <li v-if="false">
 					            <div class="flex-box flex-align-center item-box" @click="openPopup">
 					            	<div class="margin-r_75rem">
 					            		<i class="fa fa-list course-icon-circle"></i>
@@ -152,7 +153,7 @@
 				</div>
 
 				<ul class="knowlege-cate-list">
-					<li class="item" v-for="(cate, index) in cateList">
+					<li class="item" v-for="(cate, index) in cateList" :key="cate.KNOW_CLASS_ID">
 						<div class="flex-box flex-align-center holder" :class="[index!=0?'close':'']">
 							<i :class="['toggle', getStatus(cate.CLASSSTATES)]" data-role="toggle" @click="slidePanel"></i>
 							<div class="flex-item">
@@ -166,7 +167,7 @@
 						<div :class="['slide-box', index==0?'expand':'']" :style="{'height':index!=0?'0px':'auto'}">
 							<div class="slide-cnt">
 								<ul class="list-unstyled">
-									<li class="item" v-for="knowlege in cate.KNOWLIST">
+									<li class="item" v-for="knowlege in cate.KNOWLIST" :key="knowlege.KNOW_ID">
 										<div class="flex-box flex-align-center holder">
 											<i :class="['toggle', getStatus(knowlege.STATES)]" data-role="toggle"></i>
 											<div class="flex-item">

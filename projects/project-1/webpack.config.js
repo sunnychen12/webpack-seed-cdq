@@ -101,6 +101,13 @@ module.exports= env => {
                         to: path.resolve(globalJSON.distPath, 'assets/css/sm-extend.min.css')
                     },
 
+                    {
+                        // 源文件目录
+                        from: path.resolve(globalJSON.srcPath, 'assets/css/iframe-all.css'),
+                        // 目标目录 dist目录下
+                        to: path.resolve(devPath, 'assets/css/iframe-all.css')
+                    },
+
                     //拷贝 html
                     {
                         // 源文件目录

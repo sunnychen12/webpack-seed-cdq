@@ -36,18 +36,98 @@
         	success:true,
         	msg:'',
         	isloaded:false,//是否所有数据都已经加载完毕
-        	videourl: videourl,//'http://172.16.165.93:8080/sample.mp4',
+			videourl: videourl,//'http://172.16.168.52:8080/sample.mp4',
+			//videourl:'https://www.w3school.com.cn/i/song.mp3',
+			//videourl:'https://www.cnblogs.com/skins/unlimitedsunlight/images/banner.jpg',
         	state: false,
         	pastTime:0,
 			isSeeking:false, //"拖动"状态
 			currentTimeBeforeSeek:0,
 			tipAnimFin:true,
-			showMark:false
-        },
+			isCannotDragPlay: $.inArray(
+					cacheUserCourseInfo.course.courseCode,
+					['04680','04681','04678','04384','04385','04389','04390','04391']
+				)>-1,//是否能拖动，目前思政课类型的课程不能拖动播放音视频
+			showMark:false,
+			activityInfo: activityInfo?activityInfo:{}
+		},
+		computed:{
+			//资源类型
+			resourseType:function(){
+				var type='';
+				if(/\.(png|jpe?g|gif|webp)(\?.*)?$/i.test(this.videourl)){
+					//name='图片';
+					type = 'image';
+				}
+				else if(/\.mp4(\?.*)?$/i.test(this.videourl)){
+					//name='视频';
+					type = 'video' ;
+				}
+				else if(/\.(pptx?|docx?|xlsx?|pdf)(\?.*)?$/i.test(this.videourl)){
+					//name='文档';
+					type = 'file' ;
+				}
+				else if(/\.mp3(\?.*)?$/i.test(this.videourl)){
+					//name='音频';
+					type = 'audio' ;
+				}
+				return type;
+			},
+			//活动描述
+			activityDescription: function(){
+				if(activityInfo && activityInfo['intro'] && activityInfo['intro'].length>0){
+					return activityInfo['intro']
+							.replace(/<script[^>]*>[\s\S]*<\/script>/ig,"")
+							.replace(/<link[^>]*\/?>/ig,"")+'<style>object,img{max-width: 100%;}.overflow-y-auto{-webkit-overflow-scrolling: touch;}<\/style>';
+				}
+				else{
+					return '';
+				}
+			}
+		},
         created: function () {
         	this.getActivityCompletionStatu();
         },
         methods:{
+			//进入学习（音频/视频类型以外的活动类型）
+			goStudy:function(){
+				var self=this;
+				var def=$.Deferred();
+				
+				if(self.state!=1){
+					$.showIndicator();
+					//设置活动为完成状态 并 记录学习行为
+					this.setActivityFin().done(function(){
+						def.resolve();
+					});
+				}
+				else{
+					def.resolve();
+				}
+
+				def.done(function(){
+					try{
+						Phone.openFile(self.videourl);
+					}catch(e){
+						window.open(self.videourl);
+					}
+
+					$.hideIndicator();
+				})
+			},
+			//预览图片
+			viewImg:function(){
+				$.photoBrowser({
+					photos : [this.videourl],
+					theme: 'dark',
+					type: 'standalone'
+				}).open();
+
+				//如果是“图片”活动 且 处于未完成状态
+				if(this.resourseType=='image' && this.state!=1){
+					this.setActivityFin();
+				}
+			},
         	//结束异步，关键加载特殊，显示页面内容
             showHtml:function(){
                 var vm=this;
@@ -98,7 +178,6 @@
 	                        }
 
 		                    vm.showHtml();
-
 		                }
 		                else{
 		                	vm.success=false;
@@ -229,14 +308,10 @@
                         }
         				break;
         			case 'resource':
-                        result.name='资源说明';
-            				//result.jumpUrl='course-study-of-reading.html';
-                        if(
-                            module.contents &&
-                            module.contents.length>0 &&
-                            module.contents[0].fileurl
-                        ){
-                            result.jumpUrl=module.contents[0].fileurl+'&token='+commomLab.cacheUserCourseInfo.get().token
+        				var fileurl=this.getFileUrl(module);
+                        result.name='资源';
+                        if(fileurl){
+                            result.jumpUrl=fileurl+'&token='+cacheUserCourseInfo.token
                         }
         				break;
         			case 'forum':
@@ -259,15 +334,22 @@
                 //视频 / 测验 活动
                 else if(module.modname=='url' || module.modname=='quiz'){
                     if(module.contents){
-                        if(
-                            module.contents.length==0 ||
-                            !module.contents[0].fileurl ||
-                            module.contents[0].fileurl.length==0
-                        ){
+                    	var fileurl=this.getFileUrl(module);
+                        if(!fileurl){
                             commomLab.myToast({
                                 msg:'资源地址为空'
                             });
                             return;
+                        }
+                        //如果是视频活动
+                        else if(module.modname=='url'){
+                        	if(this.getLableName(module)=='未知'){
+                                commomLab.myToast({
+                                    msg:'<span class="font_65rem">该活动手机暂不支持，请移步PC上完成</span>',
+                                    time:3000
+                                });
+                                return;
+                            }
                         }
                     }
                     else if(module.availabilityinfo){
@@ -279,6 +361,25 @@
                         else if(module.modname=='quiz'){
                             $.alert('请先观看完成本专题内的视频，再进行专题测验。');
                         }
+                        return;
+                    }
+                }
+
+                //拦截不适配PC端的活动
+                if(module.intro){
+                    var reg=new RegExp([
+                            '为获得更好的学习体验，请到电脑端浏览',
+                            'Flash文件请到电脑端查看学习',
+                            '请到电脑端查看此资源',
+                            '请学生到电脑端观看'
+                        ].join('|'),'gi');
+                    var introMatch =module.intro.replace(/<\w+\s*[^>]*>|<\/\w+>/g, '').match(reg);
+
+                    if(introMatch && introMatch.length>0){
+                        commomLab.myToast({
+                            msg:'<span class="font_65rem">该活动手机暂不支持，请移步PC上完成</span>',
+                            time:3000
+                        });
                         return;
                     }
                 }
@@ -347,7 +448,8 @@
 				var vm=this;
 				var videoObj=event.target;
 				
-				if(vm.state!=1){
+				
+				if(vm.state!=1 && this.isCannotDragPlay){
 					if(!vm.isSeeking){
 						vm.isSeeking=true;
 
@@ -360,7 +462,7 @@
 					        	vm.tipAnimFin=true;
 					        });
 				        }
-
+						
 						//缓存开始拖动时的播放时间
 						vm.currentTimeBeforeSeek=videoObj.currentTime;
 					}
@@ -372,7 +474,7 @@
 				
 				if(vm.state!=1){
 					//如果出现拖动情况，重置状态
-					if(Math.abs(videoObj.currentTime-vm.pastTime)>1){
+					if(Math.abs(videoObj.currentTime-vm.pastTime)>1  && this.isCannotDragPlay){
 						vm.resetVideo(videoObj);
 					}
 					else{
@@ -392,7 +494,7 @@
 				
 				if(vm.state!=1){
 					//如果出现拖动情况，重置状态
-					if(Math.abs(videoObj.duration-vm.pastTime)>1){
+					if(Math.abs(videoObj.duration-vm.pastTime)>1 && this.isCannotDragPlay){
 						//如果是瞬间拖拉到最后，就重位置
 						if(videoObj.currentTime==0){
 							vm.pastTime=vm.currentTimeBeforeSeek;
@@ -412,28 +514,8 @@
 
 						vm.showMark=true;
 						
-						commomLab.ajaxProcess({
-							url: '/api/stud/study/moodleViewUrl',
-							data: {
-								cmid: videoId,
-								urlid: instance,
-								completed: 1,
-								token: commomLab.cacheUserCourseInfo.get().token
-							}
-						})
-						.done(function(res){
-							if(commomLab.checkAPIResult(res)){
-								//记录学员学习行为
-							    commomLab.addStudyAction({
-							        actType:'C003',
-							        actId:videoId,
-							        actName:pagetitle,
-							        actIsFin:true //标志活动为已完成
-							    });
-							}
-						});
-
-						
+						//设置活动为完成状态 并 记录学习行为
+						this.setActivityFin();
 					}
 				}
 				
@@ -447,8 +529,90 @@
 			//再学一遍
 			replay:function(){
 				this.showMark=false;
-				document.querySelector(".video-player").play();
-			}
+				document.querySelector('[data-id="obj"]').play();
+			},
+			//设置活动为完成状态 并 记录学习行为
+			setActivityFin:function(){
+				var def=$.Deferred();
+				commomLab.ajaxProcess({
+					url: '/api/stud/study/moodleViewUrl',
+					data: {
+						cmid: videoId,
+						urlid: instance,
+						completed: 1,
+						token: cacheUserCourseInfo.token
+					}
+				})
+				.done(function(res){
+					if(commomLab.checkAPIResult(res)){
+						//记录学员学习行为
+						commomLab.addStudyAction({
+							actType:'C003',
+							actId:videoId,
+							actName:pagetitle,
+							actIsFin:true //标志活动为已完成
+						});
+					}
+					setTimeout(function(){
+						def.resolve();
+					},100)
+				});
+
+				return def.promise();
+			},
+			//获取资源地址
+            getFileUrl:function(module){
+                if(
+                    module.contents &&
+                    module.contents.length>0 &&
+                    module.contents[0].fileurl
+                ){
+                    return module.contents[0].fileurl;
+                }
+                else{
+                    return ''
+                }
+            },
+            //获取不同活动类型名称
+            getLableName:function(module){
+                var name='未知';
+                if (!module) return name;
+
+                switch(module.modname){
+                    case 'url':
+                        var src=this.getFileUrl(module);
+
+                        if(/\.(png|jpe?g|gif|webp)(\?.*)?$/i.test(src)){
+                            name='图片';
+                        }
+                        else if(/\.mp4(\?.*)?$/i.test(src)){
+                            name='视频';
+                        }
+                        else if(/\.(pptx?|docx?|xlsx?|pdf)(\?.*)?$/i.test(src)){
+                            name='文档';
+                        }
+                        else if(/\.mp3(\?.*)?$/i.test(src)){
+                            name='音频';
+                        }
+                        break;
+                    case 'page':
+                        name='网页';
+                        break;
+                    case 'quiz':
+                        name='测验';
+                        break;
+                    case 'resource':
+                        name='资源';
+                        break;
+                    case 'forum':
+                        name='讨论';
+                        break;
+                    default:
+                        name=module.modplural;
+                        break;
+                }
+                return name;
+            }
         }
     });
 	

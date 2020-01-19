@@ -19,6 +19,7 @@
 										:class="{'active':index==0}"
 										v-for="(item, index) in recordData.RECORDLIST"
 										v-if="recordData.RECORDLIST.length>0"
+										:key="'a'+index"
 									>
 									<span>
 										第{{index+1}}次
@@ -33,6 +34,7 @@
 									<div class="swiper-slide" 
 												v-for="(item, index) in recordData.RECORDLIST"
 												v-if="recordData.RECORDLIST.length>0"
+												:key="'b'+index"
 											>
 										<div class="padding_75rem">
 											<div class="font-1rem">{{item.CREATED_DT}}</div>
@@ -43,7 +45,7 @@
 											</div>
 
 											<ul class="list-unstyled clearfix ans-card-list" v-else-if="item.qaList.length>0">
-												<li v-for="(qa, i) in item.qaList" :class="[qa.GET_POINT===0?'wrong':(qa.GET_POINT>0?'right':'')]">
+												<li v-for="(qa, i) in item.qaList" :key="'c'+i" :class="[qa.GET_POINT===0?'wrong':(qa.GET_POINT>0?'right':'')]">
 													{{i+1}}
 												</li>
 											</ul>

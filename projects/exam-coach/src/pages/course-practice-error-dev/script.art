@@ -8,7 +8,7 @@
 		commomLab.myToast({msg:'参数不能为空'})
 		return;
 	}
-
+	
     window.appVm=new Vue({
 		el:"#app",
 		mixins:[mixin],
@@ -64,6 +64,36 @@
 			}
 		},
 		methods:{
+			/* 过滤html标签
+				@excludeTags： 数组，不要过滤的标签名
+			*/
+			filterHtmlTag:function(str, excludeTags){
+				if(str){
+					var reg;
+					if(excludeTags && excludeTags.length>0){
+						var arr=[];
+						for(var i=0;i<excludeTags.length;i++){
+							arr.push(excludeTags, '\\/'+excludeTags)
+						}
+						reg=new RegExp('<(?!'+arr.join('|')+')[^>]*>','gi');
+					} else {
+						reg=new RegExp('<\\/?\\w+[^>]*>','gi');
+					}
+				
+					return str.replace(reg, '')
+				}
+				
+				return '';
+			},
+			/* 过滤html标签的style属性 */
+			filterHtmlTagStyleAttr:function(str){
+				if(str){
+					return str.replace(/style="[^"]*"/g, '');
+				}
+				
+				return '';
+			},
+			
 			getPractice:function(){
 				var vm=this;
 				var params=[

@@ -45,17 +45,20 @@
         	},
 			//设置答题卡的题目的对错class名字
 			getStyleClass:function(state){
-				if(state){
-					if(state=='gradedright'){
-						return 'right';
-					}
-					else if(state=='gradedwrong'){
-						return 'wrong';
-					}
-					else{
-						return '';
-					}
+				var result='';
+				switch(state){
+					case 'gradedright':
+						result='right';
+						break;
+					case 'gradedpartial':
+					case 'gradedwrong':
+						result='wrong';
+						break;
+					default:
+						result='';
+						break;
 				}
+				return result;
 			},
 			//答题卡 居中对齐
 			resetDom:function(){
@@ -126,8 +129,8 @@
 						for(var i in resData.questions){
 							if(resData.questions[i].state=='gradedright'){
 								++vm.questionRightLen;
-								vm.questionMarkRight=vm.questionMarkRight+(resData.questions[i].mark-0);
 							}
+							vm.questionMarkRight=vm.questionMarkRight+(resData.questions[i].mark-0);
 							vm.totalMark=vm.totalMark+(resData.questions[i].maxmark);
 							
 						}
